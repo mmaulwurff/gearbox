@@ -15,24 +15,26 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_EventHandler : EventHandler
+class gb_Printer
 {
 
-  override
-  void worldTick()
+  static
+  void printWeaponData(gb_WeaponData data)
   {
-    if (level.time == 1) initialize();
+    uint nWeapons = data.weapons.size();
+    uint nSlots = data.slots.size();
+
+    console.printf("numbers: %d, %d", nWeapons, nSlots);
+
+    for (uint i = 0; i < nWeapons; ++i)
+    {
+      let default = getDefaultByType(data.weapons[i]);
+      console.printf( "%s (%s), slot %d"
+                    , default.getTag()
+                    , default.getClassName()
+                    , data.slots[i]
+                    );
+    }
   }
 
-// private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private
-  void initialize()
-  {
-    gb_WeaponData weaponData;
-    gb_WeaponDataLoader.load(weaponData);
-
-    gb_Printer.printWeaponData(weaponData);
-  }
-
-} // class gb_EventHandler
+} // class gb_Printer

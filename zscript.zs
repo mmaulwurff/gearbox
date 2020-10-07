@@ -4,3 +4,4 @@ version "4.4.2"
 
 #include "zscript/weapon_data.zs"
 #include "zscript/weapon_data_loader.zs"
+#include "zscript/printer.zs"
