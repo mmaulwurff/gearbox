@@ -19,9 +19,8 @@ class gb_WeaponWatcher
 {
 
   static
-  class<Weapon> getCurrentWeapon()
+  class<Weapon> getCurrentWeapon(PlayerInfo player)
   {
-    PlayerInfo player = players[consolePlayer];
     let currentWeapon = player.pendingWeapon.getClassName() != "Object"
       ? player.pendingWeapon
       : player.readyWeapon;

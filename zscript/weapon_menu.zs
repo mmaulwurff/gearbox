@@ -32,9 +32,14 @@ class gb_WeaponMenu
     mSelectedIndex = getIndexOf(aClass);
   }
 
-  string selectNextWeapon()
+  void selectNextWeapon()
   {
-    return getDefaultByType(mWeapons[findNextWeapon()]).getClassName();
+    mSelectedIndex = findNextWeapon();
+  }
+
+  string confirmSelection()
+  {
+    return getDefaultByType(mWeapons[mSelectedIndex]).getClassName();
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////

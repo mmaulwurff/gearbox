@@ -23,9 +23,10 @@ class gb_EventHandler : EventHandler
   {
     if (level.time == 0) return;
     if (level.time == 1) initialize();
-    else
+
+    if (mActivity.getActivity() != gb_Activity.WeaponMenu)
     {
-      class<Weapon> currentWeapon = gb_WeaponWatcher.getCurrentWeapon();
+      class<Weapon> currentWeapon = gb_WeaponWatcher.getCurrentWeapon(players[consolePlayer]);
       mWeaponMenu.setSelectedWeapon(currentWeapon);
     }
   }
@@ -57,7 +58,12 @@ class gb_EventHandler : EventHandler
       switch (gb_InputProcessor.process(event))
       {
       case InputSelectNextWeapon:
-        gb_Sender.sendSelectEvent(mWeaponMenu.selectNextWeapon());
+        mWeaponMenu.selectNextWeapon();
+        return true;
+
+      case InputConfirmSelection:
+        gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
+        mActivity.toggleWeaponMenu();
         return true;
       }
     }

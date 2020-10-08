@@ -25,9 +25,19 @@ class gb_Changer play
 
     switch (aChange.type)
     {
-    case gb_Change.SelectWeapon:
-      player.pendingWeapon = Weapon(player.mo.findInventory(aChange.object));
-      break;
+    case gb_Change.SelectWeapon: selectWeapon(player, aChange.object); break;
+    }
+  }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  void selectWeapon(PlayerInfo player, string weapon)
+  {
+    Weapon targetWeapon = Weapon(player.mo.findInventory(weapon));
+    if (gb_WeaponWatcher.getCurrentWeapon(player) != targetWeapon.getClass())
+    {
+      player.pendingWeapon = targetWeapon;
     }
   }
 

@@ -23,15 +23,22 @@ class gb_InputProcessor
   {
     if (event.type != InputEvent.Type_KeyDown) return InputNothing;
 
-    int key1;
-    int key2;
-    [key1, key2] = bindings.getKeysForCommand("weapnext");
-    if (event.keyScan == key1 || event.keyScan == key2)
-    {
-      return InputSelectNextWeapon;
-    }
+    int key = event.keyScan;
+    if (isKeyForCommand(key, "weapnext")) return InputSelectNextWeapon;
+    if (isKeyForCommand(key, "+attack")) return InputConfirmSelection;
 
     return InputNothing;
+  }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  bool isKeyForCommand(int key, string command)
+  {
+    int key1;
+    int key2;
+    [key1, key2] = bindings.getKeysForCommand(command);
+    return (key == key1 || key == key2);
   }
 
 } // class gb_InputProcessor

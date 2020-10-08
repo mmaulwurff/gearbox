@@ -20,5 +20,6 @@ enum gb_Input
 
   InputNothing,
   InputSelectNextWeapon,
+  InputConfirmSelection,
 
 } // enum gb_Input
