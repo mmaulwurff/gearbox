@@ -8,3 +8,4 @@ version "4.4.2"
 
 #include "zscript/weapon_menu.zs"
 #include "zscript/weapon_watcher.zs"
+#include "zscript/command.zs"

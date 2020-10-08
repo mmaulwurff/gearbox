@@ -32,7 +32,28 @@ class gb_WeaponMenu
     mSelectedIndex = getIndexOf(aClass);
   }
 
+  void selectNextWeapon(out gb_Command command)
+  {
+    uint index = findNextWeapon();
+    command.className = getDefaultByType(mWeapons[index]).getClassName();
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private
+  uint findNextWeapon() const
+  {
+    let player = players[consolePlayer].mo;
+
+    uint nWeapons = mWeapons.size();
+    for (uint i = 1; i < nWeapons; ++i)
+    {
+      uint index = (mSelectedIndex + i) % nWeapons;
+      if (player.findInventory(mWeapons[index])) return index;
+    }
+
+    return nWeapons;
+  }
 
   private
   uint getIndexOf(class<Weapon> aClass) const
