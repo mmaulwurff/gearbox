@@ -15,42 +15,38 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_EventHandler : EventHandler
+class gb_WeaponMenu
 {
 
-  override
-  void worldTick()
+  static
+  gb_WeaponMenu from(gb_WeaponData weaponData)
   {
-    if (level.time == 0) return;
-    if (level.time == 1) initialize();
-    else
-    {
-
-    }
+    let result = new("gb_WeaponMenu");
+    result.mWeapons.move(weaponData.weapons);
+    result.mSlots.move(weaponData.slots);
+    return result;
   }
 
-  override
-  void consoleProcess(ConsoleEvent event)
+  void setSelectedWeapon(class<Weapon> aClass)
   {
-
-  }
-
-  override
-  bool InputProcess(InputEvent event)
-  {
-    return false;
+    mSelectedIndex = getIndexOf(aClass);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
-  void initialize()
+  uint getIndexOf(class<Weapon> aClass) const
   {
-    gb_WeaponData weaponData;
-    gb_WeaponDataLoader.load(weaponData);
-    mWeaponMenu = gb_WeaponMenu.from(weaponData);
+    uint nWeapons = mWeapons.size();
+    for (uint i = 0; i < nWeapons; ++i)
+    {
+      if (mWeapons[i] == aClass) return i;
+    }
+    return nWeapons;
   }
 
-  private gb_WeaponMenu mWeaponMenu;
+  Array< class<Weapon> > mWeapons;
+  Array< int >           mSlots;
+  uint mSelectedIndex;
 
-} // class gb_EventHandler
+} // class gb_WeaponMenu
