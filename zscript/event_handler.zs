@@ -39,6 +39,11 @@ class gb_EventHandler : EventHandler
   override
   bool InputProcess(InputEvent event)
   {
+    gb_Input input = gb_InputProcessor.process(event);
+    switch (input)
+    {
+    case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); break;
+    }
     return false;
   }
 

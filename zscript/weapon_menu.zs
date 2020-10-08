@@ -32,10 +32,9 @@ class gb_WeaponMenu
     mSelectedIndex = getIndexOf(aClass);
   }
 
-  void selectNextWeapon(out gb_Command command)
+  string selectNextWeapon()
   {
-    uint index = findNextWeapon();
-    command.className = getDefaultByType(mWeapons[index]).getClassName();
+    return getDefaultByType(mWeapons[findNextWeapon()]).getClassName();
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////

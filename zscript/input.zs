@@ -15,9 +15,10 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-struct gb_Command
+enum gb_Input
 {
 
-  string className;
+  InputNothing,
+  InputSelectNextWeapon,
 
-} // struct gb_Command
+} // enum gb_Input
