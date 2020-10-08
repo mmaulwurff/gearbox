@@ -33,17 +33,27 @@ class gb_EventHandler : EventHandler
   override
   void consoleProcess(ConsoleEvent event)
   {
+    if (!isInitialized()) return;
 
+    switch (gb_EventProcessor.process(event))
+    {
+    case EventToggleWeaponMenu: mActivity.toggleWeaponMenu(); break;
+    }
   }
 
   override
   bool InputProcess(InputEvent event)
   {
-    gb_Input input = gb_InputProcessor.process(event);
-    switch (input)
+    if (!isInitialized()) return false;
+
+    if (mActivity.getActivity() == gb_Activity.WeaponMenu)
     {
-    case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); break;
+      switch (gb_InputProcessor.process(event))
+      {
+      case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); break;
+      }
     }
+
     return false;
   }
 
@@ -55,8 +65,17 @@ class gb_EventHandler : EventHandler
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
+
+    mActivity = gb_Activity.from();
+  }
+
+  private
+  bool isInitialized() const
+  {
+    return mWeaponMenu != NULL;
   }
 
   private gb_WeaponMenu mWeaponMenu;
+  private gb_Activity   mActivity;
 
 } // class gb_EventHandler
