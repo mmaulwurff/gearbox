@@ -25,7 +25,8 @@ class gb_EventHandler : EventHandler
     if (level.time == 1) initialize();
     else
     {
-
+      class<Weapon> currentWeapon = gb_WeaponWatcher.getCurrentWeapon();
+      mWeaponMenu.setSelectedWeapon(currentWeapon);
     }
   }
 
