@@ -87,7 +87,7 @@ class gb_WeaponDataLoader play
 
     for (int j = lo; j <= hi - 1; ++j)
     {
-      if (measure(info, j) > pivot)
+      if (measure(info, j) <= pivot)
       {
         ++i;
         info.swap(i, j);
@@ -102,12 +102,9 @@ class gb_WeaponDataLoader play
   int measure(gb_WeaponInfo info, int index)
   {
     int slot = info.slots[index];
-    if (slot == 0) { slot = 99; }
+    if (slot == 0) slot = 99;
 
-    slot = 99 - slot; // reverse order
-
-    int result = slot * 100 + info.priorities[index];
-
+    int result = slot * 100 - info.priorities[index];
     return result;
   }
 
