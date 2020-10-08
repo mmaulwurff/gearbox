@@ -30,6 +30,9 @@ class gb_EventHandler : EventHandler
     }
   }
 
+  /**
+   * This function processes key bindings specific for Gearbox.
+   */
   override
   void consoleProcess(ConsoleEvent event)
   {
@@ -41,6 +44,9 @@ class gb_EventHandler : EventHandler
     }
   }
 
+  /**
+   * This function provides latching to existing key bindings.
+   */
   override
   bool InputProcess(InputEvent event)
   {
@@ -50,11 +56,21 @@ class gb_EventHandler : EventHandler
     {
       switch (gb_InputProcessor.process(event))
       {
-      case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); break;
+      case InputSelectNextWeapon:
+        gb_Sender.sendSelectEvent(mWeaponMenu.selectNextWeapon());
+        return true;
       }
     }
 
     return false;
+  }
+
+  override
+  void networkProcess(ConsoleEvent event)
+  {
+    gb_Change change;
+    gb_NeteventProcessor.process(event, change);
+    gb_Changer.change(change);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////

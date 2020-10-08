@@ -14,3 +14,9 @@ version "4.4.2"
 
 #include "zscript/weapon_menu.zs"
 #include "zscript/weapon_watcher.zs"
+
+#include "zscript/sender.zs"
+
+#include "zscript/change.zs"
+#include "zscript/netevent_processor.zs"
+#include "zscript/changer.zs"
