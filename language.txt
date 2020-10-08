@@ -1,0 +1,4 @@
+[enu default]
+
+GB_KEYSECTION         = "Gearbox Keys";
+GB_TOGGLE_WEAPON_MENU = "Toggle weapon menu";
