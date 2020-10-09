@@ -7,7 +7,7 @@
 #
 # Usage: ./scripts/spelling_code.sh
 
-known_words=scripts/known-words.dat
+known_words=scripts/known-words.txt
 
 files_to_check=$(find . -name '*.zs'  \
                      -o -name '*.md'  \
