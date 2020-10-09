@@ -18,15 +18,15 @@
 struct gb_ViewModel
 {
 
-  Array<string> elements;
+  int selectedWeaponIndex;
+
+  Array<string> tags;
   Array<string> icons;
   Array<string> slots;
 
-  Array<bool> hasAmmo1;
   Array<int> ammo1;
   Array<int> maxAmmo1;
 
-  Array<bool> hasAmmo2;
   Array<int> ammo2;
   Array<int> maxAmmo2;
 

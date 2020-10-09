@@ -42,7 +42,42 @@ class gb_WeaponMenu
     return getDefaultByType(mWeapons[mSelectedIndex]).getClassName();
   }
 
+  void fill(out gb_ViewModel viewModel)
+  {
+    viewModel.selectedWeaponIndex = mSelectedIndex;
+
+    uint nWeapons = mWeapons.size();
+    for (uint i = 0; i < nWeapons; ++i)
+    {
+      let default = getDefaultByType(mWeapons[i]);
+
+      viewModel.tags.push(default.getTag());
+      viewModel.icons.push(getIcon(default));
+      viewModel.slots.push(string.format("%d", mSlots[i]));
+
+      viewModel.   ammo1.push(default.ammo1 ? default.ammo1.   amount : -1);
+      viewModel.maxAmmo1.push(default.ammo1 ? default.ammo1.maxAmount : -1);
+      viewModel.   ammo2.push(default.ammo2 ? default.ammo2.   amount : -1);
+      viewModel.maxAmmo2.push(default.ammo2 ? default.ammo2.maxAmount : -1);
+    }
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private
+  string getIcon(readonly<Weapon> aWeapon)
+  {
+    TextureID iconID = aWeapon.SpawnState.GetSpriteTexture(0);
+    string    result = TexMan.GetName(iconID);
+
+    string placeholder = "NOWEAPONOFF";
+
+    if (result == "TNT1A0")   { result = TexMan.GetName(aWeapon.icon); }
+    if (result == "TNT1A0")   { result = placeholder; }
+    if (result == "ALTHUDCF") { result = placeholder; }
+
+    return result;
+  }
 
   private
   uint findNextWeapon() const
