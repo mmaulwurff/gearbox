@@ -20,3 +20,5 @@ version "4.4.2"
 #include "zscript/change.zs"
 #include "zscript/netevent_processor.zs"
 #include "zscript/changer.zs"
+
+#include "zscript/view_model.zs"
