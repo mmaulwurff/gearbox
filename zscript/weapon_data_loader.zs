@@ -104,7 +104,7 @@ class gb_WeaponDataLoader play
     int slot = info.slots[index];
     if (slot == 0) slot = 99;
 
-    int result = slot * 100 - info.priorities[index];
+    int result = slot * 100 + info.priorities[index];
     return result;
   }
 
