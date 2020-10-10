@@ -22,7 +22,7 @@ struct gb_ViewModel
 
   Array<string> tags;
   Array<string> icons;
-  Array<string> slots;
+  Array<int> slots;
 
   Array<int> ammo1;
   Array<int> maxAmmo1;

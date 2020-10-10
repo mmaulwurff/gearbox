@@ -44,16 +44,18 @@ class gb_WeaponMenu
 
   void fill(out gb_ViewModel viewModel)
   {
-    viewModel.selectedWeaponIndex = mSelectedIndex;
-
     uint nWeapons = mWeapons.size();
     for (uint i = 0; i < nWeapons; ++i)
     {
+      if (!players[consolePlayer].mo.findInventory(mWeapons[i])) continue;
+
+      if (mSelectedIndex == i) viewModel.selectedWeaponIndex = viewModel.tags.size();
+
       let default = getDefaultByType(mWeapons[i]);
 
       viewModel.tags.push(default.getTag());
       viewModel.icons.push(getIcon(default));
-      viewModel.slots.push(string.format("%d", mSlots[i]));
+      viewModel.slots.push(mSlots[i]);
 
       viewModel.   ammo1.push(default.ammo1 ? default.ammo1.   amount : -1);
       viewModel.maxAmmo1.push(default.ammo1 ? default.ammo1.maxAmount : -1);
