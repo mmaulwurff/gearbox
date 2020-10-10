@@ -22,3 +22,4 @@ version "4.4.2"
 #include "zscript/changer.zs"
 
 #include "zscript/view_model.zs"
+#include "zscript/half_life_view.zs"

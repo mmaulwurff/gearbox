@@ -79,6 +79,19 @@ class gb_EventHandler : EventHandler
     gb_Changer.change(change);
   }
 
+  override
+  void renderOverlay(RenderEvent event)
+  {
+    if (!isInitialized()) return;
+
+    if (mActivity.getActivity() == gb_Activity.WeaponMenu)
+    {
+      gb_ViewModel viewModel;
+      mWeaponMenu.fill(viewModel);
+      mWeaponMenuView.display(viewModel, event.fracTic);
+    }
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
@@ -89,6 +102,7 @@ class gb_EventHandler : EventHandler
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
 
     mActivity = gb_Activity.from();
+    mWeaponMenuView = gb_HalfLifeView.from();
   }
 
   private
@@ -97,7 +111,8 @@ class gb_EventHandler : EventHandler
     return mWeaponMenu != NULL;
   }
 
-  private gb_WeaponMenu mWeaponMenu;
-  private gb_Activity   mActivity;
+  private gb_WeaponMenu   mWeaponMenu;
+  private gb_Activity     mActivity;
+  private gb_HalfLifeView mWeaponMenuView;
 
 } // class gb_EventHandler
