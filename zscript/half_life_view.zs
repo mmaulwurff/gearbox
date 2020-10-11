@@ -88,15 +88,29 @@ class gb_HalfLifeView
 
         // weapon
         {
-          Screen.setClipRect(slotX, weaponY, SELECTED_SLOT_WIDTH, SELECTED_WEAPON_HEIGHT);
+          // code is adapted from GZDoom AltHud.DrawImageToBox.
           TextureID weaponTexture = TexMan.checkForTexture(viewModel.icons[i], TexMan.Type_Any);
+          let weaponSize = TexMan.getScaledSize(weaponTexture);
+
+          int allowedWidth  = SELECTED_SLOT_WIDTH    - MARGIN * 2;
+          int allowedHeight = SELECTED_WEAPON_HEIGHT - MARGIN * 2;
+
+          double scaleHor = (allowedWidth  < weaponSize.x) ? allowedWidth  / weaponSize.x : 1.0;
+          double scaleVer = (allowedHeight < weaponSize.y) ? allowedHeight / weaponSize.y : 1.0;
+          double scale    = min(scaleHor, scaleVer);
+
+          int weaponWidth  = round(weaponSize.x * scale);
+          int weaponHeight = round(weaponSize.y * scale);
+
           Screen.drawTexture( weaponTexture
                             , NO_ANIMATION
                             , slotX + SELECTED_SLOT_WIDTH / 2
                             , weaponY + SELECTED_WEAPON_HEIGHT / 2
-                            , DTA_CenterOffset, true
+                            , DTA_CenterOffset , true
+                            , DTA_KeepRatio    , true
+                            , DTA_DestWidth    , weaponWidth
+                            , DTA_DestHeight   , weaponHeight
                             );
-          Screen.clearClipRect();
         }
 
         // corners
