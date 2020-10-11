@@ -57,9 +57,8 @@ class gb_EventHandler : EventHandler
     {
       switch (gb_InputProcessor.process(event))
       {
-      case InputSelectNextWeapon:
-        mWeaponMenu.selectNextWeapon();
-        return true;
+      case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); return true;
+      case INputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); return true;
 
       case InputConfirmSelection:
         gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());

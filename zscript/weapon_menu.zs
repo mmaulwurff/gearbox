@@ -37,6 +37,11 @@ class gb_WeaponMenu
     mSelectedIndex = findNextWeapon();
   }
 
+  void selectPrevWeapon()
+  {
+    mSelectedIndex = findPrevWeapon();
+  }
+
   string confirmSelection()
   {
     return getDefaultByType(mWeapons[mSelectedIndex]).getClassName();
@@ -77,15 +82,21 @@ class gb_WeaponMenu
     return picnum.isValid() ? TexMan.getName(picnum) : "NOWEAPONOFF";
   }
 
+  private uint findNextWeapon() const { return findWeapon( 1); }
+  private uint findPrevWeapon() const { return findWeapon(-1); }
+
+  /**
+   * @param direction search direction from the selected weapon: 1 or -1.
+   */
   private
-  uint findNextWeapon() const
+  uint findWeapon(int direction)
   {
     let player = players[consolePlayer].mo;
 
     uint nWeapons = mWeapons.size();
     for (uint i = 1; i < nWeapons; ++i)
     {
-      uint index = (mSelectedIndex + i) % nWeapons;
+      uint index = (mSelectedIndex + i * direction + nWeapons) % nWeapons;
       if (player.findInventory(mWeapons[index])) return index;
     }
 
