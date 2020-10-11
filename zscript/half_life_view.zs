@@ -19,7 +19,7 @@ class gb_HalfLifeView
 {
 
   static
-  void display(gb_ViewModel viewModel)
+  void display(gb_ViewModel viewModel, double alpha)
   {
     int lastDrawnSlot = 0;
     int slotX = BORDER;
@@ -47,12 +47,13 @@ class gb_HalfLifeView
                           , BORDER
                           , DTA_FillColor    , 0x0000AA
                           , DTA_AlphaChannel , true
+                          , DTA_Alpha        , alpha
                           );
 
         string slotText = string.format("%d", slot);
         int    textX    = slotX + SLOT_SIZE / 2 - aFont.stringWidth(slotText) / 2;
 
-        Screen.drawText(aFont, Font.CR_WHITE, textX, textY, slotText);
+        Screen.drawText(aFont, Font.CR_WHITE, textX, textY, slotText, DTA_Alpha, alpha);
 
         lastDrawnSlot = slot;
       }
@@ -70,6 +71,7 @@ class gb_HalfLifeView
                           , weaponY
                           , DTA_FillColor    , weaponColor
                           , DTA_AlphaChannel , true
+                          , DTA_Alpha        , alpha
                           );
 
         // weapon
@@ -96,6 +98,7 @@ class gb_HalfLifeView
                             , DTA_KeepRatio    , true
                             , DTA_DestWidth    , weaponWidth
                             , DTA_DestHeight   , weaponHeight
+                            , DTA_Alpha        , alpha
                             );
         }
 
@@ -104,18 +107,19 @@ class gb_HalfLifeView
         {
           vector2 lineEnd = (slotX, weaponY) + (SELECTED_SLOT_WIDTH, SELECTED_WEAPON_HEIGHT);
           int lineColor = 0xEEEEEE;
+          int iAlpha = int(alpha * 255);
           // top left
-          Screen.drawLine(slotX,     weaponY, slotX + CORNER_SIZE, weaponY, lineColor);
-          Screen.drawLine(slotX + 1, weaponY, slotX, weaponY + CORNER_SIZE, lineColor);
+          Screen.drawLine(slotX,     weaponY, slotX + CORNER_SIZE, weaponY, lineColor, iAlpha);
+          Screen.drawLine(slotX + 1, weaponY, slotX, weaponY + CORNER_SIZE, lineColor, iAlpha);
           // top right
-          Screen.drawLine(lineEnd.x, weaponY, lineEnd.x - CORNER_SIZE, weaponY, lineColor);
-          Screen.drawLine(lineEnd.x, weaponY, lineEnd.x, weaponY + CORNER_SIZE, lineColor);
+          Screen.drawLine(lineEnd.x, weaponY, lineEnd.x - CORNER_SIZE, weaponY, lineColor, iAlpha);
+          Screen.drawLine(lineEnd.x, weaponY, lineEnd.x, weaponY + CORNER_SIZE, lineColor, iAlpha);
           // bottom left
-          Screen.drawLine(slotX, lineEnd.y - 1, slotX + CORNER_SIZE, lineEnd.y, lineColor);
-          Screen.drawLine(slotX + 1, lineEnd.y, slotX, lineEnd.y - CORNER_SIZE, lineColor);
+          Screen.drawLine(slotX, lineEnd.y - 1, slotX + CORNER_SIZE, lineEnd.y, lineColor, iAlpha);
+          Screen.drawLine(slotX + 1, lineEnd.y, slotX, lineEnd.y - CORNER_SIZE, lineColor, iAlpha);
           // bottom right
-          Screen.drawLine(lineEnd.x, lineEnd.y - 1, lineEnd.x - CORNER_SIZE, lineEnd.y, lineColor);
-          Screen.drawLine(lineEnd.x, lineEnd.y,     lineEnd.x, lineEnd.Y - CORNER_SIZE, lineColor);
+          Screen.drawLine(lineEnd.x, lineEnd.y - 1, lineEnd.x - CORNER_SIZE, lineEnd.y, lineColor, iAlpha);
+          Screen.drawLine(lineEnd.x, lineEnd.y,     lineEnd.x, lineEnd.Y - CORNER_SIZE, lineColor, iAlpha);
         }
 
         // ammo indicators
@@ -128,6 +132,7 @@ class gb_HalfLifeView
                               , ammoY
                               , AMMO_HEIGHT
                               , 0x8888DD
+                              , int(alpha * 255)
                               );
           int ammoRatioWidth = round(float(viewModel.ammo1[i]) / viewModel.maxAmmo1[i] * AMMO_WIDTH);
           Screen.drawThickLine( slotX + MARGIN * 2
@@ -136,6 +141,7 @@ class gb_HalfLifeView
                               , ammoY
                               , AMMO_HEIGHT
                               , 0x22DD22
+                              , int(alpha * 255)
                               );
           ammoY += MARGIN;
         }
@@ -147,6 +153,7 @@ class gb_HalfLifeView
                               , ammoY
                               , AMMO_HEIGHT
                               , 0x8888DD
+                              , int(alpha * 255)
                               );
           int ammoRatioWidth = round(float(viewModel.ammo2[i]) / viewModel.maxAmmo2[i] * AMMO_WIDTH);
           Screen.drawThickLine( slotX + MARGIN * 2
@@ -155,6 +162,7 @@ class gb_HalfLifeView
                               , ammoY
                               , AMMO_HEIGHT
                               , 0x22DD22
+                              , int(alpha * 255)
                               );
         }
       }
@@ -166,6 +174,7 @@ class gb_HalfLifeView
                           , BORDER - MARGIN + (SLOT_SIZE + MARGIN) * (inSlotIndex + 1)
                           , DTA_FillColor    , 0x2222CC
                           , DTA_AlphaChannel , true
+                          , DTA_Alpha        , alpha
                           );
       }
 

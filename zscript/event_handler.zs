@@ -83,11 +83,14 @@ class gb_EventHandler : EventHandler
   {
     if (!isInitialized()) return;
 
-    if (mActivity.getActivity() == gb_Activity.WeaponMenu)
+    mFadeInOut.fadeInOut((mActivity.getActivity() == gb_Activity.None) ? -0.1 : 0.2);
+    double alpha = mFadeInOut.getAlpha();
+
+    if (mActivity.getActivity() == gb_Activity.WeaponMenu || alpha != 0.0)
     {
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);
-      gb_HalfLifeView.display(viewModel);
+      gb_HalfLifeView.display(viewModel, alpha);
     }
   }
 
@@ -100,7 +103,8 @@ class gb_EventHandler : EventHandler
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
 
-    mActivity = gb_Activity.from();
+    mActivity  = gb_Activity.from();
+    mFadeInOut = gb_FadeInOut.from();
   }
 
   private
@@ -109,7 +113,8 @@ class gb_EventHandler : EventHandler
     return mWeaponMenu != NULL;
   }
 
-  private gb_WeaponMenu   mWeaponMenu;
-  private gb_Activity     mActivity;
+  private gb_WeaponMenu mWeaponMenu;
+  private gb_Activity   mActivity;
+  private gb_FadeInOut  mFadeInOut;
 
 } // class gb_EventHandler

@@ -23,3 +23,4 @@ version "4.4.2"
 
 #include "zscript/view_model.zs"
 #include "zscript/half_life_view.zs"
+#include "zscript/fade_in_out.zs"
