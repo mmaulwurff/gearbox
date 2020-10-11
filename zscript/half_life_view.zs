@@ -119,20 +119,40 @@ class gb_HalfLifeView
         }
 
         // ammo indicators
+        int ammoY = weaponY + AMMO_HEIGHT / 2;
         if (viewModel.ammo1[i] != -1)
         {
           Screen.drawThickLine( slotX + MARGIN * 2
-                              , weaponY + AMMO_HEIGHT / 2
+                              , ammoY
                               , slotX + MARGIN + AMMO_WIDTH
-                              , weaponY + AMMO_HEIGHT / 2
+                              , ammoY
                               , AMMO_HEIGHT
                               , 0x8888DD
                               );
           int ammoRatioWidth = round(float(viewModel.ammo1[i]) / viewModel.maxAmmo1[i] * AMMO_WIDTH);
           Screen.drawThickLine( slotX + MARGIN * 2
-                              , weaponY + AMMO_HEIGHT / 2
+                              , ammoY
                               , slotX + MARGIN + ammoRatioWidth
-                              , weaponY + AMMO_HEIGHT / 2
+                              , ammoY
+                              , AMMO_HEIGHT
+                              , 0x22DD22
+                              );
+          ammoY += MARGIN;
+        }
+        if (viewModel.ammo2[i] != -1)
+        {
+          Screen.drawThickLine( slotX + MARGIN * 2
+                              , ammoY
+                              , slotX + MARGIN + AMMO_WIDTH
+                              , ammoY
+                              , AMMO_HEIGHT
+                              , 0x8888DD
+                              );
+          int ammoRatioWidth = round(float(viewModel.ammo2[i]) / viewModel.maxAmmo2[i] * AMMO_WIDTH);
+          Screen.drawThickLine( slotX + MARGIN * 2
+                              , ammoY
+                              , slotX + MARGIN + ammoRatioWidth
+                              , ammoY
                               , AMMO_HEIGHT
                               , 0x22DD22
                               );
