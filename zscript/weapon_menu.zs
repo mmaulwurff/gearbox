@@ -42,12 +42,14 @@ class gb_WeaponMenu
     return getDefaultByType(mWeapons[mSelectedIndex]).getClassName();
   }
 
+  ui
   void fill(out gb_ViewModel viewModel)
   {
     uint nWeapons = mWeapons.size();
     for (uint i = 0; i < nWeapons; ++i)
     {
-      if (!players[consolePlayer].mo.findInventory(mWeapons[i])) continue;
+      let aWeapon = Weapon(players[consolePlayer].mo.findInventory(mWeapons[i]));
+      if (aWeapon == NULL) continue;
 
       if (mSelectedIndex == i) viewModel.selectedWeaponIndex = viewModel.tags.size();
 
@@ -57,28 +59,22 @@ class gb_WeaponMenu
       viewModel.icons.push(getIcon(default));
       viewModel.slots.push(mSlots[i]);
 
-      viewModel.   ammo1.push(default.ammo1 ? default.ammo1.   amount : -1);
-      viewModel.maxAmmo1.push(default.ammo1 ? default.ammo1.maxAmount : -1);
-      viewModel.   ammo2.push(default.ammo2 ? default.ammo2.   amount : -1);
-      viewModel.maxAmmo2.push(default.ammo2 ? default.ammo2.maxAmount : -1);
+      viewModel.   ammo1.push(aWeapon.ammo1 ? aWeapon.ammo1.   amount : -1);
+      viewModel.maxAmmo1.push(aWeapon.ammo1 ? aWeapon.ammo1.maxAmount : -1);
+      viewModel.   ammo2.push(aWeapon.ammo2 ? aWeapon.ammo2.   amount : -1);
+      viewModel.maxAmmo2.push(aWeapon.ammo2 ? aWeapon.ammo2.maxAmount : -1);
     }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private
+  private ui
   string getIcon(readonly<Weapon> aWeapon)
   {
-    TextureID iconID = aWeapon.SpawnState.GetSpriteTexture(0);
-    string    result = TexMan.GetName(iconID);
+    Inventory inv = players[consolePlayer].mo.findInventory(aWeapon.getClass());
+    TextureID picnum = StatusBar.GetInventoryIcon(inv, StatusBar.DI_ALTICONFIRST);
 
-    string placeholder = "NOWEAPONOFF";
-
-    if (result == "TNT1A0")   { result = TexMan.GetName(aWeapon.icon); }
-    if (result == "TNT1A0")   { result = placeholder; }
-    if (result == "ALTHUDCF") { result = placeholder; }
-
-    return result;
+    return picnum.isValid() ? TexMan.getName(picnum) : "NOWEAPONOFF";
   }
 
   private
