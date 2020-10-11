@@ -87,7 +87,7 @@ class gb_EventHandler : EventHandler
     {
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);
-      mWeaponMenuView.display(viewModel, event.fracTic);
+      gb_HalfLifeView.display(viewModel);
     }
   }
 
@@ -101,7 +101,6 @@ class gb_EventHandler : EventHandler
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
 
     mActivity = gb_Activity.from();
-    mWeaponMenuView = gb_HalfLifeView.from();
   }
 
   private
@@ -112,6 +111,5 @@ class gb_EventHandler : EventHandler
 
   private gb_WeaponMenu   mWeaponMenu;
   private gb_Activity     mActivity;
-  private gb_HalfLifeView mWeaponMenuView;
 
 } // class gb_EventHandler

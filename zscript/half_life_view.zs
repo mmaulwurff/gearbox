@@ -19,21 +19,7 @@ class gb_HalfLifeView
 {
 
   static
-  gb_HalfLifeView from()
-  {
-    let result = new("gb_HalfLifeView");
-    return result;
-  }
-
-  void display(gb_ViewModel viewModel, double fracTic)
-  {
-    drawSlot(viewModel);
-  }
-
-// private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private
-  void drawSlot(gb_ViewModel viewModel)
+  void display(gb_ViewModel viewModel)
   {
     int lastDrawnSlot = 0;
     int slotX = BORDER;
