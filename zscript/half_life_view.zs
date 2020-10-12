@@ -29,9 +29,9 @@ class gb_HalfLifeView
     TextureID boxTexture = TexMan.checkForTexture("gb_box",  TexMan.Type_Any);
     TextureID bigTexture = TexMan.checkForTexture("gb_weap", TexMan.Type_Any);
 
-    Font aFont = "NewSmallFont";
-    int fontHeight = aFont.getHeight();
-    int textY = BORDER + SLOT_SIZE / 2 - fontHeight / 2;
+    Font aFont      = "NewSmallFont";
+    int  fontHeight = aFont.getHeight();
+    int  textY      = BORDER + SLOT_SIZE / 2 - fontHeight / 2;
 
     uint nWeapons = viewModel.tags.size();
     for (uint i = 0; i < nWeapons; ++i)

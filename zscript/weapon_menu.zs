@@ -76,10 +76,10 @@ class gb_WeaponMenu
   private ui
   string getIcon(readonly<Weapon> aWeapon)
   {
-    Inventory inv = players[consolePlayer].mo.findInventory(aWeapon.getClass());
-    TextureID picnum = StatusBar.GetInventoryIcon(inv, StatusBar.DI_ALTICONFIRST);
+    Inventory inv  = players[consolePlayer].mo.findInventory(aWeapon.getClass());
+    TextureID icon = StatusBar.GetInventoryIcon(inv, StatusBar.DI_ALTICONFIRST);
 
-    return picnum.isValid() ? TexMan.getName(picnum) : "NOWEAPONOFF";
+    return icon.isValid() ? TexMan.getName(icon) : "gb_nope";
   }
 
   private uint findNextWeapon() const { return findWeapon( 1); }
