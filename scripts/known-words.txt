@@ -1,6 +1,8 @@
 personal_ws-1.1 en 60 
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ALTHUDCF
+ALTICONFIRST
+EEEEEE
 NOWEAPONOFF
 aamer
 abcdefghijklmnopqrstuvwxyz
@@ -774,9 +776,11 @@ wcin
 wclog
 wcout
 weak
+weap
 weapnext
 weaponready
 weaponreadyalt
+weapprev
 wget
 while
 whitespace

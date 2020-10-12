@@ -58,7 +58,7 @@ class gb_EventHandler : EventHandler
       switch (gb_InputProcessor.process(event))
       {
       case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); return true;
-      case INputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); return true;
+      case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); return true;
 
       case InputConfirmSelection:
         gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
@@ -90,7 +90,9 @@ class gb_EventHandler : EventHandler
     {
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);
-      gb_HalfLifeView.display(viewModel, alpha);
+
+      mWeaponView.setAlpha(alpha);
+      mWeaponView.display(viewModel);
     }
   }
 
@@ -103,8 +105,9 @@ class gb_EventHandler : EventHandler
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
 
-    mActivity  = gb_Activity.from();
-    mFadeInOut = gb_FadeInOut.from();
+    mActivity   = gb_Activity.from();
+    mFadeInOut  = gb_FadeInOut.from();
+    mWeaponView = gb_HalfLifeView.from();
   }
 
   private
@@ -113,8 +116,9 @@ class gb_EventHandler : EventHandler
     return mWeaponMenu != NULL;
   }
 
-  private gb_WeaponMenu mWeaponMenu;
-  private gb_Activity   mActivity;
-  private gb_FadeInOut  mFadeInOut;
+  private gb_WeaponMenu   mWeaponMenu;
+  private gb_Activity     mActivity;
+  private gb_FadeInOut    mFadeInOut;
+  private gb_HalfLifeView mWeaponView;
 
 } // class gb_EventHandler
