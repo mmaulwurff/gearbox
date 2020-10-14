@@ -92,6 +92,7 @@ class gb_EventHandler : EventHandler
       mWeaponMenu.fill(viewModel);
 
       mWeaponView.setAlpha(alpha);
+      mWeaponView.setScale(mScaleCvar.getInt());
       mWeaponView.display(viewModel);
     }
   }
@@ -108,6 +109,7 @@ class gb_EventHandler : EventHandler
     mActivity   = gb_Activity.from();
     mFadeInOut  = gb_FadeInOut.from();
     mWeaponView = gb_HalfLifeView.from();
+    mScaleCvar  = gb_Cvar.from("gb_scale");
   }
 
   private
@@ -120,5 +122,6 @@ class gb_EventHandler : EventHandler
   private gb_Activity     mActivity;
   private gb_FadeInOut    mFadeInOut;
   private gb_HalfLifeView mWeaponView;
+  private gb_Cvar         mScaleCvar;
 
 } // class gb_EventHandler

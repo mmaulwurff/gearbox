@@ -23,6 +23,7 @@ class gb_HalfLifeView
   {
     let result = new("gb_HalfLifeView");
     result.setAlpha(1.0);
+    result.setScale(1);
     return result;
   }
 
@@ -30,6 +31,15 @@ class gb_HalfLifeView
   {
     mAlpha    = alpha;
     mIntAlpha = int(alpha * 255);
+  }
+
+  void setScale(int scale)
+  {
+    if (scale < 1) scale = 1;
+
+    mScale        = scale;
+    mScreenWidth  = Screen.getWidth()  / mScale;
+    mScreenHeight = Screen.getHeight() / mScale;
   }
 
   void display(gb_ViewModel viewModel) const
@@ -54,7 +64,7 @@ class gb_HalfLifeView
       // slot number box
       if (slot != lastDrawnSlot)
       {
-        drawTexture(boxTexture, slotX, BORDER, 0x0000AA);
+        drawAlphaTexture(boxTexture, slotX, BORDER, 0x0000AA);
 
         string slotText = string.format("%d", slot);
         int    textX    = slotX + SLOT_SIZE / 2 - aFont.stringWidth(slotText) / 2;
@@ -71,7 +81,7 @@ class gb_HalfLifeView
         int  weaponY = BORDER + SLOT_SIZE + (SELECTED_WEAPON_HEIGHT + MARGIN) * inSlotIndex;
 
         // big box
-        drawTexture(bigTexture, slotX, weaponY, weaponColor);
+        drawAlphaTexture(bigTexture, slotX, weaponY, weaponColor);
 
         // weapon
         {
@@ -100,66 +110,55 @@ class gb_HalfLifeView
         // corners
         if (isSelectedWeapon)
         {
-          vector2 lineEnd = (slotX, weaponY) + (SELECTED_SLOT_WIDTH, SELECTED_WEAPON_HEIGHT);
-          int lineColor = 0xEEEEEE;
-          // top left
-          drawLine(slotX,     weaponY, slotX + CORNER_SIZE, weaponY, lineColor);
-          drawLine(slotX + 1, weaponY, slotX, weaponY + CORNER_SIZE, lineColor);
-          // top right
-          drawLine(lineEnd.x, weaponY, lineEnd.x - CORNER_SIZE, weaponY, lineColor);
-          drawLine(lineEnd.x, weaponY, lineEnd.x, weaponY + CORNER_SIZE, lineColor);
-          // bottom left
-          drawLine(slotX, lineEnd.y - 1, slotX + CORNER_SIZE, lineEnd.y, lineColor);
-          drawLine(slotX + 1, lineEnd.y, slotX, lineEnd.y - CORNER_SIZE, lineColor);
-          // bottom right
-          drawLine(lineEnd.x, lineEnd.y - 1, lineEnd.x - CORNER_SIZE, lineEnd.y, lineColor);
-          drawLine(lineEnd.x, lineEnd.y,     lineEnd.x, lineEnd.Y - CORNER_SIZE, lineColor);
+          int lineEndX = slotX   + SELECTED_SLOT_WIDTH    - CORNER_SIZE;
+          int lineEndY = weaponY + SELECTED_WEAPON_HEIGHT - CORNER_SIZE;
+          TextureID cornerTexture = TexMan.checkForTexture("gb_cor", TexMan.Type_Any);
+          // top left, top right, bottom left, bottom right
+          drawFlippedTexture(cornerTexture, slotX,    weaponY,  NoHorizontalFlip, NoVerticalFlip);
+          drawFlippedTexture(cornerTexture, lineEndX, weaponY,    HorizontalFlip, NoVerticalFlip);
+          drawFlippedTexture(cornerTexture, slotX,    lineEndY, NoHorizontalFlip,   VerticalFlip);
+          drawFlippedTexture(cornerTexture, lineEndX, lineEndY,   HorizontalFlip,   VerticalFlip);
         }
 
         // ammo indicators
-        int ammoY = weaponY + AMMO_HEIGHT / 2;
+        TextureID ammoTexture = TexMan.checkForTexture("gb_ammo", TexMan.Type_Any);
+        int ammoY = weaponY;
         if (viewModel.ammo1[i] != -1)
         {
-          drawThickLine( slotX + MARGIN * 2
-                       , ammoY
-                       , slotX + MARGIN + AMMO_WIDTH
-                       , ammoY
-                       , AMMO_HEIGHT
-                       , 0x8888DD
-                       );
+          drawAlphaTexture( ammoTexture
+                          , slotX + MARGIN * 2
+                          , ammoY
+                          , 0x8888DD
+                          );
           int ammoRatioWidth = round(float(viewModel.ammo1[i]) / viewModel.maxAmmo1[i] * AMMO_WIDTH);
-          drawThickLine( slotX + MARGIN * 2
-                       , ammoY
-                       , slotX + MARGIN + ammoRatioWidth
-                       , ammoY
-                       , AMMO_HEIGHT
-                       , 0x22DD22
-                       );
-          ammoY += MARGIN;
+          drawAlphaWidthTexture( ammoTexture
+                               , slotX + MARGIN * 2
+                               , ammoY
+                               , 0x22DD22
+                               , ammoRatioWidth
+                               );
+          ammoY += MARGIN + AMMO_HEIGHT;
         }
         if (viewModel.ammo2[i] != -1)
         {
-          drawThickLine( slotX + MARGIN * 2
-                       , ammoY
-                       , slotX + MARGIN + AMMO_WIDTH
-                       , ammoY
-                       , AMMO_HEIGHT
-                       , 0x8888DD
-                       );
+          drawAlphaTexture( ammoTexture
+                          , slotX + MARGIN * 2
+                          , ammoY
+                          , 0x8888DD
+                          );
           int ammoRatioWidth = round(float(viewModel.ammo2[i]) / viewModel.maxAmmo2[i] * AMMO_WIDTH);
-          drawThickLine( slotX + MARGIN * 2
-                       , ammoY
-                       , slotX + MARGIN + ammoRatioWidth
-                       , ammoY
-                       , AMMO_HEIGHT
-                       , 0x22DD22
-                       );
+          drawAlphaWidthTexture( ammoTexture
+                               , slotX + MARGIN * 2
+                               , ammoY
+                               , 0x22DD22
+                               , ammoRatioWidth
+                               );
         }
       }
       else // unselected slot (small boxes)
       {
         int boxY = BORDER - MARGIN + (SLOT_SIZE + MARGIN) * (inSlotIndex + 1);
-        drawTexture(boxTexture, slotX, boxY, 0x2222CC);
+        drawAlphaTexture(boxTexture, slotX, boxY, 0x2222CC);
       }
 
       if (i + 1 < nWeapons && viewModel.slots[i + 1] != slot)
@@ -177,15 +176,63 @@ class gb_HalfLifeView
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
-  void drawTexture(TextureID texture, int x, int y, int color) const
+  void drawAlphaTexture(TextureID texture, int x, int y, int color) const
   {
     Screen.drawTexture( texture
                       , NO_ANIMATION
                       , x
                       , y
-                      , DTA_FillColor    , color
-                      , DTA_AlphaChannel , true
-                      , DTA_Alpha        , mAlpha
+                      , DTA_FillColor     , color
+                      , DTA_AlphaChannel  , true
+                      , DTA_Alpha         , mAlpha
+                      , DTA_VirtualWidth  , mScreenWidth
+                      , DTA_VirtualHeight , mScreenHeight
+                      , DTA_KeepRatio     , true
+                      );
+  }
+
+  private
+  void drawAlphaWidthTexture(TextureID texture, int x, int y, int color, int width) const
+  {
+    Screen.drawTexture( texture
+                      , NO_ANIMATION
+                      , x
+                      , y
+                      , DTA_FillColor     , color
+                      , DTA_AlphaChannel  , true
+                      , DTA_Alpha         , mAlpha
+                      , DTA_VirtualWidth  , mScreenWidth
+                      , DTA_VirtualHeight , mScreenHeight
+                      , DTA_KeepRatio     , true
+                      , DTA_DestWidth     , width
+                      );
+  }
+
+  enum HorizontalFlipOptions
+  {
+    NoHorizontalFlip = 0,
+    HorizontalFlip = 1,
+  }
+
+  enum VerticalFlipOptions
+  {
+    NoVerticalFlip = 0,
+    VerticalFlip = 1,
+  }
+
+  private
+  void drawFlippedTexture(TextureID texture, int x, int y, int horFlip, int verFlip) const
+  {
+    Screen.drawTexture( texture
+                      , NO_ANIMATION
+                      , x
+                      , y
+                      , DTA_Alpha         , mAlpha
+                      , DTA_VirtualWidth  , mScreenWidth
+                      , DTA_VirtualHeight , mScreenHeight
+                      , DTA_KeepRatio     , true
+                      , DTA_FlipX         , horFlip
+                      , DTA_FlipY         , verFlip
                       );
   }
 
@@ -196,18 +243,14 @@ class gb_HalfLifeView
                       , NO_ANIMATION
                       , x
                       , y
-                      , DTA_CenterOffset , true
-                      , DTA_KeepRatio    , true
-                      , DTA_DestWidth    , w
-                      , DTA_DestHeight   , h
-                      , DTA_Alpha        , mAlpha
+                      , DTA_CenterOffset  , true
+                      , DTA_KeepRatio     , true
+                      , DTA_DestWidth     , w
+                      , DTA_DestHeight    , h
+                      , DTA_Alpha         , mAlpha
+                      , DTA_VirtualWidth  , mScreenWidth
+                      , DTA_VirtualHeight , mScreenHeight
                       );
-  }
-
-  private
-  void drawLine(int x1, int y1, int x2, int y2, int color) const
-  {
-    Screen.drawLine(x1, y1, x2, y2, color, mIntAlpha);
   }
 
   private
@@ -219,7 +262,16 @@ class gb_HalfLifeView
   private
   void drawText(Font aFont, int color, int x, int y, string text) const
   {
-    Screen.drawText(aFont, color, x, y, text, DTA_Alpha, mAlpha);
+    Screen.drawText( aFont
+                   , color
+                   , x
+                   , y
+                   , text
+                   , DTA_Alpha         , mAlpha
+                   , DTA_VirtualWidth  , mScreenWidth
+                   , DTA_VirtualHeight , mScreenHeight
+                   , DTA_KeepRatio     , true
+                   );
   }
 
   const BORDER = 20;
@@ -238,5 +290,8 @@ class gb_HalfLifeView
 
   private double mAlpha;
   private int    mIntAlpha;
+  private int    mScale;
+  private int    mScreenWidth;
+  private int    mScreenHeight;
 
 } // class gb_HalfLifeView
