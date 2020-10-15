@@ -15,15 +15,16 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_HalfLifeView
+class gb_BlockyView
 {
 
   static
-  gb_HalfLifeView from()
+  gb_BlockyView from()
   {
-    let result = new("gb_HalfLifeView");
+    let result = new("gb_BlockyView");
     result.setAlpha(1.0);
     result.setScale(1);
+    result.setBaseColor(0x2222CC);
     return result;
   }
 
@@ -40,6 +41,11 @@ class gb_HalfLifeView
     mScale        = scale;
     mScreenWidth  = Screen.getWidth()  / mScale;
     mScreenHeight = Screen.getHeight() / mScale;
+  }
+
+  void setBaseColor(int color)
+  {
+    mBaseColor = color;
   }
 
   void display(gb_ViewModel viewModel) const
@@ -77,7 +83,7 @@ class gb_HalfLifeView
       if (slot == selectedSlot) // selected slot (big boxes)
       {
         bool isSelectedWeapon = (i == viewModel.selectedWeaponIndex);
-        int  weaponColor      = isSelectedWeapon ? 0x6666CC : 0x2222CC;
+        int  weaponColor      = isSelectedWeapon ? 0x6666CC : mBaseColor;
         int  weaponY = BORDER + SLOT_SIZE + (SELECTED_WEAPON_HEIGHT + MARGIN) * inSlotIndex;
 
         // big box
@@ -134,7 +140,7 @@ class gb_HalfLifeView
           drawAlphaWidthTexture( ammoTexture
                                , slotX + MARGIN * 2
                                , ammoY
-                               , 0x22DD22
+                               , FILLED_AMMO_COLOR
                                , ammoRatioWidth
                                );
           ammoY += MARGIN + AMMO_HEIGHT;
@@ -150,7 +156,7 @@ class gb_HalfLifeView
           drawAlphaWidthTexture( ammoTexture
                                , slotX + MARGIN * 2
                                , ammoY
-                               , 0x22DD22
+                               , FILLED_AMMO_COLOR
                                , ammoRatioWidth
                                );
         }
@@ -158,7 +164,7 @@ class gb_HalfLifeView
       else // unselected slot (small boxes)
       {
         int boxY = BORDER - MARGIN + (SLOT_SIZE + MARGIN) * (inSlotIndex + 1);
-        drawAlphaTexture(boxTexture, slotX, boxY, 0x2222CC);
+        drawAlphaTexture(boxTexture, slotX, boxY, mBaseColor);
       }
 
       if (i + 1 < nWeapons && viewModel.slots[i + 1] != slot)
@@ -288,10 +294,13 @@ class gb_HalfLifeView
   const AMMO_WIDTH = 40;
   const AMMO_HEIGHT = 6;
 
+  const FILLED_AMMO_COLOR = 0x22DD22;
+
   private double mAlpha;
   private int    mIntAlpha;
   private int    mScale;
   private int    mScreenWidth;
   private int    mScreenHeight;
+  private color  mBaseColor;
 
-} // class gb_HalfLifeView
+} // class gb_BlockyView

@@ -108,7 +108,7 @@ class gb_EventHandler : EventHandler
 
     mActivity   = gb_Activity.from();
     mFadeInOut  = gb_FadeInOut.from();
-    mWeaponView = gb_HalfLifeView.from();
+    mWeaponView = gb_BlockyView.from();
     mScaleCvar  = gb_Cvar.from("gb_scale");
   }
 
@@ -118,10 +118,10 @@ class gb_EventHandler : EventHandler
     return mWeaponMenu != NULL;
   }
 
-  private gb_WeaponMenu   mWeaponMenu;
-  private gb_Activity     mActivity;
-  private gb_FadeInOut    mFadeInOut;
-  private gb_HalfLifeView mWeaponView;
-  private gb_Cvar         mScaleCvar;
+  private gb_WeaponMenu mWeaponMenu;
+  private gb_Activity   mActivity;
+  private gb_FadeInOut  mFadeInOut;
+  private gb_BlockyView mWeaponView;
+  private gb_Cvar       mScaleCvar;
 
 } // class gb_EventHandler

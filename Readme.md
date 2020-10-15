@@ -10,3 +10,4 @@ select weapons and items.
 ## Acknowledgments
 
 - Thanks to Accensus and kadu522 for help with title selection.
+- Blocky view is designed to resemble the weapon menu from Half-Life by Valve.
