@@ -1,0 +1,13 @@
+AddOptionMenu OptionsMenu
+{
+  Submenu "$GB_OPTIONS", gb_Options
+}
+
+OptionMenu gb_Options
+{
+  Title "$GB_OPTIONS"
+
+  StaticText  "$GB_VISUALS" , 1
+  Slider      "$GB_SCALE"   , gb_scale, 1, 8, 1, 0
+  ColorPicker "$GB_COLOR"   , gb_color
+}

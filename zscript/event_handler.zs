@@ -93,6 +93,8 @@ class gb_EventHandler : EventHandler
 
       mWeaponView.setAlpha(alpha);
       mWeaponView.setScale(mScaleCvar.getInt());
+      mWeaponView.setBaseColor(mColorCvar.getInt());
+
       mWeaponView.display(viewModel);
     }
   }
@@ -110,6 +112,7 @@ class gb_EventHandler : EventHandler
     mFadeInOut  = gb_FadeInOut.from();
     mWeaponView = gb_BlockyView.from();
     mScaleCvar  = gb_Cvar.from("gb_scale");
+    mColorCvar  = gb_Cvar.from("gb_color");
   }
 
   private
@@ -123,5 +126,6 @@ class gb_EventHandler : EventHandler
   private gb_FadeInOut  mFadeInOut;
   private gb_BlockyView mWeaponView;
   private gb_Cvar       mScaleCvar;
+  private gb_Cvar       mColorCvar;
 
 } // class gb_EventHandler

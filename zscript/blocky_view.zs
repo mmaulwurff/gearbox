@@ -45,7 +45,10 @@ class gb_BlockyView
 
   void setBaseColor(int color)
   {
-    mBaseColor = color;
+    mBaseColor     = color;
+    mSlotColor     = addColor(mBaseColor, -0x22, -0x22, -0x22);
+    mSelectedColor = addColor(mBaseColor,  0x44,  0x44,     0);
+    mAmmoBackColor = addColor(mBaseColor,  0x66,  0x66,  0x11);
   }
 
   void display(gb_ViewModel viewModel) const
@@ -70,7 +73,7 @@ class gb_BlockyView
       // slot number box
       if (slot != lastDrawnSlot)
       {
-        drawAlphaTexture(boxTexture, slotX, BORDER, 0x0000AA);
+        drawAlphaTexture(boxTexture, slotX, BORDER, mSlotColor);
 
         string slotText = string.format("%d", slot);
         int    textX    = slotX + SLOT_SIZE / 2 - aFont.stringWidth(slotText) / 2;
@@ -83,7 +86,7 @@ class gb_BlockyView
       if (slot == selectedSlot) // selected slot (big boxes)
       {
         bool isSelectedWeapon = (i == viewModel.selectedWeaponIndex);
-        int  weaponColor      = isSelectedWeapon ? 0x6666CC : mBaseColor;
+        int  weaponColor      = isSelectedWeapon ? mSelectedColor : mBaseColor;
         int  weaponY = BORDER + SLOT_SIZE + (SELECTED_WEAPON_HEIGHT + MARGIN) * inSlotIndex;
 
         // big box
@@ -134,7 +137,7 @@ class gb_BlockyView
           drawAlphaTexture( ammoTexture
                           , slotX + MARGIN * 2
                           , ammoY
-                          , 0x8888DD
+                          , mAmmoBackColor
                           );
           int ammoRatioWidth = round(float(viewModel.ammo1[i]) / viewModel.maxAmmo1[i] * AMMO_WIDTH);
           drawAlphaWidthTexture( ammoTexture
@@ -150,7 +153,7 @@ class gb_BlockyView
           drawAlphaTexture( ammoTexture
                           , slotX + MARGIN * 2
                           , ammoY
-                          , 0x8888DD
+                          , mAmmoBackColor
                           );
           int ammoRatioWidth = round(float(viewModel.ammo2[i]) / viewModel.maxAmmo2[i] * AMMO_WIDTH);
           drawAlphaWidthTexture( ammoTexture
@@ -280,6 +283,16 @@ class gb_BlockyView
                    );
   }
 
+  private static
+  color addColor(color base, int addRed, int addGreen, int addBlue)
+  {
+    uint newRed   = clamp(base.r + addRed,   0, 255);
+    uint newGreen = clamp(base.g + addGreen, 0, 255);
+    uint newBlue  = clamp(base.b + addBlue,  0, 255);
+    uint result   = (newRed << 16) + (newGreen << 8) + newBlue;
+    return result;
+  }
+
   const BORDER = 20;
   const MARGIN = 4;
 
@@ -298,9 +311,14 @@ class gb_BlockyView
 
   private double mAlpha;
   private int    mIntAlpha;
+
   private int    mScale;
   private int    mScreenWidth;
   private int    mScreenHeight;
+
   private color  mBaseColor;
+  private color  mSlotColor;
+  private color  mSelectedColor;
+  private color  mAmmoBackColor;
 
 } // class gb_BlockyView

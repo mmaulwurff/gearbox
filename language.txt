@@ -1,4 +1,9 @@
 [enu default]
 
+GB_OPTIONS = "Gearbox Options";
+GB_VISUALS = "Visuals";
+GB_SCALE   = "Scale";
+GB_COLOR   = "Color";
+
 GB_KEYSECTION         = "Gearbox Keys";
 GB_TOGGLE_WEAPON_MENU = "Toggle weapon menu";
