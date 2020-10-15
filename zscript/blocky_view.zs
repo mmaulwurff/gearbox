@@ -30,8 +30,7 @@ class gb_BlockyView
 
   void setAlpha(double alpha)
   {
-    mAlpha    = alpha;
-    mIntAlpha = int(alpha * 255);
+    mAlpha = alpha;
   }
 
   void setScale(int scale)
@@ -263,12 +262,6 @@ class gb_BlockyView
   }
 
   private
-  void drawThickLine(int x1, int y1, int x2, int y2, int width, int color) const
-  {
-    Screen.drawThickLine(x1, y1, x2, y2, width, color, mIntAlpha);
-  }
-
-  private
   void drawText(Font aFont, int color, int x, int y, string text) const
   {
     Screen.drawText( aFont
@@ -310,7 +303,6 @@ class gb_BlockyView
   const FILLED_AMMO_COLOR = 0x22DD22;
 
   private double mAlpha;
-  private int    mIntAlpha;
 
   private int    mScale;
   private int    mScreenWidth;
