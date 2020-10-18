@@ -25,5 +25,10 @@ version "4.4.2"
 #include "zscript/blocky_view.zs"
 #include "zscript/fade_in_out.zs"
 
+#include "zscript/wheel_view.zs"
+#include "zscript/wheel_controller.zs"
+#include "zscript/wheel_controller_model.zs"
+#include "zscript/wheel_indexer.zs"
+
 #include "zscript/cvar.zs"
 #include "zscript/log.zs"

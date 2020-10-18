@@ -27,6 +27,11 @@ class gb_WeaponMenu
     return result;
   }
 
+  void setSelectedIndex(int index)
+  {
+    mSelectedIndex = index;
+  }
+
   void setSelectedWeapon(class<Weapon> aClass)
   {
     mSelectedIndex = getIndexOf(aClass);
@@ -61,7 +66,8 @@ class gb_WeaponMenu
       let default = getDefaultByType(mWeapons[i]);
 
       viewModel.tags.push(default.getTag());
-      viewModel.icons.push(getIcon(default));
+      // Workaround, casting TextureID to int may break.
+      viewModel.icons.push(int(getIcon(default)));
       viewModel.slots.push(mSlots[i]);
 
       viewModel.   ammo1.push(aWeapon.ammo1 ? aWeapon.ammo1.   amount : -1);
@@ -74,12 +80,12 @@ class gb_WeaponMenu
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private ui
-  string getIcon(readonly<Weapon> aWeapon)
+  TextureID getIcon(readonly<Weapon> aWeapon)
   {
     Inventory inv  = players[consolePlayer].mo.findInventory(aWeapon.getClass());
     TextureID icon = StatusBar.GetInventoryIcon(inv, StatusBar.DI_ALTICONFIRST);
 
-    return icon.isValid() ? TexMan.getName(icon) : "gb_nope";
+    return icon.isValid() ? icon : TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
   }
 
   private uint findNextWeapon() const { return findWeapon( 1); }

@@ -15,19 +15,10 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-struct gb_ViewModel
+struct gb_WheelControllerModel
 {
 
-  int selectedWeaponIndex;
+  double angle;
+  double radius;
 
-  Array<string> tags;
-  Array<TextureID> icons;
-  Array<int> slots;
-
-  Array<int> ammo1;
-  Array<int> maxAmmo1;
-
-  Array<int> ammo2;
-  Array<int> maxAmmo2;
-
-} // struct gb_ViewModel
+} // struct gb_WheelControllerModel

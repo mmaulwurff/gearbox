@@ -4,4 +4,5 @@ set -e
 
 filename=$(./scripts/make_name.sh)
 
-gzdoom -noautoload -file "$filename" "$@"
+~/src/build-gzdoom-Desktop-Debug/gzdoom -noautoload -file "$filename" "$@"
+#gzdoom -noautoload -file "$filename" "$@"

@@ -15,19 +15,26 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-struct gb_ViewModel
+class gb_WheelIndexer
 {
 
-  int selectedWeaponIndex;
+  static
+  gb_WheelIndexer from()
+  {
+    let result = new("gb_WheelIndexer");
+    return result;
+  }
 
-  Array<string> tags;
-  Array<TextureID> icons;
-  Array<int> slots;
+  void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
+  {
 
-  Array<int> ammo1;
-  Array<int> maxAmmo1;
+  }
 
-  Array<int> ammo2;
-  Array<int> maxAmmo2;
+  int getSelectedIndex() const
+  {
+    return 0;
+  }
 
-} // struct gb_ViewModel
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+} // class gb_WheelIndexer

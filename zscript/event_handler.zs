@@ -43,6 +43,8 @@ class gb_EventHandler : EventHandler
     {
     case EventToggleWeaponMenu: mActivity.toggleWeaponMenu(); break;
     }
+
+    mWheelController.setIsActive(mActivity.getActivity() != gb_Activity.None);
   }
 
   /**
@@ -52,6 +54,11 @@ class gb_EventHandler : EventHandler
   bool InputProcess(InputEvent event)
   {
     if (!isInitialized()) return false;
+
+    if (mWheelController.process(event))
+    {
+      return true;
+    }
 
     if (mActivity.getActivity() == gb_Activity.WeaponMenu)
     {
@@ -91,11 +98,24 @@ class gb_EventHandler : EventHandler
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);
 
-      mWeaponView.setAlpha(alpha);
-      mWeaponView.setScale(mScaleCvar.getInt());
-      mWeaponView.setBaseColor(mColorCvar.getInt());
+      {
+        mWeaponView1.setAlpha(alpha);
+        mWeaponView1.setScale(mScaleCvar.getInt());
+        mWeaponView1.setBaseColor(mColorCvar.getInt());
 
-      mWeaponView.display(viewModel);
+        //mWeaponView1.display(viewModel);
+      }
+
+      {
+        gb_WheelControllerModel controllerModel;
+        mWheelController.fill(controllerModel);
+        mWheelIndexer.update(viewModel, controllerModel);
+        mWeaponMenu.setSelectedIndex(mWheelIndexer.getSelectedIndex());
+
+        mWeaponView2.setAlpha(alpha);
+        mWeaponView2.setBaseColor(mColorCvar.getInt());
+        mWeaponView2.display(viewModel, controllerModel);
+      }
     }
   }
 
@@ -108,11 +128,15 @@ class gb_EventHandler : EventHandler
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
 
-    mActivity   = gb_Activity.from();
-    mFadeInOut  = gb_FadeInOut.from();
-    mWeaponView = gb_BlockyView.from();
-    mScaleCvar  = gb_Cvar.from("gb_scale");
-    mColorCvar  = gb_Cvar.from("gb_color");
+    mActivity    = gb_Activity.from();
+    mFadeInOut   = gb_FadeInOut.from();
+    mWeaponView1 = gb_BlockyView.from();
+    mWeaponView2 = gb_WheelView.from();
+    mScaleCvar   = gb_Cvar.from("gb_scale");
+    mColorCvar   = gb_Cvar.from("gb_color");
+
+    mWheelController = gb_WheelController.from();
+    mWheelIndexer    = gb_WheelIndexer.from();
   }
 
   private
@@ -124,8 +148,12 @@ class gb_EventHandler : EventHandler
   private gb_WeaponMenu mWeaponMenu;
   private gb_Activity   mActivity;
   private gb_FadeInOut  mFadeInOut;
-  private gb_BlockyView mWeaponView;
+  private gb_BlockyView mWeaponView1;
+  private gb_WheelView  mWeaponView2;
   private gb_Cvar       mScaleCvar;
   private gb_Cvar       mColorCvar;
+
+  private gb_WheelController mWheelController;
+  private gb_WheelIndexer    mWheelIndexer;
 
 } // class gb_EventHandler
