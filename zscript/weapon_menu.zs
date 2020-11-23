@@ -24,11 +24,17 @@ class gb_WeaponMenu
     let result = new("gb_WeaponMenu");
     result.mWeapons.move(weaponData.weapons);
     result.mSlots.move(weaponData.slots);
+    result.mSelectedIndex = 0;
     return result;
   }
 
   void setSelectedIndex(int index)
   {
+    if (index == -1)
+    {
+      return;
+    }
+
     mSelectedIndex = index;
   }
 
@@ -61,7 +67,6 @@ class gb_WeaponMenu
       let aWeapon = Weapon(players[consolePlayer].mo.findInventory(mWeapons[i]));
       if (aWeapon == NULL) continue;
 
-      console.printf("here %d", mSelectedIndex);
       if (mSelectedIndex == i) viewModel.selectedWeaponIndex = viewModel.tags.size();
 
       let default = getDefaultByType(mWeapons[i]);
@@ -77,8 +82,6 @@ class gb_WeaponMenu
       viewModel.icons.push(int(icon));
       //viewModel.iconOrientations.push(icon == getReadyState(aWeapon).getSpriteTexture(0));
       viewModel.iconOrientations.push(icon == aWeapon.icon);
-
-      console.printf("%s, %d", viewModel.tags[i], viewModel.iconOrientations[i]);
 
       viewModel.   ammo1.push(aWeapon.ammo1 ? aWeapon.ammo1.   amount : -1);
       viewModel.maxAmmo1.push(aWeapon.ammo1 ? aWeapon.ammo1.maxAmount : -1);

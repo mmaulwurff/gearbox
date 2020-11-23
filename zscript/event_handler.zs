@@ -62,6 +62,8 @@ class gb_EventHandler : EventHandler
 
     if (mActivity.getActivity() == gb_Activity.WeaponMenu)
     {
+      mWheelController.reset();
+
       switch (gb_InputProcessor.process(event))
       {
       case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); return true;

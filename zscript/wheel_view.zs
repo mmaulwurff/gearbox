@@ -82,21 +82,20 @@ class gb_WheelView
     }
 
     drawHands(nWeapons, viewModel.selectedWeaponIndex);
-    //drawPointer(controllerModel.angle, controllerModel.radius);
+    drawPointer(controllerModel.angle, controllerModel.radius);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
-  double itemAngle(uint nItems, uint selectedIndex)
+  double itemAngle(uint nItems, uint index)
   {
-    return 360.0 / nItems * selectedIndex;
+    return 360.0 / nItems * index;
   }
 
   private
   void drawHands(uint nWeapons, uint selectedIndex)
   {
-    console.printf("%d", selectedIndex);
     TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
     double angle = -itemAngle(nWeapons, selectedIndex);
     double sectorAngleHalfWidth = 360.0 / 2.0 / nWeapons;
@@ -123,14 +122,15 @@ class gb_WheelView
   private
   void drawPointer(double angle, double radius)
   {
-    TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
-    Screen.drawTexture( handTexture
+    int x = int(round( sin(angle) * radius + mCenterX));
+    int y = int(round(-cos(angle) * radius + mCenterY));
+    TextureID pointerTexture = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
+    Screen.drawTexture( pointerTexture
                       , NO_ANIMATION
-                      , mCenterX
-                      , mCenterY
+                      , x
+                      , y
+                      , DTA_CenterOffset , true
                       , DTA_Alpha        , mAlpha
-                      , DTA_Rotate       , angle
-                      , DTA_DestWidthF   , radius
                       );
   }
 

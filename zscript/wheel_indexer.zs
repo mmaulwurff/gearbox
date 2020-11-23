@@ -28,7 +28,7 @@ class gb_WheelIndexer
 
   void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
   {
-    mSelectedIndex = viewModel.selectedWeaponIndex;
+    mSelectedIndex = getUpdatedIndex(viewModel, controllerModel);
   }
 
   int getSelectedIndex() const
@@ -37,6 +37,21 @@ class gb_WheelIndexer
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  int getUpdatedIndex(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
+  {
+    if (controllerModel.radius < DEAD_RADIUS)
+    {
+      return -1;
+    }
+
+    uint nItems = viewModel.tags.size();
+    int index = int(round(controllerModel.angle * nItems / 360.0)) % nItems;
+    return index;
+  }
+
+  const DEAD_RADIUS = 67;
 
   private int mSelectedIndex;
 
