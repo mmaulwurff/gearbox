@@ -61,14 +61,24 @@ class gb_WeaponMenu
       let aWeapon = Weapon(players[consolePlayer].mo.findInventory(mWeapons[i]));
       if (aWeapon == NULL) continue;
 
+      console.printf("here %d", mSelectedIndex);
       if (mSelectedIndex == i) viewModel.selectedWeaponIndex = viewModel.tags.size();
 
       let default = getDefaultByType(mWeapons[i]);
 
       viewModel.tags.push(default.getTag());
-      // Workaround, casting TextureID to int may break.
-      viewModel.icons.push(int(getIcon(default)));
       viewModel.slots.push(mSlots[i]);
+
+      // Workaround, casting TextureID to int may break.
+      TextureID icon = StatusBar.GetInventoryIcon(aWeapon, StatusBar.DI_ALTICONFIRST);
+
+      if (!icon.isValid()) icon = TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
+
+      viewModel.icons.push(int(icon));
+      //viewModel.iconOrientations.push(icon == getReadyState(aWeapon).getSpriteTexture(0));
+      viewModel.iconOrientations.push(icon == aWeapon.icon);
+
+      console.printf("%s, %d", viewModel.tags[i], viewModel.iconOrientations[i]);
 
       viewModel.   ammo1.push(aWeapon.ammo1 ? aWeapon.ammo1.   amount : -1);
       viewModel.maxAmmo1.push(aWeapon.ammo1 ? aWeapon.ammo1.maxAmount : -1);
@@ -79,14 +89,7 @@ class gb_WeaponMenu
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private ui
-  TextureID getIcon(readonly<Weapon> aWeapon)
-  {
-    Inventory inv  = players[consolePlayer].mo.findInventory(aWeapon.getClass());
-    TextureID icon = StatusBar.GetInventoryIcon(inv, StatusBar.DI_ALTICONFIRST);
-
-    return icon.isValid() ? icon : TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
-  }
+  private play State getReadyState(Weapon w) const { return w.getReadyState(); }
 
   private uint findNextWeapon() const { return findWeapon( 1); }
   private uint findPrevWeapon() const { return findWeapon(-1); }

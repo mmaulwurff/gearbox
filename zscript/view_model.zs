@@ -21,8 +21,10 @@ struct gb_ViewModel
   int selectedWeaponIndex;
 
   Array<string> tags;
-  Array<TextureID> icons;
   Array<int> slots;
+
+  Array<TextureID> icons;
+  Array<int>       iconOrientations;
 
   Array<int> ammo1;
   Array<int> maxAmmo1;

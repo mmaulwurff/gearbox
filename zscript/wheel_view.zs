@@ -48,16 +48,16 @@ class gb_WheelView
                       , NO_ANIMATION
                       , mCenterX
                       , mCenterY
-                      , DTA_FillColor     , mBaseColor
-                      , DTA_AlphaChannel  , true
-                      , DTA_Alpha         , mAlpha
-                      , DTA_CenterOffset  , true
+                      , DTA_FillColor    , mBaseColor
+                      , DTA_AlphaChannel , true
+                      , DTA_Alpha        , mAlpha
+                      , DTA_CenterOffset , true
                       );
 
     uint nWeapons = viewModel.tags.size();
     for (uint i = 0; i < nWeapons; ++i)
     {
-      double angle = 360.0 / nWeapons * i;
+      double angle = itemAngle(nWeapons, i);
 
       int radius = Screen.getHeight() * 5 / 32;
       int x = int(round( sin(angle) * radius + mCenterX));
@@ -80,9 +80,59 @@ class gb_WheelView
                 , angle
                 );
     }
+
+    drawHands(nWeapons, viewModel.selectedWeaponIndex);
+    //drawPointer(controllerModel.angle, controllerModel.radius);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private
+  double itemAngle(uint nItems, uint selectedIndex)
+  {
+    return 360.0 / nItems * selectedIndex;
+  }
+
+  private
+  void drawHands(uint nWeapons, uint selectedIndex)
+  {
+    console.printf("%d", selectedIndex);
+    TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
+    double angle = -itemAngle(nWeapons, selectedIndex);
+    double sectorAngleHalfWidth = 360.0 / 2.0 / nWeapons;
+    Screen.drawTexture( handTexture
+                      , NO_ANIMATION
+                      , mCenterX
+                      , mCenterY
+                      , DTA_CenterOffset , true
+                      , DTA_KeepRatio    , true
+                      , DTA_Alpha        , mAlpha
+                      , DTA_Rotate       , angle - sectorAngleHalfWidth
+                      );
+    Screen.drawTexture( handTexture
+                      , NO_ANIMATION
+                      , mCenterX
+                      , mCenterY
+                      , DTA_CenterOffset , true
+                      , DTA_KeepRatio    , true
+                      , DTA_Alpha        , mAlpha
+                      , DTA_Rotate       , angle + sectorAngleHalfWidth
+                      );
+  }
+
+  private
+  void drawPointer(double angle, double radius)
+  {
+    TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
+    Screen.drawTexture( handTexture
+                      , NO_ANIMATION
+                      , mCenterX
+                      , mCenterY
+                      , DTA_Alpha        , mAlpha
+                      , DTA_Rotate       , angle
+                      , DTA_DestWidthF   , radius
+                      );
+  }
 
   private
   void drawWeapon(TextureID texture, int x, int y, int w, int h, double angle) const
@@ -95,27 +145,27 @@ class gb_WheelView
                       , NO_ANIMATION
                       , x
                       , y
-                      , DTA_CenterOffset  , true
-                      , DTA_KeepRatio     , true
-                      , DTA_DestWidth     , w
-                      , DTA_DestHeight    , h
-                      , DTA_Alpha         , mAlpha
-                      , DTA_Rotate        , angle
-                      , DTA_FlipX         , flipX
+                      , DTA_CenterOffset , true
+                      , DTA_KeepRatio    , true
+                      , DTA_DestWidth    , w
+                      , DTA_DestHeight   , h
+                      , DTA_Alpha        , mAlpha
+                      , DTA_Rotate       , angle
+                      , DTA_FlipX        , flipX
                       );
 
     Screen.drawTexture( texture
                       , NO_ANIMATION
                       , x
                       , y
-                      , DTA_CenterOffset  , true
-                      , DTA_KeepRatio     , true
-                      , DTA_DestWidth     , w
-                      , DTA_DestHeight    , h
-                      , DTA_Alpha         , mAlpha * 0.3
-                      , DTA_FillColor     , mBaseColor
-                      , DTA_Rotate        , angle
-                      , DTA_FlipX         , flipX
+                      , DTA_CenterOffset , true
+                      , DTA_KeepRatio    , true
+                      , DTA_DestWidth    , w
+                      , DTA_DestHeight   , h
+                      , DTA_Alpha        , mAlpha * 0.3
+                      , DTA_FillColor    , mBaseColor
+                      , DTA_Rotate       , angle
+                      , DTA_FlipX        , flipX
                       );
   }
 

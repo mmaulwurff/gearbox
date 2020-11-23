@@ -22,19 +22,22 @@ class gb_WheelIndexer
   gb_WheelIndexer from()
   {
     let result = new("gb_WheelIndexer");
+    result.mSelectedIndex = 0;
     return result;
   }
 
   void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
   {
-
+    mSelectedIndex = viewModel.selectedWeaponIndex;
   }
 
   int getSelectedIndex() const
   {
-    return 0;
+    return mSelectedIndex;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private int mSelectedIndex;
 
 } // class gb_WheelIndexer
