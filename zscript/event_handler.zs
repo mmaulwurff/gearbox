@@ -49,7 +49,7 @@ class gb_EventHandler : EventHandler
   override
   void consoleProcess(ConsoleEvent event)
   {
-    if (!isInitialized()) return;
+    if (!mIsInitialized) return;
 
     switch (gb_EventProcessor.process(event))
     {
@@ -65,7 +65,7 @@ class gb_EventHandler : EventHandler
   override
   bool InputProcess(InputEvent event)
   {
-    if (!isInitialized()) return false;
+    if (!mIsInitialized) return false;
 
     if (mWheelController.process(event))
     {
@@ -102,7 +102,7 @@ class gb_EventHandler : EventHandler
   override
   void renderOverlay(RenderEvent event)
   {
-    if (!isInitialized()) return;
+    if (!mIsInitialized) return;
 
     mFadeInOut.fadeInOut((mActivity.isNone()) ? -0.1 : 0.2);
     double alpha = mFadeInOut.getAlpha();
@@ -151,12 +151,8 @@ class gb_EventHandler : EventHandler
 
     mWheelController = gb_WheelController.from();
     mWheelIndexer    = gb_WheelIndexer.from();
-  }
 
-  private
-  bool isInitialized() const
-  {
-    return mWeaponMenu != NULL;
+    mIsInitialized = true;
   }
 
   private gb_WeaponMenu mWeaponMenu;
@@ -169,5 +165,7 @@ class gb_EventHandler : EventHandler
 
   private gb_WheelController mWheelController;
   private gb_WheelIndexer    mWheelIndexer;
+
+  private bool mIsInitialized;
 
 } // class gb_EventHandler
