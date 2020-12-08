@@ -24,7 +24,7 @@ class gb_EventHandler : EventHandler
     if (level.time == 0) return;
     if (level.time == 1) initialize();
 
-    if (mActivity.getActivity() != gb_Activity.WeaponMenu)
+    if (!mActivity.isWeapons())
     {
       class<Weapon> currentWeapon = gb_WeaponWatcher.getCurrentWeapon(players[consolePlayer]);
       mWeaponMenu.setSelectedWeapon(currentWeapon);
@@ -44,7 +44,7 @@ class gb_EventHandler : EventHandler
     case EventToggleWeaponMenu: mActivity.toggleWeaponMenu(); break;
     }
 
-    mWheelController.setIsActive(mActivity.getActivity() != gb_Activity.None);
+    mWheelController.setIsActive(!mActivity.isNone());
   }
 
   /**
@@ -60,7 +60,7 @@ class gb_EventHandler : EventHandler
       return true;
     }
 
-    if (mActivity.getActivity() == gb_Activity.WeaponMenu)
+    if (mActivity.isWeapons())
     {
       mWheelController.reset();
 
@@ -92,10 +92,10 @@ class gb_EventHandler : EventHandler
   {
     if (!isInitialized()) return;
 
-    mFadeInOut.fadeInOut((mActivity.getActivity() == gb_Activity.None) ? -0.1 : 0.2);
+    mFadeInOut.fadeInOut((mActivity.isNone()) ? -0.1 : 0.2);
     double alpha = mFadeInOut.getAlpha();
 
-    if (mActivity.getActivity() == gb_Activity.WeaponMenu || alpha != 0.0)
+    if (mActivity.isWeapons() || alpha != 0.0)
     {
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);

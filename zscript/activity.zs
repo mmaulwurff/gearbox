@@ -15,17 +15,12 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * This class stores top-level Gearbox state. It can be either Weapons,
+ * Inventory, or None.
+ */
 class gb_Activity
 {
-
-  enum Activity
-  {
-
-    None,
-    WeaponMenu,
-    InventoryMenu,
-
-  } // enum gb_Activity
 
   static
   gb_Activity from()
@@ -35,22 +30,30 @@ class gb_Activity
     return result;
   }
 
-  int getActivity() const
-  {
-    return mActivity;
-  }
+  bool isNone()      const { return mActivity == gb_Activity.None;      }
+  bool isWeapons()   const { return mActivity == gb_Activity.Weapons;   }
+  bool isInventory() const { return mActivity == gb_Activity.Inventory; }
 
   void toggleWeaponMenu()
   {
     switch (mActivity)
     {
-    case gb_Activity.InventoryMenu:
-    case gb_Activity.None:       mActivity = gb_Activity.WeaponMenu; break;
-    case gb_Activity.WeaponMenu: mActivity = gb_Activity.None; break;
+    case gb_Activity.Inventory:
+    case gb_Activity.None:    mActivity = gb_Activity.Weapons; break;
+    case gb_Activity.Weapons: mActivity = gb_Activity.None;    break;
     }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  enum Activity
+  {
+
+    None,
+    Weapons,
+    Inventory,
+
+  }
 
   private int mActivity;
 
