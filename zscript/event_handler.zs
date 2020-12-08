@@ -21,8 +21,12 @@ class gb_EventHandler : EventHandler
   override
   void worldTick()
   {
-    if (level.time == 0) return;
-    if (level.time == 1) initialize();
+    switch (gb_Level.getState())
+    {
+    case gb_Level.Loading:    return;
+    case gb_Level.JustLoaded: initialize(); // fallthrough
+    case gb_Level.Loaded:     break;
+    }
 
     if (!mActivity.isWeapons())
     {

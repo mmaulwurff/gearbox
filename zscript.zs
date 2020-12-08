@@ -32,3 +32,5 @@ version "4.4.2"
 
 #include "zscript/cvar.zs"
 #include "zscript/log.zs"
+
+#include "zscript/engine/level.zs"
