@@ -13,7 +13,6 @@ version "4.4.2"
 #include "zscript/event_processor.zs"
 
 #include "zscript/weapon_menu.zs"
-#include "zscript/weapon_watcher.zs"
 
 #include "zscript/sender.zs"
 
@@ -34,3 +33,4 @@ version "4.4.2"
 #include "zscript/log.zs"
 
 #include "zscript/engine/level.zs"
+#include "zscript/engine/weapon_watcher.zs"

@@ -15,11 +15,20 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * This class provides information on what weapon the players hold.
+ */
 class gb_WeaponWatcher
 {
 
   static
-  class<Weapon> getCurrentWeapon(PlayerInfo player)
+  class<Weapon> current()
+  {
+    return currentFor(players[consolePlayer]);
+  }
+
+  static
+  class<Weapon> currentFor(PlayerInfo player)
   {
     let currentWeapon = player.pendingWeapon.getClassName() != "Object"
       ? player.pendingWeapon

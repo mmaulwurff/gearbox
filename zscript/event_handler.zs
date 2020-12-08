@@ -15,6 +15,15 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+/**
+ * To ensure multiplayer compatibility, Gearbox does the following:
+ *
+ * 1. All visuals and input processing happens on client side and is invisible
+ * to the network.
+ *
+ * 2. Actial game changing things, like switching weapons, are done through
+ * network - even for the current player, even for the singleplayer game.
+ */
 class gb_EventHandler : EventHandler
 {
 
@@ -30,8 +39,7 @@ class gb_EventHandler : EventHandler
 
     if (!mActivity.isWeapons())
     {
-      class<Weapon> currentWeapon = gb_WeaponWatcher.getCurrentWeapon(players[consolePlayer]);
-      mWeaponMenu.setSelectedWeapon(currentWeapon);
+      mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     }
   }
 
