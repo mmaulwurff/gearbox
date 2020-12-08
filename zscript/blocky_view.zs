@@ -104,8 +104,8 @@ class gb_BlockyView
           double scaleVer = (allowedHeight < weaponSize.y) ? allowedHeight / weaponSize.y : 1.0;
           double scale    = min(scaleHor, scaleVer);
 
-          int weaponWidth  = round(weaponSize.x * scale);
-          int weaponHeight = round(weaponSize.y * scale);
+          int weaponWidth  = int(round(weaponSize.x * scale));
+          int weaponHeight = int(round(weaponSize.y * scale));
 
           drawWeapon( weaponTexture
                     , slotX + SELECTED_SLOT_WIDTH / 2
@@ -138,7 +138,7 @@ class gb_BlockyView
                           , ammoY
                           , mAmmoBackColor
                           );
-          int ammoRatioWidth = round(float(viewModel.ammo1[i]) / viewModel.maxAmmo1[i] * AMMO_WIDTH);
+          int ammoRatioWidth = ammoRatioWidthFor(viewModel.ammo1[i], viewModel.maxAmmo1[i]);
           drawAlphaWidthTexture( ammoTexture
                                , slotX + MARGIN * 2
                                , ammoY
@@ -154,7 +154,7 @@ class gb_BlockyView
                           , ammoY
                           , mAmmoBackColor
                           );
-          int ammoRatioWidth = round(float(viewModel.ammo2[i]) / viewModel.maxAmmo2[i] * AMMO_WIDTH);
+          int ammoRatioWidth = ammoRatioWidthFor(viewModel.ammo2[i], viewModel.maxAmmo2[i]);
           drawAlphaWidthTexture( ammoTexture
                                , slotX + MARGIN * 2
                                , ammoY
@@ -182,6 +182,12 @@ class gb_BlockyView
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  int ammoRatioWidthFor(int ammoCount, int ammoMax)
+  {
+    return int(round(float(ammoCount) / ammoMax * AMMO_WIDTH));
+  }
 
   private
   void drawAlphaTexture(TextureID texture, int x, int y, int color) const
