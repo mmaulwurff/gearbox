@@ -84,6 +84,7 @@ class gb_EventHandler : EventHandler
       case InputConfirmSelection:
         gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
         mActivity.toggleWeaponMenu();
+        mWheelController.setIsActive(false);
         return true;
       }
     }
