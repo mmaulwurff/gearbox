@@ -28,14 +28,14 @@ class gb_WeaponMenu
     return result;
   }
 
-  void setSelectedIndex(int index)
+  void setSelectedIndexFromView(gb_ViewModel viewModel, int index)
   {
     if (index == -1)
     {
       return;
     }
 
-    mSelectedIndex = index;
+    mSelectedIndex = viewModel.indices[index];
   }
 
   void setSelectedWeapon(class<Weapon> aClass)
@@ -73,6 +73,7 @@ class gb_WeaponMenu
 
       viewModel.tags.push(default.getTag());
       viewModel.slots.push(mSlots[i]);
+      viewModel.indices.push(i);
 
       // Workaround, casting TextureID to int may break.
       TextureID icon = StatusBar.GetInventoryIcon(aWeapon, StatusBar.DI_ALTICONFIRST);

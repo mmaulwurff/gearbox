@@ -125,7 +125,7 @@ class gb_EventHandler : EventHandler
         gb_WheelControllerModel controllerModel;
         mWheelController.fill(controllerModel);
         mWheelIndexer.update(viewModel, controllerModel);
-        mWeaponMenu.setSelectedIndex(mWheelIndexer.getSelectedIndex());
+        mWeaponMenu.setSelectedIndexFromView(viewModel, mWheelIndexer.getSelectedIndex());
 
         mWeaponView2.setAlpha(alpha);
         mWeaponView2.setBaseColor(mColorCvar.getInt());

@@ -22,6 +22,7 @@ struct gb_ViewModel
 
   Array<string> tags;
   Array<int> slots;
+  Array<int> indices;
 
   Array<TextureID> icons;
   Array<int>       iconOrientations;
