@@ -66,10 +66,16 @@ class gb_WheelView
 
       // code is adapted from GZDoom AltHud.DrawImageToBox.
       TextureID weaponTexture = viewModel.icons[i];
-      let weaponSize = TexMan.getScaledSize(weaponTexture) * 2;
+      vector2 weaponSize = TexMan.getScaledSize(weaponTexture) * 2;
 
+      bool isTall = weaponSize.y > weaponSize.x;
       int allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
-      double scale = (allowedWidth < weaponSize.x) ? allowedWidth / weaponSize.x : 1.0;
+
+      double scale = isTall
+        ? ((allowedWidth < weaponSize.y) ? allowedWidth / weaponSize.y : 1.0)
+        : ((allowedWidth < weaponSize.x) ? allowedWidth / weaponSize.x : 1.0)
+        ;
+
       int weaponWidth  = int(round(weaponSize.x * scale));
       int weaponHeight = int(round(weaponSize.y * scale));
 
@@ -79,6 +85,7 @@ class gb_WheelView
                 , weaponWidth
                 , weaponHeight
                 , angle
+                , isTall
                 );
     }
 
@@ -138,11 +145,13 @@ class gb_WheelView
   }
 
   private
-  void drawWeapon(TextureID texture, int x, int y, int w, int h, double angle) const
+  void drawWeapon(TextureID texture, int x, int y, int w, int h, double angle, bool isTall) const
   {
     bool flipX = (angle > 180);
-    if (angle > 180) angle -= 180;
+    if (flipX) angle -= 180;
     angle = -angle + 90;
+
+    if (isTall) angle -= 90;
 
     Screen.drawTexture( texture
                       , NO_ANIMATION
