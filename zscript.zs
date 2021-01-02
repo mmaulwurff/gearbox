@@ -24,13 +24,16 @@ version "4.4.2"
 #include "zscript/blocky_view.zs"
 #include "zscript/fade_in_out.zs"
 
-#include "zscript/wheel_view.zs"
-#include "zscript/wheel_controller.zs"
-#include "zscript/wheel_controller_model.zs"
-#include "zscript/wheel_indexer.zs"
+// Weapon Wheel implementation.
+#include "zscript/wheel/view.zs"
+#include "zscript/wheel/controller.zs"
+#include "zscript/wheel/controller_model.zs"
+#include "zscript/wheel/indexer.zs"
 
-#include "zscript/cvar.zs"
-#include "zscript/log.zs"
+// Utility tools.
+#include "zscript/tools/cvar.zs"
+#include "zscript/tools/log.zs"
 
+// Helper classes that wrap access to game information provided by the engine.
 #include "zscript/engine/level.zs"
 #include "zscript/engine/weapon_watcher.zs"
