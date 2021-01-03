@@ -111,10 +111,19 @@ class gb_EventHandler : EventHandler
       switch (gb_InputProcessor.process(event))
       {
       case InputSelectNextWeapon:
+        if (mOptions.isOpenOnScroll())
+        {
+          toggleMenu();
+          mWeaponMenu.selectNextWeapon();
+          return true;
+        }
+        break;
+
       case InputSelectPrevWeapon:
         if (mOptions.isOpenOnScroll())
         {
           toggleMenu();
+          mWeaponMenu.selectPrevWeapon();
           return true;
         }
         break;
