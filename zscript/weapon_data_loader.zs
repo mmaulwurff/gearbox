@@ -36,8 +36,12 @@ class gb_WeaponDataLoader play
 
       if (type == NULL || type == "Weapon") continue;
 
-      let replacement = Actor.getReplacement(type);
-      if (replacement != type && !(replacement is "DehackedPickup")) continue;
+      // This check from CheatGive doesn't work here.
+      // Why does it allow giving weapons for Treasure Tech there?
+      // Anyway, adding some replaced weapons to the data list won't harm, they
+      // won't show up unless the player has them.
+      //let replacement = Actor.getReplacement(type);
+      //if (replacement != type && !(replacement is "DehackedPickup")) continue;
 
       bool located;
       int  slot;
