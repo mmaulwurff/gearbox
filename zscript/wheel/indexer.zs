@@ -19,27 +19,7 @@ class gb_WheelIndexer
 {
 
   static
-  gb_WheelIndexer from()
-  {
-    let result = new("gb_WheelIndexer");
-    result.mSelectedIndex = 0;
-    return result;
-  }
-
-  void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
-  {
-    mSelectedIndex = getUpdatedIndex(viewModel, controllerModel);
-  }
-
-  int getSelectedIndex() const
-  {
-    return mSelectedIndex;
-  }
-
-// private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private static
-  int getUpdatedIndex(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
+  int getSelectedIndex(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
   {
     if (controllerModel.radius < DEAD_RADIUS)
     {
@@ -47,12 +27,10 @@ class gb_WheelIndexer
     }
 
     uint nItems = viewModel.tags.size();
-    int index = int(round(controllerModel.angle * nItems / 360.0)) % nItems;
-    return index;
+    int result = int(round(controllerModel.angle * nItems / 360.0)) % nItems;
+    return result;
   }
 
   const DEAD_RADIUS = 67;
-
-  private int mSelectedIndex;
 
 } // class gb_WheelIndexer

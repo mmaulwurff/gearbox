@@ -114,22 +114,22 @@ class gb_EventHandler : EventHandler
       mWeaponMenu.fill(viewModel);
 
       {
-        mWeaponView1.setAlpha(alpha);
-        mWeaponView1.setScale(mScaleCvar.getInt());
-        mWeaponView1.setBaseColor(mColorCvar.getInt());
+        mBlockyView.setAlpha(alpha);
+        mBlockyView.setScale(mScaleCvar.getInt());
+        mBlockyView.setBaseColor(mColorCvar.getInt());
 
-        //mWeaponView1.display(viewModel);
+        //mBlockyView.display(viewModel);
       }
 
       {
         gb_WheelControllerModel controllerModel;
         mWheelController.fill(controllerModel);
-        mWheelIndexer.update(viewModel, controllerModel);
-        mWeaponMenu.setSelectedIndexFromView(viewModel, mWheelIndexer.getSelectedIndex());
+        int selectedIndex = gb_WheelIndexer.getSelectedIndex(viewModel, controllerModel);
+        mWeaponMenu.setSelectedIndexFromView(viewModel, selectedIndex);
 
-        mWeaponView2.setAlpha(alpha);
-        mWeaponView2.setBaseColor(mColorCvar.getInt());
-        mWeaponView2.display(viewModel, controllerModel);
+        mWheelView.setAlpha(alpha);
+        mWheelView.setBaseColor(mColorCvar.getInt());
+        mWheelView.display(viewModel, controllerModel);
       }
     }
   }
@@ -145,13 +145,13 @@ class gb_EventHandler : EventHandler
 
     mActivity    = gb_Activity.from();
     mFadeInOut   = gb_FadeInOut.from();
-    mWeaponView1 = gb_BlockyView.from();
-    mWeaponView2 = gb_WheelView.from();
     mScaleCvar   = gb_Cvar.from("gb_scale");
     mColorCvar   = gb_Cvar.from("gb_color");
 
+    mBlockyView  = gb_BlockyView.from();
+
+    mWheelView       = gb_WheelView.from();
     mWheelController = gb_WheelController.from();
-    mWheelIndexer    = gb_WheelIndexer.from();
 
     mIsInitialized = true;
   }
@@ -159,13 +159,13 @@ class gb_EventHandler : EventHandler
   private gb_WeaponMenu mWeaponMenu;
   private gb_Activity   mActivity;
   private gb_FadeInOut  mFadeInOut;
-  private gb_BlockyView mWeaponView1;
-  private gb_WheelView  mWeaponView2;
   private gb_Cvar       mScaleCvar;
   private gb_Cvar       mColorCvar;
 
+  private gb_BlockyView mBlockyView;
+
+  private gb_WheelView       mWheelView;
   private gb_WheelController mWheelController;
-  private gb_WheelIndexer    mWheelIndexer;
 
   private bool mIsInitialized;
 
