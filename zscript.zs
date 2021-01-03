@@ -24,6 +24,8 @@ version "4.4.2"
 #include "zscript/blocky_view.zs"
 #include "zscript/fade_in_out.zs"
 
+#include "zscript/options.zs"
+
 // Weapon Wheel implementation.
 #include "zscript/wheel/view.zs"
 #include "zscript/wheel/controller.zs"

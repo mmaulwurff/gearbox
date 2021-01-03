@@ -76,7 +76,7 @@ class gb_EventHandler : EventHandler
   {
     if (!mIsInitialized) return false;
 
-    switch (mViewTypeCvar.getInt())
+    switch (mOptions.getViewType())
     {
     case VIEW_TYPE_WHEEL:
       if (mWheelController.process(event)) return true;
@@ -85,7 +85,7 @@ class gb_EventHandler : EventHandler
 
     if (mActivity.isWeapons())
     {
-      switch (mViewTypeCvar.getInt())
+      switch (mOptions.getViewType())
       {
       case VIEW_TYPE_WHEEL:
         mWheelController.reset();
@@ -101,7 +101,7 @@ class gb_EventHandler : EventHandler
         gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
         mActivity.toggleWeaponMenu();
 
-        switch (mViewTypeCvar.getInt())
+        switch (mOptions.getViewType())
         {
         case VIEW_TYPE_WHEEL:
           mWheelController.setIsActive(false);
@@ -136,12 +136,12 @@ class gb_EventHandler : EventHandler
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);
 
-      switch (mViewTypeCvar.getInt())
+      switch (mOptions.getViewType())
       {
       case VIEW_TYPE_BLOCKY:
         mBlockyView.setAlpha(alpha);
-        mBlockyView.setScale(mScaleCvar.getInt());
-        mBlockyView.setBaseColor(mColorCvar.getInt());
+        mBlockyView.setScale(mOptions.getScale());
+        mBlockyView.setBaseColor(mOptions.getColor());
         mBlockyView.display(viewModel);
         break;
 
@@ -153,7 +153,7 @@ class gb_EventHandler : EventHandler
         mWeaponMenu.setSelectedIndexFromView(viewModel, selectedIndex);
 
         mWheelView.setAlpha(alpha);
-        mWheelView.setBaseColor(mColorCvar.getInt());
+        mWheelView.setBaseColor(mOptions.getColor());
         mWheelView.display(viewModel, controllerModel);
         break;
       }
@@ -179,12 +179,9 @@ class gb_EventHandler : EventHandler
 
     mActivity  = gb_Activity.from();
     mFadeInOut = gb_FadeInOut.from();
+    mOptions   = gb_Options.from();
 
-    mScaleCvar    = gb_Cvar.from("gb_scale");
-    mColorCvar    = gb_Cvar.from("gb_color");
-    mViewTypeCvar = gb_Cvar.from("gb_view_type");
-
-    mBlockyView  = gb_BlockyView.from();
+    mBlockyView = gb_BlockyView.from();
 
     mWheelView       = gb_WheelView.from();
     mWheelController = gb_WheelController.from();
@@ -195,10 +192,7 @@ class gb_EventHandler : EventHandler
   private gb_WeaponMenu mWeaponMenu;
   private gb_Activity   mActivity;
   private gb_FadeInOut  mFadeInOut;
-
-  private gb_Cvar mScaleCvar;
-  private gb_Cvar mColorCvar;
-  private gb_Cvar mViewTypeCvar;
+  private gb_Options    mOptions;
 
   private gb_BlockyView mBlockyView;
 
