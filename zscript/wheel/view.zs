@@ -26,7 +26,6 @@ class gb_WheelView
     result.setBaseColor(0x2222CC);
     result.mCenterX = Screen.getWidth() - Screen.getHeight() / 2;
     result.mCenterY = Screen.getHeight() / 2;
-    result.mCurrentHandsAngle = -1.0;
     return result;
   }
 
@@ -95,7 +94,7 @@ class gb_WheelView
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private
+  private static
   double itemAngle(uint nItems, uint index)
   {
     return 360.0 / nItems * index;
@@ -104,8 +103,7 @@ class gb_WheelView
   private
   void drawHands(uint nWeapons, uint selectedIndex)
   {
-    mTargetHandsAngle = -itemAngle(nWeapons, selectedIndex);
-    updateHandsAngle();
+    double handsAngle = -itemAngle(nWeapons, selectedIndex);
 
     TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
     double sectorAngleHalfWidth = 360.0 / 2.0 / nWeapons;
@@ -116,7 +114,7 @@ class gb_WheelView
                       , DTA_CenterOffset , true
                       , DTA_KeepRatio    , true
                       , DTA_Alpha        , mAlpha
-                      , DTA_Rotate       , mCurrentHandsAngle - sectorAngleHalfWidth
+                      , DTA_Rotate       , handsAngle - sectorAngleHalfWidth
                       );
     Screen.drawTexture( handTexture
                       , NO_ANIMATION
@@ -125,7 +123,7 @@ class gb_WheelView
                       , DTA_CenterOffset , true
                       , DTA_KeepRatio    , true
                       , DTA_Alpha        , mAlpha
-                      , DTA_Rotate       , mCurrentHandsAngle + sectorAngleHalfWidth
+                      , DTA_Rotate       , handsAngle + sectorAngleHalfWidth
                       );
   }
 
@@ -181,36 +179,6 @@ class gb_WheelView
                       );
   }
 
-  private
-  void updateHandsAngle()
-  {
-    if (mCurrentHandsAngle == -1.0)
-    {
-      mCurrentHandsAngle = mTargetHandsAngle;
-      return;
-    }
-
-    mTargetHandsAngle  %= 360.0;
-    mCurrentHandsAngle %= 360.0;
-
-    double delta = mTargetHandsAngle - mCurrentHandsAngle;
-
-    if (abs(delta) <= ANGLE_STEP_THRESHOLD)
-    {
-      mCurrentHandsAngle = mTargetHandsAngle;
-      return;
-    }
-
-    double sign = delta / abs(delta);
-
-    if (delta > 180.0 || delta < -180.0)
-    {
-      sign = -sign;
-    }
-
-    mCurrentHandsAngle += sign * ANGLE_STEP;
-  }
-
   const NO_ANIMATION = 0; // == false
 
   const MARGIN = 4;
@@ -218,15 +186,9 @@ class gb_WheelView
   const SELECTED_SLOT_WIDTH = 100;
   const SELECTED_WEAPON_HEIGHT = SLOT_SIZE * 2 + MARGIN;
 
-  const ANGLE_STEP = 20.0;
-  const ANGLE_STEP_THRESHOLD = ANGLE_STEP * 2 / 3;
-
   private double mAlpha;
   private color mBaseColor;
   private int mCenterX;
   private int mCenterY;
-
-  private double mCurrentHandsAngle;
-  private double mTargetHandsAngle;
 
 } // class gb_WheelView
