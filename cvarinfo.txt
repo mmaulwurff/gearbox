@@ -6,3 +6,5 @@ user color gb_color = "22 22 CC";
 // 0 - blocky view
 // 1 - wheel view
 user int gb_view_type = 1;
+
+user bool gb_open_on_scroll = false;

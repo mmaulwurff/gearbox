@@ -22,20 +22,24 @@ class gb_Options
   gb_Options from()
   {
     let result = new("gb_Options");
-    result.mScaleCvar    = gb_Cvar.from("gb_scale");
-    result.mColorCvar    = gb_Cvar.from("gb_color");
-    result.mViewTypeCvar = gb_Cvar.from("gb_view_type");
+    result.mScale    = gb_Cvar.from("gb_scale");
+    result.mColor    = gb_Cvar.from("gb_color");
+    result.mViewType = gb_Cvar.from("gb_view_type");
+    result.mOpenOnScroll = gb_Cvar.from("gb_open_on_scroll");
     return result;
   }
 
-  int getViewType() const { return mViewTypeCvar.getInt(); }
-  int getScale()    const { return mScaleCvar.getInt(); }
-  int getColor()    const { return mColorCvar.getInt(); }
+  int getViewType() const { return mViewType.getInt(); }
+  int getScale()    const { return mScale.getInt(); }
+  int getColor()    const { return mColor.getInt(); }
+
+  bool isOpenOnScroll() const { return mOpenOnScroll.getBool(); }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private gb_Cvar mScaleCvar;
-  private gb_Cvar mColorCvar;
-  private gb_Cvar mViewTypeCvar;
+  private gb_Cvar mScale;
+  private gb_Cvar mColor;
+  private gb_Cvar mViewType;
+  private gb_Cvar mOpenOnScroll;
 
 } // class gb_Options

@@ -11,3 +11,6 @@ GB_TOGGLE_WEAPON_MENU = "Toggle weapon menu";
 GB_VIEW_TYPE   = "Selector type";
 GB_BLOCKY_VIEW = "Blocks";
 GB_WHEEL_VIEW  = "Wheel";
+
+GB_BEHAVIOR = "Behavior";
+GB_OPEN_ON_PREV_NEXT = "Open on next/previous weapon key press";

@@ -13,6 +13,10 @@ OptionMenu gb_Options
   StaticText  "$GB_VISUALS" , 1
   Slider      "$GB_SCALE"   , gb_scale, 1, 8, 1, 0
   ColorPicker "$GB_COLOR"   , gb_color
+
+  StaticText  ""
+  StaticText  "$GB_BEHAVIOR", 1
+  Option      "$GB_OPEN_ON_PREV_NEXT", gb_open_on_scroll, OnOff
 }
 
 OptionValue gb_ViewTypeValues

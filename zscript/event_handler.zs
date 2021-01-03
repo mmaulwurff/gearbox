@@ -59,13 +59,8 @@ class gb_EventHandler : EventHandler
 
     switch (gb_EventProcessor.process(event))
     {
-    case EventToggleWeaponMenu: mActivity.toggleWeaponMenu(); break;
+    case EventToggleWeaponMenu: toggleMenu(); break;
     }
-
-    // Note that we update wheel controller active status even if wheel is not
-    // active. In that case, the controller won't do anything because of the
-    // check in inputProcess function.
-    mWheelController.setIsActive(!mActivity.isNone());
   }
 
   /**
@@ -109,6 +104,20 @@ class gb_EventHandler : EventHandler
         }
 
         return true;
+      }
+    }
+    else if (mActivity.isNone())
+    {
+      switch (gb_InputProcessor.process(event))
+      {
+      case InputSelectNextWeapon:
+      case InputSelectPrevWeapon:
+        if (mOptions.isOpenOnScroll())
+        {
+          toggleMenu();
+          return true;
+        }
+        break;
       }
     }
 
@@ -163,6 +172,17 @@ class gb_EventHandler : EventHandler
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private ui
+  void toggleMenu()
+  {
+    mActivity.toggleWeaponMenu();
+
+    // Note that we update wheel controller active status even if wheel is not
+    // active. In that case, the controller won't do anything because of the
+    // check in inputProcess function.
+    mWheelController.setIsActive(!mActivity.isNone());
+  }
 
   enum ViewTypes
   {
