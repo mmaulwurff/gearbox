@@ -21,6 +21,7 @@ select weapons and items.
 
 - Two different representations: blocks and wheel
 - Color and scale options
+- Multiplayer-compatible
 
 ## Planned
 
@@ -28,6 +29,7 @@ select weapons and items.
 - Inventory item selection
 - Patches for weapon icon adjustments
 - More representations
+- Moving weapon between slots and changing order
 
 ## License
 
