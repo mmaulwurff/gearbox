@@ -56,25 +56,38 @@ class gb_EventHandler : EventHandler
     case EventToggleWeaponMenu: mActivity.toggleWeaponMenu(); break;
     }
 
+    // Note that we update wheel controller active status even if wheel is not
+    // active. In that case, the controller won't do anything because of the
+    // check in inputProcess function.
     mWheelController.setIsActive(!mActivity.isNone());
   }
 
   /**
-   * This function provides latching to existing key bindings.
+   * This function provides latching to existing key bindings, and processing mouse input.
    */
   override
-  bool InputProcess(InputEvent event)
+  bool inputProcess(InputEvent event)
   {
     if (!mIsInitialized) return false;
 
-    if (mWheelController.process(event))
+    switch (mViewTypeCvar.getInt())
     {
-      return true;
+    case VIEW_TYPE_WHEEL:
+      if (mWheelController.process(event))
+      {
+        return true;
+      }
+      break;
     }
 
     if (mActivity.isWeapons())
     {
-      mWheelController.reset();
+      switch (mViewTypeCvar.getInt())
+      {
+      case VIEW_TYPE_WHEEL:
+        mWheelController.reset();
+        break;
+      }
 
       switch (gb_InputProcessor.process(event))
       {
@@ -84,7 +97,14 @@ class gb_EventHandler : EventHandler
       case InputConfirmSelection:
         gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
         mActivity.toggleWeaponMenu();
-        mWheelController.setIsActive(false);
+
+        switch (mViewTypeCvar.getInt())
+        {
+        case VIEW_TYPE_WHEEL:
+          mWheelController.setIsActive(false);
+          break;
+        }
+
         return true;
       }
     }
@@ -113,14 +133,16 @@ class gb_EventHandler : EventHandler
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);
 
+      switch (mViewTypeCvar.getInt())
       {
+      case VIEW_TYPE_BLOCKY:
         mBlockyView.setAlpha(alpha);
         mBlockyView.setScale(mScaleCvar.getInt());
         mBlockyView.setBaseColor(mColorCvar.getInt());
+        mBlockyView.display(viewModel);
+        break;
 
-        //mBlockyView.display(viewModel);
-      }
-
+      case VIEW_TYPE_WHEEL:
       {
         gb_WheelControllerModel controllerModel;
         mWheelController.fill(controllerModel);
@@ -130,11 +152,20 @@ class gb_EventHandler : EventHandler
         mWheelView.setAlpha(alpha);
         mWheelView.setBaseColor(mColorCvar.getInt());
         mWheelView.display(viewModel, controllerModel);
+        break;
+      }
+
       }
     }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  enum ViewTypes
+  {
+    VIEW_TYPE_BLOCKY = 0,
+    VIEW_TYPE_WHEEL  = 1,
+  }
 
   private
   void initialize()
@@ -143,10 +174,12 @@ class gb_EventHandler : EventHandler
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
 
-    mActivity    = gb_Activity.from();
-    mFadeInOut   = gb_FadeInOut.from();
-    mScaleCvar   = gb_Cvar.from("gb_scale");
-    mColorCvar   = gb_Cvar.from("gb_color");
+    mActivity  = gb_Activity.from();
+    mFadeInOut = gb_FadeInOut.from();
+
+    mScaleCvar    = gb_Cvar.from("gb_scale");
+    mColorCvar    = gb_Cvar.from("gb_color");
+    mViewTypeCvar = gb_Cvar.from("gb_view_type");
 
     mBlockyView  = gb_BlockyView.from();
 
@@ -159,8 +192,10 @@ class gb_EventHandler : EventHandler
   private gb_WeaponMenu mWeaponMenu;
   private gb_Activity   mActivity;
   private gb_FadeInOut  mFadeInOut;
-  private gb_Cvar       mScaleCvar;
-  private gb_Cvar       mColorCvar;
+
+  private gb_Cvar mScaleCvar;
+  private gb_Cvar mColorCvar;
+  private gb_Cvar mViewTypeCvar;
 
   private gb_BlockyView mBlockyView;
 

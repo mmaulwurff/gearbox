@@ -7,3 +7,7 @@ GB_COLOR   = "Color";
 
 GB_KEYSECTION         = "Gearbox Keys";
 GB_TOGGLE_WEAPON_MENU = "Toggle weapon menu";
+
+GB_VIEW_TYPE   = "Selector type";
+GB_BLOCKY_VIEW = "Blocks";
+GB_WHEEL_VIEW  = "Wheel";
