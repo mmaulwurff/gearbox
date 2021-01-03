@@ -25,8 +25,9 @@ select weapons and items.
 ## Planned
 
 - Reaction to number keys
-- Item selection
+- Inventory item selection
 - Patches for weapon icon adjustments
+- More representations
 
 ## License
 
