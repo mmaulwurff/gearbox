@@ -84,10 +84,13 @@ class gb_WeaponMenu
       //viewModel.iconOrientations.push(icon == getReadyState(aWeapon).getSpriteTexture(0));
       viewModel.iconOrientations.push(icon == aWeapon.icon);
 
-      viewModel.   ammo1.push(aWeapon.ammo1 ? aWeapon.ammo1.   amount : -1);
-      viewModel.maxAmmo1.push(aWeapon.ammo1 ? aWeapon.ammo1.maxAmount : -1);
-      viewModel.   ammo2.push(aWeapon.ammo2 ? aWeapon.ammo2.   amount : -1);
-      viewModel.maxAmmo2.push(aWeapon.ammo2 ? aWeapon.ammo2.maxAmount : -1);
+      bool hasAmmo1 = aWeapon.ammo1;
+      bool hasAmmo2 = aWeapon.ammo2 && aWeapon.ammo2 != aWeapon.ammo1;
+
+      viewModel.   ammo1.push(hasAmmo1 ? aWeapon.ammo1.   amount : -1);
+      viewModel.maxAmmo1.push(hasAmmo1 ? aWeapon.ammo1.maxAmount : -1);
+      viewModel.   ammo2.push(hasAmmo2 ? aWeapon.ammo2.   amount : -1);
+      viewModel.maxAmmo2.push(hasAmmo2 ? aWeapon.ammo2.maxAmount : -1);
     }
   }
 
