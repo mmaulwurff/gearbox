@@ -103,10 +103,12 @@ class gb_WheelView
   private
   void drawHands(uint nWeapons, uint selectedIndex)
   {
+    if (nWeapons < 2) return;
+
     double handsAngle = -itemAngle(nWeapons, selectedIndex);
 
     TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
-    double sectorAngleHalfWidth = 360.0 / 2.0 / nWeapons;
+    double sectorAngleHalfWidth = 360.0 / 2.0 / nWeapons - 2;
     Screen.drawTexture( handTexture
                       , NO_ANIMATION
                       , mCenterX
