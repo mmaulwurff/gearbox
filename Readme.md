@@ -13,6 +13,8 @@ select weapons and items.
 
 ## How to use
 
+GZDoom 4.5 required.
+
 1. open the menu by assigned key, or by next/previous weapon keys, if enabled in
    options
 2. select the weapon with next/previous weapon keys, or with mouse (wheel only)

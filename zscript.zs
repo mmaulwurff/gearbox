@@ -1,4 +1,4 @@
-version "4.4.2"
+version "4.5"
 
 #include "zscript/event_handler.zs"
 
