@@ -25,7 +25,6 @@ struct gb_ViewModel
   Array<int> indices;
 
   Array<TextureID> icons;
-  Array<int>       iconOrientations;
 
   Array<int> ammo1;
   Array<int> maxAmmo1;

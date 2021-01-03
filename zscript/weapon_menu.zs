@@ -75,14 +75,12 @@ class gb_WeaponMenu
       viewModel.slots.push(mSlots[i]);
       viewModel.indices.push(i);
 
-      // Workaround, casting TextureID to int may break.
       TextureID icon = StatusBar.GetInventoryIcon(aWeapon, StatusBar.DI_ALTICONFIRST);
 
       if (!icon.isValid()) icon = TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
 
+      // Workaround, casting TextureID to int may be unreliable.
       viewModel.icons.push(int(icon));
-      //viewModel.iconOrientations.push(icon == getReadyState(aWeapon).getSpriteTexture(0));
-      viewModel.iconOrientations.push(icon == aWeapon.icon);
 
       bool hasAmmo1 = aWeapon.ammo1;
       bool hasAmmo2 = aWeapon.ammo2 && aWeapon.ammo2 != aWeapon.ammo1;
