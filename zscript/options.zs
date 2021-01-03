@@ -26,6 +26,7 @@ class gb_Options
     result.mColor    = gb_Cvar.from("gb_color");
     result.mViewType = gb_Cvar.from("gb_view_type");
     result.mOpenOnScroll = gb_Cvar.from("gb_open_on_scroll");
+    result.mMouseInWheel = gb_Cvar.from("gb_mouse_in_wheel");
     return result;
   }
 
@@ -34,6 +35,7 @@ class gb_Options
   int getColor()    const { return mColor.getInt(); }
 
   bool isOpenOnScroll() const { return mOpenOnScroll.getBool(); }
+  bool isMouseInWheel() const { return mMouseInWheel.getBool(); }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -41,5 +43,6 @@ class gb_Options
   private gb_Cvar mColor;
   private gb_Cvar mViewType;
   private gb_Cvar mOpenOnScroll;
+  private gb_Cvar mMouseInWheel;
 
 } // class gb_Options

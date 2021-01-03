@@ -74,7 +74,7 @@ class gb_EventHandler : EventHandler
     switch (mOptions.getViewType())
     {
     case VIEW_TYPE_WHEEL:
-      if (mWheelController.process(event)) return true;
+      if (mOptions.isMouseInWheel() && mWheelController.process(event)) return true;
       break;
     }
 
@@ -172,7 +172,7 @@ class gb_EventHandler : EventHandler
 
         mWheelView.setAlpha(alpha);
         mWheelView.setBaseColor(mOptions.getColor());
-        mWheelView.display(viewModel, controllerModel);
+        mWheelView.display(viewModel, controllerModel, mOptions.isMouseInWheel());
         break;
       }
 

@@ -8,3 +8,4 @@ user color gb_color = "22 22 CC";
 user int gb_view_type = 1;
 
 user bool gb_open_on_scroll = false;
+user bool gb_mouse_in_wheel = true;

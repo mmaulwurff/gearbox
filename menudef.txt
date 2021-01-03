@@ -17,6 +17,7 @@ OptionMenu gb_Options
   StaticText  ""
   StaticText  "$GB_BEHAVIOR", 1
   Option      "$GB_OPEN_ON_PREV_NEXT", gb_open_on_scroll, OnOff
+  Option      "$GB_MOUSE_IN_WHEEL"   , gb_mouse_in_wheel, OnOff
 }
 
 OptionValue gb_ViewTypeValues

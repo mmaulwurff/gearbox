@@ -39,7 +39,10 @@ class gb_WheelView
     mBaseColor = color;
   }
 
-  void display(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel) const
+  void display( gb_ViewModel viewModel
+              , gb_WheelControllerModel controllerModel
+              , bool showPointer
+              ) const
   {
     Screen.Dim(0x999999, mAlpha * 0.3, 0, 0, Screen.getWidth(), Screen.getHeight());
 
@@ -89,7 +92,11 @@ class gb_WheelView
     }
 
     drawHands(nWeapons, viewModel.selectedWeaponIndex);
-    drawPointer(controllerModel.angle, controllerModel.radius);
+
+    if (showPointer)
+    {
+      drawPointer(controllerModel.angle, controllerModel.radius);
+    }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
