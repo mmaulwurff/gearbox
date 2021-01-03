@@ -18,7 +18,7 @@
 class gb_Level
 {
 
-  enum _ { Loading, JustLoaded, Loaded }
+  enum _ { NotInGame, Loading, JustLoaded, Loaded }
 
   static
   int getState()
@@ -26,6 +26,7 @@ class gb_Level
     // In the best case, the world is fully loaded on tick 0, but if player
     // weapons are configured via keyconf, they require a bit of network
     // communication, which finishes at tick 1.
+    if (level.mapName ~== "titlemap") return gb_Level.NotInGame;
     if (level.time == 0) return gb_Level.Loading;
     if (level.time == 1) return gb_Level.JustLoaded;
     return gb_Level.Loaded;

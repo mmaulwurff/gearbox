@@ -16,6 +16,11 @@
  */
 
 /**
+ * This class is the core of Gearbox.
+ *
+ * It delegates as much work to other classes while minimizing the relationships
+ * between those classes.
+ *
  * To ensure multiplayer compatibility, Gearbox does the following:
  *
  * 1. All visuals and input processing happens on client side and is invisible
@@ -32,6 +37,7 @@ class gb_EventHandler : EventHandler
   {
     switch (gb_Level.getState())
     {
+    case gb_Level.NotInGame:  return;
     case gb_Level.Loading:    return;
     case gb_Level.JustLoaded: initialize(); // fallthrough
     case gb_Level.Loaded:     break;
@@ -73,10 +79,7 @@ class gb_EventHandler : EventHandler
     switch (mViewTypeCvar.getInt())
     {
     case VIEW_TYPE_WHEEL:
-      if (mWheelController.process(event))
-      {
-        return true;
-      }
+      if (mWheelController.process(event)) return true;
       break;
     }
 
