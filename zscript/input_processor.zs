@@ -26,7 +26,12 @@ class gb_InputProcessor
     int key = event.keyScan;
     if (isKeyForCommand(key, "weapnext")) return InputSelectNextWeapon;
     if (isKeyForCommand(key, "weapprev")) return InputSelectPrevWeapon;
-    if (isKeyForCommand(key, "+attack"))  return InputConfirmSelection;
+    if (isKeyForCommand(key, "+attack" )) return InputConfirmSelection;
+
+    for (int i = 0; i <= 11; ++i)
+    {
+      if (isKeyForCommand(key, string.format("slot %d", i))) return i + InputSelectSlotBegin;
+    }
 
     return InputNothing;
   }

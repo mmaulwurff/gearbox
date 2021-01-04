@@ -24,5 +24,7 @@ enum gb_Input
   InputConfirmSelection,
   InputToggleWeaponMenu,
   InputToggleWeaponMenuObsolete,
+  InputSelectSlotBegin,
+  InputSelectSlotEnd = InputSelectSlotBegin + 11,
 
 } // enum gb_Input

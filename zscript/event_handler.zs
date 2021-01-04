@@ -82,6 +82,8 @@ class gb_EventHandler : EventHandler
       break;
     }
 
+    int input = gb_InputProcessor.process(event);
+
     if (mActivity.isWeapons())
     {
       switch (mOptions.getViewType())
@@ -91,7 +93,14 @@ class gb_EventHandler : EventHandler
         break;
       }
 
-      switch (gb_InputProcessor.process(event))
+      if (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd)
+      {
+        int slot = input - InputSelectSlotBegin;
+        mWeaponMenu.selectSlot(slot);
+        return true;
+      }
+
+      switch (input)
       {
       case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); return true;
       case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); return true;
@@ -100,7 +109,14 @@ class gb_EventHandler : EventHandler
     }
     else if (mActivity.isNone())
     {
-      switch (gb_InputProcessor.process(event))
+      if (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd)
+      {
+        int slot = input - InputSelectSlotBegin;
+        if (mWeaponMenu.selectSlot(slot)) toggleMenu();
+        return true;
+      }
+
+      switch (input)
       {
       case InputSelectNextWeapon:
         if (mOptions.isOpenOnScroll())

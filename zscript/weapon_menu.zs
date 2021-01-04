@@ -53,6 +53,22 @@ class gb_WeaponMenu
     mSelectedIndex = findPrevWeapon();
   }
 
+  bool selectSlot(int slot)
+  {
+    uint nWeapons = mWeapons.size();
+    for (uint i = 1; i < nWeapons; ++i)
+    {
+      uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
+      if (mSlots[index] == slot && players[consolePlayer].mo.findInventory(mWeapons[index]))
+      {
+        mSelectedIndex = index;
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   string confirmSelection()
   {
     return getDefaultByType(mWeapons[mSelectedIndex]).getClassName();
