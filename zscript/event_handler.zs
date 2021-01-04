@@ -217,6 +217,8 @@ class gb_EventHandler : EventHandler
   private ui
   void confirmSelectionAndCloseMenu()
   {
+    if (mActivity.isNone()) return;
+
     gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
     mActivity.toggleWeaponMenu();
 
