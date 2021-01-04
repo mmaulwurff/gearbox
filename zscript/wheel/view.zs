@@ -22,10 +22,13 @@ class gb_WheelView
   gb_WheelView from()
   {
     let result = new("gb_WheelView");
+
     result.setAlpha(1.0);
     result.setBaseColor(0x2222CC);
+
     result.mCenterX = Screen.getWidth() - Screen.getHeight() / 2;
     result.mCenterY = Screen.getHeight() / 2;
+
     return result;
   }
 
@@ -191,9 +194,6 @@ class gb_WheelView
   const NO_ANIMATION = 0; // == false
 
   const MARGIN = 4;
-  const SLOT_SIZE = 25;
-  const SELECTED_SLOT_WIDTH = 100;
-  const SELECTED_WEAPON_HEIGHT = SLOT_SIZE * 2 + MARGIN;
 
   private double mAlpha;
   private color mBaseColor;
