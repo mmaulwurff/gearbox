@@ -26,8 +26,7 @@ class gb_WheelView
     result.setAlpha(1.0);
     result.setBaseColor(0x2222CC);
 
-    result.mCenterX = Screen.getWidth() - Screen.getHeight() / 2;
-    result.mCenterY = Screen.getHeight() / 2;
+    [result.mCenterX, result.mCenterY] = gb_WheelCenter.getCoordinates();
 
     return result;
   }
