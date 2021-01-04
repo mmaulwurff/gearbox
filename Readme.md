@@ -32,6 +32,7 @@ GZDoom 4.5 required.
 - Patches for weapon icon adjustments
 - More representations
 - Moving weapon between slots and changing order
+- Sounds for actions
 
 ## License
 
@@ -42,3 +43,4 @@ GZDoom 4.5 required.
 - Thanks to Accensus and kadu522 for help with title selection.
 - Blocky view is designed to resemble the weapon menu from Half-Life by Valve.
 - Thanks to Marrub for [ZScriptDoc](https://github.com/marrub--/zdoom-doc).
+- Thanks to Proydoha for feature requests.
