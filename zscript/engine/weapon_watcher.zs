@@ -33,7 +33,8 @@ class gb_WeaponWatcher
     let currentWeapon = player.pendingWeapon.getClassName() != "Object"
       ? player.pendingWeapon
       : player.readyWeapon;
-    return currentWeapon.getClass();
+
+    return currentWeapon ? currentWeapon.getClass() : NULL;
   }
 
 } // class gb_WeaponWatcher
