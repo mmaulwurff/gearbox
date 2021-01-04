@@ -63,6 +63,8 @@ class gb_EventHandler : EventHandler
     case InputConfirmSelection: confirmSelectionAndCloseMenu(); break;
     case InputToggleWeaponMenuObsolete: gb_Log.notice("GB_TOGGLE_WEAPON_MENU_OBSOLETE"); break;
     }
+
+    if (!mActivity.isNone()) mWheelController.reset();
   }
 
   /**
@@ -86,13 +88,6 @@ class gb_EventHandler : EventHandler
 
     if (mActivity.isWeapons())
     {
-      switch (mOptions.getViewType())
-      {
-      case VIEW_TYPE_WHEEL:
-        mWheelController.reset();
-        break;
-      }
-
       if (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd)
       {
         int slot = input - InputSelectSlotBegin;
@@ -102,13 +97,15 @@ class gb_EventHandler : EventHandler
 
       switch (input)
       {
-      case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); return true;
-      case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); return true;
+      case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); mWheelController.reset(); return true;
+      case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); mWheelController.reset(); return true;
       case InputConfirmSelection: confirmSelectionAndCloseMenu(); return true;
       }
     }
     else if (mActivity.isNone())
     {
+      mWheelController.reset();
+
       if (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd)
       {
         int slot = input - InputSelectSlotBegin;

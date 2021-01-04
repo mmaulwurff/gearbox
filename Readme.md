@@ -45,3 +45,4 @@ GZDoom 4.5 required.
 - Blocky view is designed to resemble the weapon menu from Half-Life by Valve.
 - Thanks to Marrub for [ZScriptDoc](https://github.com/marrub--/zdoom-doc).
 - Thanks to Proydoha for feature requests and bug reports.
+- Thanks to mamaluigisbagel for bug reports.

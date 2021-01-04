@@ -85,11 +85,10 @@ class gb_WheelView
       drawWeapon(weaponTexture, x, y, weaponWidth, weaponHeight, angle, isTall);
     }
 
-    drawHands(nWeapons, viewModel.selectedWeaponIndex);
-
-    if (showPointer)
+    if (mAlpha == 1.0)
     {
-      drawPointer(controllerModel.angle, controllerModel.radius);
+      drawHands(nWeapons, viewModel.selectedWeaponIndex);
+      if (showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
     }
   }
 
