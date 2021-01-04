@@ -22,5 +22,7 @@ enum gb_Input
   InputSelectNextWeapon,
   InputSelectPrevWeapon,
   InputConfirmSelection,
+  InputToggleWeaponMenu,
+  InputToggleWeaponMenuObsolete,
 
 } // enum gb_Input

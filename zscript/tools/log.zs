@@ -25,6 +25,12 @@ class gb_Log
   }
 
   static
+  void notice(string s)
+  {
+    Console.printf("[NOTICE] %s: %s", MOD_NAME, StringTable.localize(s, false));
+  }
+
+  static
   void error(string s)
   {
     Console.printf("[ERROR] %s: %s.", MOD_NAME, s);

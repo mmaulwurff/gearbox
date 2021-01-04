@@ -19,11 +19,13 @@ class gb_EventProcessor
 {
 
   static
-  int process(ConsoleEvent event)
+  int process(ConsoleEvent event, bool isSelectOnKeyUp)
   {
-    if (event.name == "gb_toggle_weapon_menu") return EventToggleWeaponMenu;
+    if (event.name == "gb_toggle_weapon_menu") return InputToggleWeaponMenu;
+    if (event.name == "gb_toggle_weapon_menu_up" && isSelectOnKeyUp) return InputConfirmSelection;
+    if (event.name == "gb_toggle_weapon_menu_obsolete") return InputToggleWeaponMenuObsolete;
 
-    return EventNothing;
+    return InputNothing;
   }
 
 } // class gb_EventProcessor

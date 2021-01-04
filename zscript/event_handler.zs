@@ -57,9 +57,11 @@ class gb_EventHandler : EventHandler
   {
     if (!mIsInitialized) return;
 
-    switch (gb_EventProcessor.process(event))
+    switch (gb_EventProcessor.process(event, mOptions.isSelectOnKeyUp()))
     {
-    case EventToggleWeaponMenu: toggleMenu(); break;
+    case InputToggleWeaponMenu: toggleMenu();       break;
+    case InputConfirmSelection: confirmSelection(); break;
+    case InputToggleWeaponMenuObsolete: gb_Log.notice("GB_TOGGLE_WEAPON_MENU_OBSOLETE"); break;
     }
   }
 
@@ -93,19 +95,7 @@ class gb_EventHandler : EventHandler
       {
       case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); return true;
       case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); return true;
-
-      case InputConfirmSelection:
-        gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
-        mActivity.toggleWeaponMenu();
-
-        switch (mOptions.getViewType())
-        {
-        case VIEW_TYPE_WHEEL:
-          mWheelController.setIsActive(false);
-          break;
-        }
-
-        return true;
+      case InputConfirmSelection: confirmSelection();             return true;
       }
     }
     else if (mActivity.isNone())
@@ -193,6 +183,20 @@ class gb_EventHandler : EventHandler
     // active. In that case, the controller won't do anything because of the
     // check in inputProcess function.
     mWheelController.setIsActive(!mActivity.isNone());
+  }
+
+  private ui
+  void confirmSelection()
+  {
+    gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
+    mActivity.toggleWeaponMenu();
+
+    switch (mOptions.getViewType())
+    {
+    case VIEW_TYPE_WHEEL:
+      mWheelController.setIsActive(false);
+      break;
+    }
   }
 
   enum ViewTypes

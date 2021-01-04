@@ -9,7 +9,6 @@ version "4.5"
 #include "zscript/activity.zs"
 #include "zscript/input.zs"
 #include "zscript/input_processor.zs"
-#include "zscript/event.zs"
 #include "zscript/event_processor.zs"
 
 #include "zscript/weapon_menu.zs"

@@ -7,14 +7,16 @@ GB_COLOR   = "Color";
 
 GB_KEYSECTION         = "Gearbox Keys";
 GB_TOGGLE_WEAPON_MENU = "Toggle weapon menu";
+GB_TOGGLE_WEAPON_MENU_OBSOLETE = "Rebind Toggle Weapon Menu key, please.";
 
 GB_VIEW_TYPE   = "Selector type";
 GB_BLOCKY_VIEW = "Blocks";
 GB_WHEEL_VIEW  = "Wheel";
 
-GB_BEHAVIOR = "Behavior";
+GB_BEHAVIOR          = "Behavior";
 GB_OPEN_ON_PREV_NEXT = "Open on next/previous weapon key press";
 GB_MOUSE_IN_WHEEL    = "Enable mouse input in weapon wheel";
+GB_SELECT_ON_KEY_UP  = "Select on Toggle Menu key release";
 
 GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
 GB_X = "Horizontal";
