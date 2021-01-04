@@ -13,3 +13,7 @@
 !**.zs
 !**.sh
 !**.png
+
+# But do ignore this:
+
+changelog.txt
