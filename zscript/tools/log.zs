@@ -19,32 +19,34 @@ class gb_Log
 {
 
   static
-  void print(String s)
+  void print(string s)
   {
     Console.printf("%s", StringTable.localize(s, false));
   }
 
   static
-  void error(String s)
+  void error(string s)
   {
-    Console.printf("[ERROR] Weapon Selector: %s.", s);
+    Console.printf("[ERROR] %s: %s.", MOD_NAME, s);
   }
 
   static
-  void log(String s)
+  void log(string s)
   {
-    Console.printf("[LOG] Weapon Selector: %s.", s);
+    Console.printf("[LOG] %s: %s.", MOD_NAME, s);
   }
 
   static
-  void debug(String s)
+  void debug(string s)
   {
     if (DEBUG_ENABLED)
     {
-      Console.printf("[DEBUG] Weapon Selector: %s.", s);
+      Console.printf("[DEBUG] %s: %s.", MOD_NAME, s);
     }
   }
 
   const DEBUG_ENABLED = 0; // == false
+
+  const MOD_NAME = "Gearbox";
 
 } // class gb_Log
