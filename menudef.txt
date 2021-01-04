@@ -18,6 +18,11 @@ OptionMenu gb_Options
   StaticText  "$GB_BEHAVIOR", 1
   Option      "$GB_OPEN_ON_PREV_NEXT", gb_open_on_scroll, OnOff
   Option      "$GB_MOUSE_IN_WHEEL"   , gb_mouse_in_wheel, OnOff
+
+  StaticText  ""
+  StaticText  "$GB_MOUSE_SENSITIVITY", 1
+  Slider      "$GB_X", gb_mouse_sensitivity_x, 0.1, 5, 0.1, 1
+  Slider      "$GB_Y", gb_mouse_sensitivity_y, 0.1, 5, 0.1, 1
 }
 
 OptionValue gb_ViewTypeValues

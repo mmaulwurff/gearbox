@@ -9,3 +9,6 @@ user int gb_view_type = 1;
 
 user bool gb_open_on_scroll = false;
 user bool gb_mouse_in_wheel = true;
+
+user float gb_mouse_sensitivity_x = 1.0;
+user float gb_mouse_sensitivity_y = 1.0;

@@ -15,3 +15,7 @@ GB_WHEEL_VIEW  = "Wheel";
 GB_BEHAVIOR = "Behavior";
 GB_OPEN_ON_PREV_NEXT = "Open on next/previous weapon key press";
 GB_MOUSE_IN_WHEEL    = "Enable mouse input in weapon wheel";
+
+GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
+GB_X = "Horizontal";
+GB_Y = "Vertical";

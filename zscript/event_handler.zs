@@ -71,6 +71,8 @@ class gb_EventHandler : EventHandler
   {
     if (!mIsInitialized) return false;
 
+    mWheelController.setMouseSensitivity(mOptions.getMouseSensitivity());
+
     switch (mOptions.getViewType())
     {
     case VIEW_TYPE_WHEEL:

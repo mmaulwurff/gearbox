@@ -46,14 +46,19 @@ class gb_WheelController
     model.radius = getRadius();
   }
 
+  void setMouseSensitivity(Vector2 sensitivity)
+  {
+    mMouseSensitivity = sensitivity;
+  }
+
   bool process(InputEvent event)
   {
     if (!mIsActive) return false;
 
     if (event.type == InputEvent.Type_Mouse)
     {
-      mX += event.mouseX;
-      mY -= event.mouseY;
+      mX += int(round(event.mouseX * mMouseSensitivity.x));
+      mY -= int(round(event.mouseY * mMouseSensitivity.y));
       return true;
     }
 
@@ -77,5 +82,6 @@ class gb_WheelController
   private bool mIsActive;
   private int  mX;
   private int  mY;
+  private Vector2 mMouseSensitivity;
 
 } // class gb_WheelController
