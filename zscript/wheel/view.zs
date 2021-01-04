@@ -59,20 +59,20 @@ class gb_WheelView
                       );
 
     uint nWeapons = viewModel.tags.size();
+    int  radius   = Screen.getHeight() * 5 / 32;
+    int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
+
     for (uint i = 0; i < nWeapons; ++i)
     {
       double angle = itemAngle(nWeapons, i);
 
-      int radius = Screen.getHeight() * 5 / 32;
       int x = int(round( sin(angle) * radius + mCenterX));
       int y = int(round(-cos(angle) * radius + mCenterY));
 
       // code is adapted from GZDoom AltHud.DrawImageToBox.
       TextureID weaponTexture = viewModel.icons[i];
-      Vector2 weaponSize = TexMan.getScaledSize(weaponTexture) * 2;
-
-      bool isTall = weaponSize.y > weaponSize.x;
-      int allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
+      Vector2   weaponSize    = TexMan.getScaledSize(weaponTexture) * 2;
+      bool      isTall        = weaponSize.y > weaponSize.x;
 
       double scale = isTall
         ? ((allowedWidth < weaponSize.y) ? allowedWidth / weaponSize.y : 1.0)
@@ -82,14 +82,7 @@ class gb_WheelView
       int weaponWidth  = int(round(weaponSize.x * scale));
       int weaponHeight = int(round(weaponSize.y * scale));
 
-      drawWeapon( weaponTexture
-                , x
-                , y
-                , weaponWidth
-                , weaponHeight
-                , angle
-                , isTall
-                );
+      drawWeapon(weaponTexture, x, y, weaponWidth, weaponHeight, angle, isTall);
     }
 
     drawHands(nWeapons, viewModel.selectedWeaponIndex);
