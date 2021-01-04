@@ -90,6 +90,7 @@ class gb_EventHandler : EventHandler
     {
       if (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd)
       {
+        mWheelController.reset();
         int slot = input - InputSelectSlotBegin;
         mWeaponMenu.selectSlot(slot);
         return true;
@@ -112,6 +113,7 @@ class gb_EventHandler : EventHandler
 
         if (mOptions.isNoMenuIfOne() && mWeaponMenu.isOneWeaponInSlot(slot))
         {
+          mWheelController.reset();
           mWeaponMenu.selectSlot(slot);
           gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
         }
