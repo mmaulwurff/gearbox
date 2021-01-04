@@ -46,52 +46,126 @@ class gb_WheelView
               , bool showPointer
               ) const
   {
-    TextureID circleTexture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
-    Screen.drawTexture( circleTexture
-                      , NO_ANIMATION
-                      , mCenterX
-                      , mCenterY
-                      , DTA_FillColor    , mBaseColor
-                      , DTA_AlphaChannel , true
-                      , DTA_Alpha        , mAlpha
-                      , DTA_CenterOffset , true
-                      );
+    {
+      TextureID circleTexture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
+      Screen.drawTexture( circleTexture
+                        , NO_ANIMATION
+                        , mCenterX
+                        , mCenterY
+                        , DTA_FillColor    , mBaseColor
+                        , DTA_AlphaChannel , true
+                        , DTA_Alpha        , mAlpha
+                        , DTA_CenterOffset , true
+                        );
+    }
 
     uint nWeapons = viewModel.tags.size();
     int  radius   = Screen.getHeight() * 5 / 32;
     int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
 
-    for (uint i = 0; i < nWeapons; ++i)
+    bool multiWheelMode = (nWeapons > 12);
+
+    if (multiWheelMode)
     {
-      double angle = itemAngle(nWeapons, i);
+      Array<bool> isWeapon;
+      Array<int>  data; // slot or weapon index
 
-      int x = int(round( sin(angle) * radius + mCenterX));
-      int y = int(round(-cos(angle) * radius + mCenterY));
+      int lastSlot = -1;
 
-      // code is adapted from GZDoom AltHud.DrawImageToBox.
-      TextureID weaponTexture = viewModel.icons[i];
-      Vector2   weaponSize    = TexMan.getScaledSize(weaponTexture) * 2;
-      bool      isTall        = weaponSize.y > weaponSize.x;
+      for (uint i = 0; i < nWeapons; ++i)
+      {
+        int  slot     = viewModel.slots[i];
+        bool isSingle = isSingleWeaponInSlot(viewModel, nWeapons, slot);
+        if (isSingle)
+        {
+          isWeapon.push(true);
+          data.push(i);
+        }
+        else
+        {
+          if (slot != lastSlot)
+          {
+            lastSlot = slot;
+            isWeapon.push(false);
+            data.push(slot);
+          }
+        }
+      }
 
-      double scale = isTall
-        ? ((allowedWidth < weaponSize.y) ? allowedWidth / weaponSize.y : 1.0)
-        : ((allowedWidth < weaponSize.x) ? allowedWidth / weaponSize.x : 1.0)
-        ;
+      uint nPlaces = isWeapon.size();
+      for (uint i = 0; i < nPlaces; ++i)
+      {
+        if (isWeapon[i]) displayWeapon(i, data[i], nPlaces, radius, allowedWidth, viewModel);
+        else             displaySlot  (i, data[i], nPlaces, radius);
+      }
+    }
+    else
+    {
+      for (uint i = 0; i < nWeapons; ++i)
+      {
+        displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel);
+      }
 
-      int weaponWidth  = int(round(weaponSize.x * scale));
-      int weaponHeight = int(round(weaponSize.y * scale));
-
-      drawWeapon(weaponTexture, x, y, weaponWidth, weaponHeight, angle, isTall);
+      if (mAlpha == 1.0) drawHands(nWeapons, viewModel.selectedWeaponIndex);
     }
 
-    if (mAlpha == 1.0)
-    {
-      drawHands(nWeapons, viewModel.selectedWeaponIndex);
-      if (showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
-    }
+    if (mAlpha == 1.0 && showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  bool isSingleWeaponInSlot(gb_ViewModel viewModel, uint nWeapons, int slot)
+  {
+    int nWeaponsInSlot = 0;
+    for (uint i = 0; i < nWeapons; ++i)
+    {
+      nWeaponsInSlot += (viewModel.slots[i] == slot);
+      if (nWeaponsInSlot > 1) return false;
+    }
+    return true;
+  }
+
+  private
+  void displayWeapon( uint place
+                    , uint weaponIndex
+                    , uint nPlaces
+                    , int  radius
+                    , int  allowedWidth
+                    , gb_ViewModel viewModel
+                    )
+  {
+    double angle = itemAngle(nPlaces, place);
+
+    int x = int(round( sin(angle) * radius + mCenterX));
+    int y = int(round(-cos(angle) * radius + mCenterY));
+
+    // code is adapted from GZDoom AltHud.DrawImageToBox.
+    TextureID weaponTexture = viewModel.icons[weaponIndex];
+    Vector2   weaponSize    = TexMan.getScaledSize(weaponTexture) * 2;
+    bool      isTall        = (weaponSize.y > weaponSize.x);
+
+    double scale = isTall
+      ? ((allowedWidth < weaponSize.y) ? allowedWidth / weaponSize.y : 1.0)
+      : ((allowedWidth < weaponSize.x) ? allowedWidth / weaponSize.x : 1.0)
+      ;
+
+    int weaponWidth  = int(weaponSize.x * scale);
+    int weaponHeight = int(weaponSize.y * scale);
+
+    drawWeapon(weaponTexture, x, y, weaponWidth, weaponHeight, angle, isTall);
+  }
+
+  private
+  void displaySlot(uint place, int slot, uint nPlaces, int radius)
+  {
+    double angle = itemAngle(nPlaces, place);
+
+    int x = int(round( sin(angle) * radius + mCenterX));
+    int y = int(round(-cos(angle) * radius + mCenterY));
+
+    drawText(string.format("%d", slot), x, y);
+  }
 
   private static
   double itemAngle(uint nItems, uint index)
@@ -180,9 +254,27 @@ class gb_WheelView
                       );
   }
 
+  private
+  void drawText(string aString, int x, int y)
+  {
+    x -= bigFont.stringWidth(aString) * TEXT_SCALE / 2;
+    y -= bigFont.getHeight()          * TEXT_SCALE / 2;
+    Screen.drawText( bigFont
+                   , Font.CR_WHITE
+                   , x
+                   , y
+                   , aString
+                   , DTA_Alpha  , mAlpha
+                   , DTA_ScaleX , TEXT_SCALE
+                   , DTA_ScaleY , TEXT_SCALE
+                   );
+  }
+
   const NO_ANIMATION = 0; // == false
 
   const MARGIN = 4;
+
+  const TEXT_SCALE = 3;
 
   private double mAlpha;
   private color mBaseColor;
