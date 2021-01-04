@@ -18,6 +18,7 @@ GB_BEHAVIOR          = "Behavior";
 GB_OPEN_ON_PREV_NEXT = "Open on next/previous weapon key press";
 GB_MOUSE_IN_WHEEL    = "Enable mouse input in weapon wheel";
 GB_SELECT_ON_KEY_UP  = "Select on Toggle Menu key release";
+GB_NO_MENU_IF_ONE    = "Slot keys: immediately select if it's only one in slot";
 
 GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
 GB_X = "Horizontal";

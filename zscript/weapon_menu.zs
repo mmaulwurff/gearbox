@@ -69,6 +69,20 @@ class gb_WeaponMenu
     return false;
   }
 
+  bool isOneWeaponInSlot(int slot) const
+  {
+    uint nWeapons = mWeapons.size();
+    int  nWeaponsInSlot = 0;
+    for (uint i = 1; i < nWeapons; ++i)
+    {
+      uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
+      nWeaponsInSlot += (mSlots[index] == slot);
+      if (nWeaponsInSlot > 1) return false;
+    }
+    if (nWeaponsInSlot == 0) return false;
+    return true;
+  }
+
   string confirmSelection()
   {
     return getDefaultByType(mWeapons[mSelectedIndex]).getClassName();

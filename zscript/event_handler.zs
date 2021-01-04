@@ -59,8 +59,8 @@ class gb_EventHandler : EventHandler
 
     switch (gb_EventProcessor.process(event, mOptions.isSelectOnKeyUp()))
     {
-    case InputToggleWeaponMenu: toggleMenu();       break;
-    case InputConfirmSelection: confirmSelection(); break;
+    case InputToggleWeaponMenu: toggleMenu(); break;
+    case InputConfirmSelection: confirmSelectionAndCloseMenu(); break;
     case InputToggleWeaponMenuObsolete: gb_Log.notice("GB_TOGGLE_WEAPON_MENU_OBSOLETE"); break;
     }
   }
@@ -104,7 +104,7 @@ class gb_EventHandler : EventHandler
       {
       case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); return true;
       case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); return true;
-      case InputConfirmSelection: confirmSelection();             return true;
+      case InputConfirmSelection: confirmSelectionAndCloseMenu(); return true;
       }
     }
     else if (mActivity.isNone())
@@ -112,7 +112,18 @@ class gb_EventHandler : EventHandler
       if (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd)
       {
         int slot = input - InputSelectSlotBegin;
-        if (mWeaponMenu.selectSlot(slot)) toggleMenu();
+
+        if (mOptions.isNoMenuIfOne() && mWeaponMenu.isOneWeaponInSlot(slot))
+        {
+          mWeaponMenu.selectSlot(slot);
+          gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
+        }
+
+        else if (mWeaponMenu.selectSlot(slot))
+        {
+          toggleMenu();
+        }
+
         return true;
       }
 
@@ -204,7 +215,7 @@ class gb_EventHandler : EventHandler
   }
 
   private ui
-  void confirmSelection()
+  void confirmSelectionAndCloseMenu()
   {
     gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
     mActivity.toggleWeaponMenu();
