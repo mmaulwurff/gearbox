@@ -46,3 +46,4 @@ GZDoom 4.5 required.
 - Thanks to Marrub for [ZScriptDoc](https://github.com/marrub--/zdoom-doc).
 - Thanks to Proydoha for feature requests and bug reports.
 - Thanks to mamaluigisbagel for bug reports.
+- Thanks to Ac!d for bug reports.

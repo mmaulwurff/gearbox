@@ -131,14 +131,19 @@ class gb_WeaponMenu
 
   /**
    * @param direction search direction from the selected weapon: 1 or -1.
+   *
+   * @returns a weapon in the direction. If there is only one weapon, return
+   * it. If there are no weapons, return weapons number.
    */
   private
-  uint findWeapon(int direction)
+  uint findWeapon(int direction) const
   {
     let player = players[consolePlayer].mo;
 
     uint nWeapons = mWeapons.size();
-    for (uint i = 1; i < nWeapons; ++i)
+    // Note range: [1; nWeapons + 1) instead of [0; nWeapons).
+    // This is because I want the current weapon to be found last.
+    for (uint i = 1; i < nWeapons + 1; ++i)
     {
       uint index = (mSelectedIndex + i * direction + nWeapons) % nWeapons;
       if (player.findInventory(mWeapons[index])) return index;
