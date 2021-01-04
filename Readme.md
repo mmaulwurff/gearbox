@@ -23,11 +23,12 @@ GZDoom 4.5 required.
 
 - Two different representations: blocks and wheel
 - Color and scale options
+- Customizable behavior
 - Multiplayer-compatible
+- Reaction to number keys
 
 ## Planned
 
-- Reaction to number keys
 - Inventory item selection
 - Patches for weapon icon adjustments
 - More representations
