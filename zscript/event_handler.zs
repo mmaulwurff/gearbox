@@ -146,6 +146,8 @@ class gb_EventHandler : EventHandler
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);
 
+      if (mOptions.isDimEnabled()) gb_Dim.dim(alpha);
+
       switch (mOptions.getViewType())
       {
       case VIEW_TYPE_BLOCKY:

@@ -23,9 +23,10 @@ class gb_Options
   {
     let result = new("gb_Options");
 
-    result.mScale    = gb_Cvar.from("gb_scale");
-    result.mColor    = gb_Cvar.from("gb_color");
-    result.mViewType = gb_Cvar.from("gb_view_type");
+    result.mScale        = gb_Cvar.from("gb_scale");
+    result.mColor        = gb_Cvar.from("gb_color");
+    result.mViewType     = gb_Cvar.from("gb_view_type");
+    result.mIsDimEnabled = gb_Cvar.from("gb_enable_dim");
 
     result.mOpenOnScroll  = gb_Cvar.from("gb_open_on_scroll");
     result.mMouseInWheel  = gb_Cvar.from("gb_mouse_in_wheel");
@@ -37,9 +38,10 @@ class gb_Options
     return result;
   }
 
-  int getViewType() const { return mViewType.getInt(); }
-  int getScale()    const { return mScale.getInt(); }
-  int getColor()    const { return mColor.getInt(); }
+  int  getViewType()  const { return mViewType.getInt(); }
+  int  getScale()     const { return mScale.getInt(); }
+  int  getColor()     const { return mColor.getInt(); }
+  bool isDimEnabled() const { return mIsDimEnabled.getBool(); }
 
   bool isOpenOnScroll()  const { return mOpenOnScroll.getBool(); }
   bool isMouseInWheel()  const { return mMouseInWheel.getBool(); }
@@ -55,6 +57,8 @@ class gb_Options
   private gb_Cvar mScale;
   private gb_Cvar mColor;
   private gb_Cvar mViewType;
+  private gb_Cvar mIsDimEnabled;
+
   private gb_Cvar mOpenOnScroll;
   private gb_Cvar mMouseInWheel;
   private gb_Cvar mSelectOnKeyUp;

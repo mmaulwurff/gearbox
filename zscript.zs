@@ -19,6 +19,7 @@ version "4.5"
 #include "zscript/netevent_processor.zs"
 #include "zscript/changer.zs"
 
+#include "zscript/dim.zs"
 #include "zscript/view_model.zs"
 #include "zscript/blocky_view.zs"
 #include "zscript/fade_in_out.zs"

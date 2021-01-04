@@ -47,8 +47,6 @@ class gb_WheelView
               , bool showPointer
               ) const
   {
-    Screen.Dim(0x999999, mAlpha * 0.3, 0, 0, Screen.getWidth(), Screen.getHeight());
-
     TextureID circleTexture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
     Screen.drawTexture( circleTexture
                       , NO_ANIMATION

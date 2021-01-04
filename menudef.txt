@@ -13,6 +13,7 @@ OptionMenu gb_Options
   StaticText  "$GB_VISUALS" , 1
   Slider      "$GB_SCALE"   , gb_scale, 1, 8, 1, 0
   ColorPicker "$GB_COLOR"   , gb_color
+  Option      "$GB_DIM"     , gb_enable_dim, OnOff
 
   StaticText  ""
   StaticText  "$GB_BEHAVIOR", 1
