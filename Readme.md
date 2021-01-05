@@ -35,6 +35,11 @@ GZDoom 4.5 required.
 - Moving weapon between slots and changing order
 - Sounds for actions
 
+## Software used for development
+
+- Emacs
+- GIMP
+
 ## License
 
 [GPLv3](copying.txt)

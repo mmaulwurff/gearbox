@@ -187,7 +187,7 @@ class gb_EventHandler : EventHandler
       {
         gb_WheelControllerModel controllerModel;
         mWheelController.fill(controllerModel);
-        int selectedIndex = gb_WheelIndexer.getSelectedIndex(viewModel, controllerModel);
+        int selectedIndex = mWheelIndexer.getSelectedIndex(viewModel, controllerModel);
         mWeaponMenu.setSelectedIndexFromView(viewModel, selectedIndex);
 
         mWheelView.setAlpha(alpha);
@@ -250,6 +250,7 @@ class gb_EventHandler : EventHandler
 
     mWheelView       = gb_WheelView.from();
     mWheelController = gb_WheelController.from();
+    mWheelIndexer    = gb_WheelIndexer.from();
 
     mIsInitialized = true;
   }
@@ -263,6 +264,7 @@ class gb_EventHandler : EventHandler
 
   private gb_WheelView       mWheelView;
   private gb_WheelController mWheelController;
+  private gb_WheelIndexer    mWheelIndexer;
 
   private bool mIsInitialized;
 

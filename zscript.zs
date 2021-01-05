@@ -30,6 +30,7 @@ version "4.5"
 #include "zscript/wheel/view.zs"
 #include "zscript/wheel/controller.zs"
 #include "zscript/wheel/controller_model.zs"
+#include "zscript/wheel/inner_indexer.zs"
 #include "zscript/wheel/indexer.zs"
 #include "zscript/wheel/center.zs"
 

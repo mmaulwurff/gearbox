@@ -46,64 +46,44 @@ class gb_WheelView
               , bool showPointer
               ) const
   {
-    {
-      TextureID circleTexture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
-      Screen.drawTexture( circleTexture
-                        , NO_ANIMATION
-                        , mCenterX
-                        , mCenterY
-                        , DTA_FillColor    , mBaseColor
-                        , DTA_AlphaChannel , true
-                        , DTA_Alpha        , mAlpha
-                        , DTA_CenterOffset , true
-                        );
-    }
+    drawInnerWheel();
 
     uint nWeapons = viewModel.tags.size();
     int  radius   = Screen.getHeight() * 5 / 32;
     int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
 
     bool multiWheelMode = (nWeapons > 12);
+    vector2 center = (mCenterX, mCenterY);
 
     if (multiWheelMode)
     {
-      Array<bool> isWeapon;
-      Array<int>  data; // slot or weapon index
+      gb_MultiWheelModel multiWheelModel;
+      gb_MultiWheel.fill(viewModel, multiWheelModel);
 
-      int lastSlot = -1;
-
-      for (uint i = 0; i < nWeapons; ++i)
-      {
-        int  slot     = viewModel.slots[i];
-        bool isSingle = isSingleWeaponInSlot(viewModel, nWeapons, slot);
-        if (isSingle)
-        {
-          isWeapon.push(true);
-          data.push(i);
-        }
-        else
-        {
-          if (slot != lastSlot)
-          {
-            lastSlot = slot;
-            isWeapon.push(false);
-            data.push(slot);
-          }
-        }
-      }
-
-      uint nPlaces = isWeapon.size();
+      uint nPlaces = multiWheelModel.data.size();
       for (uint i = 0; i < nPlaces; ++i)
       {
-        if (isWeapon[i]) displayWeapon(i, data[i], nPlaces, radius, allowedWidth, viewModel);
-        else             displaySlot  (i, data[i], nPlaces, radius);
+        bool isWeapon = multiWheelModel.isWeapon[i];
+        int  data     = multiWheelModel.data[i];
+
+        if (isWeapon) displayWeapon(i, data, nPlaces, radius, allowedWidth, viewModel, center);
+        else          displaySlot  (i, data, nPlaces, radius);
+      }
+
+      int selectedIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
+      if (mAlpha == 1.0) drawHands(nPlaces, selectedIndex);
+
+      if (selectedIndex != -1 && !multiWheelModel.isWeapon[selectedIndex])
+      {
+        int slot = multiWheelModel.data[selectedIndex];
+        drawOuterWeapons(selectedIndex, nPlaces, slot, viewModel, radius, allowedWidth);
       }
     }
     else
     {
       for (uint i = 0; i < nWeapons; ++i)
       {
-        displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel);
+        displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, center);
       }
 
       if (mAlpha == 1.0) drawHands(nWeapons, viewModel.selectedWeaponIndex);
@@ -114,16 +94,74 @@ class gb_WheelView
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static
-  bool isSingleWeaponInSlot(gb_ViewModel viewModel, uint nWeapons, int slot)
+  private
+  void drawOuterWeapons( int  selectedIndex
+                       , uint nPlaces
+                       , int  slot
+                       , gb_ViewModel viewModel
+                       , int  radius
+                       , int  allowedWidth
+                       )
   {
-    int nWeaponsInSlot = 0;
-    for (uint i = 0; i < nWeapons; ++i)
+    double angle             = itemAngle(nPlaces, selectedIndex);
+    double outerWheelCenterX =  sin(angle) * WHEEL_RADIUS + mCenterX;
+    double outerWheelCenterY = -cos(angle) * WHEEL_RADIUS + mCenterY;
+    drawOuterWheel(outerWheelCenterX, outerWheelCenterY, -angle);
+
+    uint nWeapons = viewModel.tags.size();
+
+    uint start = 0;
+    for (; start < nWeapons && viewModel.slots[start] != slot; ++start);
+    uint end = start;
+    for (; end < nWeapons && viewModel.slots[end] == slot; ++end);
+
+    uint nWeaponsInSlot = end - start;
+
+    uint place = 0;
+    for (uint i = start; i < end; ++i, ++place)
     {
-      nWeaponsInSlot += (viewModel.slots[i] == slot);
-      if (nWeaponsInSlot > 1) return false;
+      double startingAngle = angle - 90 + (180.0 / nWeaponsInSlot / 2);
+      displayWeapon( place
+                   , i
+                   , nWeaponsInSlot * 2
+                   , radius
+                   , allowedWidth
+                   , viewModel
+                   , (outerWheelCenterX, outerWheelCenterY)
+                   , startingAngle
+                   );
     }
-    return true;
+  }
+
+  private
+  void drawInnerWheel()
+  {
+    TextureID texture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
+    Screen.drawTexture( texture
+                      , NO_ANIMATION
+                      , mCenterX
+                      , mCenterY
+                      , DTA_FillColor    , mBaseColor
+                      , DTA_AlphaChannel , true
+                      , DTA_Alpha        , mAlpha
+                      , DTA_CenterOffset , true
+                      );
+  }
+
+  private
+  void drawOuterWheel(double x, double y, double angle)
+  {
+    TextureID texture = TexMan.checkForTexture("gb_hcir", TexMan.Type_Any);
+    Screen.drawTexture( texture
+                      , NO_ANIMATION
+                      , x
+                      , y
+                      , DTA_FillColor    , mBaseColor
+                      , DTA_AlphaChannel , true
+                      , DTA_Alpha        , mAlpha
+                      , DTA_CenterOffset , true
+                      , DTA_Rotate       , angle
+                      );
   }
 
   private
@@ -133,12 +171,14 @@ class gb_WheelView
                     , int  radius
                     , int  allowedWidth
                     , gb_ViewModel viewModel
+                    , vector2 center
+                    , double startingAngle = 0.0
                     )
   {
-    double angle = itemAngle(nPlaces, place);
+    double angle = (startingAngle + itemAngle(nPlaces, place)) % 360;
 
-    int x = int(round( sin(angle) * radius + mCenterX));
-    int y = int(round(-cos(angle) * radius + mCenterY));
+    int x = int(round( sin(angle) * radius + center.x));
+    int y = int(round(-cos(angle) * radius + center.y));
 
     // code is adapted from GZDoom AltHud.DrawImageToBox.
     TextureID weaponTexture = viewModel.icons[weaponIndex];
@@ -275,6 +315,8 @@ class gb_WheelView
   const MARGIN = 4;
 
   const TEXT_SCALE = 3;
+
+  const WHEEL_RADIUS = 270;
 
   private double mAlpha;
   private color mBaseColor;
