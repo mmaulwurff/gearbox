@@ -11,6 +11,10 @@ select weapons and items.
 
 (Blocks with [Treasure Tech](https://forum.zdoom.org/viewtopic.php?f=43&t=66995))
 
+![Wheel with HXRTC Project](screenshots/multiwheel-hxrtc.png)
+
+(Wheel with [HXRTC Project](https://forum.zdoom.org/viewtopic.php?f=43&t=48074))
+
 ## How to use
 
 GZDoom 4.5 required.
