@@ -149,7 +149,7 @@ class gb_WheelView
                    );
     }
 
-    if (controllerRadius > WHEEL_RADIUS)
+    if (DEAD_RADIUS > controllerRadius || controllerRadius > WHEEL_RADIUS)
     {
       drawHands( nWeaponsInSlot * 2
                , outerIndex
@@ -342,6 +342,7 @@ class gb_WheelView
 
   const TEXT_SCALE = 3;
 
+  const DEAD_RADIUS  = 67;
   const WHEEL_RADIUS = 270;
 
   const UNDEFINED_INDEX = -1;

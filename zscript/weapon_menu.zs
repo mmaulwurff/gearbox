@@ -28,6 +28,11 @@ class gb_WeaponMenu
     return result;
   }
 
+  int getSelectedIndex() const
+  {
+    return mSelectedIndex;
+  }
+
   void setSelectedIndexFromView(gb_ViewModel viewModel, int index)
   {
     if (index == -1)

@@ -51,9 +51,7 @@ class gb_MultiWheel
     }
   }
 
-// private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private static
+  static
   bool isSingleWeaponInSlot(gb_ViewModel viewModel, uint nWeapons, int slot)
   {
     int nWeaponsInSlot = 0;

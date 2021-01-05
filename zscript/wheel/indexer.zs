@@ -31,8 +31,69 @@ class gb_WheelIndexer
 
   int getSelectedIndex() const { return mSelectedIndex; }
 
-  int getInnerIndex() const { return mInnerIndex; }
-  int getOuterIndex() const { return mOuterIndex; }
+  int getInnerIndex(int externalSelectedIndex, gb_ViewModel viewModel) const
+  {
+    if (areIndicesDefined()) return mInnerIndex;
+
+    uint nWeapons       = viewModel.tags.size();
+    bool multiWheelMode = (nWeapons > 12);
+
+    uint externalSelectedIndexInModel = UNDEFINED_INDEX;
+    for (uint i = 0; i < nWeapons; ++i)
+    {
+      if (viewModel.indices[i] == externalSelectedIndex)
+      {
+        externalSelectedIndexInModel = i;
+        break;
+      }
+    }
+
+    if (!multiWheelMode) return externalSelectedIndexInModel;
+
+    gb_MultiWheelModel multiWheelModel;
+    gb_MultiWheel.fill(viewModel, multiWheelModel);
+
+    uint nPlaces = multiWheelModel.data.size();
+    for (uint i = 0; i < nPlaces; ++i)
+    {
+      if (multiWheelModel.isWeapon[i])
+      {
+        if (viewModel.indices[multiWheelModel.data[i]] == externalSelectedIndex) return i;
+      }
+      else
+      {
+        if (multiWheelModel.data[i] == viewModel.slots[externalSelectedIndexInModel]) return i;
+      }
+    }
+    return UNDEFINED_INDEX;
+  }
+
+  int getOuterIndex(int externalSelectedIndex, gb_ViewModel viewModel) const
+  {
+    if (areIndicesDefined()) return mOuterIndex;
+
+    uint nWeapons       = viewModel.tags.size();
+    bool multiWheelMode = (nWeapons > 12);
+
+    if (!multiWheelMode) return UNDEFINED_INDEX;
+
+    uint externalSelectedIndexInModel = UNDEFINED_INDEX;
+    for (uint i = 0; i < nWeapons; ++i)
+    {
+      if (viewModel.indices[i] == externalSelectedIndex)
+      {
+        externalSelectedIndexInModel = i;
+        break;
+      }
+    }
+
+    int slot = viewModel.slots[externalSelectedIndexInModel];
+
+    uint start = 0;
+    for (; start < nWeapons && viewModel.slots[start] != slot; ++start);
+
+    return externalSelectedIndexInModel - start;
+  }
 
   void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
   {
@@ -110,6 +171,12 @@ class gb_WheelIndexer
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private
+  bool areIndicesDefined() const
+  {
+    return (mInnerIndex != UNDEFINED_INDEX);
+  }
 
   private static
   double itemAngle(uint nItems, uint index)
