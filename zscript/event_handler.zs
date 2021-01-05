@@ -187,12 +187,20 @@ class gb_EventHandler : EventHandler
       {
         gb_WheelControllerModel controllerModel;
         mWheelController.fill(controllerModel);
-        int selectedIndex = mWheelIndexer.getSelectedIndex(viewModel, controllerModel);
+        mWheelIndexer.update(viewModel, controllerModel);
+        int selectedIndex = mWheelIndexer.getSelectedIndex();
         mWeaponMenu.setSelectedIndexFromView(viewModel, selectedIndex);
 
         mWheelView.setAlpha(alpha);
         mWheelView.setBaseColor(mOptions.getColor());
-        mWheelView.display(viewModel, controllerModel, mOptions.isMouseInWheel());
+        int innerIndex = mWheelIndexer.getInnerIndex();
+        int outerIndex = mWheelIndexer.getOuterIndex();
+        mWheelView.display( viewModel
+                          , controllerModel
+                          , mOptions.isMouseInWheel()
+                          , innerIndex
+                          , outerIndex
+                          );
         break;
       }
 

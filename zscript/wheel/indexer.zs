@@ -15,58 +15,6 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-struct gb_MultiWheelModel
-{
-  Array<bool> isWeapon;
-  Array<int>  data; // slot or weapon index
-}
-
-class gb_MultiWheel
-{
-
-  static
-  void fill(gb_ViewModel viewModel, out gb_MultiWheelModel model)
-  {
-    uint nWeapons = viewModel.tags.size();
-    int  lastSlot = -1;
-
-    for (uint i = 0; i < nWeapons; ++i)
-    {
-      int  slot     = viewModel.slots[i];
-      bool isSingle = isSingleWeaponInSlot(viewModel, nWeapons, slot);
-      if (isSingle)
-      {
-        model.isWeapon.push(true);
-        model.data.push(i);
-      }
-      else
-      {
-        if (slot != lastSlot)
-        {
-          lastSlot = slot;
-          model.isWeapon.push(false);
-          model.data.push(slot);
-        }
-      }
-    }
-  }
-
-// private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private static
-  bool isSingleWeaponInSlot(gb_ViewModel viewModel, uint nWeapons, int slot)
-  {
-    int nWeaponsInSlot = 0;
-    for (uint i = 0; i < nWeapons; ++i)
-    {
-      nWeaponsInSlot += (viewModel.slots[i] == slot);
-      if (nWeaponsInSlot > 1) return false;
-    }
-    return true;
-  }
-
-} // class gb_MultiWheel
-
 class gb_WheelIndexer
 {
 
@@ -74,16 +22,27 @@ class gb_WheelIndexer
   gb_WheelIndexer from()
   {
     let result = new("gb_WheelIndexer");
-    result.mLastSlot = -1;
+    result.mSelectedIndex = UNDEFINED_INDEX;
+    result.mLastSlotIndex = UNDEFINED_INDEX;
+    result.mInnerIndex    = UNDEFINED_INDEX;
+    result.mOuterIndex    = UNDEFINED_INDEX;
     return result;
   }
 
-  int getSelectedIndex(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
+  int getSelectedIndex() const { return mSelectedIndex; }
+
+  int getInnerIndex() const { return mInnerIndex; }
+  int getOuterIndex() const { return mOuterIndex; }
+
+  void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
   {
     if (controllerModel.radius < DEAD_RADIUS)
     {
-      mLastSlot = -1;
-      return -1;
+      mSelectedIndex = UNDEFINED_INDEX;
+      mLastSlotIndex = UNDEFINED_INDEX;
+      mInnerIndex    = UNDEFINED_INDEX;
+      mOuterIndex    = UNDEFINED_INDEX;
+      return;
     }
 
     uint nWeapons       = viewModel.tags.size();
@@ -91,8 +50,11 @@ class gb_WheelIndexer
 
     if (!multiWheelMode)
     {
-      mLastSlot = -1;
-      return gb_WheelInnerIndexer.getSelectedIndex(nWeapons, controllerModel);
+      mSelectedIndex = gb_WheelInnerIndexer.getSelectedIndex(nWeapons, controllerModel);
+      mLastSlotIndex = UNDEFINED_INDEX;
+      mInnerIndex    = mSelectedIndex;
+      mOuterIndex    = UNDEFINED_INDEX;
+      return;
     }
 
     gb_MultiWheelModel multiWheelModel;
@@ -105,13 +67,22 @@ class gb_WheelIndexer
       int  innerIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
       bool isWeapon   = multiWheelModel.isWeapon[innerIndex];
 
-      mLastSlot = isWeapon ? -1 : multiWheelModel.data[innerIndex];
-
-      return isWeapon ? multiWheelModel.data[innerIndex] : -1;
+      mSelectedIndex = isWeapon ? multiWheelModel.data[innerIndex] : UNDEFINED_INDEX;
+      mLastSlotIndex = isWeapon ? UNDEFINED_INDEX : innerIndex;
+      mInnerIndex    = innerIndex;
+      mOuterIndex    = 0;
     }
     else
     {
-      if (mLastSlot == -1) return -1;
+      if (mLastSlotIndex == UNDEFINED_INDEX)
+      {
+        mSelectedIndex = UNDEFINED_INDEX;
+        mInnerIndex    = UNDEFINED_INDEX;
+        mOuterIndex    = UNDEFINED_INDEX;
+        return;
+      }
+
+      int slot = multiWheelModel.data[mLastSlotIndex];
 
       uint start = 0;
       for (; start < nWeapons && viewModel.slots[start] != slot; ++start);
@@ -119,12 +90,22 @@ class gb_WheelIndexer
       for (; end < nWeapons && viewModel.slots[end] == slot; ++end);
       uint nWeaponsInSlot = end - start;
 
-      double slotAngle = itemAngle(nPlaces, mLastSlot);
+      double slotAngle = itemAngle(nPlaces, mLastSlotIndex);
 
-      double outerWheelCenterX =  sin(angle) * WHEEL_RADIUS + gb_Center;
-      double outerWheelCenterY = -cos(angle) * WHEEL_RADIUS + mCenterY;
+      double r = controllerModel.radius;
+      double w = WHEEL_RADIUS;
+      double forSlotAngle = slotAngle - controllerModel.angle;
+      double side  = sqrt(r * r + w * w - 2 * r * w * cos(forSlotAngle));
+      double angle = -asin(r / side * sin(forSlotAngle));
 
-      return -1;
+      angle += 90;
+      angle %= 180;
+
+      int indexInSlot = int((angle * nWeaponsInSlot / 180.0) % nWeaponsInSlot);
+
+      mSelectedIndex = start + indexInSlot;
+      mInnerIndex    = mLastSlotIndex;
+      mOuterIndex    = indexInSlot;
     }
   }
 
@@ -136,9 +117,15 @@ class gb_WheelIndexer
     return 360.0 / nItems * index;
   }
 
-  private int mLastSlot;
-
   const DEAD_RADIUS  = 67;
   const WHEEL_RADIUS = 270;
+
+  const UNDEFINED_INDEX = -1;
+
+  private int mSelectedIndex;
+
+  private int mLastSlotIndex;
+  private int mInnerIndex;
+  private int mOuterIndex;
 
 } // class gb_WheelIndexer

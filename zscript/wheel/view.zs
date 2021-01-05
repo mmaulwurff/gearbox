@@ -44,6 +44,8 @@ class gb_WheelView
   void display( gb_ViewModel viewModel
               , gb_WheelControllerModel controllerModel
               , bool showPointer
+              , int  innerIndex
+              , int  outerIndex
               ) const
   {
     drawInnerWheel();
@@ -70,13 +72,23 @@ class gb_WheelView
         else          displaySlot  (i, data, nPlaces, radius);
       }
 
-      int selectedIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
-      if (mAlpha == 1.0) drawHands(nPlaces, selectedIndex);
-
-      if (selectedIndex != -1 && !multiWheelModel.isWeapon[selectedIndex])
+      if (mAlpha == 1.0 && innerIndex != UNDEFINED_INDEX)
       {
-        int slot = multiWheelModel.data[selectedIndex];
-        drawOuterWeapons(selectedIndex, nPlaces, slot, viewModel, radius, allowedWidth);
+        drawHands(nPlaces, innerIndex, (mCenterX, mCenterY), 0);
+      }
+
+      if (outerIndex != UNDEFINED_INDEX && !multiWheelModel.isWeapon[innerIndex])
+      {
+        int slot = multiWheelModel.data[innerIndex];
+        drawOuterWeapons( innerIndex
+                        , outerIndex
+                        , nPlaces
+                        , slot
+                        , viewModel
+                        , radius
+                        , allowedWidth
+                        , int(controllerModel.radius)
+                        );
       }
     }
     else
@@ -86,7 +98,10 @@ class gb_WheelView
         displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, center);
       }
 
-      if (mAlpha == 1.0) drawHands(nWeapons, viewModel.selectedWeaponIndex);
+      if (mAlpha == 1.0 && innerIndex != UNDEFINED_INDEX)
+      {
+        drawHands(nWeapons, innerIndex, (mCenterX, mCenterY), 0);
+      }
     }
 
     if (mAlpha == 1.0 && showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
@@ -95,15 +110,17 @@ class gb_WheelView
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
-  void drawOuterWeapons( int  selectedIndex
+  void drawOuterWeapons( int  innerIndex
+                       , int  outerIndex
                        , uint nPlaces
                        , int  slot
                        , gb_ViewModel viewModel
                        , int  radius
                        , int  allowedWidth
+                       , int  controllerRadius
                        )
   {
-    double angle             = itemAngle(nPlaces, selectedIndex);
+    double angle             = itemAngle(nPlaces, innerIndex);
     double outerWheelCenterX =  sin(angle) * WHEEL_RADIUS + mCenterX;
     double outerWheelCenterY = -cos(angle) * WHEEL_RADIUS + mCenterY;
     drawOuterWheel(outerWheelCenterX, outerWheelCenterY, -angle);
@@ -115,12 +132,12 @@ class gb_WheelView
     uint end = start;
     for (; end < nWeapons && viewModel.slots[end] == slot; ++end);
 
-    uint nWeaponsInSlot = end - start;
+    uint   nWeaponsInSlot = end - start;
+    double startingAngle  = angle - 90 + (180.0 / nWeaponsInSlot / 2);
 
     uint place = 0;
     for (uint i = start; i < end; ++i, ++place)
     {
-      double startingAngle = angle - 90 + (180.0 / nWeaponsInSlot / 2);
       displayWeapon( place
                    , i
                    , nWeaponsInSlot * 2
@@ -130,6 +147,15 @@ class gb_WheelView
                    , (outerWheelCenterX, outerWheelCenterY)
                    , startingAngle
                    );
+    }
+
+    if (controllerRadius > WHEEL_RADIUS)
+    {
+      drawHands( nWeaponsInSlot * 2
+               , outerIndex
+               , (outerWheelCenterX, outerWheelCenterY)
+               , -startingAngle
+               );
     }
   }
 
@@ -214,18 +240,18 @@ class gb_WheelView
   }
 
   private
-  void drawHands(uint nWeapons, uint selectedIndex)
+  void drawHands(uint nPlaces, uint selectedIndex, vector2 center, double startAngle)
   {
-    if (nWeapons < 2) return;
+    if (nPlaces < 2) return;
 
-    double handsAngle = -itemAngle(nWeapons, selectedIndex);
+    double handsAngle = startAngle - itemAngle(nPlaces, selectedIndex);
 
     TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
-    double sectorAngleHalfWidth = 360.0 / 2.0 / nWeapons - 2;
+    double sectorAngleHalfWidth = 360.0 / 2.0 / nPlaces - 2;
     Screen.drawTexture( handTexture
                       , NO_ANIMATION
-                      , mCenterX
-                      , mCenterY
+                      , center.x
+                      , center.y
                       , DTA_CenterOffset , true
                       , DTA_KeepRatio    , true
                       , DTA_Alpha        , mAlpha
@@ -233,8 +259,8 @@ class gb_WheelView
                       );
     Screen.drawTexture( handTexture
                       , NO_ANIMATION
-                      , mCenterX
-                      , mCenterY
+                      , center.x
+                      , center.y
                       , DTA_CenterOffset , true
                       , DTA_KeepRatio    , true
                       , DTA_Alpha        , mAlpha
@@ -317,6 +343,8 @@ class gb_WheelView
   const TEXT_SCALE = 3;
 
   const WHEEL_RADIUS = 270;
+
+  const UNDEFINED_INDEX = -1;
 
   private double mAlpha;
   private color mBaseColor;
