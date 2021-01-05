@@ -46,6 +46,10 @@ class gb_WeaponMenu
   void setSelectedWeapon(class<Weapon> aClass)
   {
     mSelectedIndex = getIndexOf(aClass);
+    // Fixes the case when the player starts with no weapon selected.
+    // Gearbox will still misbehave if there is no weapons at all.
+    // We'll see if such a situation happens in reality.
+    if (mSelectedIndex == mWeapons.size()) selectNextWeapon();
   }
 
   void selectNextWeapon()
@@ -168,8 +172,8 @@ class gb_WeaponMenu
     return nWeapons;
   }
 
-  Array< class<Weapon> > mWeapons;
-  Array< int >           mSlots;
-  uint mSelectedIndex;
+  private Array< class<Weapon> > mWeapons;
+  private Array< int >           mSlots;
+  private uint mSelectedIndex;
 
 } // class gb_WeaponMenu
