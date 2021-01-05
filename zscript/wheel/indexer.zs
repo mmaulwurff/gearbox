@@ -74,6 +74,7 @@ class gb_WheelIndexer
   gb_WheelIndexer from()
   {
     let result = new("gb_WheelIndexer");
+    result.mLastSlot = -1;
     return result;
   }
 
@@ -81,6 +82,7 @@ class gb_WheelIndexer
   {
     if (controllerModel.radius < DEAD_RADIUS)
     {
+      mLastSlot = -1;
       return -1;
     }
 
@@ -89,6 +91,7 @@ class gb_WheelIndexer
 
     if (!multiWheelMode)
     {
+      mLastSlot = -1;
       return gb_WheelInnerIndexer.getSelectedIndex(nWeapons, controllerModel);
     }
 
@@ -102,20 +105,24 @@ class gb_WheelIndexer
       int  innerIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
       bool isWeapon   = multiWheelModel.isWeapon[innerIndex];
 
+      mLastSlot = isWeapon ? -1 : multiWheelModel.data[innerIndex];
+
       return isWeapon ? multiWheelModel.data[innerIndex] : -1;
     }
     else
     {
-//      if (mLastSlot == -1) return -1;
-//
-//      uint start = 0;
-//      for (; start < nWeapons && viewModel.slots[start] != slot; ++start);
-//      uint end = start;
-//      for (; end < nWeapons && viewModel.slots[end] == slot; ++end);
-//
-//      uint nWeaponsInSlot = end - start;
-//
-//      double slotAngle = itemAngle(nPlaces, );
+      if (mLastSlot == -1) return -1;
+
+      uint start = 0;
+      for (; start < nWeapons && viewModel.slots[start] != slot; ++start);
+      uint end = start;
+      for (; end < nWeapons && viewModel.slots[end] == slot; ++end);
+      uint nWeaponsInSlot = end - start;
+
+      double slotAngle = itemAngle(nPlaces, mLastSlot);
+
+      double outerWheelCenterX =  sin(angle) * WHEEL_RADIUS + gb_Center;
+      double outerWheelCenterY = -cos(angle) * WHEEL_RADIUS + mCenterY;
 
       return -1;
     }
@@ -128,6 +135,8 @@ class gb_WheelIndexer
   {
     return 360.0 / nItems * index;
   }
+
+  private int mLastSlot;
 
   const DEAD_RADIUS  = 67;
   const WHEEL_RADIUS = 270;
