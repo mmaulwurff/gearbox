@@ -329,24 +329,25 @@ class gb_WheelView
   private
   void drawText(string aString, int x, int y)
   {
-    x -= bigFont.stringWidth(aString) * TEXT_SCALE / 2;
-    y -= bigFont.getHeight()          * TEXT_SCALE / 2;
+    int textScale = max(Screen.getHeight() / 360, 1);
+
+    x -= bigFont.stringWidth(aString) * textScale / 2;
+    y -= bigFont.getHeight()          * textScale / 2;
+
     Screen.drawText( bigFont
                    , Font.CR_WHITE
                    , x
                    , y
                    , aString
                    , DTA_Alpha  , mAlpha
-                   , DTA_ScaleX , TEXT_SCALE
-                   , DTA_ScaleY , TEXT_SCALE
+                   , DTA_ScaleX , textScale
+                   , DTA_ScaleY , textScale
                    );
   }
 
   const NO_ANIMATION = 0; // == false
 
   const MARGIN = 4;
-
-  const TEXT_SCALE = 3;
 
   const UNDEFINED_INDEX = -1;
 
