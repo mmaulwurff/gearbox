@@ -53,7 +53,7 @@ class gb_WheelView
     int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
 
     bool multiWheelMode = (nWeapons > 12);
-    mCenter = gb_WheelScreen.getCenter();
+    mCenter = gb_Screen.getWheelCenter();
 
     if (multiWheelMode)
     {
@@ -118,7 +118,7 @@ class gb_WheelView
                        , int  controllerRadius
                        )
   {
-    int wheelRadius = gb_WheelScreen.getWheelRadius();
+    int wheelRadius = gb_Screen.getWheelRadius();
     double angle             = itemAngle(nPlaces, innerIndex);
     double outerWheelCenterX =  sin(angle) * wheelRadius + mCenter.x;
     double outerWheelCenterY = -cos(angle) * wheelRadius + mCenter.y;
@@ -148,7 +148,7 @@ class gb_WheelView
                    );
     }
 
-    int deadRadius = gb_WheelScreen.getDeadRadius();
+    int deadRadius = gb_Screen.getWheelDeadRadius();
     if (deadRadius > controllerRadius || controllerRadius > wheelRadius)
     {
       drawHands( nWeaponsInSlot * 2
@@ -163,7 +163,7 @@ class gb_WheelView
   void drawInnerWheel()
   {
     TextureID texture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
-    int wheelDiameter = gb_WheelScreen.getWheelRadius() * 2;
+    int wheelDiameter = gb_Screen.getWheelRadius() * 2;
     Screen.drawTexture( texture
                       , NO_ANIMATION
                       , mCenter.x
@@ -181,7 +181,7 @@ class gb_WheelView
   void drawOuterWheel(double x, double y, double angle)
   {
     TextureID texture = TexMan.checkForTexture("gb_hcir", TexMan.Type_Any);
-    int wheelDiameter = gb_WheelScreen.getWheelRadius() * 2;
+    int wheelDiameter = gb_Screen.getWheelRadius() * 2;
     Screen.drawTexture( texture
                       , NO_ANIMATION
                       , x
@@ -222,18 +222,12 @@ class gb_WheelView
       : ((allowedWidth < weaponSize.x) ? allowedWidth / weaponSize.x : 1.0)
       ;
 
-    scale *= getScaleFactor();
+    scale *= gb_Screen.getScaleFactor();
 
     int weaponWidth  = int(weaponSize.x * scale);
     int weaponHeight = int(weaponSize.y * scale);
 
     drawWeapon(weaponTexture, x, y, weaponWidth, weaponHeight, angle, isTall);
-  }
-
-  private static
-  double getScaleFactor()
-  {
-    return Screen.getHeight() / 1080.0;
   }
 
   private
@@ -300,7 +294,7 @@ class gb_WheelView
     int y = int(round(-cos(angle) * radius + mCenter.y));
     TextureID pointerTexture = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
     vector2 size = TexMan.getScaledSize(pointerTexture);
-    size *= getScaleFactor();
+    size *= gb_Screen.getScaleFactor();
 
     Screen.drawTexture( pointerTexture
                       , NO_ANIMATION

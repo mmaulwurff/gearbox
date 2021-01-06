@@ -16,13 +16,13 @@
  */
 
 /**
- * This class provides helper functions for wheel screen position and sizes.
+ * This class provides helper functions for screen position and sizes.
  */
-class gb_WheelScreen
+class gb_Screen
 {
 
   static
-  vector2 getCenter()
+  vector2 getWheelCenter()
   {
     int screenWidth      = Screen.getWidth();
     int halfScreenHeight = Screen.getHeight() / 2;
@@ -36,9 +36,15 @@ class gb_WheelScreen
   }
 
   static
-  int getDeadRadius()
+  int getWheelDeadRadius()
   {
     return Screen.getHeight() / 16;
   }
 
-} // class gb_WheelScreen
+  static
+  double getScaleFactor()
+  {
+    return Screen.getHeight() / 1080.0;
+  }
+
+} // class gb_Screen

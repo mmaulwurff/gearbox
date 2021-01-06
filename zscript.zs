@@ -23,6 +23,7 @@ version "4.5"
 #include "zscript/view_model.zs"
 #include "zscript/blocky_view.zs"
 #include "zscript/fade_in_out.zs"
+#include "zscript/screen.zs"
 
 #include "zscript/options.zs"
 
@@ -32,7 +33,6 @@ version "4.5"
 #include "zscript/wheel/controller_model.zs"
 #include "zscript/wheel/inner_indexer.zs"
 #include "zscript/wheel/indexer.zs"
-#include "zscript/wheel/screen.zs"
 #include "zscript/wheel/multiwheel.zs"
 
 // Utility tools.

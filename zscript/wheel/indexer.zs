@@ -97,7 +97,7 @@ class gb_WheelIndexer
 
   void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
   {
-    if (controllerModel.radius < gb_WheelScreen.getDeadRadius())
+    if (controllerModel.radius < gb_Screen.getWheelDeadRadius())
     {
       mSelectedIndex = UNDEFINED_INDEX;
       mLastSlotIndex = UNDEFINED_INDEX;
@@ -122,7 +122,7 @@ class gb_WheelIndexer
     gb_MultiWheel.fill(viewModel, multiWheelModel);
 
     uint nPlaces = multiWheelModel.data.size();
-    int wheelRadius = gb_WheelScreen.getWheelRadius();
+    int wheelRadius = gb_Screen.getWheelRadius();
 
     if (controllerModel.radius < wheelRadius)
     {

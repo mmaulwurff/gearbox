@@ -37,9 +37,10 @@ class gb_BlockyView
   {
     if (scale < 1) scale = 1;
 
-    mScale        = scale;
-    mScreenWidth  = Screen.getWidth()  / mScale;
-    mScreenHeight = Screen.getHeight() / mScale;
+    double scaleFactor = gb_Screen.getScaleFactor();
+
+    mScreenWidth  = int(Screen.getWidth()  / scale / scaleFactor);
+    mScreenHeight = int(Screen.getHeight() / scale / scaleFactor);
   }
 
   void setBaseColor(int color)
@@ -310,7 +311,6 @@ class gb_BlockyView
 
   private double mAlpha;
 
-  private int    mScale;
   private int    mScreenWidth;
   private int    mScreenHeight;
 

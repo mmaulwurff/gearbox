@@ -60,7 +60,7 @@ class gb_WheelController
       mX += int(round(event.mouseX * mMouseSensitivity.x));
       mY -= int(round(event.mouseY * mMouseSensitivity.y));
 
-      vector2 center = gb_WheelScreen.getCenter();
+      vector2 center = gb_Screen.getWheelCenter();
       int centerX = int(center.x);
       int centerY = int(center.y);
 
