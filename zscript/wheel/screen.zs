@@ -15,14 +15,18 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_WheelCenter
+/**
+ * This class provides helper functions for wheel screen position and sizes.
+ */
+class gb_WheelScreen
 {
 
   static
-  int, int getCoordinates()
+  vector2 getCenter()
   {
-    return Screen.getWidth() - Screen.getHeight() / 2
-         , Screen.getHeight() / 2;
+    int screenWidth      = Screen.getWidth();
+    int halfScreenHeight = Screen.getHeight() / 2;
+    return (screenWidth - halfScreenHeight, halfScreenHeight);
   }
 
-} // class gb_WheelCenter
+} // class gb_WheelScreen

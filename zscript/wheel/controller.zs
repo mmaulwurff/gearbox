@@ -60,9 +60,9 @@ class gb_WheelController
       mX += int(round(event.mouseX * mMouseSensitivity.x));
       mY -= int(round(event.mouseY * mMouseSensitivity.y));
 
-      int centerX;
-      int centerY;
-      [centerX, centerY] = gb_WheelCenter.getCoordinates();
+      vector2 center = gb_WheelScreen.getCenter();
+      int centerX = int(center.x);
+      int centerY = int(center.y);
 
       mX = clamp(mX, -centerX, Screen.getWidth()  - centerX);
       mY = clamp(MY, -centerY, Screen.getHeight() - centerY);

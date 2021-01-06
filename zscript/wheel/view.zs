@@ -26,8 +26,6 @@ class gb_WheelView
     result.setAlpha(1.0);
     result.setBaseColor(0x2222CC);
 
-    [result.mCenterX, result.mCenterY] = gb_WheelCenter.getCoordinates();
-
     return result;
   }
 
@@ -55,7 +53,7 @@ class gb_WheelView
     int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
 
     bool multiWheelMode = (nWeapons > 12);
-    vector2 center = (mCenterX, mCenterY);
+    mCenter = gb_WheelScreen.getCenter();
 
     if (multiWheelMode)
     {
@@ -68,13 +66,13 @@ class gb_WheelView
         bool isWeapon = multiWheelModel.isWeapon[i];
         int  data     = multiWheelModel.data[i];
 
-        if (isWeapon) displayWeapon(i, data, nPlaces, radius, allowedWidth, viewModel, center);
+        if (isWeapon) displayWeapon(i, data, nPlaces, radius, allowedWidth, viewModel, mCenter);
         else          displaySlot  (i, data, nPlaces, radius);
       }
 
       if (mAlpha == 1.0 && innerIndex != UNDEFINED_INDEX)
       {
-        drawHands(nPlaces, innerIndex, (mCenterX, mCenterY), 0);
+        drawHands(nPlaces, innerIndex, mCenter, 0);
       }
 
       if (outerIndex != UNDEFINED_INDEX && !multiWheelModel.isWeapon[innerIndex])
@@ -95,12 +93,12 @@ class gb_WheelView
     {
       for (uint i = 0; i < nWeapons; ++i)
       {
-        displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, center);
+        displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, mCenter);
       }
 
       if (mAlpha == 1.0 && innerIndex != UNDEFINED_INDEX)
       {
-        drawHands(nWeapons, innerIndex, (mCenterX, mCenterY), 0);
+        drawHands(nWeapons, innerIndex, mCenter, 0);
       }
     }
 
@@ -121,8 +119,8 @@ class gb_WheelView
                        )
   {
     double angle             = itemAngle(nPlaces, innerIndex);
-    double outerWheelCenterX =  sin(angle) * WHEEL_RADIUS + mCenterX;
-    double outerWheelCenterY = -cos(angle) * WHEEL_RADIUS + mCenterY;
+    double outerWheelCenterX =  sin(angle) * WHEEL_RADIUS + mCenter.x;
+    double outerWheelCenterY = -cos(angle) * WHEEL_RADIUS + mCenter.y;
     drawOuterWheel(outerWheelCenterX, outerWheelCenterY, -angle);
 
     uint nWeapons = viewModel.tags.size();
@@ -165,8 +163,8 @@ class gb_WheelView
     TextureID texture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
     Screen.drawTexture( texture
                       , NO_ANIMATION
-                      , mCenterX
-                      , mCenterY
+                      , mCenter.x
+                      , mCenter.y
                       , DTA_FillColor    , mBaseColor
                       , DTA_AlphaChannel , true
                       , DTA_Alpha        , mAlpha
@@ -227,8 +225,8 @@ class gb_WheelView
   {
     double angle = itemAngle(nPlaces, place);
 
-    int x = int(round( sin(angle) * radius + mCenterX));
-    int y = int(round(-cos(angle) * radius + mCenterY));
+    int x = int(round( sin(angle) * radius + mCenter.x));
+    int y = int(round(-cos(angle) * radius + mCenter.y));
 
     drawText(string.format("%d", slot), x, y);
   }
@@ -271,8 +269,8 @@ class gb_WheelView
   private
   void drawPointer(double angle, double radius)
   {
-    int x = int(round( sin(angle) * radius + mCenterX));
-    int y = int(round(-cos(angle) * radius + mCenterY));
+    int x = int(round( sin(angle) * radius + mCenter.x));
+    int y = int(round(-cos(angle) * radius + mCenter.y));
     TextureID pointerTexture = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
     Screen.drawTexture( pointerTexture
                       , NO_ANIMATION
@@ -347,9 +345,8 @@ class gb_WheelView
 
   const UNDEFINED_INDEX = -1;
 
-  private double mAlpha;
-  private color mBaseColor;
-  private int mCenterX;
-  private int mCenterY;
+  private double  mAlpha;
+  private color   mBaseColor;
+  private vector2 mCenter;
 
 } // class gb_WheelView
