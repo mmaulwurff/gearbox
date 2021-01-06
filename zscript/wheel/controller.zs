@@ -22,8 +22,11 @@ class gb_WheelController
   gb_WheelController from()
   {
     let result = new("gb_WheelController");
+
     result.mIsActive = false;
     result.reset();
+    result.mScreen = gb_Screen.from();
+
     return result;
   }
 
@@ -60,7 +63,7 @@ class gb_WheelController
       mX += int(round(event.mouseX * mMouseSensitivity.x));
       mY -= int(round(event.mouseY * mMouseSensitivity.y));
 
-      vector2 center = gb_Screen.getWheelCenter();
+      vector2 center = mScreen.getWheelCenter();
       int centerX = int(center.x);
       int centerY = int(center.y);
 
@@ -91,5 +94,7 @@ class gb_WheelController
   private int  mX;
   private int  mY;
   private Vector2 mMouseSensitivity;
+
+  private gb_Screen mScreen;
 
 } // class gb_WheelController

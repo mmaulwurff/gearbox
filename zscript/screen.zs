@@ -22,11 +22,19 @@ class gb_Screen
 {
 
   static
-  vector2 getWheelCenter()
+  gb_Screen from()
+  {
+    let result = new("gb_Screen");
+    result.mWheelPositionCvar = gb_Cvar.from("gb_wheel_position");
+    return result;
+  }
+
+  vector2 getWheelCenter() const
   {
     int screenWidth      = Screen.getWidth();
     int halfScreenHeight = Screen.getHeight() / 2;
-    return (screenWidth - halfScreenHeight, halfScreenHeight);
+    int centerPosition   = int((screenWidth / 2 - halfScreenHeight) * mWheelPositionCvar.getDouble());
+    return (screenWidth / 2 + centerPosition, halfScreenHeight);
   }
 
   static
@@ -46,5 +54,9 @@ class gb_Screen
   {
     return Screen.getHeight() / 1080.0;
   }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private gb_Cvar mWheelPositionCvar;
 
 } // class gb_Screen

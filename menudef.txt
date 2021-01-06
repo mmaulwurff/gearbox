@@ -14,6 +14,7 @@ OptionMenu gb_Options
   Slider      "$GB_SCALE"   , gb_scale, 1, 8, 1, 0
   ColorPicker "$GB_COLOR"   , gb_color
   Option      "$GB_DIM"     , gb_enable_dim, OnOff
+  Slider      "$GB_WHEEL_X" , gb_wheel_position, -1, 1, 0.1, 1
 
   StaticText  ""
   StaticText  "$GB_BEHAVIOR", 1

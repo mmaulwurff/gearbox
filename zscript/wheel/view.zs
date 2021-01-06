@@ -26,6 +26,8 @@ class gb_WheelView
     result.setAlpha(1.0);
     result.setBaseColor(0x2222CC);
 
+    result.mScreen = gb_Screen.from();
+
     return result;
   }
 
@@ -53,7 +55,7 @@ class gb_WheelView
     int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
 
     bool multiWheelMode = (nWeapons > 12);
-    mCenter = gb_Screen.getWheelCenter();
+    mCenter = mScreen.getWheelCenter();
 
     if (multiWheelMode)
     {
@@ -372,5 +374,7 @@ class gb_WheelView
   private double  mAlpha;
   private color   mBaseColor;
   private vector2 mCenter;
+
+  private gb_Screen mScreen;
 
 } // class gb_WheelView
