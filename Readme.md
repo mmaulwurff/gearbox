@@ -3,6 +3,8 @@
 Gearbox is an add-on for GZDoom engine that provides more convenient ways to
 select weapons and items.
 
+This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox).
+
 ![Wheel with Guncaster](screenshots/wheel-guncaster.png)
 
 (Weapon Wheel with [Guncaster](https://forum.zdoom.org/viewtopic.php?f=43&t=37066))
