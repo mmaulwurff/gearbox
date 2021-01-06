@@ -273,6 +273,7 @@ class gb_WheelView
                       , DTA_Rotate        , handsAngle - sectorAngleHalfWidth
                       , DTA_VirtualWidth  , int(baseWidth)
                       , DTA_VirtualHeight , int(baseHeight)
+                      , DTA_FlipX         , true
                       );
 
     Screen.drawTexture( handTexture
