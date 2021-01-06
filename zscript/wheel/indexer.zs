@@ -157,7 +157,9 @@ class gb_WheelIndexer
       double w = WHEEL_RADIUS;
       double forSlotAngle = slotAngle - controllerModel.angle;
       double side  = sqrt(r * r + w * w - 2 * r * w * cos(forSlotAngle));
-      double angle = -asin(r / side * sin(forSlotAngle));
+      // due to computation precision, the value of ratio may be slightly out of range [-1, 1].
+      double ratio = clamp(r / side * sin(forSlotAngle), -1.0, 1.0);
+      double angle = -asin(ratio);
 
       angle += 90;
       angle %= 180;
