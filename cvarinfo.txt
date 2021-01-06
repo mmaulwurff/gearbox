@@ -10,6 +10,10 @@ user int gb_view_type = 1;
 user bool  gb_enable_dim = true;
 user float gb_wheel_position = 1.0;
 
+// 0 - big font
+// 1 - small font
+user int gb_wheel_font = 0;
+
 user bool gb_open_on_scroll   = false;
 user bool gb_mouse_in_wheel   = true;
 user bool gb_select_on_key_up = false;

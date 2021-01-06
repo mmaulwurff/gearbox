@@ -30,3 +30,7 @@ GB_MOUSE_IN_WHEEL    = "Enable mouse input";
 GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
 GB_X = "Horizontal";
 GB_Y = "Vertical";
+
+GB_WHEEL_FONT = "Font";
+GB_BIG_FONT   = "Big";
+GB_SMALL_FONT = "Small";

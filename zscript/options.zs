@@ -27,6 +27,7 @@ class gb_Options
     result.mColor        = gb_Cvar.from("gb_color");
     result.mViewType     = gb_Cvar.from("gb_view_type");
     result.mIsDimEnabled = gb_Cvar.from("gb_enable_dim");
+    result.mWheelFont    = gb_Cvar.from("gb_wheel_font");
 
     result.mOpenOnScroll  = gb_Cvar.from("gb_open_on_scroll");
     result.mMouseInWheel  = gb_Cvar.from("gb_mouse_in_wheel");
@@ -43,6 +44,7 @@ class gb_Options
   int  getScale()     const { return mScale.getInt(); }
   int  getColor()     const { return mColor.getInt(); }
   bool isDimEnabled() const { return mIsDimEnabled.getBool(); }
+  int  getWheelFont() const { return mWheelFont.getInt(); }
 
   bool isOpenOnScroll()  const { return mOpenOnScroll.getBool(); }
   bool isMouseInWheel()  const { return mMouseInWheel.getBool(); }
@@ -60,6 +62,7 @@ class gb_Options
   private gb_Cvar mColor;
   private gb_Cvar mViewType;
   private gb_Cvar mIsDimEnabled;
+  private gb_Cvar mWheelFont;
 
   private gb_Cvar mOpenOnScroll;
   private gb_Cvar mMouseInWheel;

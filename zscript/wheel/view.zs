@@ -19,14 +19,15 @@ class gb_WheelView
 {
 
   static
-  gb_WheelView from()
+  gb_WheelView from(gb_Options options)
   {
     let result = new("gb_WheelView");
 
     result.setAlpha(1.0);
     result.setBaseColor(0x2222CC);
 
-    result.mScreen = gb_Screen.from();
+    result.mScreen  = gb_Screen.from();
+    result.mOptions = options;
 
     return result;
   }
@@ -352,10 +353,12 @@ class gb_WheelView
   {
     int textScale = max(Screen.getHeight() / 360, 1);
 
-    x -= bigFont.stringWidth(aString) * textScale / 2;
-    y -= bigFont.getHeight()          * textScale / 2;
+    Font aFont = mOptions.getWheelFont() ? smallFont : bigFont;
 
-    Screen.drawText( bigFont
+    x -= aFont.stringWidth(aString) * textScale / 2;
+    y -= aFont.getHeight()          * textScale / 2;
+
+    Screen.drawText( aFont
                    , Font.CR_WHITE
                    , x
                    , y
@@ -377,5 +380,6 @@ class gb_WheelView
   private vector2 mCenter;
 
   private gb_Screen mScreen;
+  private gb_Options mOptions;
 
 } // class gb_WheelView
