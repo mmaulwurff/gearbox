@@ -28,7 +28,7 @@ GZDoom 4.5 required.
 - Two different representations: blocks and wheel
 - Color and scale options
 - Customizable behavior
-- Multiplayer-compatible
+- Multiplayer compatible
 - Reaction to number keys
 
 ## Planned
@@ -53,6 +53,9 @@ GZDoom 4.5 required.
 - Thanks to Accensus and kadu522 for help with title selection.
 - Blocky view is designed to resemble the weapon menu from Half-Life by Valve.
 - Thanks to Marrub for [ZScriptDoc](https://github.com/marrub--/zdoom-doc).
-- Thanks to Proydoha for feature requests and bug reports.
+- Thanks to Proydoha for feature suggestions and bug reports.
 - Thanks to mamaluigisbagel for bug reports.
 - Thanks to Ac!d for bug reports.
+- Thanks to wildweasel for bug reports.
+- Thanks to TheRailgunner for feature suggestions.
+- Thanks to Captain J for feature suggestions.
