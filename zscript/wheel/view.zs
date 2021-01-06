@@ -333,6 +333,8 @@ class gb_WheelView
                       , DTA_FlipX        , flipX
                       );
 
+    if (!mOptions.getWheelTint()) return;
+
     Screen.drawTexture( texture
                       , NO_ANIMATION
                       , x

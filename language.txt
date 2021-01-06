@@ -18,6 +18,7 @@ GB_BLOCKY_VIEW = "Blocks";
 GB_WHEEL_VIEW  = "Wheel";
 GB_DIM         = "Enable screen dimming";
 GB_WHEEL_X     = "Horizontal position";
+GB_WHEEL_TINT  = "Colored tint on weapons";
 
 GB_BEHAVIOR          = "Behavior: general";
 GB_OPEN_ON_PREV_NEXT = "Open on next/previous weapon key press";
