@@ -222,10 +222,18 @@ class gb_WheelView
       : ((allowedWidth < weaponSize.x) ? allowedWidth / weaponSize.x : 1.0)
       ;
 
+    scale *= getScaleFactor();
+
     int weaponWidth  = int(weaponSize.x * scale);
     int weaponHeight = int(weaponSize.y * scale);
 
     drawWeapon(weaponTexture, x, y, weaponWidth, weaponHeight, angle, isTall);
+  }
+
+  private static
+  double getScaleFactor()
+  {
+    return Screen.getHeight() / 1080.0;
   }
 
   private
@@ -291,12 +299,17 @@ class gb_WheelView
     int x = int(round( sin(angle) * radius + mCenter.x));
     int y = int(round(-cos(angle) * radius + mCenter.y));
     TextureID pointerTexture = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
+    vector2 size = TexMan.getScaledSize(pointerTexture);
+    size *= getScaleFactor();
+
     Screen.drawTexture( pointerTexture
                       , NO_ANIMATION
                       , x
                       , y
                       , DTA_CenterOffset , true
                       , DTA_Alpha        , mAlpha
+                      , DTA_DestWidth    , int(size.x)
+                      , DTA_DestHeight   , int(size.y)
                       );
   }
 
