@@ -92,8 +92,7 @@ class gb_EventHandler : EventHandler
       {
         mWheelController.reset();
         int slot = input - InputSelectSlotBegin;
-        mWeaponMenu.selectSlot(slot);
-        return true;
+        return mWeaponMenu.selectSlot(slot);
       }
 
       switch (input)
@@ -116,14 +115,16 @@ class gb_EventHandler : EventHandler
           mWheelController.reset();
           mWeaponMenu.selectSlot(slot);
           gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
+          return true;
         }
 
         else if (mWeaponMenu.selectSlot(slot))
         {
           toggleMenu();
+          return true;
         }
 
-        return true;
+        return false;
       }
 
       switch (input)
