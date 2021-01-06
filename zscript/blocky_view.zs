@@ -53,6 +53,8 @@ class gb_BlockyView
 
   void display(gb_ViewModel viewModel) const
   {
+    if (viewModel.selectedWeaponIndex >= viewModel.slots.size()) return;
+
     int lastDrawnSlot = 0;
     int slotX = BORDER;
     int inSlotIndex = 0;

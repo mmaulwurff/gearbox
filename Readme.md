@@ -61,3 +61,4 @@ GZDoom 4.5 required.
 - Thanks to wildweasel for bug reports.
 - Thanks to TheRailgunner for feature suggestions.
 - Thanks to Captain J for feature suggestions.
+- Thanks to Dark-Assassin for bug reports.

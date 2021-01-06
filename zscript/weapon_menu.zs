@@ -94,6 +94,8 @@ class gb_WeaponMenu
 
   string confirmSelection()
   {
+    if (mSelectedIndex >= mWeapons.size()) return "";
+
     return getDefaultByType(mWeapons[mSelectedIndex]).getClassName();
   }
 

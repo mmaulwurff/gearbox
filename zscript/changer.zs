@@ -35,7 +35,7 @@ class gb_Changer play
   void selectWeapon(PlayerInfo player, string weapon)
   {
     Weapon targetWeapon = Weapon(player.mo.findInventory(weapon));
-    if (gb_WeaponWatcher.currentFor(player) != targetWeapon.getClass())
+    if (targetWeapon && gb_WeaponWatcher.currentFor(player) != targetWeapon.getClass())
     {
       player.pendingWeapon = targetWeapon;
     }
