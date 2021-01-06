@@ -5,29 +5,44 @@ AddOptionMenu OptionsMenu
 
 OptionMenu gb_Options
 {
+
   Title "$GB_OPTIONS"
 
   Option      "$GB_VIEW_TYPE", gb_view_type, gb_ViewTypeValues
 
   StaticText  ""
+  StaticText  "$GB_KEYSECTION", 1
+  Control     "$GB_TOGGLE_WEAPON_MENU", "+gb_toggle_weapon_menu"
+
+  StaticText  ""
   StaticText  "$GB_VISUALS" , 1
-  Slider      "$GB_SCALE"   , gb_scale, 1, 8, 1, 0
   ColorPicker "$GB_COLOR"   , gb_color
   Option      "$GB_DIM"     , gb_enable_dim, OnOff
+
+  StaticText  ""
+  StaticText  "$GB_VISUALS_WHEEL", 1
   Slider      "$GB_WHEEL_X" , gb_wheel_position, -1, 1, 0.1, 1
+
+  StaticText  ""
+  StaticText  "$GB_VISUALS_BLOCKS", 1
+  Slider      "$GB_SCALE"   , gb_scale, 1, 8, 1, 0
 
   StaticText  ""
   StaticText  "$GB_BEHAVIOR", 1
   Option      "$GB_OPEN_ON_PREV_NEXT" , gb_open_on_scroll   , OnOff
-  Option      "$GB_MOUSE_IN_WHEEL"    , gb_mouse_in_wheel   , OnOff
   Option      "$GB_SELECT_ON_KEY_UP"  , gb_select_on_key_up , OnOff
   Option      "$GB_NO_MENU_IF_ONE"    , gb_no_menu_if_one   , OnOff
+
+  StaticText  ""
+  StaticText  "$GB_BEHAVIOR_WHEEL", 1
+  Option      "$GB_MOUSE_IN_WHEEL"    , gb_mouse_in_wheel   , OnOff
 
   StaticText  ""
   StaticText  "$GB_MOUSE_SENSITIVITY", 1
   Slider      "$GB_X", gb_mouse_sensitivity_x, 0.1, 5, 0.1, 1
   Slider      "$GB_Y", gb_mouse_sensitivity_y, 0.1, 5, 0.1, 1
-}
+
+} // OptionMenu gb_Options
 
 OptionValue gb_ViewTypeValues
 {

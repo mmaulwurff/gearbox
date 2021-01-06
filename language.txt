@@ -1,9 +1,13 @@
 [enu default]
 
 GB_OPTIONS = "Gearbox Options";
-GB_VISUALS = "Visuals";
-GB_SCALE   = "Scale";
-GB_COLOR   = "Color";
+
+GB_VISUALS        = "Visuals: general";
+GB_COLOR          = "Color";
+
+GB_VISUALS_WHEEL  = "Visuals: Wheel";
+GB_VISUALS_BLOCKS = "Visuals: Blocks";
+GB_SCALE          = "Scale";
 
 GB_KEYSECTION         = "Gearbox Keys";
 GB_TOGGLE_WEAPON_MENU = "Toggle weapon menu";
@@ -13,13 +17,15 @@ GB_VIEW_TYPE   = "Selector type";
 GB_BLOCKY_VIEW = "Blocks";
 GB_WHEEL_VIEW  = "Wheel";
 GB_DIM         = "Enable screen dimming";
-GB_WHEEL_X     = "Wheel horizontal position";
+GB_WHEEL_X     = "Horizontal position";
 
-GB_BEHAVIOR          = "Behavior";
+GB_BEHAVIOR          = "Behavior: general";
 GB_OPEN_ON_PREV_NEXT = "Open on next/previous weapon key press";
-GB_MOUSE_IN_WHEEL    = "Enable mouse input in weapon wheel";
 GB_SELECT_ON_KEY_UP  = "Select on Toggle Menu key release";
 GB_NO_MENU_IF_ONE    = "Slot keys: immediately select if it's only one in slot";
+
+GB_BEHAVIOR_WHEEL    = "Behavior: Wheel";
+GB_MOUSE_IN_WHEEL    = "Enable mouse input";
 
 GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
 GB_X = "Horizontal";
