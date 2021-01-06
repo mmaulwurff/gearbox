@@ -254,23 +254,34 @@ class gb_WheelView
 
     TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
     double sectorAngleHalfWidth = 360.0 / 2.0 / nPlaces - 2;
+
+    double baseHeight  = 1080;
+    double heightRatio = Screen.getHeight() / baseHeight;
+    double baseWidth   = Screen.getWidth() / heightRatio;
+
     Screen.drawTexture( handTexture
                       , NO_ANIMATION
-                      , center.x
-                      , center.y
-                      , DTA_CenterOffset , true
-                      , DTA_KeepRatio    , true
-                      , DTA_Alpha        , mAlpha
-                      , DTA_Rotate       , handsAngle - sectorAngleHalfWidth
+                      , center.x / heightRatio
+                      , center.y / heightRatio
+                      , DTA_KeepRatio     , true
+                      , DTA_CenterOffset  , true
+                      , DTA_Alpha         , mAlpha
+                      , DTA_Rotate        , handsAngle - sectorAngleHalfWidth
+                      , DTA_VirtualWidth  , int(baseWidth)
+                      , DTA_VirtualHeight , int(baseHeight)
                       );
+
     Screen.drawTexture( handTexture
                       , NO_ANIMATION
-                      , center.x
-                      , center.y
-                      , DTA_CenterOffset , true
-                      , DTA_KeepRatio    , true
-                      , DTA_Alpha        , mAlpha
-                      , DTA_Rotate       , handsAngle + sectorAngleHalfWidth
+                      , center.x / heightRatio
+                      , center.y / heightRatio
+                      , DTA_KeepRatio     , true
+                      , DTA_CenterOffset  , true
+                      , DTA_CenterOffset  , true
+                      , DTA_Alpha         , mAlpha
+                      , DTA_Rotate        , handsAngle + sectorAngleHalfWidth
+                      , DTA_VirtualWidth  , int(baseWidth)
+                      , DTA_VirtualHeight , int(baseHeight)
                       );
   }
 
