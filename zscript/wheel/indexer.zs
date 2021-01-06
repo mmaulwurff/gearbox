@@ -97,7 +97,7 @@ class gb_WheelIndexer
 
   void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
   {
-    if (controllerModel.radius < DEAD_RADIUS)
+    if (controllerModel.radius < gb_WheelScreen.getDeadRadius())
     {
       mSelectedIndex = UNDEFINED_INDEX;
       mLastSlotIndex = UNDEFINED_INDEX;
@@ -122,8 +122,9 @@ class gb_WheelIndexer
     gb_MultiWheel.fill(viewModel, multiWheelModel);
 
     uint nPlaces = multiWheelModel.data.size();
+    int wheelRadius = gb_WheelScreen.getWheelRadius();
 
-    if (controllerModel.radius < WHEEL_RADIUS)
+    if (controllerModel.radius < wheelRadius)
     {
       int  innerIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
       bool isWeapon   = multiWheelModel.isWeapon[innerIndex];
@@ -154,7 +155,7 @@ class gb_WheelIndexer
       double slotAngle = itemAngle(nPlaces, mLastSlotIndex);
 
       double r = controllerModel.radius;
-      double w = WHEEL_RADIUS;
+      double w = wheelRadius;
       double forSlotAngle = slotAngle - controllerModel.angle;
       double side  = sqrt(r * r + w * w - 2 * r * w * cos(forSlotAngle));
       // due to computation precision, the value of ratio may be slightly out of range [-1, 1].
@@ -185,9 +186,6 @@ class gb_WheelIndexer
   {
     return 360.0 / nItems * index;
   }
-
-  const DEAD_RADIUS  = 67;
-  const WHEEL_RADIUS = 270;
 
   const UNDEFINED_INDEX = -1;
 

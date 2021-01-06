@@ -21,7 +21,7 @@ class gb_WheelInnerIndexer
   static
   int getSelectedIndex(uint nItems, gb_WheelControllerModel controllerModel)
   {
-    if (controllerModel.radius < DEAD_RADIUS)
+    if (controllerModel.radius < gb_WheelScreen.getDeadRadius())
     {
       return -1;
     }
@@ -29,7 +29,5 @@ class gb_WheelInnerIndexer
     int result = int(round(controllerModel.angle * nItems / 360.0)) % nItems;
     return result;
   }
-
-  const DEAD_RADIUS = 67;
 
 } // class gb_WheelInnerIndexer

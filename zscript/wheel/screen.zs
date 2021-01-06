@@ -29,4 +29,16 @@ class gb_WheelScreen
     return (screenWidth - halfScreenHeight, halfScreenHeight);
   }
 
+  static
+  int getWheelRadius()
+  {
+    return Screen.getHeight() / 4;
+  }
+
+  static
+  int getDeadRadius()
+  {
+    return Screen.getHeight() / 16;
+  }
+
 } // class gb_WheelScreen

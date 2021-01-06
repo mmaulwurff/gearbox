@@ -118,9 +118,10 @@ class gb_WheelView
                        , int  controllerRadius
                        )
   {
+    int wheelRadius = gb_WheelScreen.getWheelRadius();
     double angle             = itemAngle(nPlaces, innerIndex);
-    double outerWheelCenterX =  sin(angle) * WHEEL_RADIUS + mCenter.x;
-    double outerWheelCenterY = -cos(angle) * WHEEL_RADIUS + mCenter.y;
+    double outerWheelCenterX =  sin(angle) * wheelRadius + mCenter.x;
+    double outerWheelCenterY = -cos(angle) * wheelRadius + mCenter.y;
     drawOuterWheel(outerWheelCenterX, outerWheelCenterY, -angle);
 
     uint nWeapons = viewModel.tags.size();
@@ -147,7 +148,8 @@ class gb_WheelView
                    );
     }
 
-    if (DEAD_RADIUS > controllerRadius || controllerRadius > WHEEL_RADIUS)
+    int deadRadius = gb_WheelScreen.getDeadRadius();
+    if (deadRadius > controllerRadius || controllerRadius > wheelRadius)
     {
       drawHands( nWeaponsInSlot * 2
                , outerIndex
@@ -161,6 +163,7 @@ class gb_WheelView
   void drawInnerWheel()
   {
     TextureID texture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
+    int wheelDiameter = gb_WheelScreen.getWheelRadius() * 2;
     Screen.drawTexture( texture
                       , NO_ANIMATION
                       , mCenter.x
@@ -169,6 +172,8 @@ class gb_WheelView
                       , DTA_AlphaChannel , true
                       , DTA_Alpha        , mAlpha
                       , DTA_CenterOffset , true
+                      , DTA_DestWidth    , wheelDiameter
+                      , DTA_DestHeight   , wheelDiameter
                       );
   }
 
@@ -176,6 +181,7 @@ class gb_WheelView
   void drawOuterWheel(double x, double y, double angle)
   {
     TextureID texture = TexMan.checkForTexture("gb_hcir", TexMan.Type_Any);
+    int wheelDiameter = gb_WheelScreen.getWheelRadius() * 2;
     Screen.drawTexture( texture
                       , NO_ANIMATION
                       , x
@@ -185,6 +191,8 @@ class gb_WheelView
                       , DTA_Alpha        , mAlpha
                       , DTA_CenterOffset , true
                       , DTA_Rotate       , angle
+                      , DTA_DestWidth    , wheelDiameter
+                      , DTA_DestHeight   , wheelDiameter
                       );
   }
 
@@ -339,9 +347,6 @@ class gb_WheelView
   const MARGIN = 4;
 
   const TEXT_SCALE = 3;
-
-  const DEAD_RADIUS  = 67;
-  const WHEEL_RADIUS = 270;
 
   const UNDEFINED_INDEX = -1;
 
