@@ -136,7 +136,7 @@ class gb_WheelIndexer
     }
     else
     {
-      if (mLastSlotIndex == UNDEFINED_INDEX)
+      if (mLastSlotIndex == UNDEFINED_INDEX || mLastSlotIndex >= multiWheelModel.data.size())
       {
         mSelectedIndex = UNDEFINED_INDEX;
         mInnerIndex    = UNDEFINED_INDEX;
