@@ -30,8 +30,9 @@ class gb_NeteventProcessor
 
     if (args[0] == "gb_select_weapon")
     {
-      change.type = gb_Change.SelectWeapon;
-      change.object = args[1];
+      change.type         = gb_Change.SelectWeapon;
+      change.object       = args[1];
+      change.playerNumber = event.player;
     }
   }
 
