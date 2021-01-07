@@ -47,8 +47,6 @@ class gb_WeaponMenu
   {
     mSelectedIndex = getIndexOf(aClass);
     // Fixes the case when the player starts with no weapon selected.
-    // Gearbox will still misbehave if there is no weapons at all.
-    // We'll see if such a situation happens in reality.
     if (mSelectedIndex == mWeapons.size()) selectNextWeapon();
   }
 
