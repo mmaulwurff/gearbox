@@ -47,6 +47,8 @@ class gb_EventHandler : EventHandler
     {
       mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     }
+
+    if (!multiplayer && mOptions.isTimeFreezed() && !mActivity.isNone()) gb_TimeMachine.freeze();
   }
 
   /**

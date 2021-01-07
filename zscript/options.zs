@@ -34,6 +34,7 @@ class gb_Options
     result.mMouseInWheel  = gb_Cvar.from("gb_mouse_in_wheel");
     result.mSelectOnKeyUp = gb_Cvar.from("gb_select_on_key_up");
     result.mNoMenuIfOne   = gb_Cvar.from("gb_no_menu_if_one");
+    result.mTimeFreeze    = gb_Cvar.from("gb_time_freeze");
 
     result.mMouseSensitivityX = gb_Cvar.from("gb_mouse_sensitivity_x");
     result.mMouseSensitivityY = gb_Cvar.from("gb_mouse_sensitivity_y");
@@ -52,6 +53,7 @@ class gb_Options
   bool isMouseInWheel()  const { return mMouseInWheel.getBool(); }
   bool isSelectOnKeyUp() const { return mSelectOnKeyUp.getBool(); }
   bool isNoMenuIfOne()   const { return mNoMenuIfOne.getBool(); }
+  bool isTimeFreezed()   const { return mTimeFreeze.getBool(); }
 
   Vector2 getMouseSensitivity() const
   {
@@ -71,6 +73,7 @@ class gb_Options
   private gb_Cvar mMouseInWheel;
   private gb_Cvar mSelectOnKeyUp;
   private gb_Cvar mNoMenuIfOne;
+  private gb_Cvar mTimeFreeze;
 
   private gb_Cvar mMouseSensitivityX;
   private gb_Cvar mMouseSensitivityY;
