@@ -68,7 +68,7 @@ class gb_WeaponMenu
     for (uint i = 1; i < nWeapons; ++i)
     {
       uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
-      if (mSlots[index] == slot && players[consolePlayer].mo.findInventory(mWeapons[index]))
+      if (mSlots[index] == slot && isInInventory(index))
       {
         mSelectedIndex = index;
         return true;
@@ -85,11 +85,16 @@ class gb_WeaponMenu
     for (uint i = 1; i < nWeapons; ++i)
     {
       uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
-      nWeaponsInSlot += (mSlots[index] == slot);
+      nWeaponsInSlot += (mSlots[index] == slot && isInInventory(index));
       if (nWeaponsInSlot > 1) return false;
     }
     if (nWeaponsInSlot == 0) return false;
     return true;
+  }
+
+  bool isInInventory(int index) const
+  {
+    return NULL != players[consolePlayer].mo.findInventory(mWeapons[index]);
   }
 
   string confirmSelection()
