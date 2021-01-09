@@ -41,6 +41,11 @@ GZDoom 4.5 required.
 - Moving weapon between slots and changing order
 - Sounds for actions
 
+## Note for weapon mod authors
+
+If you want Gearbox to support your mod out of the box, assign
+Inventory.AltHUDIcon for your weapons! Tag property is also nice to have.
+
 ## Software used for development
 
 - Emacs
