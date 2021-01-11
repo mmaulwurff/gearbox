@@ -27,8 +27,8 @@ class gb_Level
     // weapons are configured via keyconf, they require a bit of network
     // communication, which finishes at tick 1.
     if (level.mapName ~== "titlemap") return gb_Level.NotInGame;
-    if (level.time == 0) return gb_Level.Loading;
-    if (level.time == 1) return gb_Level.JustLoaded;
+    if (level.mapTime == 0) return gb_Level.Loading;
+    if (level.mapTime == 1) return gb_Level.JustLoaded;
     return gb_Level.Loaded;
   }
 
