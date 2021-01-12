@@ -7,9 +7,10 @@ user color gb_color = "22 22 CC";
 // 1 - wheel view
 user int gb_view_type = 1;
 
-user bool  gb_enable_dim = true;
-user float gb_wheel_position = 1.0;
-user bool  gb_wheel_tint = true;
+user bool  gb_enable_dim       = true;
+user float gb_wheel_position   = 1.0;
+user bool  gb_wheel_tint       = true;
+user int   gb_multiwheel_limit = 12;
 
 // 0 - big font
 // 1 - small font

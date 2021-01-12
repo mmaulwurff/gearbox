@@ -19,17 +19,22 @@ class gb_MultiWheelMode
 {
 
   static
-  gb_MultiWheelMode from()
+  gb_MultiWheelMode from(gb_Options options)
   {
     let result = new("gb_MultiWheelMode");
+    result.mOptions = options;
     return result;
   }
 
   bool isEngaged(gb_ViewModel viewModel)
   {
     uint nWeapons = viewModel.tags.size();
-    bool result   = (nWeapons > 12);
+    bool result   = (nWeapons > mOptions.getMultiWheelLimit());
     return result;
   }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private gb_Options mOptions;
 
 } // class gb_MultiWheelMode

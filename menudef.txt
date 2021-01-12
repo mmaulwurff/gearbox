@@ -39,6 +39,7 @@ OptionMenu gb_Options
   StaticText  ""
   StaticText  "$GB_BEHAVIOR_WHEEL", 1
   Option      "$GB_MOUSE_IN_WHEEL"    , gb_mouse_in_wheel   , OnOff
+  Slider      "$GB_MULTIWHEEL_LIMIT"  , gb_multiwheel_limit , 3, 25, 1, 0
 
   StaticText  ""
   StaticText  "$GB_MOUSE_SENSITIVITY", 1

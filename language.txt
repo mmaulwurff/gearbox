@@ -28,6 +28,7 @@ GB_FREEZE_TIME       = "Freeze time when open (singleplayer only)";
 
 GB_BEHAVIOR_WHEEL    = "Behavior: Wheel";
 GB_MOUSE_IN_WHEEL    = "Enable mouse input";
+GB_MULTIWHEEL_LIMIT  = "Enable multiwheel if weapons number is more than";
 
 GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
 GB_X = "Horizontal";

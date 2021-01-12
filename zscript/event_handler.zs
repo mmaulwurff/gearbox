@@ -276,7 +276,7 @@ class gb_EventHandler : EventHandler
 
     mBlockyView = gb_BlockyView.from();
 
-    mMultiWheelMode  = gb_MultiWheelMode.from();
+    mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
     mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode);
     mWheelController = gb_WheelController.from();
     mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode);
