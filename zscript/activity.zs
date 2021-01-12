@@ -44,6 +44,8 @@ class gb_Activity
     }
   }
 
+  void setNone() { mActivity = gb_Activity.None; }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   enum Activity

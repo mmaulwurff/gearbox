@@ -42,5 +42,6 @@ version "4.5"
 // Helper classes that wrap access to game information provided by the engine.
 #include "zscript/engine/level.zs"
 #include "zscript/engine/weapon_watcher.zs"
+#include "zscript/engine/player.zs"
 
 #include "zscript/time_machine.zs"

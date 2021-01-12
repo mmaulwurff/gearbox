@@ -55,6 +55,12 @@ class gb_EventHandler : EventHandler
       if (mActivity.isNone())            mTimeMachine.thaw();
       else if (mOptions.isTimeFreezed()) mTimeMachine.freeze();
     }
+
+    if (!mActivity.isNone() && gb_Player.isDead())
+    {
+      mActivity.setNone();
+      mWheelController.setIsActive(false);
+    }
   }
 
   /**
@@ -224,6 +230,8 @@ class gb_EventHandler : EventHandler
   private ui
   void toggleMenu()
   {
+    if (gb_Player.isDead()) return;
+
     mActivity.toggleWeaponMenu();
 
     // Note that we update wheel controller active status even if wheel is not
