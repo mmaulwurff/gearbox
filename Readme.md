@@ -67,3 +67,4 @@ Inventory.AltHUDIcon for your weapons! Tag property is also nice to have.
 - Thanks to TheRailgunner for feature suggestions.
 - Thanks to Captain J for feature suggestions.
 - Thanks to Dark-Assassin for bug reports.
+- Thanks to Talon1024 for help with freezing option.

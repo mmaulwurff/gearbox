@@ -48,7 +48,13 @@ class gb_EventHandler : EventHandler
       mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     }
 
-    if (!multiplayer && mOptions.isTimeFreezed() && !mActivity.isNone()) gb_TimeMachine.freeze();
+    if (!multiplayer)
+    {
+      // Thaw regardless of the option to prevent player being locked frozen
+      // after changing options.
+      if (mActivity.isNone())            mTimeMachine.thaw();
+      else if (mOptions.isTimeFreezed()) mTimeMachine.freeze();
+    }
   }
 
   /**
@@ -255,9 +261,10 @@ class gb_EventHandler : EventHandler
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
 
-    mActivity  = gb_Activity.from();
-    mFadeInOut = gb_FadeInOut.from();
-    mOptions   = gb_Options.from();
+    mActivity    = gb_Activity.from();
+    mFadeInOut   = gb_FadeInOut.from();
+    mOptions     = gb_Options.from();
+    mTimeMachine = gb_TimeMachine.from();
 
     mBlockyView = gb_BlockyView.from();
 
@@ -268,10 +275,11 @@ class gb_EventHandler : EventHandler
     mIsInitialized = true;
   }
 
-  private gb_WeaponMenu mWeaponMenu;
-  private gb_Activity   mActivity;
-  private gb_FadeInOut  mFadeInOut;
-  private gb_Options    mOptions;
+  private gb_WeaponMenu  mWeaponMenu;
+  private gb_Activity    mActivity;
+  private gb_FadeInOut   mFadeInOut;
+  private gb_Options     mOptions;
+  private gb_TimeMachine mTimeMachine;
 
   private gb_BlockyView mBlockyView;
 

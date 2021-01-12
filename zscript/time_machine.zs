@@ -15,26 +15,57 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_TimeFreezer : PowerupGiver
-{
-
-  Default
-  {
-    Powerup.type "PowerTimeFreezer";
-    Powerup.duration 2;
-    Inventory.maxAmount 0;
-    +Inventory.autoActivate;
-  }
-
-} // class gb_TimeFreezer
-
 class gb_TimeMachine
 {
 
-  static play
+  static
+  gb_TimeMachine from()
+  {
+    let result = new("gb_TimeMachine");
+    result.mWasFrozen = false;
+    return result;
+  }
+
+  play
   void freeze()
   {
-    players[consolePlayer].mo.giveInventoryType("gb_TimeFreezer");
+    if (mWasFrozen) return;
+
+    mWasFrozen = true;
+
+    level.setFrozen(true);
+
+    PlayerInfo player = players[consolePlayer];
+
+    mCheats   = player.cheats;
+    mVelocity = player.vel;
+
+    player.cheats |=  FROZEN_CHEATS_FLAGS;
+    player.vel     = (0, 0);
   }
+
+  play
+  void thaw()
+  {
+    if (!mWasFrozen) return;
+
+    mWasFrozen = false;
+
+    level.setFrozen(false);
+
+    PlayerInfo player = players[consolePlayer];
+
+    player.cheats = mCheats;
+    player.vel    = mVelocity;
+  }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  const FROZEN_CHEATS_FLAGS  = CF_TOTALLYFROZEN | CF_FROZEN | CF_NOVELOCITY;
+
+  private bool    mWasFrozen;
+  private int     mCheats;
+  private vector2 mVelocity; // to reset weapon bobbing.
+
 
 } // class gb_TimeMachine
