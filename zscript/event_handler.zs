@@ -276,9 +276,10 @@ class gb_EventHandler : EventHandler
 
     mBlockyView = gb_BlockyView.from();
 
-    mWheelView       = gb_WheelView.from(mOptions);
+    mMultiWheelMode  = gb_MultiWheelMode.from();
+    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode);
     mWheelController = gb_WheelController.from();
-    mWheelIndexer    = gb_WheelIndexer.from();
+    mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode);
 
     mIsInitialized = true;
   }
@@ -291,6 +292,7 @@ class gb_EventHandler : EventHandler
 
   private gb_BlockyView mBlockyView;
 
+  private gb_MultiWheelMode  mMultiWheelMode;
   private gb_WheelView       mWheelView;
   private gb_WheelController mWheelController;
   private gb_WheelIndexer    mWheelIndexer;

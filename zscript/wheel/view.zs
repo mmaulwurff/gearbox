@@ -19,7 +19,7 @@ class gb_WheelView
 {
 
   static
-  gb_WheelView from(gb_Options options)
+  gb_WheelView from(gb_Options options, gb_MultiWheelMode multiWheelMode)
   {
     let result = new("gb_WheelView");
 
@@ -28,6 +28,7 @@ class gb_WheelView
 
     result.mScreen  = gb_Screen.from();
     result.mOptions = options;
+    result.mMultiWheelMode = multiWheelMode;
 
     return result;
   }
@@ -55,10 +56,9 @@ class gb_WheelView
     int  radius   = Screen.getHeight() * 5 / 32;
     int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
 
-    bool multiWheelMode = (nWeapons > 12);
     mCenter = mScreen.getWheelCenter();
 
-    if (multiWheelMode)
+    if (mMultiWheelMode.isEngaged(viewModel))
     {
       gb_MultiWheelModel multiWheelModel;
       gb_MultiWheel.fill(viewModel, multiWheelModel);
@@ -383,5 +383,6 @@ class gb_WheelView
 
   private gb_Screen mScreen;
   private gb_Options mOptions;
+  private gb_MultiWheelMode mMultiWheelMode;
 
 } // class gb_WheelView

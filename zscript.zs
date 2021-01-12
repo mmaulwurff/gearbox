@@ -34,6 +34,7 @@ version "4.5"
 #include "zscript/wheel/inner_indexer.zs"
 #include "zscript/wheel/indexer.zs"
 #include "zscript/wheel/multiwheel.zs"
+#include "zscript/wheel/multiwheel_mode.zs"
 
 // Utility tools.
 #include "zscript/tools/cvar.zs"

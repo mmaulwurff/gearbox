@@ -19,13 +19,14 @@ class gb_WheelIndexer
 {
 
   static
-  gb_WheelIndexer from()
+  gb_WheelIndexer from(gb_MultiWheelMode multiWheelMode)
   {
     let result = new("gb_WheelIndexer");
-    result.mSelectedIndex = UNDEFINED_INDEX;
-    result.mLastSlotIndex = UNDEFINED_INDEX;
-    result.mInnerIndex    = UNDEFINED_INDEX;
-    result.mOuterIndex    = UNDEFINED_INDEX;
+    result.mSelectedIndex  = UNDEFINED_INDEX;
+    result.mLastSlotIndex  = UNDEFINED_INDEX;
+    result.mInnerIndex     = UNDEFINED_INDEX;
+    result.mOuterIndex     = UNDEFINED_INDEX;
+    result.mMultiWheelMode = multiWheelMode;
     return result;
   }
 
@@ -35,9 +36,7 @@ class gb_WheelIndexer
   {
     if (areIndicesDefined()) return mInnerIndex;
 
-    uint nWeapons       = viewModel.tags.size();
-    bool multiWheelMode = (nWeapons > 12);
-
+    uint nWeapons = viewModel.tags.size();
     uint externalSelectedIndexInModel = UNDEFINED_INDEX;
     for (uint i = 0; i < nWeapons; ++i)
     {
@@ -48,7 +47,7 @@ class gb_WheelIndexer
       }
     }
 
-    if (!multiWheelMode) return externalSelectedIndexInModel;
+    if (!mMultiWheelMode.isEngaged(viewModel)) return externalSelectedIndexInModel;
 
     gb_MultiWheelModel multiWheelModel;
     gb_MultiWheel.fill(viewModel, multiWheelModel);
@@ -72,11 +71,9 @@ class gb_WheelIndexer
   {
     if (areIndicesDefined()) return mOuterIndex;
 
-    uint nWeapons       = viewModel.tags.size();
-    bool multiWheelMode = (nWeapons > 12);
+    if (!mMultiWheelMode.isEngaged(viewModel)) return UNDEFINED_INDEX;
 
-    if (!multiWheelMode) return UNDEFINED_INDEX;
-
+    uint nWeapons = viewModel.tags.size();
     uint externalSelectedIndexInModel = UNDEFINED_INDEX;
     for (uint i = 0; i < nWeapons; ++i)
     {
@@ -106,10 +103,9 @@ class gb_WheelIndexer
       return;
     }
 
-    uint nWeapons       = viewModel.tags.size();
-    bool multiWheelMode = (nWeapons > 12);
+    uint nWeapons = viewModel.tags.size();
 
-    if (!multiWheelMode)
+    if (!mMultiWheelMode.isEngaged(viewModel))
     {
       mSelectedIndex = gb_WheelInnerIndexer.getSelectedIndex(nWeapons, controllerModel);
       mLastSlotIndex = UNDEFINED_INDEX;
@@ -194,5 +190,7 @@ class gb_WheelIndexer
   private int mLastSlotIndex;
   private int mInnerIndex;
   private int mOuterIndex;
+
+  private gb_MultiWheelMode mMultiWheelMode;
 
 } // class gb_WheelIndexer
