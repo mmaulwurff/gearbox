@@ -26,8 +26,8 @@
  * 1. All visuals and input processing happens on client side and is invisible
  * to the network.
  *
- * 2. Actial game changing things, like switching weapons, are done through
- * network - even for the current player, even for the singleplayer game.
+ * 2. Actual game changing things, like switching weapons, are done through
+ * network - even for the current player, even for the single-player game.
  */
 class gb_EventHandler : EventHandler
 {
@@ -39,7 +39,7 @@ class gb_EventHandler : EventHandler
     {
     case gb_Level.NotInGame:  return;
     case gb_Level.Loading:    return;
-    case gb_Level.JustLoaded: initialize(); // fallthrough
+    case gb_Level.JustLoaded: initialize(); // fall through
     case gb_Level.Loaded:     break;
     }
 
@@ -52,8 +52,8 @@ class gb_EventHandler : EventHandler
     {
       // Thaw regardless of the option to prevent player being locked frozen
       // after changing options.
-      if (mActivity.isNone())            mTimeMachine.thaw();
-      else if (mOptions.isTimeFreezed()) mTimeMachine.freeze();
+      if (mActivity.isNone())                  mTimeMachine.thaw();
+      else if (mOptions.isTimeFreezeEnabled()) mTimeMachine.freeze();
     }
 
     if (!mActivity.isNone() && gb_Player.isDead())

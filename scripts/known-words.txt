@@ -35,6 +35,7 @@ argument
 argv
 aris
 array
+asin
 asm
 assert
 assign
@@ -112,6 +113,7 @@ chown
 chrono
 cin
 cinttypes
+circ
 clamp
 clang
 class
@@ -170,6 +172,7 @@ ctrl
 ctype
 cuchar
 current
+customizable
 cvar
 cvarinfo
 cvars
@@ -322,13 +325,16 @@ gzip
 halfwidth
 handler
 hard
+hardcoded
 has
 hash
+hcir
 heap
 hint
 href
 htop
 https
+hxrtc
 iamxv
 iconv
 iec
@@ -417,6 +423,7 @@ lvalue
 main
 makedirs
 malloc
+mamaluigisbagel
 map
 mapinfo
 marrub
@@ -451,6 +458,7 @@ msys
 multi
 multimap
 multiverse
+multiwheel
 mutable
 mutex
 namespace
@@ -516,6 +524,7 @@ pkill
 place
 playlist
 playloop
+pntr
 point
 pointer
 pop
@@ -538,16 +547,19 @@ proj
 promise
 protected
 proximate
+proydoha
 psprite
 public
 punct
 push
 pylint
+qcde
 qmake
 qsort
 qt
 queue
 radeon
+railgunner
 raise
 random
 range
@@ -786,6 +798,7 @@ wget
 while
 whitespace
 wiktionary
+wildweasel
 wipo
 woot
 writable

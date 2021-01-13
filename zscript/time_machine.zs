@@ -61,7 +61,7 @@ class gb_TimeMachine
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  const FROZEN_CHEATS_FLAGS  = CF_TOTALLYFROZEN | CF_FROZEN | CF_NOVELOCITY;
+  const FROZEN_CHEATS_FLAGS  = CF_TotallyFrozen | CF_Frozen | CF_NoVelocity;
 
   private bool    mWasFrozen;
   private int     mCheats;
