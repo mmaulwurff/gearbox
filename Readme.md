@@ -46,11 +46,6 @@ GZDoom 4.5 required.
 If you want Gearbox to support your mod out of the box, assign
 Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 
-## Software used for development
-
-- Emacs
-- GIMP
-
 ## License
 
 - code: [GPLv3](copying.txt)
@@ -59,6 +54,7 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 ## Acknowledgments
 
 - Thanks to Accensus for help with the mod name and for UI suggestions.
+- Credits to Accensus for gb_circ.png, gb_hand.png, gb_hcir.png, gb_pntr.png.
 - Thanks to kadu522 for general help and support.
 - Blocky view is designed to resemble the weapon menu from Half-Life by Valve.
 - Thanks to Marrub for [ZScriptDoc](https://github.com/marrub--/zdoom-doc).
