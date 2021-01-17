@@ -73,7 +73,7 @@ class gb_WheelView
         else          displaySlot  (i, data, nPlaces, radius);
       }
 
-      if (mAlpha == 1.0 && innerIndex != UNDEFINED_INDEX)
+      if (innerIndex != UNDEFINED_INDEX)
       {
         drawHands(nPlaces, innerIndex, mCenter, 0);
       }
@@ -99,13 +99,13 @@ class gb_WheelView
         displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, mCenter);
       }
 
-      if (mAlpha == 1.0 && innerIndex != UNDEFINED_INDEX)
+      if (innerIndex != UNDEFINED_INDEX)
       {
         drawHands(nWeapons, innerIndex, mCenter, 0);
       }
     }
 
-    if (mAlpha == 1.0 && showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
+    if (showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
