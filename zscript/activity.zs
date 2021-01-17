@@ -44,7 +44,8 @@ class gb_Activity
     }
   }
 
-  void setNone() { mActivity = gb_Activity.None; }
+  void close()       { mActivity = gb_Activity.None; }
+  void openWeapons() { mActivity = gb_Activity.Weapons; }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 

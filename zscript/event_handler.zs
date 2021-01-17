@@ -43,11 +43,6 @@ class gb_EventHandler : EventHandler
     case gb_Level.Loaded:     break;
     }
 
-    if (!mActivity.isWeapons())
-    {
-      mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
-    }
-
     if (!multiplayer)
     {
       // Thaw regardless of the option to prevent player being locked frozen
@@ -58,7 +53,7 @@ class gb_EventHandler : EventHandler
 
     if (!mActivity.isNone() && gb_Player.isDead())
     {
-      mActivity.setNone();
+      mActivity.close();
       mWheelController.setIsActive(false);
     }
   }
@@ -73,8 +68,8 @@ class gb_EventHandler : EventHandler
 
     switch (gb_EventProcessor.process(event, mOptions.isSelectOnKeyUp()))
     {
-    case InputToggleWeaponMenu: toggleMenu(); break;
-    case InputConfirmSelection: confirmSelection(); closeMenu(); break;
+    case InputToggleWeaponMenu: toggleWeapons(); break;
+    case InputConfirmSelection: confirmSelection(); close(); break;
     case InputToggleWeaponMenuObsolete: gb_Log.notice("GB_TOGGLE_WEAPON_MENU_OBSOLETE"); break;
     }
 
@@ -114,8 +109,8 @@ class gb_EventHandler : EventHandler
       {
       case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); mWheelController.reset(); return true;
       case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); mWheelController.reset(); return true;
-      case InputConfirmSelection: confirmSelection(); closeMenu(); return true;
-      case InputClose:            closeMenu(); return true;
+      case InputConfirmSelection: confirmSelection(); close(); return true;
+      case InputClose:            close(); return true;
       }
     }
     else if (mActivity.isNone())
@@ -136,7 +131,7 @@ class gb_EventHandler : EventHandler
 
         else if (mWeaponMenu.selectSlot(slot))
         {
-          toggleMenu();
+          toggleWeapons();
           return true;
         }
 
@@ -148,7 +143,7 @@ class gb_EventHandler : EventHandler
       case InputSelectNextWeapon:
         if (mOptions.isOpenOnScroll())
         {
-          toggleMenu();
+          toggleWeapons();
           mWeaponMenu.selectNextWeapon();
           return true;
         }
@@ -157,7 +152,7 @@ class gb_EventHandler : EventHandler
       case InputSelectPrevWeapon:
         if (mOptions.isOpenOnScroll())
         {
-          toggleMenu();
+          toggleWeapons();
           mWeaponMenu.selectPrevWeapon();
           return true;
         }
@@ -229,37 +224,41 @@ class gb_EventHandler : EventHandler
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private ui
-  void toggleMenu()
+  void toggleWeapons()
+  {
+    if (mActivity.isWeapons()) close();
+    else openWeapons();
+  }
+
+  private ui
+  void openWeapons()
   {
     if (gb_Player.isDead()) return;
 
-    mActivity.toggleWeaponMenu();
+    mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
+    mActivity.openWeapons();
 
     // Note that we update wheel controller active status even if wheel is not
     // active. In that case, the controller won't do anything because of the
     // check in inputProcess function.
-    mWheelController.setIsActive(!mActivity.isNone());
+    mWheelController.setIsActive(true);
+  }
+
+  private ui
+  void close()
+  {
+    mActivity.close();
+
+    // Note that we update wheel controller active status even if wheel is not
+    // active. In that case, the controller won't do anything because of the
+    // check in inputProcess function.
+    mWheelController.setIsActive(false);
   }
 
   private ui
   void confirmSelection()
   {
     gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
-  }
-
-  private ui
-  void closeMenu()
-  {
-    if (mActivity.isNone()) return;
-
-    mActivity.toggleWeaponMenu();
-
-    switch (mOptions.getViewType())
-    {
-    case VIEW_TYPE_WHEEL:
-      mWheelController.setIsActive(false);
-      break;
-    }
   }
 
   enum ViewTypes
