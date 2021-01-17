@@ -25,6 +25,7 @@ class gb_Options
 
     result.mScale        = gb_Cvar.from("gb_scale");
     result.mColor        = gb_Cvar.from("gb_color");
+    result.mDimColor     = gb_Cvar.from("gb_dim_color");
     result.mViewType     = gb_Cvar.from("gb_view_type");
     result.mIsDimEnabled = gb_Cvar.from("gb_enable_dim");
     result.mWheelFont    = gb_Cvar.from("gb_wheel_font");
@@ -46,6 +47,7 @@ class gb_Options
   int  getViewType()  const { return mViewType.getInt(); }
   int  getScale()     const { return mScale.getInt(); }
   int  getColor()     const { return mColor.getInt(); }
+  int  getDimColor()  const { return mDimColor.getInt(); }
   bool isDimEnabled() const { return mIsDimEnabled.getBool(); }
   int  getWheelFont() const { return mWheelFont.getInt(); }
   bool getWheelTint() const { return mWheelTint.getBool(); }
@@ -66,6 +68,7 @@ class gb_Options
 
   private gb_Cvar mScale;
   private gb_Cvar mColor;
+  private gb_Cvar mDimColor;
   private gb_Cvar mViewType;
   private gb_Cvar mIsDimEnabled;
   private gb_Cvar mWheelFont;

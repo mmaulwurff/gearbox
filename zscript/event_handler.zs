@@ -184,7 +184,7 @@ class gb_EventHandler : EventHandler
       gb_ViewModel viewModel;
       mWeaponMenu.fill(viewModel);
 
-      if (mOptions.isDimEnabled()) gb_Dim.dim(alpha);
+      gb_Dim.dim(alpha, mOptions);
 
       switch (mOptions.getViewType())
       {

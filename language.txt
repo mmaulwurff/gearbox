@@ -4,6 +4,7 @@ GB_OPTIONS = "Gearbox Options";
 
 GB_VISUALS        = "Visuals: general";
 GB_COLOR          = "Color";
+GB_DIM_COLOR      = "Screen dimming color";
 
 GB_VISUALS_WHEEL  = "Visuals: Wheel";
 GB_VISUALS_BLOCKS = "Visuals: Blocks";

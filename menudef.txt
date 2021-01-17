@@ -15,9 +15,10 @@ OptionMenu gb_Options
   Control     "$GB_TOGGLE_WEAPON_MENU", "+gb_toggle_weapon_menu"
 
   StaticText  ""
-  StaticText  "$GB_VISUALS" , 1
-  ColorPicker "$GB_COLOR"   , gb_color
-  Option      "$GB_DIM"     , gb_enable_dim, OnOff
+  StaticText  "$GB_VISUALS"   , 1
+  ColorPicker "$GB_COLOR"     , gb_color
+  Option      "$GB_DIM"       , gb_enable_dim, OnOff
+  ColorPicker "$GB_DIM_COLOR" , gb_dim_color
 
   StaticText  ""
   StaticText  "$GB_VISUALS_WHEEL", 1

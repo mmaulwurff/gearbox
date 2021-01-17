@@ -19,9 +19,11 @@ class gb_Dim
 {
 
   static
-  void dim(double alpha)
+  void dim(double alpha, gb_Options options)
   {
-    Screen.Dim(0x999999, alpha * 0.3, 0, 0, Screen.getWidth(), Screen.getHeight());
+    if (!options.isDimEnabled()) return;
+
+    Screen.Dim(options.getDimColor(), alpha * 0.4, 0, 0, Screen.getWidth(), Screen.getHeight());
   }
 
 } // class gb_Dim
