@@ -74,7 +74,7 @@ class gb_EventHandler : EventHandler
     switch (gb_EventProcessor.process(event, mOptions.isSelectOnKeyUp()))
     {
     case InputToggleWeaponMenu: toggleMenu(); break;
-    case InputConfirmSelection: confirmSelectionAndCloseMenu(); break;
+    case InputConfirmSelection: confirmSelection(); closeMenu(); break;
     case InputToggleWeaponMenuObsolete: gb_Log.notice("GB_TOGGLE_WEAPON_MENU_OBSOLETE"); break;
     }
 
@@ -114,7 +114,8 @@ class gb_EventHandler : EventHandler
       {
       case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); mWheelController.reset(); return true;
       case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); mWheelController.reset(); return true;
-      case InputConfirmSelection: confirmSelectionAndCloseMenu(); return true;
+      case InputConfirmSelection: confirmSelection(); closeMenu(); return true;
+      case InputClose:            closeMenu(); return true;
       }
     }
     else if (mActivity.isNone())
@@ -241,11 +242,16 @@ class gb_EventHandler : EventHandler
   }
 
   private ui
-  void confirmSelectionAndCloseMenu()
+  void confirmSelection()
+  {
+    gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
+  }
+
+  private ui
+  void closeMenu()
   {
     if (mActivity.isNone()) return;
 
-    gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
     mActivity.toggleWeaponMenu();
 
     switch (mOptions.getViewType())
