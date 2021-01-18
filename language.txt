@@ -22,7 +22,8 @@ GB_WHEEL_X     = "Horizontal position";
 GB_WHEEL_TINT  = "Colored tint on weapons";
 
 GB_BEHAVIOR          = "Behavior: general";
-GB_OPEN_ON_PREV_NEXT = "Open on next/previous weapon key press";
+GB_OPEN_ON_PREV_NEXT = "Open on next/previous weapon key";
+GB_OPEN_ON_SLOT      = "Open on slot key";
 GB_SELECT_ON_KEY_UP  = "Select on Toggle Menu key release";
 GB_NO_MENU_IF_ONE    = "Slot keys: immediately select if it's only one in slot";
 GB_FREEZE_TIME       = "Freeze time when open (single-player only)";

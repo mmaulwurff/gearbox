@@ -33,6 +33,7 @@ class gb_Options
     result.mMultiWheelLimit = gb_Cvar.from("gb_multiwheel_limit");
 
     result.mOpenOnScroll  = gb_Cvar.from("gb_open_on_scroll");
+    result.mOpenOnSlot    = gb_Cvar.from("gb_open_on_slot");
     result.mMouseInWheel  = gb_Cvar.from("gb_mouse_in_wheel");
     result.mSelectOnKeyUp = gb_Cvar.from("gb_select_on_key_up");
     result.mNoMenuIfOne   = gb_Cvar.from("gb_no_menu_if_one");
@@ -54,6 +55,7 @@ class gb_Options
   int  getMultiWheelLimit() const { return mMultiWheelLimit.getInt(); }
 
   bool isOpenOnScroll()  const { return mOpenOnScroll.getBool(); }
+  bool isOpenOnSlot()    const { return mOpenOnSlot.getBool(); }
   bool isMouseInWheel()  const { return mMouseInWheel.getBool(); }
   bool isSelectOnKeyUp() const { return mSelectOnKeyUp.getBool(); }
   bool isNoMenuIfOne()   const { return mNoMenuIfOne.getBool(); }
@@ -76,6 +78,7 @@ class gb_Options
   private gb_Cvar mMultiWheelLimit;
 
   private gb_Cvar mOpenOnScroll;
+  private gb_Cvar mOpenOnSlot;
   private gb_Cvar mMouseInWheel;
   private gb_Cvar mSelectOnKeyUp;
   private gb_Cvar mNoMenuIfOne;

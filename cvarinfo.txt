@@ -18,6 +18,7 @@ user int   gb_multiwheel_limit = 12;
 user int gb_wheel_font = 0;
 
 user bool gb_open_on_scroll   = false;
+user bool gb_open_on_slot     = true;
 user bool gb_mouse_in_wheel   = true;
 user bool gb_select_on_key_up = false;
 user bool gb_no_menu_if_one   = false;

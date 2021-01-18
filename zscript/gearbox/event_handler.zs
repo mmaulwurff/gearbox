@@ -117,7 +117,7 @@ class gb_EventHandler : EventHandler
     {
       mWheelController.reset();
 
-      if (gb_Input.isSlot(input))
+      if (gb_Input.isSlot(input) && mOptions.isOpenOnSlot())
       {
         int slot = input - InputSelectSlotBegin;
 
