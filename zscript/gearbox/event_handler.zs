@@ -51,7 +51,7 @@ class gb_EventHandler : EventHandler
       else if (mOptions.isTimeFreezeEnabled()) mTimeMachine.freeze();
     }
 
-    if (!mActivity.isNone() && gb_Player.isDead())
+    if (!mActivity.isNone() && (gb_Player.isDead() || automapActive))
     {
       mActivity.close();
       mWheelController.setIsActive(false);
@@ -64,7 +64,7 @@ class gb_EventHandler : EventHandler
   override
   void consoleProcess(ConsoleEvent event)
   {
-    if (!mIsInitialized) return;
+    if (!mIsInitialized || automapActive) return;
 
     switch (gb_EventProcessor.process(event, mOptions.isSelectOnKeyUp()))
     {
@@ -82,7 +82,7 @@ class gb_EventHandler : EventHandler
   override
   bool inputProcess(InputEvent event)
   {
-    if (!mIsInitialized) return false;
+    if (!mIsInitialized || automapActive) return false;
 
     mWheelController.setMouseSensitivity(mOptions.getMouseSensitivity());
 
