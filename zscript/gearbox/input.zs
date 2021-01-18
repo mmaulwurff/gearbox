@@ -39,4 +39,10 @@ class gb_Input
     return (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd);
   }
 
+  static
+  int getSlot(gb_Inputs input)
+  {
+    return input - InputSelectSlotBegin;
+  }
+
 } // class gb_Input

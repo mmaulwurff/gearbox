@@ -100,8 +100,7 @@ class gb_EventHandler : EventHandler
       if (gb_Input.isSlot(input))
       {
         mWheelController.reset();
-        int slot = input - InputSelectSlotBegin;
-        mWeaponMenu.selectSlot(slot);
+        mWeaponMenu.selectSlot(gb_Input.getSlot(input));
         return true;
       }
 
@@ -119,7 +118,7 @@ class gb_EventHandler : EventHandler
 
       if (gb_Input.isSlot(input) && mOptions.isOpenOnSlot())
       {
-        int slot = input - InputSelectSlotBegin;
+        int slot = gb_Input.getSlot(input);
 
         if (mOptions.isNoMenuIfOne() && mWeaponMenu.isOneWeaponInSlot(slot))
         {
@@ -131,7 +130,8 @@ class gb_EventHandler : EventHandler
 
         else if (mWeaponMenu.selectSlot(slot))
         {
-          toggleWeapons();
+          mActivity.openWeapons();
+          mWheelController.setIsActive(true);
           return true;
         }
 
