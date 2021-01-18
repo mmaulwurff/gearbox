@@ -97,7 +97,7 @@ class gb_EventHandler : EventHandler
 
     if (mActivity.isWeapons())
     {
-      if (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd)
+      if (gb_Input.isSlot(input))
       {
         mWheelController.reset();
         int slot = input - InputSelectSlotBegin;
@@ -117,7 +117,7 @@ class gb_EventHandler : EventHandler
     {
       mWheelController.reset();
 
-      if (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd)
+      if (gb_Input.isSlot(input))
       {
         int slot = input - InputSelectSlotBegin;
 

@@ -15,7 +15,7 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-enum gb_Input
+enum gb_Inputs
 {
 
   InputNothing,
@@ -28,4 +28,15 @@ enum gb_Input
   InputSelectSlotEnd = InputSelectSlotBegin + 11,
   InputClose,
 
-} // enum gb_Input
+} // enum gb_Inputs
+
+class gb_Input
+{
+
+  static
+  bool isSlot(gb_Inputs input)
+  {
+    return (InputSelectSlotBegin <= input && input <= InputSelectSlotEnd);
+  }
+
+} // class gb_Input

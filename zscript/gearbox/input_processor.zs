@@ -19,7 +19,7 @@ class gb_InputProcessor
 {
 
   static
-  gb_Input process(InputEvent event)
+  gb_Inputs process(InputEvent event)
   {
     if (event.type != InputEvent.Type_KeyDown) return InputNothing;
 
