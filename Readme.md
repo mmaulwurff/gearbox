@@ -66,3 +66,5 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 - Thanks to Captain J for feature suggestions.
 - Thanks to Dark-Assassin for bug reports.
 - Thanks to Talon1024 for help with time freezing option.
+- Thanks to rparhkdtp for bug reports.
+- Thanks to Enjay for feature suggestions.
