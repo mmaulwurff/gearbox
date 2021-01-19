@@ -46,3 +46,5 @@ version "4.5"
 #include "zscript/gearbox/time_machine.zs"
 
 #include "zscript/gearbox/event_handler.zs"
+
+#include "zscript/gearbox/patches/doom.zs"

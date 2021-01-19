@@ -119,9 +119,7 @@ class gb_WeaponMenu
       viewModel.slots.push(mSlots[i]);
       viewModel.indices.push(i);
 
-      TextureID icon = StatusBar.GetInventoryIcon(aWeapon, StatusBar.DI_ALTICONFIRST);
-
-      if (!icon.isValid()) icon = TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
+      TextureID icon = getIconFor(aWeapon);
 
       // Workaround, casting TextureID to int may be unreliable.
       viewModel.icons.push(int(icon));
@@ -137,6 +135,24 @@ class gb_WeaponMenu
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private ui
+  TextureID getIconFor(Weapon aWeapon)
+  {
+    TextureID icon = StatusBar.GetInventoryIcon(aWeapon, StatusBar.DI_ALTICONFIRST);
+
+    class<Inventory> aClass = aWeapon.getClassName() .. "_mpatch";
+    if (aClass != NULL)
+    {
+      readonly<Inventory> patch = getDefaultByType(aClass);
+      TextureID patchIcon = TexMan.checkForTexture(patch.obituary, TexMan.Type_Any);
+      if (patchIcon.isValid()) icon = patchIcon;
+    }
+
+    if (!icon.isValid()) icon = TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
+
+    return icon;
+  }
 
   private play State getReadyState(Weapon w) const { return w.getReadyState(); }
 
