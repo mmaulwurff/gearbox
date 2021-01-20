@@ -64,6 +64,7 @@ class gb_WheelIndexer
         if (multiWheelModel.data[i] == viewModel.slots[externalSelectedIndexInModel]) return i;
       }
     }
+
     return UNDEFINED_INDEX;
   }
 
@@ -125,7 +126,10 @@ class gb_WheelIndexer
       int  innerIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
       bool isWeapon   = multiWheelModel.isWeapon[innerIndex];
 
-      mSelectedIndex = isWeapon ? multiWheelModel.data[innerIndex] : UNDEFINED_INDEX;
+      mSelectedIndex = isWeapon
+        ? multiWheelModel.data[innerIndex]
+        : firstInSlot(viewModel, multiWheelModel.data[innerIndex]);
+
       mLastSlotIndex = isWeapon ? UNDEFINED_INDEX : innerIndex;
       mInnerIndex    = innerIndex;
       mOuterIndex    = 0;
@@ -170,6 +174,18 @@ class gb_WheelIndexer
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  int firstInSlot(gb_ViewModel viewModel, int slot)
+  {
+    int nWeapons = viewModel.tags.size();
+    for (int i = 0; i < nWeapons; ++i)
+    {
+      if (viewModel.slots[i] == slot) return i;
+    }
+
+    return UNDEFINED_INDEX;
+  }
 
   private
   bool areIndicesDefined() const
