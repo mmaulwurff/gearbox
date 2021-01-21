@@ -25,6 +25,7 @@ class gb_WeaponMenu
     result.mWeapons.move(weaponData.weapons);
     result.mSlots.move(weaponData.slots);
     result.mSelectedIndex = 0;
+    loadIconServices(result.mIconServices);
     return result;
   }
 
@@ -137,16 +138,22 @@ class gb_WeaponMenu
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private ui
-  TextureID getIconFor(Weapon aWeapon)
+  TextureID getIconFor(Weapon aWeapon) const
   {
     TextureID icon = StatusBar.GetInventoryIcon(aWeapon, StatusBar.DI_ALTICONFIRST);
 
-    class<Inventory> aClass = aWeapon.getClassName() .. "_mpatch";
-    if (aClass != NULL)
     {
-      readonly<Inventory> patch = getDefaultByType(aClass);
-      TextureID patchIcon = TexMan.checkForTexture(patch.obituary, TexMan.Type_Any);
-      if (patchIcon.isValid()) icon = patchIcon;
+      uint nServices = mIconServices.size();
+      string className = aWeapon.getClassName();
+      for (uint i = 0; i < nServices; ++i)
+      {
+        let service = mIconServices[i];
+        string iconResponse = service.uiGet(className);
+        if (iconResponse.length() != 0)
+        {
+          icon = TexMan.checkForTexture(iconResponse, TexMan.Type_Any);
+        }
+      }
     }
 
     if (!icon.isValid()) icon = TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
@@ -193,8 +200,21 @@ class gb_WeaponMenu
     return nWeapons;
   }
 
+  private static
+  void loadIconServices(out Array<gb_Service> services)
+  {
+    let iterator = gb_ServiceIterator.find("gb_IconService");
+    gb_Service aService;
+    while (aService = iterator.next())
+    {
+      services.push(aService);
+    }
+  }
+
   private Array< class<Weapon> > mWeapons;
   private Array< int >           mSlots;
   private uint mSelectedIndex;
+
+  private Array<gb_Service> mIconServices;
 
 } // class gb_WeaponMenu

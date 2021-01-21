@@ -47,4 +47,5 @@ version "4.5"
 
 #include "zscript/gearbox/event_handler.zs"
 
-#include "zscript/gearbox/patches/doom.zs"
+#include "zscript/gearbox/service/service.zs"
+#include "zscript/gearbox/service/icon_service.zs"
