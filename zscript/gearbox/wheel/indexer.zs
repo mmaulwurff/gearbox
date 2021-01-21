@@ -64,6 +64,7 @@ class gb_WheelIndexer
         if (multiWheelModel.data[i] == viewModel.slots[externalSelectedIndexInModel]) return i;
       }
     }
+
     return UNDEFINED_INDEX;
   }
 
@@ -122,54 +123,85 @@ class gb_WheelIndexer
 
     if (controllerModel.radius < wheelRadius)
     {
-      int  innerIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
-      bool isWeapon   = multiWheelModel.isWeapon[innerIndex];
-
-      mSelectedIndex = isWeapon ? multiWheelModel.data[innerIndex] : UNDEFINED_INDEX;
-      mLastSlotIndex = isWeapon ? UNDEFINED_INDEX : innerIndex;
-      mInnerIndex    = innerIndex;
-      mOuterIndex    = 0;
+      reportInnerIndex(nPlaces, controllerModel, multiWheelModel, viewModel);
+      return;
     }
-    else
+
+    if (mLastSlotIndex == UNDEFINED_INDEX || mLastSlotIndex >= multiWheelModel.data.size())
     {
-      if (mLastSlotIndex == UNDEFINED_INDEX || mLastSlotIndex >= multiWheelModel.data.size())
-      {
-        mSelectedIndex = UNDEFINED_INDEX;
-        mInnerIndex    = UNDEFINED_INDEX;
-        mOuterIndex    = UNDEFINED_INDEX;
-        return;
-      }
-
-      int slot = multiWheelModel.data[mLastSlotIndex];
-
-      uint start = 0;
-      for (; start < nWeapons && viewModel.slots[start] != slot; ++start);
-      uint end = start;
-      for (; end < nWeapons && viewModel.slots[end] == slot; ++end);
-      uint nWeaponsInSlot = end - start;
-
-      double slotAngle = itemAngle(nPlaces, mLastSlotIndex);
-
-      double r = controllerModel.radius;
-      double w = wheelRadius;
-      double forSlotAngle = slotAngle - controllerModel.angle;
-      double side  = sqrt(r * r + w * w - 2 * r * w * cos(forSlotAngle));
-      // due to computation precision, the value of ratio may be slightly out of range [-1, 1].
-      double ratio = clamp(r / side * sin(forSlotAngle), -1.0, 1.0);
-      double angle = -asin(ratio);
-
-      angle += 90;
-      angle %= 180;
-
-      int indexInSlot = int((angle * nWeaponsInSlot / 180.0) % nWeaponsInSlot);
-
-      mSelectedIndex = start + indexInSlot;
-      mInnerIndex    = mLastSlotIndex;
-      mOuterIndex    = indexInSlot;
+      mSelectedIndex = UNDEFINED_INDEX;
+      mInnerIndex    = UNDEFINED_INDEX;
+      mOuterIndex    = UNDEFINED_INDEX;
+      return;
     }
+
+    int slot = multiWheelModel.data[mLastSlotIndex];
+
+    uint start = 0;
+    for (; start < nWeapons && viewModel.slots[start] != slot; ++start);
+    uint end = start;
+    for (; end < nWeapons && viewModel.slots[end] == slot; ++end);
+    uint nWeaponsInSlot = end - start;
+
+    double slotAngle = itemAngle(nPlaces, mLastSlotIndex);
+
+    double r = controllerModel.radius;
+    double w = wheelRadius;
+    double forSlotAngle = slotAngle - controllerModel.angle;
+    double side  = sqrt(r * r + w * w - 2 * r * w * cos(forSlotAngle));
+
+    if (side < gb_Screen.getWheelDeadRadius())
+    {
+      reportInnerIndex(nPlaces, controllerModel, multiWheelModel, viewModel);
+      return;
+    }
+
+    // due to computation precision, the value of ratio may be slightly out of range [-1, 1].
+    double ratio = clamp(r / side * sin(forSlotAngle), -1.0, 1.0);
+    double angle = -asin(ratio);
+
+    angle += 90;
+    angle %= 180;
+
+    int indexInSlot = int((angle * nWeaponsInSlot / 180.0) % nWeaponsInSlot);
+
+    mSelectedIndex = start + indexInSlot;
+    mInnerIndex    = mLastSlotIndex;
+    mOuterIndex    = indexInSlot;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private
+  void reportInnerIndex( uint nPlaces
+                       , gb_WheelControllerModel controllerModel
+                       , gb_MultiWheelModel      multiWheelModel
+                       , gb_ViewModel            viewModel
+                       )
+  {
+    int  innerIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
+    bool isWeapon   = multiWheelModel.isWeapon[innerIndex];
+
+    mSelectedIndex = isWeapon
+      ? multiWheelModel.data[innerIndex]
+      : firstInSlot(viewModel, multiWheelModel.data[innerIndex]);
+
+    mLastSlotIndex = isWeapon ? UNDEFINED_INDEX : innerIndex;
+    mInnerIndex    = innerIndex;
+    mOuterIndex    = 0;
+  }
+
+  private static
+  int firstInSlot(gb_ViewModel viewModel, int slot)
+  {
+    int nWeapons = viewModel.tags.size();
+    for (int i = 0; i < nWeapons; ++i)
+    {
+      if (viewModel.slots[i] == slot) return i;
+    }
+
+    return UNDEFINED_INDEX;
+  }
 
   private
   bool areIndicesDefined() const

@@ -152,14 +152,12 @@ class gb_WheelView
     }
 
     int deadRadius = gb_Screen.getWheelDeadRadius();
-    if (deadRadius > controllerRadius || controllerRadius > wheelRadius)
-    {
-      drawHands( nWeaponsInSlot * 2
-               , outerIndex
-               , (outerWheelCenterX, outerWheelCenterY)
-               , -startingAngle
-               );
-    }
+
+    drawHands( nWeaponsInSlot * 2
+             , outerIndex
+             , (outerWheelCenterX, outerWheelCenterY)
+             , -startingAngle
+             );
   }
 
   private
