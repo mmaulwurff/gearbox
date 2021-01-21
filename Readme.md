@@ -32,6 +32,7 @@ GZDoom 4.5 required.
 - Customizable behavior
 - Multiplayer compatible
 - Reaction to number keys
+- extras.wad icon support for vanilla weapons
 
 ## Planned
 
@@ -60,5 +61,5 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 - Thanks to Talon1024 for help with time freezing option.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, TheRailgunner, Captain J, Enjay
   and krutomisi for feature suggestions.
-- Thanks to Accensus, Proydoha, mamaluigisbagel, Ac!d, wildweasel, Dark-Assassin
-  and rparhkdtp for bug reports.
+- Thanks to Accensus, Proydoha, mamaluigisbagel, Ac!d, wildweasel,
+  Dark-Assassin, rparhkdtp and Samarai1000 for bug reports.
