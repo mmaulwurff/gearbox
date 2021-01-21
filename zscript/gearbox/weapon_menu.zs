@@ -26,6 +26,7 @@ class gb_WeaponMenu
     result.mSlots.move(weaponData.slots);
     result.mSelectedIndex = 0;
     loadIconServices(result.mIconServices);
+    loadHideServices(result.mHideServices);
     return result;
   }
 
@@ -110,7 +111,7 @@ class gb_WeaponMenu
     for (uint i = 0; i < nWeapons; ++i)
     {
       let aWeapon = Weapon(players[consolePlayer].mo.findInventory(mWeapons[i]));
-      if (aWeapon == NULL) continue;
+      if (aWeapon == NULL || isHidden(aWeapon)) continue;
 
       if (mSelectedIndex == i) viewModel.selectedWeaponIndex = viewModel.tags.size();
 
@@ -136,6 +137,27 @@ class gb_WeaponMenu
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private ui
+  bool isHidden(Weapon aWeapon) const
+  {
+    bool result = false;
+
+    uint nServices = mHideServices.size();
+    string className = aWeapon.getClassName();
+    for (uint i = 0; i < nServices; ++i)
+    {
+      let service = mHideServices[i];
+      string hideResponse = service.uiGet(className);
+      if (hideResponse.length() != 0)
+      {
+        bool isHidden = hideResponse.byteAt(0) - 48; // convert to bool from "0" or "1".
+        result = isHidden;
+      }
+    }
+
+    return result;
+  }
 
   private ui
   TextureID getIconFor(Weapon aWeapon) const
@@ -203,7 +225,19 @@ class gb_WeaponMenu
   private static
   void loadIconServices(out Array<gb_Service> services)
   {
-    let iterator = gb_ServiceIterator.find("gb_IconService");
+    loadServices("gb_IconService", services);
+  }
+
+  private static
+  void loadHideServices(out Array<gb_Service> services)
+  {
+    loadServices("gb_HideService", services);
+  }
+
+  private static
+  void loadServices(string serviceName, out Array<gb_Service> services)
+  {
+    let iterator = gb_ServiceIterator.find(serviceName);
     gb_Service aService;
     while (aService = iterator.next())
     {
@@ -216,5 +250,6 @@ class gb_WeaponMenu
   private uint mSelectedIndex;
 
   private Array<gb_Service> mIconServices;
+  private Array<gb_Service> mHideServices;
 
 } // class gb_WeaponMenu

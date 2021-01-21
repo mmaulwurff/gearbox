@@ -15,7 +15,7 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_IconService : gb_Service
+class gb_HideService : gb_Service
 {
 
   override
@@ -23,20 +23,19 @@ class gb_IconService : gb_Service
   {
     switch (Name(className))
     {
-    case 'Fist'           : return "SMFIST0";
-    case 'Chainsaw'       : return "SMCSAW0";
-    case 'Pistol'         : return "SMPISG0";
-    case 'Shotgun'        : return "SMSHOT0";
-    case 'SuperShotgun'   : return "SMSGN20";
-    case 'Chaingun'       : return "SMMGUN0";
-    case 'RocketLauncher' : return "SMLAUN0";
-    case 'PlasmaRifle'    : return "SMPLAS0";
-    case 'BFG9000'        : return "SMBFGG0";
+    // SWWM GZ: https://forum.zdoom.org/viewtopic.php?f=43&t=67687
+    case 'DualExplodiumGun':
+    {
+      string explodiumGunClass = "ExplodiumGun";
+      return (players[consolePlayer].mo.countInv(explodiumGunClass) > 1) ? SHOW : HIDE;
+    }
 
     default: return IGNORE;
     }
   }
 
+  const HIDE = "1";
+  const SHOW = "0";
   const IGNORE = "";
 
-} // class gb_IconService1
+} // class gb_HideService
