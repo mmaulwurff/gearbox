@@ -173,7 +173,8 @@ class gb_WeaponMenu
         string iconResponse = service.uiGet(className);
         if (iconResponse.length() != 0)
         {
-          icon = TexMan.checkForTexture(iconResponse, TexMan.Type_Any);
+          TextureID iconFromService = TexMan.checkForTexture(iconResponse, TexMan.Type_Any);
+          if (iconFromService.isValid()) icon = iconFromService;
         }
       }
     }
