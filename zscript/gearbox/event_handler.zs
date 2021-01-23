@@ -51,7 +51,7 @@ class gb_EventHandler : EventHandler
       else if (mOptions.isTimeFreezeEnabled()) mTimeMachine.freeze();
     }
 
-    if (!mActivity.isNone() && (gb_Player.isDead() || automapActive))
+    if (!mActivity.isNone() && (gb_Player.isDead() || isDisabledOnAutomap()))
     {
       mActivity.close();
       mWheelController.setIsActive(false);
@@ -64,7 +64,7 @@ class gb_EventHandler : EventHandler
   override
   void consoleProcess(ConsoleEvent event)
   {
-    if (!mIsInitialized || automapActive) return;
+    if (!mIsInitialized || isDisabledOnAutomap()) return;
 
     switch (gb_EventProcessor.process(event, mOptions.isSelectOnKeyUp()))
     {
@@ -82,7 +82,7 @@ class gb_EventHandler : EventHandler
   override
   bool inputProcess(InputEvent event)
   {
-    if (!mIsInitialized || automapActive) return false;
+    if (!mIsInitialized || isDisabledOnAutomap()) return false;
 
     mWheelController.setMouseSensitivity(mOptions.getMouseSensitivity());
 
@@ -222,6 +222,12 @@ class gb_EventHandler : EventHandler
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private play
+  bool isDisabledOnAutomap() const
+  {
+    return automapActive && !mOptions.isOnAutomap();
+  }
 
   private ui
   void toggleWeapons()

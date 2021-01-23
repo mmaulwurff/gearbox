@@ -38,6 +38,7 @@ class gb_Options
     result.mSelectOnKeyUp = gb_Cvar.from("gb_select_on_key_up");
     result.mNoMenuIfOne   = gb_Cvar.from("gb_no_menu_if_one");
     result.mTimeFreeze    = gb_Cvar.from("gb_time_freeze");
+    result.mOnAutomap     = gb_Cvar.from("gb_on_automap");
 
     result.mMouseSensitivityX = gb_Cvar.from("gb_mouse_sensitivity_x");
     result.mMouseSensitivityY = gb_Cvar.from("gb_mouse_sensitivity_y");
@@ -60,6 +61,7 @@ class gb_Options
   bool isSelectOnKeyUp() const { return mSelectOnKeyUp.getBool(); }
   bool isNoMenuIfOne()   const { return mNoMenuIfOne.getBool(); }
   bool isTimeFreezeEnabled() const { return mTimeFreeze.getBool(); }
+  bool isOnAutomap() const { return mOnAutomap.getBool(); }
 
   Vector2 getMouseSensitivity() const
   {
@@ -83,6 +85,7 @@ class gb_Options
   private gb_Cvar mSelectOnKeyUp;
   private gb_Cvar mNoMenuIfOne;
   private gb_Cvar mTimeFreeze;
+  private gb_Cvar mOnAutomap;
 
   private gb_Cvar mMouseSensitivityX;
   private gb_Cvar mMouseSensitivityY;
