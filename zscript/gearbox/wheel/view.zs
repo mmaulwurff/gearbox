@@ -54,7 +54,7 @@ class gb_WheelView
 
     uint nWeapons = viewModel.tags.size();
     int  radius   = Screen.getHeight() * 5 / 32;
-    int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2;
+    int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2 * gb_Screen.getScaleFactor();
 
     mCenter = mScreen.getWheelCenter();
 
@@ -121,11 +121,10 @@ class gb_WheelView
                        , int  controllerRadius
                        )
   {
-    int wheelRadius = gb_Screen.getWheelRadius();
-    double angle             = itemAngle(nPlaces, innerIndex);
-    double outerWheelCenterX =  sin(angle) * wheelRadius + mCenter.x;
-    double outerWheelCenterY = -cos(angle) * wheelRadius + mCenter.y;
-    drawOuterWheel(outerWheelCenterX, outerWheelCenterY, -angle);
+    int     wheelRadius      = gb_Screen.getWheelRadius();
+    double  angle            = itemAngle(nPlaces, innerIndex);
+    vector2 outerWheelCenter = (sin(angle), -cos(angle)) * wheelRadius + mCenter;
+    drawOuterWheel(outerWheelCenter.x, outerWheelCenter.y, -angle);
 
     uint nWeapons = viewModel.tags.size();
 
@@ -146,7 +145,7 @@ class gb_WheelView
                    , radius
                    , allowedWidth
                    , viewModel
-                   , (outerWheelCenterX, outerWheelCenterY)
+                   , outerWheelCenter
                    , startingAngle
                    );
     }
@@ -155,7 +154,7 @@ class gb_WheelView
 
     drawHands( nWeaponsInSlot * 2
              , outerIndex
-             , (outerWheelCenterX, outerWheelCenterY)
+             , outerWheelCenter
              , -startingAngle
              );
   }
@@ -210,8 +209,7 @@ class gb_WheelView
   {
     double angle = (startingAngle + itemAngle(nPlaces, place)) % 360;
 
-    int x = int(round( sin(angle) * radius + center.x));
-    int y = int(round(-cos(angle) * radius + center.y));
+    vector2 xy =(sin(angle), -cos(angle)) * radius + center;
 
     // code is adapted from GZDoom AltHud.DrawImageToBox.
     TextureID weaponTexture = viewModel.icons[weaponIndex];
@@ -228,7 +226,83 @@ class gb_WheelView
     int weaponWidth  = int(weaponSize.x * scale);
     int weaponHeight = int(weaponSize.y * scale);
 
-    drawWeapon(weaponTexture, x, y, weaponWidth, weaponHeight, angle, isTall);
+    drawWeapon(weaponTexture, xy, weaponWidth, weaponHeight, angle, isTall);
+    drawAmmo(angle, center, viewModel, weaponIndex);
+  }
+
+  private
+  void drawAmmoPip(double angle, double radius, vector2 center, bool colored)
+  {
+    vector2   xy      = (sin(angle), -cos(angle)) * radius + center;
+    TextureID texture = TexMan.checkForTexture("gb_pip", TexMan.Type_Any);
+    vector2   size    = TexMan.getScaledSize(texture);
+    size *= gb_Screen.getScaleFactor();
+
+    if (colored)
+    {
+      Screen.drawTexture( texture
+                        , NO_ANIMATION
+                        , round(xy.x)
+                        , round(xy.y)
+                        , DTA_CenterOffset , true
+                        , DTA_Alpha        , mAlpha
+                        , DTA_DestWidth    , int(size.x)
+                        , DTA_DestHeight   , int(size.y)
+                        , DTA_FillColor    , FILLED_AMMO_COLOR
+                        );
+    }
+    else
+    {
+      Screen.drawTexture( texture
+                        , NO_ANIMATION
+                        , round(xy.x)
+                        , round(xy.y)
+                        , DTA_CenterOffset , true
+                        , DTA_Alpha        , mAlpha
+                        , DTA_DestWidth    , int(size.x)
+                        , DTA_DestHeight   , int(size.y)
+                        );
+    }
+  }
+
+  private
+  void drawAmmo(double weaponAngle, vector2 center, gb_ViewModel viewModel, uint weaponIndex)
+  {
+    if (viewModel.ammo1[weaponIndex] != -1)
+    {
+      int margin       = 10 * gb_Screen.getScaleFactor();
+      int radius       = Screen.getHeight() / 4 - margin;
+      int nColoredPips = int(ceil(N_PIPS * double(viewModel.ammo1   [weaponIndex])
+                                                / viewModel.maxAmmo1[weaponIndex]));
+      drawAmmoPips(radius, weaponAngle, center, nColoredPips);
+    }
+
+    if (viewModel.ammo2[weaponIndex] != -1)
+    {
+      int margin       = 20 * gb_Screen.getScaleFactor();
+      int radius       = Screen.getHeight() / 4 - margin;
+      int nColoredPips = int(ceil(N_PIPS * double(viewModel.ammo2   [weaponIndex])
+                                                / viewModel.maxAmmo2[weaponIndex]));
+      drawAmmoPips(radius, weaponAngle, center, nColoredPips);
+    }
+  }
+
+  void drawAmmoPips(double radius, double weaponAngle, vector2 center, int ammoRatio)
+  {
+    for (int i = -N_PIPS_HALVED + 1; i <= 0; ++i)
+    {
+      double angle = weaponAngle - PIPS_GAP + i * PIPS_STEP;
+      drawAmmoPip(angle, radius, center, ammoRatio > 0);
+      --ammoRatio;
+    }
+
+    for (int i = 0; i < N_PIPS_HALVED; ++i)
+    {
+      double angle = weaponAngle + PIPS_GAP + i * PIPS_STEP;
+      bool colored = true;
+      drawAmmoPip(angle, radius, center, ammoRatio > 0);
+      --ammoRatio;
+    }
   }
 
   private
@@ -310,7 +384,7 @@ class gb_WheelView
   }
 
   private
-  void drawWeapon(TextureID texture, int x, int y, int w, int h, double angle, bool isTall) const
+  void drawWeapon(TextureID texture, vector2 xy, int w, int h, double angle, bool isTall) const
   {
     bool flipX = (angle > 180);
     if (flipX) angle -= 180;
@@ -320,8 +394,8 @@ class gb_WheelView
 
     Screen.drawTexture( texture
                       , NO_ANIMATION
-                      , x
-                      , y
+                      , xy.x
+                      , xy.y
                       , DTA_CenterOffset , true
                       , DTA_KeepRatio    , true
                       , DTA_DestWidth    , w
@@ -335,8 +409,8 @@ class gb_WheelView
 
     Screen.drawTexture( texture
                       , NO_ANIMATION
-                      , x
-                      , y
+                      , xy.x
+                      , xy.y
                       , DTA_CenterOffset , true
                       , DTA_KeepRatio    , true
                       , DTA_DestWidth    , w
@@ -381,6 +455,14 @@ class gb_WheelView
   const DTA_ScaleX = 1073746885;
   const DTA_ScaleY = 1073746886;
   const DTA_Rotate = 1073746894;
+
+  const N_PIPS = 10;
+  const N_PIPS_HALVED = N_PIPS / 2;
+
+  const PIPS_GAP  = 1.2;
+  const PIPS_STEP = 1.5;
+
+  const FILLED_AMMO_COLOR = 0x22DD22;
 
   private double  mAlpha;
   private color   mBaseColor;
