@@ -54,7 +54,7 @@ class gb_WheelView
 
     uint nWeapons = viewModel.tags.size();
     int  radius   = Screen.getHeight() * 5 / 32;
-    int  allowedWidth = Screen.getHeight() * 3 / 16 - MARGIN * 2 * gb_Screen.getScaleFactor();
+    int  allowedWidth = int(Screen.getHeight() * 3 / 16 - MARGIN * 2 * gb_Screen.getScaleFactor());
 
     mCenter = mScreen.getWheelCenter();
 
@@ -270,7 +270,7 @@ class gb_WheelView
   {
     if (viewModel.ammo1[weaponIndex] != -1)
     {
-      int margin       = 10 * gb_Screen.getScaleFactor();
+      int margin       = int(10 * gb_Screen.getScaleFactor());
       int radius       = Screen.getHeight() / 4 - margin;
       int nColoredPips = int(ceil(N_PIPS * double(viewModel.ammo1   [weaponIndex])
                                                 / viewModel.maxAmmo1[weaponIndex]));
@@ -279,7 +279,7 @@ class gb_WheelView
 
     if (viewModel.ammo2[weaponIndex] != -1)
     {
-      int margin       = 20 * gb_Screen.getScaleFactor();
+      int margin       = int(20 * gb_Screen.getScaleFactor());
       int radius       = Screen.getHeight() / 4 - margin;
       int nColoredPips = int(ceil(N_PIPS * double(viewModel.ammo2   [weaponIndex])
                                                 / viewModel.maxAmmo2[weaponIndex]));
@@ -308,12 +308,10 @@ class gb_WheelView
   private
   void displaySlot(uint place, int slot, uint nPlaces, int radius)
   {
-    double angle = itemAngle(nPlaces, place);
+    double  angle = itemAngle(nPlaces, place);
+    vector2 pos   = (sin(angle), -cos(angle)) * radius + mCenter;
 
-    int x = int(round( sin(angle) * radius + mCenter.x));
-    int y = int(round(-cos(angle) * radius + mCenter.y));
-
-    drawText(string.format("%d", slot), x, y);
+    drawText(string.format("%d", slot), pos);
   }
 
   private static
@@ -366,16 +364,15 @@ class gb_WheelView
   private
   void drawPointer(double angle, double radius)
   {
-    int x = int(round( sin(angle) * radius + mCenter.x));
-    int y = int(round(-cos(angle) * radius + mCenter.y));
+    vector2 pos = (sin(angle), -cos(angle)) * radius + mCenter;
     TextureID pointerTexture = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
     vector2 size = TexMan.getScaledSize(pointerTexture);
     size *= gb_Screen.getScaleFactor();
 
     Screen.drawTexture( pointerTexture
                       , NO_ANIMATION
-                      , x
-                      , y
+                      , pos.x
+                      , pos.y
                       , DTA_CenterOffset , true
                       , DTA_Alpha        , mAlpha
                       , DTA_DestWidth    , int(size.x)
@@ -423,19 +420,19 @@ class gb_WheelView
   }
 
   private
-  void drawText(string aString, int x, int y)
+  void drawText(string aString, vector2 pos)
   {
     int textScale = max(Screen.getHeight() / 360, 1);
 
     Font aFont = mOptions.getWheelFont() ? smallFont : bigFont;
 
-    x -= aFont.stringWidth(aString) * textScale / 2;
-    y -= aFont.getHeight()          * textScale / 2;
+    pos.x -= aFont.stringWidth(aString) * textScale / 2;
+    pos.y -= aFont.getHeight()          * textScale / 2;
 
     Screen.drawText( aFont
                    , Font.CR_WHITE
-                   , x
-                   , y
+                   , pos.x
+                   , pos.y
                    , aString
                    , DTA_Alpha  , mAlpha
                    , DTA_ScaleX , textScale
