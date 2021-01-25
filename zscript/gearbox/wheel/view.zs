@@ -236,9 +236,8 @@ class gb_WheelView
   private
   void drawAmmoPip(double angle, double radius, vector2 center, bool colored)
   {
-    vector2   xy      = (sin(angle), -cos(angle)) * radius + center;
-    vector2   size    = TexMan.getScaledSize(mTextureCache.ammoPip);
-    size *= mScaleFactor;
+    vector2 xy   = (sin(angle), -cos(angle)) * radius + center;
+    vector2 size = mTextureCache.ammoPipSize * mScaleFactor;
 
     if (colored)
     {

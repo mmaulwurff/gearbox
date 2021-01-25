@@ -33,6 +33,8 @@ class gb_WheelTextureCache
     ammoPip    = TexMan.checkForTexture("gb_pip" , TexMan.Type_Any);
     hand       = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
     pointer    = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
+
+    ammoPipSize = TexMan.getScaledSize(ammoPip);
   }
 
   transient TextureID circle;
@@ -40,6 +42,8 @@ class gb_WheelTextureCache
   transient TextureID ammoPip;
   transient TextureID hand;
   transient TextureID pointer;
+
+  transient vector2 ammoPipSize;
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
