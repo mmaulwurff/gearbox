@@ -33,6 +33,7 @@ version "4.5"
 #include "zscript/gearbox/wheel/indexer.zs"
 #include "zscript/gearbox/wheel/multiwheel.zs"
 #include "zscript/gearbox/wheel/multiwheel_mode.zs"
+#include "zscript/gearbox/wheel/texture_cache.zs"
 
 // Utility tools.
 #include "zscript/gearbox/tools/cvar.zs"

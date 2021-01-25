@@ -29,6 +29,7 @@ class gb_WheelView
     result.mScreen  = gb_Screen.from();
     result.mOptions = options;
     result.mMultiWheelMode = multiWheelMode;
+    result.mTextureCache = gb_WheelTextureCache.from();
 
     return result;
   }
@@ -50,6 +51,8 @@ class gb_WheelView
               , int  outerIndex
               ) const
   {
+    if (!mTextureCache.isLoaded) mTextureCache.load();
+
     drawInnerWheel();
 
     uint nWeapons = viewModel.tags.size();
@@ -162,9 +165,8 @@ class gb_WheelView
   private
   void drawInnerWheel()
   {
-    TextureID texture = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
     int wheelDiameter = gb_Screen.getWheelRadius() * 2;
-    Screen.drawTexture( texture
+    Screen.drawTexture( mTextureCache.circle
                       , NO_ANIMATION
                       , mCenter.x
                       , mCenter.y
@@ -180,9 +182,8 @@ class gb_WheelView
   private
   void drawOuterWheel(double x, double y, double angle)
   {
-    TextureID texture = TexMan.checkForTexture("gb_hcir", TexMan.Type_Any);
     int wheelDiameter = gb_Screen.getWheelRadius() * 2;
-    Screen.drawTexture( texture
+    Screen.drawTexture( mTextureCache.halfCircle
                       , NO_ANIMATION
                       , x
                       , y
@@ -234,13 +235,12 @@ class gb_WheelView
   void drawAmmoPip(double angle, double radius, vector2 center, bool colored)
   {
     vector2   xy      = (sin(angle), -cos(angle)) * radius + center;
-    TextureID texture = TexMan.checkForTexture("gb_pip", TexMan.Type_Any);
-    vector2   size    = TexMan.getScaledSize(texture);
+    vector2   size    = TexMan.getScaledSize(mTextureCache.ammoPip);
     size *= gb_Screen.getScaleFactor();
 
     if (colored)
     {
-      Screen.drawTexture( texture
+      Screen.drawTexture( mTextureCache.ammoPip
                         , NO_ANIMATION
                         , round(xy.x)
                         , round(xy.y)
@@ -253,7 +253,7 @@ class gb_WheelView
     }
     else
     {
-      Screen.drawTexture( texture
+      Screen.drawTexture( mTextureCache.ammoPip
                         , NO_ANIMATION
                         , round(xy.x)
                         , round(xy.y)
@@ -327,14 +327,13 @@ class gb_WheelView
 
     double handsAngle = startAngle - itemAngle(nPlaces, selectedIndex);
 
-    TextureID handTexture = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
     double sectorAngleHalfWidth = 360.0 / 2.0 / nPlaces - 2;
 
     double baseHeight  = 1080;
     double heightRatio = Screen.getHeight() / baseHeight;
     double baseWidth   = Screen.getWidth() / heightRatio;
 
-    Screen.drawTexture( handTexture
+    Screen.drawTexture( mTextureCache.hand
                       , NO_ANIMATION
                       , center.x / heightRatio
                       , center.y / heightRatio
@@ -347,7 +346,7 @@ class gb_WheelView
                       , DTA_FlipX         , true
                       );
 
-    Screen.drawTexture( handTexture
+    Screen.drawTexture( mTextureCache.hand
                       , NO_ANIMATION
                       , center.x / heightRatio
                       , center.y / heightRatio
@@ -365,11 +364,10 @@ class gb_WheelView
   void drawPointer(double angle, double radius)
   {
     vector2 pos = (sin(angle), -cos(angle)) * radius + mCenter;
-    TextureID pointerTexture = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
-    vector2 size = TexMan.getScaledSize(pointerTexture);
+    vector2 size = TexMan.getScaledSize(mTextureCache.pointer);
     size *= gb_Screen.getScaleFactor();
 
-    Screen.drawTexture( pointerTexture
+    Screen.drawTexture( mTextureCache.pointer
                       , NO_ANIMATION
                       , pos.x
                       , pos.y
@@ -468,5 +466,7 @@ class gb_WheelView
   private gb_Screen mScreen;
   private gb_Options mOptions;
   private gb_MultiWheelMode mMultiWheelMode;
+
+  private gb_WheelTextureCache mTextureCache;
 
 } // class gb_WheelView
