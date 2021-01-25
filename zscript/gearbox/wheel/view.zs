@@ -53,11 +53,13 @@ class gb_WheelView
   {
     if (!mTextureCache.isLoaded) mTextureCache.load();
 
+    mScaleFactor = gb_Screen.getScaleFactor();
+
     drawInnerWheel();
 
     uint nWeapons = viewModel.tags.size();
     int  radius   = Screen.getHeight() * 5 / 32;
-    int  allowedWidth = int(Screen.getHeight() * 3 / 16 - MARGIN * 2 * gb_Screen.getScaleFactor());
+    int  allowedWidth = int(Screen.getHeight() * 3 / 16 - MARGIN * 2 * mScaleFactor);
 
     mCenter = mScreen.getWheelCenter();
 
@@ -222,7 +224,7 @@ class gb_WheelView
       : ((allowedWidth < weaponSize.x) ? allowedWidth / weaponSize.x : 1.0)
       ;
 
-    scale *= gb_Screen.getScaleFactor();
+    scale *= mScaleFactor;
 
     int weaponWidth  = int(weaponSize.x * scale);
     int weaponHeight = int(weaponSize.y * scale);
@@ -236,7 +238,7 @@ class gb_WheelView
   {
     vector2   xy      = (sin(angle), -cos(angle)) * radius + center;
     vector2   size    = TexMan.getScaledSize(mTextureCache.ammoPip);
-    size *= gb_Screen.getScaleFactor();
+    size *= mScaleFactor;
 
     if (colored)
     {
@@ -270,7 +272,7 @@ class gb_WheelView
   {
     if (viewModel.ammo1[weaponIndex] != -1)
     {
-      int margin       = int(10 * gb_Screen.getScaleFactor());
+      int margin       = int(10 * mScaleFactor);
       int radius       = Screen.getHeight() / 4 - margin;
       int nColoredPips = int(ceil(N_PIPS * double(viewModel.ammo1   [weaponIndex])
                                                 / viewModel.maxAmmo1[weaponIndex]));
@@ -279,7 +281,7 @@ class gb_WheelView
 
     if (viewModel.ammo2[weaponIndex] != -1)
     {
-      int margin       = int(20 * gb_Screen.getScaleFactor());
+      int margin       = int(20 * mScaleFactor);
       int radius       = Screen.getHeight() / 4 - margin;
       int nColoredPips = int(ceil(N_PIPS * double(viewModel.ammo2   [weaponIndex])
                                                 / viewModel.maxAmmo2[weaponIndex]));
@@ -365,7 +367,7 @@ class gb_WheelView
   {
     vector2 pos = (sin(angle), -cos(angle)) * radius + mCenter;
     vector2 size = TexMan.getScaledSize(mTextureCache.pointer);
-    size *= gb_Screen.getScaleFactor();
+    size *= mScaleFactor;
 
     Screen.drawTexture( mTextureCache.pointer
                       , NO_ANIMATION
@@ -467,6 +469,9 @@ class gb_WheelView
   private gb_Options mOptions;
   private gb_MultiWheelMode mMultiWheelMode;
 
+// cache ///////////////////////////////////////////////////////////////////////////////////////////
+
   private gb_WheelTextureCache mTextureCache;
+  private double mScaleFactor;
 
 } // class gb_WheelView
