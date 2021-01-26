@@ -25,6 +25,7 @@ class gb_WeaponMenu
     result.mWeapons.move(weaponData.weapons);
     result.mSlots.move(weaponData.slots);
     result.mSelectedIndex = 0;
+    result.mCacheTime     = 0;
     loadIconServices(result.mIconServices);
     loadHideServices(result.mHideServices);
     return result;
@@ -107,6 +108,45 @@ class gb_WeaponMenu
   ui
   void fill(out gb_ViewModel viewModel)
   {
+    // every other tic.
+    bool isCacheValid = (level.time <= mCacheTime + 1);
+    if (!isCacheValid)
+    {
+      mCacheTime = level.time;
+      mCachedViewModel.tags.clear();
+      mCachedViewModel.slots.clear();
+      mCachedViewModel.indices.clear();
+      mCachedViewModel.icons.clear();
+      mCachedViewModel.ammo1.clear();
+      mCachedViewModel.maxAmmo1.clear();
+      mCachedViewModel.ammo2.clear();
+      mCachedViewModel.maxAmmo2.clear();
+      fillDirect(mCachedViewModel);
+    }
+
+    copy(mCachedViewModel, viewModel);
+  }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private ui
+  void copy(gb_ViewModel source, out gb_ViewModel destination)
+  {
+    source.selectedWeaponIndex = destination.selectedWeaponIndex;
+
+    destination.tags.copy(source.tags);
+    destination.slots.copy(source.slots);
+    destination.indices.copy(source.indices);
+    destination.icons.copy(source.icons);
+    destination.ammo1.copy(source.ammo1);
+    destination.maxAmmo1.copy(source.maxAmmo1);
+    destination.ammo2.copy(source.ammo2);
+    destination.maxAmmo2.copy(source.maxAmmo2);
+  }
+
+  private ui
+  void fillDirect(out gb_ViewModel viewModel)
+  {
     uint nWeapons = mWeapons.size();
     for (uint i = 0; i < nWeapons; ++i)
     {
@@ -135,8 +175,6 @@ class gb_WeaponMenu
       viewModel.maxAmmo2.push(hasAmmo2 ? aWeapon.ammo2.maxAmount : -1);
     }
   }
-
-// private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private ui
   bool isHidden(Weapon aWeapon) const
@@ -252,5 +290,8 @@ class gb_WeaponMenu
 
   private Array<gb_Service> mIconServices;
   private Array<gb_Service> mHideServices;
+
+  private gb_ViewModel mCachedViewModel;
+  private int          mCacheTime;
 
 } // class gb_WeaponMenu
