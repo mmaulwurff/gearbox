@@ -17,7 +17,7 @@ This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox
 
 (Wheel with [HXRTC Project](https://forum.zdoom.org/viewtopic.php?f=43&t=48074))
 
-## How to use
+## How to Use
 
 GZDoom 4.5 required.
 
@@ -42,10 +42,21 @@ GZDoom 4.5 required.
 - Moving weapon between slots and changing order
 - Sounds for actions
 
-## Note for weapon mod authors
+## Note for Weapon Mod Authors
 
 If you want Gearbox to support your mod out of the box, assign
 Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
+
+## Compatibility Issues
+
+- [PyWeaponWheel v0.3](https://forum.zdoom.org/viewtopic.php?f=43&t=61061)
+  overrides time freezing. If you are using both mods and want to freeze time
+  with Gearbox, set PyWeaponWheel's option "Freeze when wheel is open"
+  (`py_weaponwheel_freeze` CVar) to Off.
+
+  Note that PyWeaponWheel may be built in some mods, for example in Project
+  Brutality. The solution is the same: disable time PyWeaponWheel's time
+  freezing.
 
 ## License
 
@@ -62,4 +73,4 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, TheRailgunner, Captain J, Enjay
   and krutomisi for feature suggestions.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, Ac!d, wildweasel,
-  Dark-Assassin, rparhkdtp and Samarai1000 for bug reports.
+  Dark-Assassin, rparhkdtp, Samarai1000 and Mr. Blazkowicz for bug reports.
