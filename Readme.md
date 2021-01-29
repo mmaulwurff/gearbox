@@ -70,6 +70,7 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 - Blocky view is designed to resemble the weapon menu from Half-Life by Valve.
 - Thanks to Marrub for [ZScriptDoc](https://github.com/marrub--/zdoom-doc).
 - Thanks to Talon1024 for help with time freezing option.
+- Thanks to Player701 for help with key event processing code.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, TheRailgunner, Captain J, Enjay
   and krutomisi for feature suggestions.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, Ac!d, wildweasel,

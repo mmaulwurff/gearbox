@@ -42,10 +42,14 @@ class gb_InputProcessor
   private static
   bool isKeyForCommand(int key, string command)
   {
-    int key1;
-    int key2;
-    [key1, key2] = bindings.getKeysForCommand(command);
-    return (key == key1 || key == key2);
+    Array<int> keys;
+    bindings.getAllKeysForCommand(keys, command);
+    uint nKeys = keys.size();
+    for (uint i = 0; i < nKeys; ++i)
+    {
+      if (keys[i] == key) return true;
+    }
+    return false;
   }
 
 } // class gb_InputProcessor
