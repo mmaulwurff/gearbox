@@ -61,11 +61,9 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 ## License
 
 - code: [GPLv3](copying.txt)
-- graphics: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ## Acknowledgments
 
-- Credits to Accensus for gb_circ.png, gb_hand.png, gb_hcir.png, gb_pntr.png.
 - Thanks to kadu522 for general help and support.
 - Blocky view is designed to resemble the weapon menu from Half-Life by Valve.
 - Thanks to Marrub for [ZScriptDoc](https://github.com/marrub--/zdoom-doc).
@@ -75,3 +73,4 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
   and krutomisi for feature suggestions.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, Ac!d, wildweasel,
   Dark-Assassin, rparhkdtp, Samarai1000 and Mr. Blazkowicz for bug reports.
+- See also [credits list](credits.md).

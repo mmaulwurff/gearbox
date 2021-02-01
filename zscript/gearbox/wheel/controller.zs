@@ -19,13 +19,14 @@ class gb_WheelController
 {
 
   static
-  gb_WheelController from()
+  gb_WheelController from(gb_Options options)
   {
     let result = new("gb_WheelController");
 
     result.mIsActive = false;
     result.reset();
-    result.mScreen = gb_Screen.from();
+    result.mScreen   = gb_Screen.from();
+    result.mOptions  = options;
 
     return result;
   }
@@ -49,31 +50,23 @@ class gb_WheelController
     model.radius = getRadius();
   }
 
-  void setMouseSensitivity(Vector2 sensitivity)
-  {
-    mMouseSensitivity = sensitivity;
-  }
-
   bool process(InputEvent event)
   {
-    if (!mIsActive) return false;
+    if (!mIsActive || event.type != InputEvent.Type_Mouse) return false;
 
-    if (event.type == InputEvent.Type_Mouse)
-    {
-      mX += int(round(event.mouseX * mMouseSensitivity.x));
-      mY -= int(round(event.mouseY * mMouseSensitivity.y));
+    mMouseSensitivity = mOptions.getMouseSensitivity();
 
-      vector2 center = mScreen.getWheelCenter();
-      int centerX = int(center.x);
-      int centerY = int(center.y);
+    mX += int(round(event.mouseX * mMouseSensitivity.x));
+    mY -= int(round(event.mouseY * mMouseSensitivity.y));
 
-      mX = clamp(mX, -centerX, Screen.getWidth()  - centerX);
-      mY = clamp(MY, -centerY, Screen.getHeight() - centerY);
+    vector2 center = mScreen.getWheelCenter();
+    int centerX = int(center.x);
+    int centerY = int(center.y);
 
-      return true;
-    }
+    mX = clamp(mX, -centerX, Screen.getWidth()  - centerX);
+    mY = clamp(MY, -centerY, Screen.getHeight() - centerY);
 
-    return false;
+    return true;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +88,7 @@ class gb_WheelController
   private int  mY;
   private Vector2 mMouseSensitivity;
 
-  private gb_Screen mScreen;
+  private gb_Screen  mScreen;
+  private gb_Options mOptions;
 
 } // class gb_WheelController

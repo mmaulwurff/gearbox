@@ -16,6 +16,6 @@ git log --date=short --pretty=format:"-%d %ad %s%n" | \
     > changelog.txt
 
 rm -f "$filename"
-zip -R0 "$filename" "*.md" "*.txt" "*.zs" "*.png"
+zip -R0 "$filename" "*.md" "*.txt" "*.zs" "*.png" "*.ogg"
 
 gzdoom -norun -noautoload -file "$filename" "$@"

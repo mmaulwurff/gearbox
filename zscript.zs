@@ -8,6 +8,7 @@ version "4.5"
 #include "zscript/gearbox/input.zs"
 #include "zscript/gearbox/input_processor.zs"
 #include "zscript/gearbox/event_processor.zs"
+#include "zscript/gearbox/sounds.zs"
 
 #include "zscript/gearbox/weapon_menu.zs"
 

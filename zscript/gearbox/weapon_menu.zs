@@ -38,11 +38,9 @@ class gb_WeaponMenu
 
   void setSelectedIndexFromView(gb_ViewModel viewModel, int index)
   {
-    if (index == -1)
-    {
-      return;
-    }
+    if (index == -1 || mSelectedIndex == viewModel.indices[index]) return;
 
+    gb_Sounds.playTick();
     mSelectedIndex = viewModel.indices[index];
   }
 
@@ -55,11 +53,13 @@ class gb_WeaponMenu
 
   void selectNextWeapon()
   {
+    gb_Sounds.playTick();
     mSelectedIndex = findNextWeapon();
   }
 
   void selectPrevWeapon()
   {
+    gb_Sounds.playTick();
     mSelectedIndex = findPrevWeapon();
   }
 
@@ -72,6 +72,7 @@ class gb_WeaponMenu
       if (mSlots[index] == slot && isInInventory(index))
       {
         mSelectedIndex = index;
+        gb_Sounds.playTick();
         return true;
       }
     }

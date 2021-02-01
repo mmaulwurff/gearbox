@@ -84,33 +84,31 @@ class gb_EventHandler : EventHandler
   {
     if (!mIsInitialized || isDisabledOnAutomap()) return false;
 
-    mWheelController.setMouseSensitivity(mOptions.getMouseSensitivity());
-
-    switch (mOptions.getViewType())
+    if (mOptions.getViewType() == VIEW_TYPE_WHEEL && mOptions.isMouseInWheel()
+        && mWheelController.process(event))
     {
-    case VIEW_TYPE_WHEEL:
-      if (mOptions.isMouseInWheel() && mWheelController.process(event)) return true;
-      break;
+      return true;
     }
 
     int input = gb_InputProcessor.process(event);
 
     if (mActivity.isWeapons())
     {
-      if (gb_Input.isSlot(input))
-      {
-        mWheelController.reset();
-        mWeaponMenu.selectSlot(gb_Input.getSlot(input));
-        return true;
-      }
-
       switch (input)
       {
-      case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); mWheelController.reset(); return true;
-      case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); mWheelController.reset(); return true;
-      case InputConfirmSelection: confirmSelection(); close(); return true;
-      case InputClose:            close(); return true;
+      case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); mWheelController.reset(); break;
+      case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); mWheelController.reset(); break;
+      case InputConfirmSelection: confirmSelection(); close(); break;
+      case InputClose:            close(); break;
+
+      default:
+        if (!gb_Input.isSlot(input)) return false;
+        mWheelController.reset();
+        mWeaponMenu.selectSlot(gb_Input.getSlot(input));
+        break;
       }
+
+      return true;
     }
     else if (mActivity.isNone())
     {
@@ -122,41 +120,28 @@ class gb_EventHandler : EventHandler
 
         if (mOptions.isNoMenuIfOne() && mWeaponMenu.isOneWeaponInSlot(slot))
         {
-          mWheelController.reset();
           mWeaponMenu.selectSlot(slot);
           gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
-          return true;
         }
-
         else if (mWeaponMenu.selectSlot(slot))
         {
           mActivity.openWeapons();
           mWheelController.setIsActive(true);
-          return true;
+        }
+        else
+        {
+          return false;
         }
 
-        return false;
+        return true;
       }
+
+      if (!mOptions.isOpenOnScroll()) return false;
 
       switch (input)
       {
-      case InputSelectNextWeapon:
-        if (mOptions.isOpenOnScroll())
-        {
-          toggleWeapons();
-          mWeaponMenu.selectNextWeapon();
-          return true;
-        }
-        break;
-
-      case InputSelectPrevWeapon:
-        if (mOptions.isOpenOnScroll())
-        {
-          toggleWeapons();
-          mWeaponMenu.selectPrevWeapon();
-          return true;
-        }
-        break;
+      case InputSelectNextWeapon: toggleWeapons(); mWeaponMenu.selectNextWeapon(); return true;
+      case InputSelectPrevWeapon: toggleWeapons(); mWeaponMenu.selectPrevWeapon(); return true;
       }
     }
 
@@ -289,7 +274,7 @@ class gb_EventHandler : EventHandler
 
     mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
     mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode);
-    mWheelController = gb_WheelController.from();
+    mWheelController = gb_WheelController.from(mOptions);
     mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode);
 
     mIsInitialized = true;

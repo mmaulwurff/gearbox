@@ -1,0 +1,2 @@
+gearbox/tick sounds/gb_tick.ogg
+$volume gearbox/tick 0.5
