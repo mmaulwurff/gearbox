@@ -24,6 +24,12 @@ class gb_Sounds
     playSound("gearbox/tick");
   }
 
+  static
+  void playToggle()
+  {
+    playSound("gearbox/toggle");
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private static

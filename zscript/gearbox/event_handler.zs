@@ -53,8 +53,7 @@ class gb_EventHandler : EventHandler
 
     if (!mActivity.isNone() && (gb_Player.isDead() || isDisabledOnAutomap()))
     {
-      mActivity.close();
-      mWheelController.setIsActive(false);
+      close();
     }
   }
 
@@ -125,6 +124,7 @@ class gb_EventHandler : EventHandler
         }
         else if (mWeaponMenu.selectSlot(slot))
         {
+          gb_Sounds.playToggle();
           mActivity.openWeapons();
           mWheelController.setIsActive(true);
         }
@@ -227,6 +227,7 @@ class gb_EventHandler : EventHandler
     if (gb_Player.isDead()) return;
 
     mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
+    gb_Sounds.playToggle();
     mActivity.openWeapons();
 
     // Note that we update wheel controller active status even if wheel is not
@@ -235,9 +236,10 @@ class gb_EventHandler : EventHandler
     mWheelController.setIsActive(true);
   }
 
-  private ui
+  private clearscope
   void close()
   {
+    gb_Sounds.playToggle();
     mActivity.close();
 
     // Note that we update wheel controller active status even if wheel is not

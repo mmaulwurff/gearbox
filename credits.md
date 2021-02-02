@@ -5,3 +5,6 @@
 - gb_tick.ogg is converted from
   [384187__malle99__click-tick.wav](https://freesound.org/people/malle99/sounds/384187/)
   by malle99. [Creative Commons 0 License](http://creativecommons.org/publicdomain/zero/1.0/)
+- gb_toggle.ogg is converted from
+  [362625__kermite607__metal-clang-sound.wav](https://freesound.org/people/kermite607/sounds/362625/)
+  by kermite607. [Creative Commons 0 License.](http://creativecommons.org/publicdomain/zero/1.0/)
