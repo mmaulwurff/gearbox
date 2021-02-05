@@ -133,7 +133,7 @@ class gb_WeaponMenu
   private ui
   void copy(gb_ViewModel source, out gb_ViewModel destination)
   {
-    source.selectedWeaponIndex = destination.selectedWeaponIndex;
+    destination.selectedWeaponIndex = source.selectedWeaponIndex;
 
     destination.tags.copy(source.tags);
     destination.slots.copy(source.slots);
