@@ -63,12 +63,14 @@ class gb_WheelView
 
     mCenter = mScreen.getWheelCenter();
 
+    int nPlaces = 0;
+
     if (mMultiWheelMode.isEngaged(viewModel))
     {
       gb_MultiWheelModel multiWheelModel;
       gb_MultiWheel.fill(viewModel, multiWheelModel);
 
-      uint nPlaces = multiWheelModel.data.size();
+      nPlaces = multiWheelModel.data.size();
       for (uint i = 0; i < nPlaces; ++i)
       {
         bool isWeapon = multiWheelModel.isWeapon[i];
@@ -78,10 +80,7 @@ class gb_WheelView
         else          displaySlot  (i, data, nPlaces, radius);
       }
 
-      if (innerIndex != UNDEFINED_INDEX)
-      {
-        drawHands(nPlaces, innerIndex, mCenter, 0);
-      }
+      drawHands(nPlaces, innerIndex, mCenter, 0);
 
       if (outerIndex != UNDEFINED_INDEX && !multiWheelModel.isWeapon[innerIndex])
       {
@@ -104,13 +103,12 @@ class gb_WheelView
         displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, mCenter);
       }
 
-      if (innerIndex != UNDEFINED_INDEX)
-      {
-        drawHands(nWeapons, innerIndex, mCenter, 0);
-      }
+      nPlaces = nWeapons;
+      drawHands(nPlaces, innerIndex, mCenter, 0);
     }
 
     if (showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
+    drawWeaponDescription(viewModel, innerIndex, nPlaces);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
@@ -312,7 +310,8 @@ class gb_WheelView
     double  angle = itemAngle(nPlaces, place);
     vector2 pos   = (sin(angle), -cos(angle)) * radius + mCenter;
 
-    drawText(string.format("%d", slot), pos);
+    Font aFont = mOptions.getWheelFont() ? smallFont : bigFont;
+    drawText(string.format("%d", slot), pos, aFont);
   }
 
   private static
@@ -359,6 +358,55 @@ class gb_WheelView
                       , DTA_VirtualWidth  , int(baseWidth)
                       , DTA_VirtualHeight , int(baseHeight)
                       );
+  }
+
+  private
+  void drawWeaponDescription(gb_ViewModel viewModel, int innerIndex, int nPlaces)
+  {
+    Font aFont = smallFont;
+
+    int index = viewModel.selectedWeaponIndex;
+    string description = viewModel.tags[index];
+    string ammo1 = (viewModel.ammo1[index] != -1)
+      ? string.format("%d/%d", viewModel.ammo1[index], viewModel.maxAmmo1[index])
+      : "";
+    string ammo2 = (viewModel.ammo2[index] != -1)
+      ? string.format("%d/%d", viewModel.ammo2[index], viewModel.maxAmmo2[index])
+      : "";
+
+    int ammo1Width = aFont.stringWidth(ammo1);
+    int ammo2Width = aFont.stringWidth(ammo2);
+
+    int descriptionMargin = int(10 * mScaleFactor);
+    int textScale = getTextScale();
+    int lineHeight = aFont.getHeight() * textScale;
+    int descriptionHeight = (descriptionMargin * 2 + lineHeight * 3) / mScaleFactor;
+    int descriptionWidth  = aFont.stringWidth(description);
+
+    int width = max(descriptionWidth, max(ammo1Width, ammo2Width)) * textScale + descriptionMargin * 2;
+    width /= mScaleFactor;
+    vector2 size = (width, descriptionHeight) * mScaleFactor;
+
+    double  angle  = itemAngle(nPlaces, innerIndex);
+    int     radius = gb_Screen.getWheelRadius() + descriptionHeight / 2 * mScaleFactor;
+    bool    isDescriptionOnTop = (90.0 < angle && angle < 270.0);
+    vector2 pos = mCenter;
+    pos.y += radius * (isDescriptionOnTop ? -1 : 1);
+
+    Screen.drawTexture( mTextureCache.description
+                      , NO_ANIMATION
+                      , pos.x
+                      , pos.y
+                      , DTA_CenterOffset , true
+                      , DTA_Alpha        , mAlpha / 4
+                      , DTA_DestWidth    , int(size.x)
+                      , DTA_DestHeight   , int(size.y)
+                      );
+
+    drawText(description, pos, aFont);
+
+    if (ammo1.length() > 0) drawText(ammo1, pos - (0, lineHeight), aFont);
+    if (ammo2.length() > 0) drawText(ammo2, pos + (0, lineHeight), aFont);
   }
 
   private
@@ -418,12 +466,16 @@ class gb_WheelView
                       );
   }
 
-  private
-  void drawText(string aString, vector2 pos)
+  private static
+  int getTextScale()
   {
-    int textScale = max(Screen.getHeight() / 360, 1);
+    return max(Screen.getHeight() / 360, 1);
+  }
 
-    Font aFont = mOptions.getWheelFont() ? smallFont : bigFont;
+  private
+  void drawText(string aString, vector2 pos, Font aFont)
+  {
+    int textScale = getTextScale();
 
     pos.x -= aFont.stringWidth(aString) * textScale / 2;
     pos.y -= aFont.getHeight()          * textScale / 2;

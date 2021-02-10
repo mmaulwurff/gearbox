@@ -164,45 +164,45 @@ class gb_EventHandler : EventHandler
     mFadeInOut.fadeInOut((mActivity.isNone()) ? -0.1 : 0.2);
     double alpha = mFadeInOut.getAlpha();
 
-    if (mActivity.isWeapons() || alpha != 0.0)
+    if (!mActivity.isWeapons() && alpha == 0.0) return;
+
+    gb_ViewModel viewModel;
+    mWeaponMenu.fill(viewModel);
+
+    gb_Dim.dim(alpha, mOptions);
+
+    switch (mOptions.getViewType())
     {
-      gb_ViewModel viewModel;
-      mWeaponMenu.fill(viewModel);
+    case VIEW_TYPE_BLOCKY:
+      mBlockyView.setAlpha(alpha);
+      mBlockyView.setScale(mOptions.getScale());
+      mBlockyView.setBaseColor(mOptions.getColor());
+      mBlockyView.display(viewModel);
+      break;
 
-      gb_Dim.dim(alpha, mOptions);
+    case VIEW_TYPE_WHEEL:
+    {
+      gb_WheelControllerModel controllerModel;
+      mWheelController.fill(controllerModel);
+      mWheelIndexer.update(viewModel, controllerModel);
+      int selectedViewIndex = mWheelIndexer.getSelectedIndex();
+      mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex);
+      if (selectedViewIndex != -1) viewModel.selectedWeaponIndex = selectedViewIndex;
+      int selectedIndex = mWeaponMenu.getSelectedIndex();
 
-      switch (mOptions.getViewType())
-      {
-      case VIEW_TYPE_BLOCKY:
-        mBlockyView.setAlpha(alpha);
-        mBlockyView.setScale(mOptions.getScale());
-        mBlockyView.setBaseColor(mOptions.getColor());
-        mBlockyView.display(viewModel);
-        break;
+      mWheelView.setAlpha(alpha);
+      mWheelView.setBaseColor(mOptions.getColor());
+      int innerIndex = mWheelIndexer.getInnerIndex(selectedIndex, viewModel);
+      int outerIndex = mWheelIndexer.getOuterIndex(selectedIndex, viewModel);
+      mWheelView.display( viewModel
+                        , controllerModel
+                        , mOptions.isMouseInWheel()
+                        , innerIndex
+                        , outerIndex
+                        );
+      break;
+    }
 
-      case VIEW_TYPE_WHEEL:
-      {
-        gb_WheelControllerModel controllerModel;
-        mWheelController.fill(controllerModel);
-        mWheelIndexer.update(viewModel, controllerModel);
-        int selectedIndex = mWheelIndexer.getSelectedIndex();
-        mWeaponMenu.setSelectedIndexFromView(viewModel, selectedIndex);
-        selectedIndex = mWeaponMenu.getSelectedIndex();
-
-        mWheelView.setAlpha(alpha);
-        mWheelView.setBaseColor(mOptions.getColor());
-        int innerIndex = mWheelIndexer.getInnerIndex(selectedIndex, viewModel);
-        int outerIndex = mWheelIndexer.getOuterIndex(selectedIndex, viewModel);
-        mWheelView.display( viewModel
-                          , controllerModel
-                          , mOptions.isMouseInWheel()
-                          , innerIndex
-                          , outerIndex
-                          );
-        break;
-      }
-
-      }
     }
   }
 
