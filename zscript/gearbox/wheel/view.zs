@@ -309,9 +309,9 @@ class gb_WheelView
   {
     double  angle = itemAngle(nPlaces, place);
     vector2 pos   = (sin(angle), -cos(angle)) * radius + mCenter;
+    Font    aFont = mOptions.getWheelFont() ? smallFont : bigFont;
 
-    Font aFont = mOptions.getWheelFont() ? smallFont : bigFont;
-    drawText(string.format("%d", slot), pos, aFont);
+    drawText(string.format("%d", slot), pos, aFont, mAlpha);
   }
 
   private static
@@ -377,7 +377,7 @@ class gb_WheelView
     vector2 pos     = mCenter;
     pos.y += gb_Screen.getWheelRadius() * (isOnTop ? -1 : 1);
 
-    drawTextBox(ammo1, description, ammo2, pos, !isOnTop);
+    drawTextBox(ammo1, description, ammo2, pos, !isOnTop, mScaleFactor, mBaseColor, mAlpha);
   }
 
   private
@@ -386,13 +386,16 @@ class gb_WheelView
                   , string  bottomText
                   , vector2 pos
                   , bool    isPosTop   // true: pos is the top of text box, false: bottom.
+                  , double  scaleFactor
+                  , color   baseColor
+                  , double  alpha
                   )
   {
     Font aFont      = smallFont;
     int  textScale  = getTextScale();
     int  lineHeight = aFont.getHeight() * textScale;
-    int  margin     = int(10 * mScaleFactor);
-    int  height     = int((margin * 2 + lineHeight * 3) / mScaleFactor);
+    int  margin     = int(10 * scaleFactor);
+    int  height     = int((margin * 2 + lineHeight * 3) / scaleFactor);
 
     if (!isPosTop) pos.y -= height;
 
@@ -402,27 +405,27 @@ class gb_WheelView
 
     int width = int( ( max(middleTextWidth, max(topTextWidth, bottomTextWidth)) * textScale
                      + margin * 2
-                     ) / mScaleFactor
+                     ) / scaleFactor
                    );
-    vector2 size   = (width, height) * mScaleFactor;
+    vector2 size   = (width, height) * scaleFactor;
     vector2 center = pos + (0, size.y / 2);
 
     Screen.drawTexture( mTextureCache.textBox
                       , NO_ANIMATION
                       , center.x
                       , center.y
-                      , DTA_FillColor    , mBaseColor
+                      , DTA_FillColor    , baseColor
                       , DTA_AlphaChannel , true
                       , DTA_CenterOffset , true
-                      , DTA_Alpha        , mAlpha
+                      , DTA_Alpha        , alpha
                       , DTA_DestWidth    , int(size.x)
                       , DTA_DestHeight   , int(size.y)
                       );
 
     vector2 line = (0, lineHeight);
-    if (topText   .length() > 0) drawText(topText   , center - line, aFont);
-    if (middleText.length() > 0) drawText(middleText, center       , aFont);
-    if (bottomText.length() > 0) drawText(bottomText, center + line, aFont);
+    if (topText   .length() > 0) drawText(topText   , center - line, aFont, alpha);
+    if (middleText.length() > 0) drawText(middleText, center       , aFont, alpha);
+    if (bottomText.length() > 0) drawText(bottomText, center + line, aFont, alpha);
   }
 
   private
@@ -488,8 +491,8 @@ class gb_WheelView
     return max(Screen.getHeight() / 360, 1);
   }
 
-  private
-  void drawText(string aString, vector2 pos, Font aFont)
+  private static
+  void drawText(string aString, vector2 pos, Font aFont, double alpha)
   {
     int textScale = getTextScale();
 
@@ -501,7 +504,7 @@ class gb_WheelView
                    , pos.x
                    , pos.y
                    , aString
-                   , DTA_Alpha  , mAlpha
+                   , DTA_Alpha  , alpha
                    , DTA_ScaleX , textScale
                    , DTA_ScaleY , textScale
                    );
