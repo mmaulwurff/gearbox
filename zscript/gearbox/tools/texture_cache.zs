@@ -15,19 +15,20 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_WheelTextureCache
+class gb_TextureCache
 {
 
   static
-  gb_WheelTextureCache from()
+  gb_TextureCache from()
   {
-    return new("gb_WheelTextureCache");
+    return new("gb_TextureCache");
   }
 
   void load()
   {
     isLoaded = true;
 
+    // Wheel
     circle     = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
     halfCircle = TexMan.checkForTexture("gb_hcir", TexMan.Type_Any);
     ammoPip    = TexMan.checkForTexture("gb_pip" , TexMan.Type_Any);
@@ -35,6 +36,13 @@ class gb_WheelTextureCache
     pointer    = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
     textBox    = TexMan.checkForTexture("gb_desc", TexMan.Type_Any);
 
+    // Blocks
+    blockBox   = TexMan.checkForTexture("gb_box",  TexMan.Type_Any);
+    blockBig   = TexMan.checkForTexture("gb_weap", TexMan.Type_Any);
+    corner     = TexMan.checkForTexture("gb_cor",  TexMan.Type_Any);
+    ammoLine   = TexMan.checkForTexture("gb_ammo", TexMan.Type_Any);
+
+    // Sizes
     ammoPipSize = TexMan.getScaledSize(ammoPip);
   }
 
@@ -45,8 +53,13 @@ class gb_WheelTextureCache
   transient TextureID pointer;
   transient TextureID textBox;
 
+  transient TextureID blockBox;
+  transient TextureID blockBig;
+  transient TextureID corner;
+  transient TextureID ammoLine;
+
   transient vector2 ammoPipSize;
 
   transient bool isLoaded;
 
-} // class gb_WheelTextureCache
+} // class gb_TextureCache

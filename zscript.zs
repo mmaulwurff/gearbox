@@ -34,11 +34,11 @@ version "4.5"
 #include "zscript/gearbox/wheel/indexer.zs"
 #include "zscript/gearbox/wheel/multiwheel.zs"
 #include "zscript/gearbox/wheel/multiwheel_mode.zs"
-#include "zscript/gearbox/wheel/texture_cache.zs"
 
 // Utility tools.
 #include "zscript/gearbox/tools/cvar.zs"
 #include "zscript/gearbox/tools/log.zs"
+#include "zscript/gearbox/tools/texture_cache.zs"
 
 // Helper classes gearbox/that wrap access to game information provided by the engine.
 #include "zscript/gearbox/engine/level.zs"

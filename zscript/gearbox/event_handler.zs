@@ -161,6 +161,8 @@ class gb_EventHandler : EventHandler
   {
     if (!mIsInitialized) return;
 
+    if (!mTextureCache.isLoaded) mTextureCache.load();
+
     mFadeInOut.fadeInOut((mActivity.isNone()) ? -0.1 : 0.2);
     double alpha = mFadeInOut.getAlpha();
 
@@ -272,10 +274,12 @@ class gb_EventHandler : EventHandler
     mOptions     = gb_Options.from();
     mTimeMachine = gb_TimeMachine.from();
 
-    mBlockyView = gb_BlockyView.from();
+    mTextureCache = gb_TextureCache.from();
+
+    mBlockyView = gb_BlockyView.from(mTextureCache);
 
     mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
-    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode);
+    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mTextureCache);
     mWheelController = gb_WheelController.from(mOptions);
     mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode);
 
@@ -287,6 +291,8 @@ class gb_EventHandler : EventHandler
   private gb_FadeInOut   mFadeInOut;
   private gb_Options     mOptions;
   private gb_TimeMachine mTimeMachine;
+
+  private gb_TextureCache mTextureCache;
 
   private gb_BlockyView mBlockyView;
 

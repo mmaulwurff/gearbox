@@ -19,17 +19,20 @@ class gb_WheelView
 {
 
   static
-  gb_WheelView from(gb_Options options, gb_MultiWheelMode multiWheelMode)
+  gb_WheelView from( gb_Options        options
+                   , gb_MultiWheelMode multiWheelMode
+                   , gb_TextureCache   textureCache
+                   )
   {
     let result = new("gb_WheelView");
 
     result.setAlpha(1.0);
     result.setBaseColor(0x2222CC);
 
-    result.mScreen  = gb_Screen.from();
-    result.mOptions = options;
+    result.mScreen         = gb_Screen.from();
+    result.mOptions        = options;
     result.mMultiWheelMode = multiWheelMode;
-    result.mTextureCache = gb_WheelTextureCache.from();
+    result.mTextureCache   = textureCache;
 
     return result;
   }
@@ -51,8 +54,6 @@ class gb_WheelView
               , int  outerIndex
               ) const
   {
-    if (!mTextureCache.isLoaded) mTextureCache.load();
-
     mScaleFactor = gb_Screen.getScaleFactor();
 
     drawInnerWheel();
@@ -541,7 +542,7 @@ class gb_WheelView
 
 // cache ///////////////////////////////////////////////////////////////////////////////////////////
 
-  private gb_WheelTextureCache mTextureCache;
+  private gb_TextureCache mTextureCache;
   private double mScaleFactor;
 
 } // class gb_WheelView

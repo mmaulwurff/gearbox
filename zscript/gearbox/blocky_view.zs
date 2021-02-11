@@ -19,12 +19,15 @@ class gb_BlockyView
 {
 
   static
-  gb_BlockyView from()
+  gb_BlockyView from(gb_TextureCache textureCache)
   {
     let result = new("gb_BlockyView");
+
     result.setAlpha(1.0);
     result.setScale(1);
     result.setBaseColor(0x2222CC);
+    result.mTextureCache = textureCache;
+
     return result;
   }
 
@@ -60,8 +63,6 @@ class gb_BlockyView
     int inSlotIndex = 0;
 
     int selectedSlot = viewModel.slots[viewModel.selectedWeaponIndex];
-    TextureID boxTexture = TexMan.checkForTexture("gb_box",  TexMan.Type_Any);
-    TextureID bigTexture = TexMan.checkForTexture("gb_weap", TexMan.Type_Any);
 
     Font aFont      = "NewSmallFont";
     int  fontHeight = aFont.getHeight();
@@ -75,7 +76,7 @@ class gb_BlockyView
       // slot number box
       if (slot != lastDrawnSlot)
       {
-        drawAlphaTexture(boxTexture, slotX, BORDER, mSlotColor);
+        drawAlphaTexture(mTextureCache.blockBox, slotX, BORDER, mSlotColor);
 
         string slotText = string.format("%d", slot);
         int    textX    = slotX + SLOT_SIZE / 2 - aFont.stringWidth(slotText) / 2;
@@ -92,7 +93,7 @@ class gb_BlockyView
         int  weaponY = BORDER + SLOT_SIZE + (SELECTED_WEAPON_HEIGHT + MARGIN) * inSlotIndex;
 
         // big box
-        drawAlphaTexture(bigTexture, slotX, weaponY, weaponColor);
+        drawAlphaTexture(mTextureCache.blockBig, slotX, weaponY, weaponColor);
 
         // weapon
         {
@@ -123,7 +124,7 @@ class gb_BlockyView
         {
           int lineEndX = slotX   + SELECTED_SLOT_WIDTH    - CORNER_SIZE;
           int lineEndY = weaponY + SELECTED_WEAPON_HEIGHT - CORNER_SIZE;
-          TextureID cornerTexture = TexMan.checkForTexture("gb_cor", TexMan.Type_Any);
+          TextureID cornerTexture = mTextureCache.corner;
           // top left, top right, bottom left, bottom right
           drawFlippedTexture(cornerTexture, slotX,    weaponY,  NoHorizontalFlip, NoVerticalFlip);
           drawFlippedTexture(cornerTexture, lineEndX, weaponY,    HorizontalFlip, NoVerticalFlip);
@@ -132,7 +133,7 @@ class gb_BlockyView
         }
 
         // ammo indicators
-        TextureID ammoTexture = TexMan.checkForTexture("gb_ammo", TexMan.Type_Any);
+        TextureID ammoTexture = mTextureCache.ammoLine;
         int ammoY = weaponY;
         if (viewModel.ammo1[i] != -1)
         {
@@ -169,7 +170,7 @@ class gb_BlockyView
       else // unselected slot (small boxes)
       {
         int boxY = BORDER - MARGIN + (SLOT_SIZE + MARGIN) * (inSlotIndex + 1);
-        drawAlphaTexture(boxTexture, slotX, boxY, mBaseColor);
+        drawAlphaTexture(mTextureCache.blockBox, slotX, boxY, mBaseColor);
       }
 
       if (i + 1 < nWeapons && viewModel.slots[i + 1] != slot)
@@ -320,5 +321,7 @@ class gb_BlockyView
   private color  mSlotColor;
   private color  mSelectedColor;
   private color  mAmmoBackColor;
+
+  private gb_TextureCache mTextureCache;
 
 } // class gb_BlockyView
