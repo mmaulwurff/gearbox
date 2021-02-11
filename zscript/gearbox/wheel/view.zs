@@ -363,9 +363,7 @@ class gb_WheelView
   private
   void drawWeaponDescription(gb_ViewModel viewModel, int innerIndex, int nPlaces)
   {
-    Font aFont = smallFont;
-
-    int index = viewModel.selectedWeaponIndex;
+    int    index       = viewModel.selectedWeaponIndex;
     string description = viewModel.tags[index];
     string ammo1 = (viewModel.ammo1[index] != -1)
       ? string.format("%d/%d", viewModel.ammo1[index], viewModel.maxAmmo1[index])
@@ -374,39 +372,55 @@ class gb_WheelView
       ? string.format("%d/%d", viewModel.ammo2[index], viewModel.maxAmmo2[index])
       : "";
 
-    int ammo1Width = aFont.stringWidth(ammo1);
-    int ammo2Width = aFont.stringWidth(ammo2);
+    double  angle   = itemAngle(nPlaces, innerIndex);
+    bool    isOnTop = (90.0 < angle && angle < 270.0);
+    vector2 pos     = mCenter;
+    pos.y += gb_Screen.getWheelRadius() * (isOnTop ? -1 : 1);
 
-    int descriptionMargin = int(10 * mScaleFactor);
-    int textScale = getTextScale();
-    int lineHeight = aFont.getHeight() * textScale;
-    int descriptionHeight = (descriptionMargin * 2 + lineHeight * 3) / mScaleFactor;
-    int descriptionWidth  = aFont.stringWidth(description);
+    drawTextBox(ammo1, description, ammo2, pos, !isOnTop);
+  }
 
-    int width = max(descriptionWidth, max(ammo1Width, ammo2Width)) * textScale + descriptionMargin * 2;
-    width /= mScaleFactor;
-    vector2 size = (width, descriptionHeight) * mScaleFactor;
+  private
+  void drawTextBox( string  topText
+                  , string  middleText
+                  , string  bottomText
+                  , vector2 pos
+                  , bool    isPosTop   // true: pos is the top of text box, false: bottom.
+                  )
+  {
+    Font aFont      = smallFont;
+    int  textScale  = getTextScale();
+    int  lineHeight = aFont.getHeight() * textScale;
+    int  margin     = int(10 * mScaleFactor);
+    int  height     = int((margin * 2 + lineHeight * 3) / mScaleFactor);
 
-    double  angle  = itemAngle(nPlaces, innerIndex);
-    int     radius = gb_Screen.getWheelRadius() + descriptionHeight / 2 * mScaleFactor;
-    bool    isDescriptionOnTop = (90.0 < angle && angle < 270.0);
-    vector2 pos = mCenter;
-    pos.y += radius * (isDescriptionOnTop ? -1 : 1);
+    if (!isPosTop) pos.y -= height;
 
-    Screen.drawTexture( mTextureCache.description
+    int topTextWidth    = aFont.stringWidth(topText);
+    int middleTextWidth = aFont.stringWidth(middleText);
+    int bottomTextWidth = aFont.stringWidth(bottomText);
+
+    int width = int( ( max(middleTextWidth, max(topTextWidth, bottomTextWidth)) * textScale
+                     + margin * 2
+                     ) / mScaleFactor
+                   );
+    vector2 size   = (width, height) * mScaleFactor;
+    vector2 center = pos + (0, size.y / 2);
+
+    Screen.drawTexture( mTextureCache.textBox
                       , NO_ANIMATION
-                      , pos.x
-                      , pos.y
+                      , center.x
+                      , center.y
                       , DTA_CenterOffset , true
                       , DTA_Alpha        , mAlpha / 4
                       , DTA_DestWidth    , int(size.x)
                       , DTA_DestHeight   , int(size.y)
                       );
 
-    drawText(description, pos, aFont);
-
-    if (ammo1.length() > 0) drawText(ammo1, pos - (0, lineHeight), aFont);
-    if (ammo2.length() > 0) drawText(ammo2, pos + (0, lineHeight), aFont);
+    vector2 line = (0, lineHeight);
+    if (topText   .length() > 0) drawText(topText   , center - line, aFont);
+    if (middleText.length() > 0) drawText(middleText, center       , aFont);
+    if (bottomText.length() > 0) drawText(bottomText, center + line, aFont);
   }
 
   private

@@ -28,12 +28,12 @@ class gb_WheelTextureCache
   {
     isLoaded = true;
 
-    circle      = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
-    halfCircle  = TexMan.checkForTexture("gb_hcir", TexMan.Type_Any);
-    ammoPip     = TexMan.checkForTexture("gb_pip" , TexMan.Type_Any);
-    hand        = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
-    pointer     = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
-    description = TexMan.checkForTexture("gb_desc", TexMan.Type_Any);
+    circle     = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
+    halfCircle = TexMan.checkForTexture("gb_hcir", TexMan.Type_Any);
+    ammoPip    = TexMan.checkForTexture("gb_pip" , TexMan.Type_Any);
+    hand       = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
+    pointer    = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
+    textBox    = TexMan.checkForTexture("gb_desc", TexMan.Type_Any);
 
     ammoPipSize = TexMan.getScaledSize(ammoPip);
   }
@@ -43,11 +43,9 @@ class gb_WheelTextureCache
   transient TextureID ammoPip;
   transient TextureID hand;
   transient TextureID pointer;
-  transient TextureID description;
+  transient TextureID textBox;
 
   transient vector2 ammoPipSize;
-
-// private: ////////////////////////////////////////////////////////////////////////////////////////
 
   transient bool isLoaded;
 
