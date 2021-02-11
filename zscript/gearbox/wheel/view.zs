@@ -411,8 +411,10 @@ class gb_WheelView
                       , NO_ANIMATION
                       , center.x
                       , center.y
+                      , DTA_FillColor    , mBaseColor
+                      , DTA_AlphaChannel , true
                       , DTA_CenterOffset , true
-                      , DTA_Alpha        , mAlpha / 4
+                      , DTA_Alpha        , mAlpha
                       , DTA_DestWidth    , int(size.x)
                       , DTA_DestHeight   , int(size.y)
                       );
