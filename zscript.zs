@@ -1,4 +1,4 @@
-version "4.5"
+version 4.5
 
 #include "zscript/gearbox/weapon_data.zs"
 #include "zscript/gearbox/weapon_data_loader.zs"
