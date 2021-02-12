@@ -52,17 +52,17 @@ class gb_Text
               , string  middleText
               , string  bottomText
               , vector2 pos
-              , bool    isPosTop    // true: pos is the top of text box, false: bottom.
-              , double  scaleFactor
+              , bool    isPosTop   // true: pos is the top of text box, false: bottom.
               , color   baseColor
               , double  alpha
               )
   {
-    Font aFont      = smallFont;
-    int  textScale  = getTextScale();
-    int  lineHeight = aFont.getHeight() * textScale;
-    int  margin     = int(10 * scaleFactor);
-    int  height     = int((margin * 2 + lineHeight * 3) / scaleFactor);
+    double scaleFactor = gb_Screen.getScaleFactor();
+    Font   aFont       = smallFont;
+    int    textScale   = getTextScale();
+    int    lineHeight  = aFont.getHeight() * textScale;
+    int    margin      = int(10 * scaleFactor);
+    int    height      = int((margin * 2 + lineHeight * 3) / scaleFactor);
 
     if (!isPosTop) pos.y -= height;
 

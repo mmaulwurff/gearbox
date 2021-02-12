@@ -380,7 +380,7 @@ class gb_WheelView
     vector2 pos     = mCenter;
     pos.y += gb_Screen.getWheelRadius() * (isOnTop ? -1 : 1);
 
-    mText.drawBox(ammo1, description, ammo2, pos, !isOnTop, mScaleFactor, mBaseColor, mAlpha);
+    mText.drawBox(ammo1, description, ammo2, pos, !isOnTop, mBaseColor, mAlpha);
   }
 
   private
