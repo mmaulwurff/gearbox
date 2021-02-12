@@ -269,17 +269,18 @@ class gb_EventHandler : EventHandler
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu = gb_WeaponMenu.from(weaponData);
 
-    mActivity    = gb_Activity.from();
-    mFadeInOut   = gb_FadeInOut.from();
-    mOptions     = gb_Options.from();
-    mTimeMachine = gb_TimeMachine.from();
+    mActivity        = gb_Activity.from();
+    mFadeInOut       = gb_FadeInOut.from();
+    mOptions         = gb_Options.from();
+    mTimeMachine     = gb_TimeMachine.from();
 
-    mTextureCache = gb_TextureCache.from();
+    mTextureCache    = gb_TextureCache.from();
+    mText            = gb_Text.from(mTextureCache);
 
-    mBlockyView = gb_BlockyView.from(mTextureCache);
+    mBlockyView      = gb_BlockyView.from(mTextureCache);
 
     mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
-    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mTextureCache);
+    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mText, mTextureCache);
     mWheelController = gb_WheelController.from(mOptions);
     mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode);
 
@@ -292,6 +293,7 @@ class gb_EventHandler : EventHandler
   private gb_Options     mOptions;
   private gb_TimeMachine mTimeMachine;
 
+  private gb_Text         mText;
   private gb_TextureCache mTextureCache;
 
   private gb_BlockyView mBlockyView;

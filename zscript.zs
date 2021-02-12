@@ -25,6 +25,7 @@ version 4.5
 #include "zscript/gearbox/display/blocky_view.zs"
 #include "zscript/gearbox/display/fade_in_out.zs"
 #include "zscript/gearbox/display/screen.zs"
+#include "zscript/gearbox/display/text.zs"
 
 #include "zscript/gearbox/options.zs"
 
