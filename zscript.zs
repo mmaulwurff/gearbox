@@ -18,11 +18,13 @@ version "4.5"
 #include "zscript/gearbox/netevent_processor.zs"
 #include "zscript/gearbox/changer.zs"
 
-#include "zscript/gearbox/dim.zs"
 #include "zscript/gearbox/view_model.zs"
-#include "zscript/gearbox/blocky_view.zs"
-#include "zscript/gearbox/fade_in_out.zs"
-#include "zscript/gearbox/screen.zs"
+
+// Displaying data on screen.
+#include "zscript/gearbox/display/dim.zs"
+#include "zscript/gearbox/display/blocky_view.zs"
+#include "zscript/gearbox/display/fade_in_out.zs"
+#include "zscript/gearbox/display/screen.zs"
 
 #include "zscript/gearbox/options.zs"
 
