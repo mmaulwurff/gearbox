@@ -64,7 +64,7 @@ class gb_Text
     int    margin      = int(10 * scaleFactor);
     int    height      = int((margin * 2 + lineHeight * 3) / scaleFactor);
 
-    if (!isPosTop) pos.y -= height;
+    if (!isPosTop) pos.y -= height * scaleFactor;
 
     int topTextWidth    = aFont.stringWidth(topText);
     int middleTextWidth = aFont.stringWidth(middleText);
