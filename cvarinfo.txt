@@ -13,10 +13,6 @@ user float gb_wheel_position   = 1.0;
 user bool  gb_wheel_tint       = true;
 user int   gb_multiwheel_limit = 12;
 
-// 0 - big font
-// 1 - small font
-user int gb_wheel_font = 0;
-
 user bool gb_open_on_scroll   = false;
 user bool gb_open_on_slot     = true;
 user bool gb_mouse_in_wheel   = true;

@@ -312,9 +312,9 @@ class gb_WheelView
   {
     double  angle = itemAngle(nPlaces, place);
     vector2 pos   = (sin(angle), -cos(angle)) * radius + mCenter;
-    Font    aFont = mOptions.getWheelFont() ? smallFont : bigFont;
+    Font    aFont = "NewSmallFont";
 
-    gb_Text.draw(string.format("%d", slot), pos, aFont, mAlpha);
+    gb_Text.draw(string.format("%d", slot), pos, aFont, mAlpha, true);
   }
 
   private static

@@ -64,7 +64,7 @@ class gb_BlockyView
 
     int selectedSlot = viewModel.slots[viewModel.selectedWeaponIndex];
 
-    Font aFont      = "NewSmallFont";
+    Font aFont      = NewSmallFont;
     int  fontHeight = aFont.getHeight();
     int  textY      = BORDER + SLOT_SIZE / 2 - fontHeight / 2;
 

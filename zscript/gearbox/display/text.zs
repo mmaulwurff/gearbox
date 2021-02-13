@@ -30,9 +30,9 @@ class gb_Text
   }
 
   static
-  void draw(string aString, vector2 pos, Font aFont, double alpha)
+  void draw(string aString, vector2 pos, Font aFont, double alpha, bool isBig = false)
   {
-    int textScale = getTextScale();
+    int textScale = isBig ? getBigTextScale() : getTextScale();
 
     pos.x -= aFont.stringWidth(aString) * textScale / 2;
     pos.y -= aFont.getHeight()          * textScale / 2;
@@ -58,7 +58,7 @@ class gb_Text
               )
   {
     double scaleFactor = gb_Screen.getScaleFactor();
-    Font   aFont       = smallFont;
+    Font   aFont       = NewSmallFont;
     int    textScale   = getTextScale();
     int    lineHeight  = aFont.getHeight() * textScale;
     int    margin      = int(10 * scaleFactor);
@@ -98,9 +98,15 @@ class gb_Text
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private static
+  int getBigTextScale()
+  {
+    return getTextScale() * 2;
+  }
+
+  private static
   int getTextScale()
   {
-    return max(Screen.getHeight() / 360, 1);
+    return max(Screen.getHeight() / 720, 1);
   }
 
   const NO_ANIMATION = 0; // == false

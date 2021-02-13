@@ -36,7 +36,3 @@ GB_MULTIWHEEL_LIMIT  = "Enable multiwheel if weapons number is more than";
 GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
 GB_X = "Horizontal";
 GB_Y = "Vertical";
-
-GB_WHEEL_FONT = "Font";
-GB_BIG_FONT   = "Big";
-GB_SMALL_FONT = "Small";

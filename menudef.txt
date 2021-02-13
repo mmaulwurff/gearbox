@@ -23,7 +23,6 @@ OptionMenu gb_Options
   StaticText  ""
   StaticText  "$GB_VISUALS_WHEEL", 1
   Slider      "$GB_WHEEL_X"    , gb_wheel_position , -1, 1, 0.1, 1
-  Option      "$GB_WHEEL_FONT" , gb_wheel_font     , gb_FontValues
   Option      "$GB_WHEEL_TINT" , gb_wheel_tint     , OnOff
 
   StaticText  ""
@@ -55,10 +54,4 @@ OptionValue gb_ViewTypeValues
 {
   0, "$GB_BLOCKY_VIEW"
   1, "$GB_WHEEL_VIEW"
-}
-
-OptionValue gb_FontValues
-{
-  0, "$GB_BIG_FONT"
-  1, "$GB_SMALL_FONT"
 }
