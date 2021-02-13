@@ -19,10 +19,11 @@ class gb_Changer play
 {
 
   static
-  gb_Changer from(gb_Caption caption)
+  gb_Changer from(gb_Caption caption, gb_Options options)
   {
     let result = new("gb_Changer");
     result.mCaption = caption;
+    result.mOptions = options;
     return result;
   }
 
@@ -45,10 +46,11 @@ class gb_Changer play
     if (targetWeapon && gb_WeaponWatcher.currentFor(player) != targetWeapon.getClass())
     {
       player.pendingWeapon = targetWeapon;
-      mCaption.setCaption(targetWeapon.getTag());
+      if (mOptions.isShowingWeaponTagsOnChange()) mCaption.setCaption(targetWeapon.getTag());
     }
   }
 
   private gb_Caption mCaption;
+  private gb_Options mOptions;
 
 } // class gb_Changer

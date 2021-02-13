@@ -31,6 +31,7 @@ class gb_Options
     result.mWheelTint    = gb_Cvar.from("gb_wheel_tint");
     result.mMultiWheelLimit = gb_Cvar.from("gb_multiwheel_limit");
     result.mShowTags     = gb_Cvar.from("gb_show_tags");
+    result.mShowWeaponTagsOnChange = gb_Cvar.from("displaynametags");
 
     result.mOpenOnScroll  = gb_Cvar.from("gb_open_on_scroll");
     result.mOpenOnSlot    = gb_Cvar.from("gb_open_on_slot");
@@ -54,6 +55,7 @@ class gb_Options
   bool getWheelTint() const { return mWheelTint.getBool(); }
   int  getMultiWheelLimit() const { return mMultiWheelLimit.getInt(); }
   bool isShowingTags() const { return mShowTags.getBool(); }
+  bool isShowingWeaponTagsOnChange() const { return mShowWeaponTagsOnChange.getInt() & 2; }
 
   bool isOpenOnScroll()  const { return mOpenOnScroll.getBool(); }
   bool isOpenOnSlot()    const { return mOpenOnSlot.getBool(); }
@@ -78,6 +80,7 @@ class gb_Options
   private gb_Cvar mWheelTint;
   private gb_Cvar mMultiWheelLimit;
   private gb_Cvar mShowTags;
+  private gb_Cvar mShowWeaponTagsOnChange;
 
   private gb_Cvar mOpenOnScroll;
   private gb_Cvar mOpenOnSlot;

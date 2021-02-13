@@ -279,7 +279,7 @@ class gb_EventHandler : EventHandler
     mTextureCache    = gb_TextureCache.from();
     mText            = gb_Text.from(mTextureCache);
     mCaption         = gb_Caption.from(mText);
-    mChanger         = gb_Changer.from(mCaption);
+    mChanger         = gb_Changer.from(mCaption, mOptions);
 
     mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions);
 
