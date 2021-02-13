@@ -153,7 +153,7 @@ class gb_EventHandler : EventHandler
   {
     gb_Change change;
     gb_NeteventProcessor.process(event, change);
-    gb_Changer.change(change);
+    mChanger.change(change);
   }
 
   override
@@ -162,6 +162,8 @@ class gb_EventHandler : EventHandler
     if (!mIsInitialized) return;
 
     if (!mTextureCache.isLoaded) mTextureCache.load();
+
+    mCaption.show(event.fracTic, mOptions.getColor());
 
     mFadeInOut.fadeInOut((mActivity.isNone()) ? -0.1 : 0.2);
     double alpha = mFadeInOut.getAlpha();
@@ -276,6 +278,8 @@ class gb_EventHandler : EventHandler
 
     mTextureCache    = gb_TextureCache.from();
     mText            = gb_Text.from(mTextureCache);
+    mCaption         = gb_Caption.from(mText);
+    mChanger         = gb_Changer.from(mCaption);
 
     mBlockyView      = gb_BlockyView.from(mTextureCache);
 
@@ -293,8 +297,10 @@ class gb_EventHandler : EventHandler
   private gb_Options     mOptions;
   private gb_TimeMachine mTimeMachine;
 
-  private gb_Text         mText;
   private gb_TextureCache mTextureCache;
+  private gb_Text         mText;
+  private gb_Caption      mCaption;
+  private gb_Changer      mChanger;
 
   private gb_BlockyView mBlockyView;
 

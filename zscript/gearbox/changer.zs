@@ -19,6 +19,13 @@ class gb_Changer play
 {
 
   static
+  gb_Changer from(gb_Caption caption)
+  {
+    let result = new("gb_Changer");
+    result.mCaption = caption;
+    return result;
+  }
+
   void change(gb_Change aChange)
   {
     PlayerInfo player = players[aChange.playerNumber];
@@ -31,14 +38,17 @@ class gb_Changer play
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static
+  private
   void selectWeapon(PlayerInfo player, string weapon)
   {
     Weapon targetWeapon = Weapon(player.mo.findInventory(weapon));
     if (targetWeapon && gb_WeaponWatcher.currentFor(player) != targetWeapon.getClass())
     {
       player.pendingWeapon = targetWeapon;
+      mCaption.setCaption(targetWeapon.getTag());
     }
   }
+
+  private gb_Caption mCaption;
 
 } // class gb_Changer
