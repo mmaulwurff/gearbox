@@ -57,14 +57,15 @@ class gb_WheelView
               ) const
   {
     mScaleFactor = gb_Screen.getScaleFactor();
+    mCenter      = mScreen.getWheelCenter();
 
     drawInnerWheel();
 
     uint nWeapons = viewModel.tags.size();
+    if (nWeapons == 0) return;
+
     int  radius   = Screen.getHeight() * 5 / 32;
     int  allowedWidth = int(Screen.getHeight() * 3 / 16 - MARGIN * 2 * mScaleFactor);
-
-    mCenter = mScreen.getWheelCenter();
 
     int nPlaces = 0;
 
