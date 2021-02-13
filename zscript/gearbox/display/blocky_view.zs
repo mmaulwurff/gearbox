@@ -166,6 +166,8 @@ class gb_BlockyView
                                , ammoRatioWidth
                                );
         }
+
+        drawTag(viewModel.tags[i], aFont, slotX, weaponY);
       }
       else // unselected slot (small boxes)
       {
@@ -186,6 +188,76 @@ class gb_BlockyView
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private
+  void drawTag(string tag, Font aFont, double startX, double startY)
+  {
+    // >_<
+    //
+    // Trying to put as much text into the the box as possible, while gracefully
+    // (hopefully) handling when the whole tag cannot fit in the box.
+    //
+    // This code doesn't take the icon and ammo bars into account. Just print
+    // semi-transparent text over them.
+
+    Array<string> words;
+    tag.split(words, " ", TOK_SKIPEMPTY);
+
+    // Start filling lines with words from bottom to top. If the word doesn't
+    // fit into the line, it is pushed into the new top line.
+    Array<string> lines;
+    int nWords = words.size();
+    lines.push(words[nWords - 1]);
+    int spaceWidth = aFont.stringWidth(" ");
+    int allowedStringWidth = SELECTED_SLOT_WIDTH - 2;
+    for (int i = nWords - 2; i >= 0; --i)
+    {
+      uint newWidth = (aFont.stringWidth(lines[0]) + spaceWidth + aFont.stringWidth(words[i]));
+      if (newWidth < allowedStringWidth)
+      {
+        lines[0] = words[i] .. " " .. lines[0];
+      }
+      else
+      {
+        lines.insert(0, words[i]);
+      }
+    }
+
+    // If there are too many lines, put them on the third line and mark the it
+    // with ellipsis.
+    uint nLines = lines.size();
+    if (nLines > 3)
+    {
+      for (uint i = 3; i < nLines; ++i)
+      {
+        lines[2].appendFormat(" %s", lines[i]);
+      }
+      lines[2].appendFormat("…");
+    }
+
+    // If a line is too long to fit in the box, replace the part that doesn't
+    // fit with ellipsis.
+    uint linesEnd = min(nLines, 3);
+    int ellipsisWidth = aFont.stringWidth("…");
+    for (uint i = 0; i < linesEnd; ++i)
+    {
+      if (aFont.stringWidth(lines[i]) <= allowedStringWidth) continue;
+
+      while (aFont.stringWidth(lines[i]) + ellipsisWidth > allowedStringWidth)
+      {
+        lines[i].deleteLastCharacter();
+      }
+      lines[i].appendFormat("…");
+    }
+
+    // Finally, print lines.
+    int lineHeight = aFont.getHeight() * 95 / 100;
+    for (uint i = 0; i < linesEnd; ++i)
+    {
+      double y = startY + SELECTED_WEAPON_HEIGHT + (i - linesEnd) * lineHeight;
+      drawText(aFont, Font.CR_WHITE, startX + 1, y, lines[i], 0.3);
+    }
+  }
 
   private static
   int ammoRatioWidthFor(int ammoCount, int ammoMax)
@@ -272,14 +344,14 @@ class gb_BlockyView
   }
 
   private
-  void drawText(Font aFont, int color, int x, int y, string text) const
+  void drawText(Font aFont, int color, double x, double y, string text, double alpha = 1.0) const
   {
     Screen.drawText( aFont
                    , color
                    , x
                    , y
                    , text
-                   , DTA_Alpha         , mAlpha
+                   , DTA_Alpha         , mAlpha * alpha
                    , DTA_VirtualWidth  , mScreenWidth
                    , DTA_VirtualHeight , mScreenHeight
                    , DTA_KeepRatio     , true
