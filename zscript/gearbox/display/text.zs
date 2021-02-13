@@ -70,10 +70,10 @@ class gb_Text
     int middleTextWidth = aFont.stringWidth(middleText);
     int bottomTextWidth = aFont.stringWidth(bottomText);
 
-    int width = int( ( max(middleTextWidth, max(topTextWidth, bottomTextWidth)) * textScale
-                     + margin * 2
-                     ) / scaleFactor
-                   );
+    int width = max(int( ( max(middleTextWidth, max(topTextWidth, bottomTextWidth)) * textScale
+                       + margin * 2
+                       ) / scaleFactor
+                   ), height * 2);
     vector2 size   = (width, height) * scaleFactor;
     vector2 center = pos + (0, size.y / 2);
 
