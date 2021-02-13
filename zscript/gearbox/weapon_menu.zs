@@ -19,15 +19,19 @@ class gb_WeaponMenu
 {
 
   static
-  gb_WeaponMenu from(gb_WeaponData weaponData)
+  gb_WeaponMenu from(gb_WeaponData weaponData, gb_Options options)
   {
     let result = new("gb_WeaponMenu");
+
     result.mWeapons.move(weaponData.weapons);
     result.mSlots.move(weaponData.slots);
     result.mSelectedIndex = 0;
     result.mCacheTime     = 0;
+    result.mOptions       = options;
+
     loadIconServices(result.mIconServices);
     loadHideServices(result.mHideServices);
+
     return result;
   }
 
@@ -114,14 +118,15 @@ class gb_WeaponMenu
     if (!isCacheValid)
     {
       mCacheTime = level.time;
-      mCachedViewModel.tags.clear();
-      mCachedViewModel.slots.clear();
-      mCachedViewModel.indices.clear();
-      mCachedViewModel.icons.clear();
-      mCachedViewModel.ammo1.clear();
+      mCachedViewModel.tags    .clear();
+      mCachedViewModel.slots   .clear();
+      mCachedViewModel.indices .clear();
+      mCachedViewModel.icons   .clear();
+      mCachedViewModel.ammo1   .clear();
       mCachedViewModel.maxAmmo1.clear();
-      mCachedViewModel.ammo2.clear();
+      mCachedViewModel.ammo2   .clear();
       mCachedViewModel.maxAmmo2.clear();
+
       fillDirect(mCachedViewModel);
     }
 
@@ -135,13 +140,13 @@ class gb_WeaponMenu
   {
     destination.selectedWeaponIndex = source.selectedWeaponIndex;
 
-    destination.tags.copy(source.tags);
-    destination.slots.copy(source.slots);
-    destination.indices.copy(source.indices);
-    destination.icons.copy(source.icons);
-    destination.ammo1.copy(source.ammo1);
+    destination.tags    .copy(source.tags);
+    destination.slots   .copy(source.slots);
+    destination.indices .copy(source.indices);
+    destination.icons   .copy(source.icons);
+    destination.ammo1   .copy(source.ammo1);
     destination.maxAmmo1.copy(source.maxAmmo1);
-    destination.ammo2.copy(source.ammo2);
+    destination.ammo2   .copy(source.ammo2);
     destination.maxAmmo2.copy(source.maxAmmo2);
   }
 
@@ -152,13 +157,28 @@ class gb_WeaponMenu
     for (uint i = 0; i < nWeapons; ++i)
     {
       let aWeapon = Weapon(players[consolePlayer].mo.findInventory(mWeapons[i]));
-      if (aWeapon == NULL || isHidden(aWeapon)) continue;
+
+      if (aWeapon == NULL)
+      {
+        if (mOptions.isPositionLocked())
+        {
+          viewModel.tags    .push("");
+          viewModel.slots   .push(mSlots[i]);
+          viewModel.indices .push(i);
+          viewModel.icons   .push(-1);
+          viewModel.ammo1   .push(-1);
+          viewModel.maxAmmo1.push(-1);
+          viewModel.ammo2   .push(-1);
+          viewModel.maxAmmo2.push(-1);
+        }
+        continue;
+      }
+
+      if (isHidden(aWeapon)) continue;
 
       if (mSelectedIndex == i) viewModel.selectedWeaponIndex = viewModel.tags.size();
 
-      let default = getDefaultByType(mWeapons[i]);
-
-      viewModel.tags.push(default.getTag());
+      viewModel.tags.push(aWeapon.getTag());
       viewModel.slots.push(mSlots[i]);
       viewModel.indices.push(i);
 
@@ -294,5 +314,7 @@ class gb_WeaponMenu
 
   private gb_ViewModel mCachedViewModel;
   private int          mCacheTime;
+
+  private gb_Options mOptions;
 
 } // class gb_WeaponMenu

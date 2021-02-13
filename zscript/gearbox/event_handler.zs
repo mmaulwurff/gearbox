@@ -267,13 +267,14 @@ class gb_EventHandler : EventHandler
   private
   void initialize()
   {
+    mOptions         = gb_Options.from();
+
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
-    mWeaponMenu = gb_WeaponMenu.from(weaponData);
+    mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions);
 
     mActivity        = gb_Activity.from();
     mFadeInOut       = gb_FadeInOut.from();
-    mOptions         = gb_Options.from();
     mTimeMachine     = gb_TimeMachine.from();
 
     mTextureCache    = gb_TextureCache.from();
@@ -291,10 +292,10 @@ class gb_EventHandler : EventHandler
     mIsInitialized = true;
   }
 
+  private gb_Options     mOptions;
   private gb_WeaponMenu  mWeaponMenu;
   private gb_Activity    mActivity;
   private gb_FadeInOut   mFadeInOut;
-  private gb_Options     mOptions;
   private gb_TimeMachine mTimeMachine;
 
   private gb_TextureCache mTextureCache;

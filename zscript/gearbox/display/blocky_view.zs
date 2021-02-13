@@ -201,6 +201,8 @@ class gb_BlockyView
     // This code doesn't take the icon and ammo bars into account. Just print
     // semi-transparent text over them.
 
+    if (tag.length() == 0) return;
+
     Array<string> words;
     tag.split(words, " ", TOK_SKIPEMPTY);
 

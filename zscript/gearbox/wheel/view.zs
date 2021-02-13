@@ -368,6 +368,8 @@ class gb_WheelView
   {
     int    index       = viewModel.selectedWeaponIndex;
     string description = viewModel.tags[index];
+    if (description.length() == 0) return;
+
     string ammo1 = (viewModel.ammo1[index] != -1)
       ? string.format("%d/%d", viewModel.ammo1[index], viewModel.maxAmmo1[index])
       : "";
