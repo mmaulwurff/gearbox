@@ -19,6 +19,7 @@ OptionMenu gb_Options
   ColorPicker "$GB_COLOR"     , gb_color
   Option      "$GB_DIM"       , gb_enable_dim, OnOff
   ColorPicker "$GB_DIM_COLOR" , gb_dim_color
+  Option      "$GB_SHOW_TAGS" , gb_show_tags, OnOff
 
   StaticText  ""
   StaticText  "$GB_VISUALS_WHEEL", 1

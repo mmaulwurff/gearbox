@@ -3,6 +3,7 @@
 user int   gb_scale     = 1;
 user color gb_color     = "22 22 CC";
 user color gb_dim_color = "99 99 99";
+user bool  gb_show_tags = true;
 
 // 0 - blocky view
 // 1 - wheel view

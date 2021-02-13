@@ -281,7 +281,7 @@ class gb_EventHandler : EventHandler
     mCaption         = gb_Caption.from(mText);
     mChanger         = gb_Changer.from(mCaption);
 
-    mBlockyView      = gb_BlockyView.from(mTextureCache);
+    mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions);
 
     mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
     mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mText, mTextureCache);

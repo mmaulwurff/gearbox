@@ -19,7 +19,7 @@ class gb_BlockyView
 {
 
   static
-  gb_BlockyView from(gb_TextureCache textureCache)
+  gb_BlockyView from(gb_TextureCache textureCache, gb_Options options)
   {
     let result = new("gb_BlockyView");
 
@@ -27,6 +27,7 @@ class gb_BlockyView
     result.setScale(1);
     result.setBaseColor(0x2222CC);
     result.mTextureCache = textureCache;
+    result.mOptions      = options;
 
     return result;
   }
@@ -167,7 +168,7 @@ class gb_BlockyView
                                );
         }
 
-        drawTag(viewModel.tags[i], aFont, slotX, weaponY);
+        if (mOptions.isShowingTags()) drawTag(viewModel.tags[i], aFont, slotX, weaponY);
       }
       else // unselected slot (small boxes)
       {
@@ -395,5 +396,6 @@ class gb_BlockyView
   private color  mAmmoBackColor;
 
   private gb_TextureCache mTextureCache;
+  private gb_Options      mOptions;
 
 } // class gb_BlockyView

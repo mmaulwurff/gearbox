@@ -111,7 +111,7 @@ class gb_WheelView
     }
 
     if (showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
-    drawWeaponDescription(viewModel, innerIndex, nPlaces);
+    if (mOptions.isShowingTags()) drawWeaponDescription(viewModel, innerIndex, nPlaces);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////

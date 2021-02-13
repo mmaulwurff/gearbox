@@ -9,6 +9,7 @@ GB_DIM_COLOR      = "Screen dimming color";
 GB_VISUALS_WHEEL  = "Visuals: Wheel";
 GB_VISUALS_BLOCKS = "Visuals: Blocks";
 GB_SCALE          = "Scale";
+GB_SHOW_TAGS      = "Show tags";
 
 GB_KEYSECTION         = "Gearbox Keys";
 GB_TOGGLE_WEAPON_MENU = "Toggle weapon menu";
