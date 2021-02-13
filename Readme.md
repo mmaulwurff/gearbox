@@ -40,7 +40,6 @@ GZDoom 4.5 required.
 - Patches for weapon icon adjustments
 - More representations
 - Moving weapon between slots and changing order
-- Sounds for actions
 
 ## Note for Weapon Mod Authors
 
