@@ -449,13 +449,6 @@ class gb_WheelView
 
   const UNDEFINED_INDEX = -1;
 
-  // For LZDoom 3.87b: define missing drawing attributes.
-  // Sort-of compatibility. The mod is able to load. Wheel still crashes LZDoom,
-  // but Blocks view works.
-  const DTA_ScaleX = 1073746885;
-  const DTA_ScaleY = 1073746886;
-  const DTA_Rotate = 1073746894;
-
   const N_PIPS = 10;
   const N_PIPS_HALVED = N_PIPS / 2;
 
