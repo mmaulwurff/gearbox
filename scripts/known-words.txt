@@ -178,6 +178,7 @@ ctype
 cuchar
 current
 customizable
+cutmanmike
 cvar
 cvarinfo
 cvars
@@ -429,6 +430,7 @@ long
 longarms
 lower
 lteq
+lucker
 lvalue
 main
 makedirs
@@ -696,6 +698,7 @@ stream
 streambuf
 string
 stript
+strogg
 strong
 strstream
 struct
@@ -808,6 +811,7 @@ virtual
 virtualscope
 void
 volatile
+vorbis
 wadsrc
 wcerr
 wchar
