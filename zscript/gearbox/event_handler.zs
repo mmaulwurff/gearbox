@@ -81,7 +81,7 @@ class gb_EventHandler : EventHandler
   override
   bool inputProcess(InputEvent event)
   {
-    if (!mIsInitialized || isDisabledOnAutomap()) return false;
+    if (!mIsInitialized || isDisabledOnAutomap() || gamestate != GS_LEVEL) return false;
 
     if (mOptions.getViewType() == VIEW_TYPE_WHEEL && mOptions.isMouseInWheel()
         && mWheelController.process(event))
