@@ -19,7 +19,7 @@ class gb_WeaponMenu
 {
 
   static
-  gb_WeaponMenu from(gb_WeaponData weaponData, gb_Options options)
+  gb_WeaponMenu from(gb_WeaponData weaponData, gb_Options options, gb_Sounds sounds)
   {
     let result = new("gb_WeaponMenu");
 
@@ -28,6 +28,7 @@ class gb_WeaponMenu
     result.mSelectedIndex = 0;
     result.mCacheTime     = 0;
     result.mOptions       = options;
+    result.mSounds        = sounds;
 
     loadIconServices(result.mIconServices);
     loadHideServices(result.mHideServices);
@@ -44,7 +45,7 @@ class gb_WeaponMenu
   {
     if (index == -1 || mSelectedIndex == viewModel.indices[index]) return;
 
-    gb_Sounds.playTick();
+    mSounds.playTick();
     mSelectedIndex = viewModel.indices[index];
   }
 
@@ -57,13 +58,13 @@ class gb_WeaponMenu
 
   void selectNextWeapon()
   {
-    gb_Sounds.playTick();
+    mSounds.playTick();
     mSelectedIndex = findNextWeapon();
   }
 
   void selectPrevWeapon()
   {
-    gb_Sounds.playTick();
+    mSounds.playTick();
     mSelectedIndex = findPrevWeapon();
   }
 
@@ -76,7 +77,7 @@ class gb_WeaponMenu
       if (mSlots[index] == slot && isInInventory(index))
       {
         mSelectedIndex = index;
-        gb_Sounds.playTick();
+        mSounds.playTick();
         return true;
       }
     }
@@ -316,5 +317,6 @@ class gb_WeaponMenu
   private int          mCacheTime;
 
   private gb_Options mOptions;
+  private gb_Sounds  mSounds;
 
 } // class gb_WeaponMenu

@@ -41,6 +41,7 @@ class gb_Options
     result.mNoMenuIfOne   = gb_Cvar.from("gb_no_menu_if_one");
     result.mTimeFreeze    = gb_Cvar.from("gb_time_freeze");
     result.mOnAutomap     = gb_Cvar.from("gb_on_automap");
+    result.mEnableSounds  = gb_Cvar.from("gb_enable_sounds");
 
     result.mMouseSensitivityX = gb_Cvar.from("gb_mouse_sensitivity_x");
     result.mMouseSensitivityY = gb_Cvar.from("gb_mouse_sensitivity_y");
@@ -66,6 +67,7 @@ class gb_Options
   bool isNoMenuIfOne()   const { return mNoMenuIfOne.getBool(); }
   bool isTimeFreezeEnabled() const { return mTimeFreeze.getBool(); }
   bool isOnAutomap() const { return mOnAutomap.getBool(); }
+  bool isSoundEnabled() const { return mEnableSounds.getBool(); }
 
   Vector2 getMouseSensitivity() const
   {
@@ -92,6 +94,7 @@ class gb_Options
   private gb_Cvar mNoMenuIfOne;
   private gb_Cvar mTimeFreeze;
   private gb_Cvar mOnAutomap;
+  private gb_Cvar mEnableSounds;
 
   private gb_Cvar mMouseSensitivityX;
   private gb_Cvar mMouseSensitivityY;

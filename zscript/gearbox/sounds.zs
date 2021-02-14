@@ -19,12 +19,18 @@ class gb_Sounds
 {
 
   static
+  gb_Sounds from(gb_Options options)
+  {
+    let result = new("gb_Sounds");
+    result.mOptions = options;
+    return result;
+  }
+
   void playTick()
   {
     playSound("gearbox/tick");
   }
 
-  static
   void playToggle()
   {
     playSound("gearbox/toggle");
@@ -32,10 +38,14 @@ class gb_Sounds
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static
+  private
   void playSound(string sound)
   {
+    if (!mOptions.isSoundEnabled()) return;
+
     players[consolePlayer].mo.a_StartSound(sound, CHAN_AUTO, CHANF_UI | CHANF_OVERLAP | CHANF_LOCAL);
   }
+
+  private gb_Options mOptions;
 
 } // class gb_Sounds

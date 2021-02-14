@@ -2,15 +2,15 @@
 
 GB_OPTIONS = "Gearbox Options";
 
-GB_VISUALS        = "Visuals: general";
+GB_VISUALS        = "UI: general";
 GB_COLOR          = "Color";
 GB_DIM_COLOR      = "Screen dimming color";
 
-GB_VISUALS_WHEEL  = "Visuals: Wheel";
-GB_VISUALS_BLOCKS = "Visuals: Blocks";
+GB_VISUALS_WHEEL  = "UI: Wheel";
+GB_VISUALS_BLOCKS = "UI: Blocks";
 GB_SCALE          = "Scale";
 GB_SHOW_TAGS      = "Show tags";
-GB_LOCK_POS       = "Lock positions";
+GB_SOUND          = "Enable sound effects";
 
 GB_KEYSECTION         = "Gearbox Keys";
 GB_TOGGLE_WEAPON_MENU = "Toggle weapon menu";
@@ -30,6 +30,7 @@ GB_SELECT_ON_KEY_UP  = "Select on Toggle Menu key release";
 GB_NO_MENU_IF_ONE    = "Slot keys: immediately select if it's only one in slot";
 GB_FREEZE_TIME       = "Freeze time when open (single-player only)";
 GB_ENABLE_ON_AUTOMAP = "Enable Gearbox on automap";
+GB_LOCK_POSITION     = "Lock positions";
 
 GB_BEHAVIOR_WHEEL    = "Behavior: Wheel";
 GB_MOUSE_IN_WHEEL    = "Enable mouse input";
