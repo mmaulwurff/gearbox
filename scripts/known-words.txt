@@ -25,6 +25,8 @@ alignof
 allocator
 alnum
 alpha
+altattack
+altfire
 and
 any
 applaunch
@@ -66,6 +68,7 @@ bitmask
 bitor
 bitset
 blank
+blazkowicz
 block
 blocky
 bool
@@ -97,6 +100,7 @@ cerr
 cerrno
 cfenv
 cfloat
+chaingun
 chanf
 changelog
 changelogs
@@ -158,6 +162,7 @@ count
 cout
 cpp
 cppreference
+creativecommons
 crontab
 csetjmp
 csignal
@@ -230,9 +235,11 @@ else
 emplace
 empty
 end
+endcode
 endif
 endl
 engine
+enjay
 enum
 enum
 equal
@@ -250,6 +257,7 @@ exclusive
 execution
 exists
 explicit
+explodium
 export
 expr
 extern
@@ -386,12 +394,14 @@ json
 kadu
 kayliebenson
 keks
+kermite
 key
 keyconf
 keysection
 killall
 known
 kromm
+krutomisi
 last
 latests
 launch
@@ -422,6 +432,7 @@ lteq
 lvalue
 main
 makedirs
+malle
 malloc
 mamaluigisbagel
 map
@@ -453,6 +464,7 @@ monetary
 money
 monotraum
 move
+mpatch
 mrthenoronha
 msys
 multi
@@ -550,6 +562,7 @@ proximate
 proydoha
 psprite
 public
+publicdomain
 punct
 push
 pylint
@@ -604,12 +617,14 @@ right
 rmdir
 rmtree
 rotate
+rparhkdtp
 rsync
 runtime
 rvalue
 ryansnook
 ryzen
 safety
+samarai
 sample
 savegame
 sbin
@@ -643,6 +658,15 @@ sizeof
 slade
 sleep
 slice
+smbfgg
+smcsaw
+smfist
+smlaun
+smmgun
+smpisg
+smplas
+smsgn
+smshot
 snes
 sneserrors
 socket
@@ -685,6 +709,7 @@ submenus
 submodule
 submodules
 subprocess
+substring
 sudo
 suff
 suicidity
@@ -692,6 +717,7 @@ sum
 swappable
 switch
 swosh
+swwm
 symlink
 symmetric
 syncstream
@@ -793,6 +819,7 @@ weap
 weapnext
 weaponready
 weaponreadyalt
+weaponwheel
 weapprev
 wget
 while

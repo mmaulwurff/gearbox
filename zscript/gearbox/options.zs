@@ -31,7 +31,7 @@ class gb_Options
     result.mWheelTint    = gb_Cvar.from("gb_wheel_tint");
     result.mMultiWheelLimit = gb_Cvar.from("gb_multiwheel_limit");
     result.mShowTags     = gb_Cvar.from("gb_show_tags");
-    result.mShowWeaponTagsOnChange = gb_Cvar.from("displaynametags");
+    result.mShowWeaponTagsOnChange = gb_Cvar.from("DisplayNameTags");
     result.mIsPositionLocked = gb_Cvar.from("gb_lock_positions");
 
     result.mOpenOnScroll  = gb_Cvar.from("gb_open_on_scroll");

@@ -30,7 +30,7 @@ version 4.5
 
 #include "zscript/gearbox/options.zs"
 
-// Weapon Wheel imgearbox/plementation.
+// Weapon Wheel implementation.
 #include "zscript/gearbox/wheel/view.zs"
 #include "zscript/gearbox/wheel/controller.zs"
 #include "zscript/gearbox/wheel/controller_model.zs"

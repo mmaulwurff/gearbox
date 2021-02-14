@@ -204,7 +204,7 @@ class gb_BlockyView
     if (tag.length() == 0) return;
 
     Array<string> words;
-    tag.split(words, " ", TOK_SKIPEMPTY);
+    tag.split(words, " ", Tok_SkipEmpty);
 
     // Start filling lines with words from bottom to top. If the word doesn't
     // fit into the line, it is pushed into the new top line.
