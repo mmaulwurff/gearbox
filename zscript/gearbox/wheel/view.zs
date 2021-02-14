@@ -69,7 +69,8 @@ class gb_WheelView
 
     int nPlaces = 0;
 
-    if (mMultiWheelMode.isEngaged(viewModel))
+    bool isMultiWheelMode = mMultiWheelMode.isEngaged(viewModel);
+    if (isMultiWheelMode)
     {
       gb_MultiWheelModel multiWheelModel;
       gb_MultiWheel.fill(viewModel, multiWheelModel);
@@ -111,8 +112,15 @@ class gb_WheelView
       drawHands(nPlaces, innerIndex, mCenter, 0);
     }
 
-    if (showPointer) drawPointer(controllerModel.angle, controllerModel.radius);
-    if (mOptions.isShowingTags()) drawWeaponDescription(viewModel, innerIndex, nPlaces);
+    if (showPointer)
+    {
+      drawPointer(controllerModel.angle, controllerModel.radius);
+    }
+
+    if (mOptions.isShowingTags())
+    {
+      drawWeaponDescription(viewModel, innerIndex, nPlaces, isMultiWheelMode);
+    }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
@@ -365,7 +373,11 @@ class gb_WheelView
   }
 
   private
-  void drawWeaponDescription(gb_ViewModel viewModel, int innerIndex, int nPlaces)
+  void drawWeaponDescription( gb_ViewModel viewModel
+                            , int  innerIndex
+                            , int  nPlaces
+                            , bool isMultiWheelMode
+                            )
   {
     int    index       = viewModel.selectedWeaponIndex;
     string description = viewModel.tags[index];
@@ -379,7 +391,7 @@ class gb_WheelView
       : "";
 
     double  angle   = itemAngle(nPlaces, innerIndex);
-    bool    isOnTop = (90.0 < angle && angle < 270.0);
+    bool    isOnTop = isMultiWheelMode && (90.0 < angle && angle < 270.0);
     vector2 pos     = mCenter;
     pos.y += gb_Screen.getWheelRadius() * (isOnTop ? -1 : 1);
 
