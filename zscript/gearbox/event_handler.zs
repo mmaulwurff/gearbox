@@ -55,6 +55,14 @@ class gb_EventHandler : EventHandler
     {
       close();
     }
+
+    if (mActivity.isNone())
+    {
+      // Watch for the current weapon, because player can change it without
+      // Gearbox. Also handles the case when Gearbox hasn't been opened yet,
+      // initializing weapon menu.
+      mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
+    }
   }
 
   /**
