@@ -11,6 +11,9 @@ version 4.5
 #include "zscript/gearbox/sounds.zs"
 
 #include "zscript/gearbox/weapon_menu.zs"
+#include "zscript/gearbox/inventory_menu.zs"
+
+#include "zscript/gearbox/inventory_user.zs"
 
 #include "zscript/gearbox/sender.zs"
 

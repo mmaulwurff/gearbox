@@ -27,6 +27,9 @@ enum gb_Inputs
   InputSelectSlotEnd = InputSelectSlotBegin + 11,
   InputClose,
 
+  InputToggleInventoryMenu,
+  InputConfirmInventorySelection,
+
 } // enum gb_Inputs
 
 class gb_Input

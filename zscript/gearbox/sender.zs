@@ -24,4 +24,10 @@ class gb_Sender
     EventHandler.sendNetworkEvent(string.format("gb_select_weapon:%s", className));
   }
 
+  static
+  void sendUseItemEvent(string className)
+  {
+    EventHandler.sendNetworkEvent(string.format("gb_use_item:%s", className));
+  }
+
 } // class gb_Sender

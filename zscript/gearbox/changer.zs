@@ -19,11 +19,12 @@ class gb_Changer play
 {
 
   static
-  gb_Changer from(gb_Caption caption, gb_Options options)
+  gb_Changer from(gb_Caption caption, gb_Options options, gb_InventoryUser inventoryUser)
   {
     let result = new("gb_Changer");
-    result.mCaption = caption;
-    result.mOptions = options;
+    result.mCaption       = caption;
+    result.mOptions       = options;
+    result.mInventoryUser = inventoryUser;
     return result;
   }
 
@@ -34,6 +35,7 @@ class gb_Changer play
     switch (aChange.type)
     {
     case gb_Change.SelectWeapon: selectWeapon(player, aChange.object); break;
+    case gb_Change.UseItem:      mInventoryUser.addToQueue(player, aChange.object); break;
     }
   }
 
@@ -50,7 +52,8 @@ class gb_Changer play
     }
   }
 
-  private gb_Caption mCaption;
-  private gb_Options mOptions;
+  private gb_Caption       mCaption;
+  private gb_Options       mOptions;
+  private gb_InventoryUser mInventoryUser;
 
 } // class gb_Changer

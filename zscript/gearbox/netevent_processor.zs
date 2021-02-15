@@ -34,6 +34,12 @@ class gb_NeteventProcessor
       change.object       = args[1];
       change.playerNumber = event.player;
     }
+    else if (args[0] == "gb_use_item")
+    {
+      change.type         = gb_Change.UseItem;
+      change.object       = args[1];
+      change.playerNumber = event.player;
+    }
   }
 
 } // class gb_NeteventProcessor

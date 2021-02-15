@@ -3,8 +3,12 @@
 Alias +gb_toggle_weapon_menu "event gb_toggle_weapon_menu"
 Alias -gb_toggle_weapon_menu "event gb_toggle_weapon_menu_up"
 
+Alias +gb_toggle_inventory_menu "event gb_toggle_inventory_menu"
+Alias -gb_toggle_inventory_menu "event gb_toggle_inventory_menu_up"
+
 // Keys ////////////////////////////////////////////////////////////////////////////////////////////
 
 AddKeySection "$GB_KEYSECTION" gb_Keys
 
 AddMenuKey "$GB_TOGGLE_WEAPON_MENU" +gb_toggle_weapon_menu
+AddMenuKey "$GB_TOGGLE_INVENTORY_MENU" +gb_toggle_inventory_menu

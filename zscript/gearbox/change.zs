@@ -23,11 +23,12 @@ struct gb_Change
 
     Nothing,
     SelectWeapon,
+    UseItem,
 
   } // enum Change
 
-  int type;
-  int playerNumber;
+  int    type;
+  int    playerNumber;
   string object;
 
 } // struct gb_Change

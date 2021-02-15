@@ -104,7 +104,7 @@ class gb_WeaponMenu
     return NULL != players[consolePlayer].mo.findInventory(mWeapons[index]);
   }
 
-  string confirmSelection()
+  string confirmSelection() const
   {
     if (mSelectedIndex >= mWeapons.size()) return "";
 

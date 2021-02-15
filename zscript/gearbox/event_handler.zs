@@ -63,6 +63,8 @@ class gb_EventHandler : EventHandler
       // initializing weapon menu.
       mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     }
+
+    mInventoryUser.use();
   }
 
   /**
@@ -77,6 +79,7 @@ class gb_EventHandler : EventHandler
     {
     case InputToggleWeaponMenu: toggleWeapons(); break;
     case InputConfirmSelection: confirmSelection(); close(); break;
+    case InputToggleInventoryMenu: toggleInventory(); break;
     }
 
     if (!mActivity.isNone()) mWheelController.reset();
@@ -114,6 +117,19 @@ class gb_EventHandler : EventHandler
         break;
       }
 
+      return true;
+    }
+    else if (mActivity.isInventory())
+    {
+      switch (input)
+      {
+      case InputSelectNextWeapon: mInventoryMenu.selectNext(); mWheelController.reset(); break;
+      case InputSelectPrevWeapon: mInventoryMenu.selectPrev(); mWheelController.reset(); break;
+      case InputConfirmSelection: confirmSelection(); close(); break;
+      case InputClose:            close(); break;
+
+      default: return false;
+      }
       return true;
     }
     else if (mActivity.isNone())
@@ -175,10 +191,11 @@ class gb_EventHandler : EventHandler
     mFadeInOut.fadeInOut((mActivity.isNone()) ? -0.1 : 0.2);
     double alpha = mFadeInOut.getAlpha();
 
-    if (!mActivity.isWeapons() && alpha == 0.0) return;
+    if (mActivity.isNone() && alpha == 0.0) return;
 
     gb_ViewModel viewModel;
-    mWeaponMenu.fill(viewModel);
+    if      (mActivity.isWeapons())   mWeaponMenu.fill(viewModel);
+    else if (mActivity.isInventory()) mInventoryMenu.fill(viewModel);
 
     gb_Dim.dim(alpha, mOptions);
 
@@ -197,7 +214,10 @@ class gb_EventHandler : EventHandler
       mWheelController.fill(controllerModel);
       mWheelIndexer.update(viewModel, controllerModel);
       int selectedViewIndex = mWheelIndexer.getSelectedIndex();
-      mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex);
+
+      if (mActivity.isWeapons()) mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex);
+      else if (mActivity.isInventory()) mInventoryMenu.setSelectedIndex(selectedViewIndex);
+
       if (selectedViewIndex != -1) viewModel.selectedWeaponIndex = selectedViewIndex;
       int selectedIndex = mWeaponMenu.getSelectedIndex();
 
@@ -233,6 +253,13 @@ class gb_EventHandler : EventHandler
   }
 
   private ui
+  void toggleInventory()
+  {
+    if (mActivity.isInventory()) close();
+    else openInventory();
+  }
+
+  private ui
   void openWeapons()
   {
     if (gb_Player.isDead()) return;
@@ -240,6 +267,20 @@ class gb_EventHandler : EventHandler
     mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     mSounds.playToggle();
     mActivity.openWeapons();
+
+    // Note that we update wheel controller active status even if wheel is not
+    // active. In that case, the controller won't do anything because of the
+    // check in inputProcess function.
+    mWheelController.setIsActive(true);
+  }
+
+  private ui
+  void openInventory()
+  {
+    if (gb_Player.isDead()) return;
+
+    mSounds.playToggle();
+    mActivity.openInventory();
 
     // Note that we update wheel controller active status even if wheel is not
     // active. In that case, the controller won't do anything because of the
@@ -262,7 +303,14 @@ class gb_EventHandler : EventHandler
   private ui
   void confirmSelection()
   {
-    gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
+    if (mActivity.isWeapons())
+    {
+      gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
+    }
+    else if (mActivity.isInventory())
+    {
+      gb_Sender.sendUseItemEvent(mInventoryMenu.confirmSelection());
+    }
   }
 
   enum ViewTypes
@@ -280,6 +328,7 @@ class gb_EventHandler : EventHandler
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+    mInventoryMenu   = gb_InventoryMenu.from();
 
     mActivity        = gb_Activity.from();
     mFadeInOut       = gb_FadeInOut.from();
@@ -288,7 +337,8 @@ class gb_EventHandler : EventHandler
     mTextureCache    = gb_TextureCache.from();
     mText            = gb_Text.from(mTextureCache);
     mCaption         = gb_Caption.from(mText);
-    mChanger         = gb_Changer.from(mCaption, mOptions);
+    mInventoryUser   = gb_InventoryUser.from();
+    mChanger         = gb_Changer.from(mCaption, mOptions, mInventoryUser);
 
     mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions);
 
@@ -300,17 +350,19 @@ class gb_EventHandler : EventHandler
     mIsInitialized = true;
   }
 
-  private gb_Options     mOptions;
-  private gb_Sounds      mSounds;
-  private gb_WeaponMenu  mWeaponMenu;
-  private gb_Activity    mActivity;
-  private gb_FadeInOut   mFadeInOut;
-  private gb_TimeMachine mTimeMachine;
+  private gb_Options       mOptions;
+  private gb_Sounds        mSounds;
+  private gb_WeaponMenu    mWeaponMenu;
+  private gb_InventoryMenu mInventoryMenu;
+  private gb_Activity      mActivity;
+  private gb_FadeInOut     mFadeInOut;
+  private gb_TimeMachine   mTimeMachine;
 
-  private gb_TextureCache mTextureCache;
-  private gb_Text         mText;
-  private gb_Caption      mCaption;
-  private gb_Changer      mChanger;
+  private gb_TextureCache  mTextureCache;
+  private gb_Text          mText;
+  private gb_Caption       mCaption;
+  private gb_InventoryUser mInventoryUser;
+  private gb_Changer       mChanger;
 
   private gb_BlockyView mBlockyView;
 

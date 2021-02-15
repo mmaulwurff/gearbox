@@ -24,6 +24,9 @@ class gb_EventProcessor
     if (event.name == "gb_toggle_weapon_menu") return InputToggleWeaponMenu;
     if (event.name == "gb_toggle_weapon_menu_up" && isSelectOnKeyUp) return InputConfirmSelection;
 
+    if (event.name == "gb_toggle_inventory_menu"   ) return InputToggleInventoryMenu;
+    if (event.name == "gb_toggle_inventory_menu_up" && isSelectOnKeyUp) return InputConfirmSelection;
+
     return InputNothing;
   }
 
