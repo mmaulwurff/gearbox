@@ -1,6 +1,5 @@
 // Aliases /////////////////////////////////////////////////////////////////////////////////////////
 
-Alias  gb_toggle_weapon_menu "event gb_toggle_weapon_menu_obsolete"
 Alias +gb_toggle_weapon_menu "event gb_toggle_weapon_menu"
 Alias -gb_toggle_weapon_menu "event gb_toggle_weapon_menu_up"
 

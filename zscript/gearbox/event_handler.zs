@@ -77,7 +77,6 @@ class gb_EventHandler : EventHandler
     {
     case InputToggleWeaponMenu: toggleWeapons(); break;
     case InputConfirmSelection: confirmSelection(); close(); break;
-    case InputToggleWeaponMenuObsolete: gb_Log.notice("GB_TOGGLE_WEAPON_MENU_OBSOLETE"); break;
     }
 
     if (!mActivity.isNone()) mWheelController.reset();

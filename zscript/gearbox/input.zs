@@ -23,7 +23,6 @@ enum gb_Inputs
   InputSelectPrevWeapon,
   InputConfirmSelection,
   InputToggleWeaponMenu,
-  InputToggleWeaponMenuObsolete,
   InputSelectSlotBegin,
   InputSelectSlotEnd = InputSelectSlotBegin + 11,
   InputClose,
