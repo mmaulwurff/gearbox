@@ -160,6 +160,13 @@ class gb_WheelIndexer
     double ratio = clamp(r / side * sin(forSlotAngle), -1.0, 1.0);
     double angle = -asin(ratio);
 
+    // Limit angle on the borders of the second wheel:
+    double borderRadius = wheelRadius / sin(90 - forSlotAngle);
+    if (r < borderRadius)
+    {
+      angle = (angle > 0) ? 89.9999 : -89.9999;
+    }
+
     angle += 90;
     angle %= 180;
 
