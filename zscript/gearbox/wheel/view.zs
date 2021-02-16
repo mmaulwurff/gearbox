@@ -152,8 +152,15 @@ class gb_WheelView
     double startingAngle  = angle - 90 + (180.0 / nWeaponsInSlot / 2);
 
     uint place = 0;
+    uint selectedPlace = 0;
     for (uint i = start; i < end; ++i, ++place)
     {
+      if (i == viewModel.selectedWeaponIndex)
+      {
+        selectedPlace = place;
+        continue;
+      }
+
       displayWeapon( place
                    , i
                    , nWeaponsInSlot * 2
@@ -164,6 +171,17 @@ class gb_WheelView
                    , startingAngle
                    );
     }
+
+    // draw the selected thing last in case of icon overlapping
+    displayWeapon( selectedPlace
+                 , viewModel.selectedWeaponIndex
+                 , nWeaponsInSlot * 2
+                 , radius
+                 , allowedWidth
+                 , viewModel
+                 , outerWheelCenter
+                 , startingAngle
+                 );
 
     int deadRadius = gb_Screen.getWheelDeadRadius();
 
