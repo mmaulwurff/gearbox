@@ -357,7 +357,7 @@ class gb_WheelView
 
     double handsAngle = startAngle - itemAngle(nPlaces, selectedIndex);
 
-    double sectorAngleHalfWidth = max(5, 360.0 / 2.0 / nPlaces - 2);
+    double sectorAngleHalfWidth = max(6, 360.0 / 2.0 / nPlaces - 2);
 
     double baseHeight  = 1080;
     double heightRatio = Screen.getHeight() / baseHeight;
