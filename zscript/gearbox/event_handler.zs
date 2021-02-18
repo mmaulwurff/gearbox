@@ -332,7 +332,7 @@ class gb_EventHandler : EventHandler
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
-    mInventoryMenu   = gb_InventoryMenu.from();
+    mInventoryMenu   = gb_InventoryMenu.from(mSounds);
 
     mActivity        = gb_Activity.from();
     mFadeInOut       = gb_FadeInOut.from();

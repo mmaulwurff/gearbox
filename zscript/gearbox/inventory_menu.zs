@@ -19,10 +19,13 @@ class gb_InventoryMenu
 {
 
   static
-  gb_InventoryMenu from()
+  gb_InventoryMenu from(gb_Sounds sounds)
   {
     let result = new("gb_InventoryMenu");
+
     result.mSelectedIndex = 0;
+    result.mSounds = sounds;
+
     return result;
   }
 
@@ -46,12 +49,14 @@ class gb_InventoryMenu
   ui
   void selectNext()
   {
+    mSounds.playTick();
     mSelectedIndex = (mSelectedIndex + 1) % getItemsNumber();
   }
 
   ui
   void selectPrev()
   {
+    mSounds.playTick();
     int nItems = getItemsNumber();
     mSelectedIndex = (mSelectedIndex - 1 + nItems) % nItems;
   }
@@ -59,8 +64,9 @@ class gb_InventoryMenu
   ui
   void setSelectedIndex(int index)
   {
-    if (index == -1) return;
+    if (index == -1 || mSelectedIndex == index) return;
 
+    mSounds.playTick();
     mSelectedIndex = index;
   }
 
@@ -114,5 +120,6 @@ class gb_InventoryMenu
   }
 
   private int mSelectedIndex;
+  private gb_Sounds mSounds;
 
 } // class gb_InventoryMenu
