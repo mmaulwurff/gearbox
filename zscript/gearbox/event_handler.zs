@@ -128,7 +128,15 @@ class gb_EventHandler : EventHandler
       case InputConfirmSelection: confirmSelection(); close(); break;
       case InputClose:            close(); break;
 
-      default: return false;
+      default:
+      {
+        if (!gb_Input.isSlot(input)) return false;
+        mWheelController.reset();
+        int slot = gb_Input.getSlot(input);
+        int index = (slot == 0) ? 9 : slot - 1;
+        mInventoryMenu.setSelectedIndex(index);
+        break;
+      }
       }
       return true;
     }
