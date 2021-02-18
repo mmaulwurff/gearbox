@@ -90,7 +90,7 @@ class gb_InventoryMenu
         viewModel.slots   .push(index + 1);
         viewModel.indices .push(index);
         viewModel.icons   .push(int(StatusBar.GetInventoryIcon(item, StatusBar.DI_ALTICONFIRST)));
-        viewModel.ammo1   .push(item.amount);
+        viewModel.ammo1   .push(item.maxAmount > 1 ? item.amount : -1);
         viewModel.maxAmmo1.push(item.maxAmount);
         viewModel.ammo2   .push(-1);
         viewModel.maxAmmo2.push(-1);
