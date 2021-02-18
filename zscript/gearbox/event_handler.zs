@@ -219,7 +219,11 @@ class gb_EventHandler : EventHandler
       else if (mActivity.isInventory()) mInventoryMenu.setSelectedIndex(selectedViewIndex);
 
       if (selectedViewIndex != -1) viewModel.selectedWeaponIndex = selectedViewIndex;
-      int selectedIndex = mWeaponMenu.getSelectedIndex();
+
+      int selectedIndex;
+      selectedIndex = mActivity.isWeapons()
+        ? mWeaponMenu.getSelectedIndex()
+        : mInventoryMenu.getSelectedIndex();
 
       mWheelView.setAlpha(alpha);
       mWheelView.setBaseColor(mOptions.getColor());

@@ -65,6 +65,12 @@ class gb_InventoryMenu
   }
 
   ui
+  int getSelectedIndex() const
+  {
+    return mSelectedIndex;
+  }
+
+  ui
   void fill(out gb_ViewModel viewModel)
   {
     let item  = players[consolePlayer].mo.inv;
