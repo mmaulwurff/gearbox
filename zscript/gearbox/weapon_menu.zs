@@ -51,6 +51,8 @@ class gb_WeaponMenu
 
   void setSelectedWeapon(class<Weapon> aClass)
   {
+    if (aClass == NULL) return;
+
     mSelectedIndex = getIndexOf(aClass);
     // Fixes the case when the player starts with no weapon selected.
     if (mSelectedIndex == mWeapons.size()) selectNextWeapon();
@@ -58,14 +60,14 @@ class gb_WeaponMenu
 
   void selectNextWeapon()
   {
-    mSounds.playTick();
     mSelectedIndex = findNextWeapon();
+    if (mSelectedIndex != mWeapons.size()) mSounds.playTick();
   }
 
   void selectPrevWeapon()
   {
-    mSounds.playTick();
     mSelectedIndex = findPrevWeapon();
+    if (mSelectedIndex != mWeapons.size()) mSounds.playTick();
   }
 
   bool selectSlot(int slot)
