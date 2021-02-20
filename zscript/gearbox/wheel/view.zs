@@ -69,6 +69,7 @@ class gb_WheelView
 
     int nPlaces = 0;
 
+    bool isSlotExpanded = false;
     bool isMultiWheelMode = mMultiWheelMode.isEngaged(viewModel);
     if (isMultiWheelMode)
     {
@@ -87,7 +88,8 @@ class gb_WheelView
 
       drawHands(nPlaces, innerIndex, mCenter, 0);
 
-      if (outerIndex != UNDEFINED_INDEX && !multiWheelModel.isWeapon[innerIndex])
+      isSlotExpanded = (outerIndex != UNDEFINED_INDEX && !multiWheelModel.isWeapon[innerIndex]);
+      if (isSlotExpanded)
       {
         int slot = multiWheelModel.data[innerIndex];
         drawOuterWeapons( innerIndex
@@ -103,6 +105,7 @@ class gb_WheelView
     }
     else
     {
+      isSlotExpanded = false;
       for (uint i = 0; i < nWeapons; ++i)
       {
         displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, mCenter);
@@ -119,7 +122,7 @@ class gb_WheelView
 
     if (mOptions.isShowingTags())
     {
-      drawWeaponDescription(viewModel, innerIndex, nPlaces, isMultiWheelMode);
+      drawWeaponDescription(viewModel, innerIndex, nPlaces, isSlotExpanded);
     }
   }
 
@@ -394,7 +397,7 @@ class gb_WheelView
   void drawWeaponDescription( gb_ViewModel viewModel
                             , int  innerIndex
                             , int  nPlaces
-                            , bool isMultiWheelMode
+                            , bool isSlotExpanded
                             )
   {
     int    index       = viewModel.selectedWeaponIndex;
@@ -409,7 +412,7 @@ class gb_WheelView
       : "";
 
     double  angle   = itemAngle(nPlaces, innerIndex);
-    bool    isOnTop = isMultiWheelMode && (90.0 < angle && angle < 270.0);
+    bool    isOnTop = isSlotExpanded && (90.0 < angle && angle < 270.0);
     vector2 pos     = mCenter;
     pos.y += gb_Screen.getWheelRadius() * (isOnTop ? -1 : 1);
 
