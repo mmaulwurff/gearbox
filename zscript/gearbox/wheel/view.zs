@@ -297,43 +297,75 @@ class gb_WheelView
     }
   }
 
+  private static
+  int, int makePipsNumbers(int items, int maxItems)
+  {
+    if (maxItems <= MAX_N_PIPS) return items, maxItems;
+
+    int nColoredPips = int(ceil(MAX_N_PIPS * double(items) / maxItems));
+    return nColoredPips, MAX_N_PIPS;
+  }
+
   private
   void drawAmmo(double weaponAngle, vector2 center, gb_ViewModel viewModel, uint weaponIndex)
   {
     if (viewModel.ammo1[weaponIndex] != -1)
     {
-      int margin       = int(10 * mScaleFactor);
-      int radius       = Screen.getHeight() / 4 - margin;
-      int nColoredPips = int(ceil(N_PIPS * double(viewModel.ammo1   [weaponIndex])
-                                                / viewModel.maxAmmo1[weaponIndex]));
-      drawAmmoPips(radius, weaponAngle, center, nColoredPips);
+      int margin = int(10 * mScaleFactor);
+      int radius = Screen.getHeight() / 4 - margin;
+      int nColoredPips, nTotalPips;
+      [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.ammo1   [weaponIndex]
+                                                  , viewModel.maxAmmo1[weaponIndex]
+                                                  );
+      drawAmmoPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
     }
 
     if (viewModel.ammo2[weaponIndex] != -1)
     {
-      int margin       = int(20 * mScaleFactor);
-      int radius       = Screen.getHeight() / 4 - margin;
-      int nColoredPips = int(ceil(N_PIPS * double(viewModel.ammo2   [weaponIndex])
-                                                / viewModel.maxAmmo2[weaponIndex]));
-      drawAmmoPips(radius, weaponAngle, center, nColoredPips);
+      int margin = int(20 * mScaleFactor);
+      int radius = Screen.getHeight() / 4 - margin;
+      int nColoredPips, nTotalPips;
+      [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.ammo2   [weaponIndex]
+                                                  , viewModel.maxAmmo2[weaponIndex]
+                                                  );
+      drawAmmoPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
     }
   }
 
-  void drawAmmoPips(double radius, double weaponAngle, vector2 center, int ammoRatio)
+  void drawAmmoPips( double  radius
+                   , double  weaponAngle
+                   , vector2 center
+                   , int     nColoredPips
+                   , int     nTotalPips
+                   )
   {
-    for (int i = -N_PIPS_HALVED + 1; i <= 0; ++i)
+    if (nTotalPips % 2 == 0)
     {
-      double angle = weaponAngle - PIPS_GAP + i * PIPS_STEP;
-      drawAmmoPip(angle, radius, center, ammoRatio > 0);
-      --ammoRatio;
-    }
+      int nTotalPipsHalved = nTotalPips / 2;
 
-    for (int i = 0; i < N_PIPS_HALVED; ++i)
+      for (int i = -nTotalPipsHalved + 1; i <= 0; ++i)
+      {
+        double angle = weaponAngle - PIPS_GAP + i * PIPS_STEP;
+        drawAmmoPip(angle, radius, center, nColoredPips > 0);
+        --nColoredPips;
+      }
+
+      for (int i = 0; i < nTotalPipsHalved; ++i)
+      {
+        double angle = weaponAngle + PIPS_GAP + i * PIPS_STEP;
+        drawAmmoPip(angle, radius, center, nColoredPips > 0);
+        --nColoredPips;
+      }
+    }
+    else
     {
-      double angle = weaponAngle + PIPS_GAP + i * PIPS_STEP;
-      bool colored = true;
-      drawAmmoPip(angle, radius, center, ammoRatio > 0);
-      --ammoRatio;
+      double angleStart = weaponAngle - nTotalPips * PIPS_STEP / 2;
+      for (int i = 0; i < nTotalPips; ++i)
+      {
+        double angle = angleStart + i * PIPS_STEP;
+        drawAmmoPip(angle, radius, center, nColoredPips > 0);
+        --nColoredPips;
+      }
     }
   }
 
@@ -482,8 +514,7 @@ class gb_WheelView
 
   const UNDEFINED_INDEX = -1;
 
-  const N_PIPS = 10;
-  const N_PIPS_HALVED = N_PIPS / 2;
+  const MAX_N_PIPS = 10;
 
   const PIPS_GAP  = 1.2;
   const PIPS_STEP = 1.5;
