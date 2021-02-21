@@ -136,7 +136,7 @@ class gb_BlockyView
         // ammo indicators
         TextureID ammoTexture = mTextureCache.ammoLine;
         int ammoY = weaponY;
-        if (viewModel.ammo1[i] != -1)
+        if (gb_Ammo.isValid(viewModel.ammo1[i], viewModel.maxAmmo1[i]))
         {
           drawAlphaTexture( ammoTexture
                           , slotX + MARGIN * 2
@@ -152,7 +152,7 @@ class gb_BlockyView
                                );
           ammoY += MARGIN + AMMO_HEIGHT;
         }
-        if (viewModel.ammo2[i] != -1)
+        if (gb_Ammo.isValid(viewModel.ammo2[i], viewModel.maxAmmo2[i]))
         {
           drawAlphaTexture( ammoTexture
                           , slotX + MARGIN * 2

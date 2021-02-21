@@ -309,7 +309,7 @@ class gb_WheelView
   private
   void drawAmmo(double weaponAngle, vector2 center, gb_ViewModel viewModel, uint weaponIndex)
   {
-    if (viewModel.ammo1[weaponIndex] != -1)
+    if (gb_Ammo.isValid(viewModel.ammo1[weaponIndex], viewModel.maxAmmo1[weaponIndex]))
     {
       int margin = int(10 * mScaleFactor);
       int radius = Screen.getHeight() / 4 - margin;
@@ -320,7 +320,7 @@ class gb_WheelView
       drawAmmoPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
     }
 
-    if (viewModel.ammo2[weaponIndex] != -1)
+    if (gb_Ammo.isValid(viewModel.ammo2[weaponIndex], viewModel.maxAmmo2[weaponIndex]))
     {
       int margin = int(20 * mScaleFactor);
       int radius = Screen.getHeight() / 4 - margin;
@@ -436,10 +436,10 @@ class gb_WheelView
     string description = viewModel.tags[index];
     if (description.length() == 0) return;
 
-    string ammo1 = (viewModel.ammo1[index] != -1)
+    string ammo1 = gb_Ammo.isValid(viewModel.ammo1[index], viewModel.maxAmmo1[index])
       ? string.format("%d/%d", viewModel.ammo1[index], viewModel.maxAmmo1[index])
       : "";
-    string ammo2 = (viewModel.ammo2[index] != -1)
+    string ammo2 = gb_Ammo.isValid(viewModel.ammo2[index], viewModel.maxAmmo2[index])
       ? string.format("%d/%d", viewModel.ammo2[index], viewModel.maxAmmo2[index])
       : "";
 

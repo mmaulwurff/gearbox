@@ -46,6 +46,7 @@ version 4.5
 #include "zscript/gearbox/tools/cvar.zs"
 #include "zscript/gearbox/tools/log.zs"
 #include "zscript/gearbox/tools/texture_cache.zs"
+#include "zscript/gearbox/tools/ammo.zs"
 
 // Helper classes gearbox/that wrap access to game information provided by the engine.
 #include "zscript/gearbox/engine/level.zs"
