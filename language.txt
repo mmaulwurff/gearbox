@@ -13,6 +13,7 @@ GB_SOUND          = "Sound effects";
 GB_KEYSECTION            = "Gearbox Keys";
 GB_TOGGLE_WEAPON_MENU    = "Toggle weapon menu";
 GB_TOGGLE_INVENTORY_MENU = "Toggle inventory menu";
+GB_PREV_WEAPON           = "Select previous weapon";
 
 GB_VIEW_TYPE   = "Selector type";
 GB_BLOCKY_VIEW = "Blocks";

@@ -14,6 +14,7 @@ OptionMenu gb_Options
   StaticText  "$GB_KEYSECTION", 1
   Control     "$GB_TOGGLE_WEAPON_MENU"    , "+gb_toggle_weapon_menu"
   Control     "$GB_TOGGLE_INVENTORY_MENU" , "+gb_toggle_inventory_menu"
+  Control     "$GB_PREV_WEAPON"           , "gb_prev_weapon"
 
   StaticText  ""
   StaticText  "$GB_UI"        , 1
