@@ -50,9 +50,9 @@ class gb_BlockyView
   void setBaseColor(int color)
   {
     mBaseColor     = color;
-    mSlotColor     = addColor(mBaseColor, -0x22, -0x22, -0x22);
-    mSelectedColor = addColor(mBaseColor,  0x44,  0x44,  0x44);
-    mAmmoBackColor = addColor(mBaseColor,  0x66,  0x66,  0x66);
+    mSlotColor     = addColor(mBaseColor, -0x22);
+    mSelectedColor = addColor(mBaseColor,  0x44);
+    mAmmoBackColor = addColor(mBaseColor,  0x66);
   }
 
   void display(gb_ViewModel viewModel) const
@@ -362,11 +362,20 @@ class gb_BlockyView
   }
 
   private static
-  color addColor(color base, int addRed, int addGreen, int addBlue)
+  color addColor(color base, int add)
   {
-    uint newRed   = base.r + addRed;
-    uint newGreen = base.g + addGreen;
-    uint newBlue  = base.b + addBlue;
+    uint newRed   = clamp(base.r + add, 0, 255);
+    uint newGreen = clamp(base.g + add, 0, 255);
+    uint newBlue  = clamp(base.b + add, 0, 255);
+
+    if (  abs(int(newRed  ) - base.r) < abs(add)
+       && abs(int(newGreen) - base.g) < abs(add)
+       && abs(int(newBlue ) - base.b) < abs(add)
+       )
+    {
+      return addColor(base, -add);
+    }
+
     uint result   = (newRed << 16) + (newGreen << 8) + newBlue;
     return result;
   }
