@@ -61,4 +61,6 @@ version 4.5
 #include "zscript/gearbox/service/icon_service.zs"
 #include "zscript/gearbox/service/hide_service.zs"
 
+// Libraries
 #include "zscript/m_gizmos/previous_weapon.zs"
+#include "zscript/zabor/event_handler.zs"
