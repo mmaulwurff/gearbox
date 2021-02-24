@@ -34,17 +34,57 @@ class gb_VmAbortHandler : EventHandler
   override
   void onDestroy()
   {
-    if (gameState != GS_FullConsole || !amIFirst()) return;
+    if (gameState != GS_FullConsole) return;
+
+    if (!amIFirst())
+    {
+      printGearboxCvars();
+      return;
+    }
 
     printZabor();
     printGameInfo();
     printConfiguration();
+    printGearboxCvars();
     printEventHandlers();
     printRealTime();
     printAttention();
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  void printGearboxCvars()
+  {
+    Array<string> gearboxConfiguration =
+      {
+        getCvarIntValueAsString("gb_scale"),
+        getCvarColorValueAsString("gb_color"),
+        getCvarColorValueAsString("gb_dim_color"),
+        getCvarIntValueAsString("gb_show_tags"),
+
+        getCvarIntValueAsString("gb_view_type"),
+        getCvarIntValueAsString("gb_enable_dim"),
+        getCvarFloatValueAsString("gb_wheel_position"),
+        getCvarIntValueAsString("gb_wheel_tint"),
+        getCvarIntValueAsString("gb_multiwheel_limit"),
+
+        getCvarIntValueAsString("gb_open_on_scroll"),
+        getCvarIntValueAsString("gb_open_on_slot"),
+        getCvarIntValueAsString("gb_mouse_in_wheel"),
+        getCvarIntValueAsString("gb_select_on_key_up"),
+        getCvarIntValueAsString("gb_no_menu_if_one"),
+        getCvarIntValueAsString("gb_time_freeze"),
+        getCvarIntValueAsString("gb_on_automap"),
+        getCvarIntValueAsString("gb_lock_positions"),
+        getCvarIntValueAsString("gb_enable_sounds"),
+
+        getCvarFloatValueAsString("gb_mouse_sensitivity_x"),
+        getCvarFloatValueAsString("gb_mouse_sensitivity_y")
+      };
+
+    Console.printf("%s", join(gearboxConfiguration, ", "));
+  }
 
   private static
   string getCvarIntValueAsString(string cvarName)
@@ -57,7 +97,14 @@ class gb_VmAbortHandler : EventHandler
   string getCvarFloatValueAsString(string cvarName)
   {
     let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
-    return aCvar ? string.format("%s: %f", cvarName, aCvar.getInt()) : "";
+    return aCvar ? string.format("%s: %f", cvarName, aCvar.getFloat()) : "";
+  }
+
+  private static
+  string getCvarColorValueAsString(string cvarName)
+  {
+    let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
+    return aCvar ? string.format("%s: 0x%x", cvarName, aCvar.getInt()) : "";
   }
 
   private static
