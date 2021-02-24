@@ -8,6 +8,8 @@ Alias -gb_toggle_inventory_menu "event gb_toggle_inventory_menu_up"
 
 Alias gb_prev_weapon "netevent gb_prev_weapon"
 
+Alias zabor "event zabor"
+
 // Keys ////////////////////////////////////////////////////////////////////////////////////////////
 
 AddKeySection "$GB_KEYSECTION" gb_Keys
