@@ -27,6 +27,7 @@ OptionMenu gb_Options
   Option      "$GB_FREEZE_TIME"       , gb_time_freeze      , OnOff
   Option      "$GB_ENABLE_ON_AUTOMAP" , gb_on_automap       , OnOff
   Option      "$GB_LOCK_POSITION"     , gb_lock_positions   , OnOff
+  Option      "$GB_FROZEN_CAN_OPEN"   , gb_frozen_can_open  , OnOff
 
   StaticText  ""
   Submenu     "$GB_UI_OPTIONS"     , gb_UiOptions

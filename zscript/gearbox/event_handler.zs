@@ -74,6 +74,7 @@ class gb_EventHandler : EventHandler
   void consoleProcess(ConsoleEvent event)
   {
     if (!mIsInitialized || isDisabledOnAutomap()) return;
+    if (isPlayerFrozen() && mActivity.isNone()) return;
 
     switch (gb_EventProcessor.process(event, mOptions.isSelectOnKeyUp()))
     {
@@ -92,6 +93,7 @@ class gb_EventHandler : EventHandler
   bool inputProcess(InputEvent event)
   {
     if (!mIsInitialized || isDisabledOnAutomap() || gameState != GS_LEVEL) return false;
+    if (isPlayerFrozen() && mActivity.isNone()) return false;
 
     if (mOptions.getViewType() == VIEW_TYPE_WHEEL && mOptions.isMouseInWheel()
         && mWheelController.process(event))
@@ -256,6 +258,12 @@ class gb_EventHandler : EventHandler
   bool isDisabledOnAutomap() const
   {
     return automapActive && !mOptions.isOnAutomap();
+  }
+
+  private play
+  bool isPlayerFrozen() const
+  {
+    return players[consolePlayer].isTotallyFrozen() && !mOptions.isFrozenCanOpen();
   }
 
   private ui

@@ -32,6 +32,7 @@ GB_NO_MENU_IF_ONE    = "Slot keys select if weapon is only one in slot";
 GB_FREEZE_TIME       = "Freeze time (single-player only)";
 GB_ENABLE_ON_AUTOMAP = "Gearbox on automap";
 GB_LOCK_POSITION     = "Locked positions";
+GB_FROZEN_CAN_OPEN   = "Frozen player can open Gearbox";
 
 GB_MOUSE_IN_WHEEL    = "Enable mouse input";
 GB_MULTIWHEEL_LIMIT  = "Multiwheel threshold";

@@ -34,6 +34,7 @@ class gb_Options
     result.mShowTags               = gb_Cvar.from("gb_show_tags");
     result.mShowWeaponTagsOnChange = gb_Cvar.from("DisplayNameTags");
     result.mIsPositionLocked       = gb_Cvar.from("gb_lock_positions");
+    result.mFrozenCanOpen          = gb_Cvar.from("gb_frozen_can_open");
 
     result.mOpenOnScroll           = gb_Cvar.from("gb_open_on_scroll");
     result.mOpenOnSlot             = gb_Cvar.from("gb_open_on_slot");
@@ -64,6 +65,7 @@ class gb_Options
   bool isShowingTags()               const { return mShowTags              .getBool();    }
   bool isShowingWeaponTagsOnChange() const { return mShowWeaponTagsOnChange.getInt() & 2; }
   bool isPositionLocked()            const { return mIsPositionLocked      .getBool();    }
+  bool isFrozenCanOpen()             const { return mFrozenCanOpen         .getBool();    }
 
   bool isOpenOnScroll()              const { return mOpenOnScroll          .getBool();    }
   bool isOpenOnSlot()                const { return mOpenOnSlot            .getBool();    }
@@ -106,6 +108,7 @@ class gb_Options
   private gb_Cvar mTimeFreeze;
   private gb_Cvar mOnAutomap;
   private gb_Cvar mEnableSounds;
+  private gb_Cvar mFrozenCanOpen;
 
   private gb_Cvar mMouseSensitivityX;
   private gb_Cvar mMouseSensitivityY;
