@@ -47,3 +47,6 @@ GB_SCALE           = "Scale";
 GB_BLOCKS_POSITION = "Position";
 GB_BLOCKS_X        = "Horizontal";
 GB_BLOCKS_Y        = "Vertical";
+
+GB_RESET        = "Reset Gearbox options to defaults";
+GB_RESET_PROMPT = "Do you really want to reset Gearbox options to defaults?";
