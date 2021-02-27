@@ -25,6 +25,7 @@ version 4.5
 
 // Displaying data on screen.
 #include "zscript/gearbox/display/dim.zs"
+#include "zscript/gearbox/display/blur.zs"
 #include "zscript/gearbox/display/blocky_view.zs"
 #include "zscript/gearbox/display/fade_in_out.zs"
 #include "zscript/gearbox/display/screen.zs"

@@ -195,8 +195,9 @@ class gb_EventHandler : EventHandler
     if (!mTextureCache.isLoaded) mTextureCache.load();
 
     mCaption.show(event.fracTic, mOptions.getColor());
-
     mFadeInOut.fadeInOut((mActivity.isNone()) ? -0.1 : 0.2);
+    gb_Blur.setEnabled(mOptions.isBlurEnabled() && !mActivity.isNone());
+
     double alpha = mFadeInOut.getAlpha();
 
     if (mActivity.isNone() && alpha == 0.0) return;

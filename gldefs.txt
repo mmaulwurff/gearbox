@@ -1,0 +1,5 @@
+HardwareShader postprocess scene
+{
+  Name   "gb_blur"
+  Shader "shaders/mfx_bss_blur.fp" 330
+}

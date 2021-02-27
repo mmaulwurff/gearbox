@@ -28,6 +28,7 @@ class gb_Options
     result.mDimColor               = gb_Cvar.from("gb_dim_color");
     result.mViewType               = gb_Cvar.from("gb_view_type");
     result.mIsDimEnabled           = gb_Cvar.from("gb_enable_dim");
+    result.mIsBlurEnabled          = gb_Cvar.from("gb_enable_blur");
     result.mWheelTint              = gb_Cvar.from("gb_wheel_tint");
     result.mMultiWheelLimit        = gb_Cvar.from("gb_multiwheel_limit");
     result.mShowTags               = gb_Cvar.from("gb_show_tags");
@@ -54,6 +55,7 @@ class gb_Options
   int  getColor()                    const { return mColor                 .getInt();     }
   int  getDimColor()                 const { return mDimColor              .getInt();     }
   bool isDimEnabled()                const { return mIsDimEnabled          .getBool();    }
+  bool isBlurEnabled()               const { return mIsBlurEnabled         .getBool();    }
   bool getWheelTint()                const { return mWheelTint             .getBool();    }
   int  getMultiWheelLimit()          const { return mMultiWheelLimit       .getInt();     }
   bool isShowingTags()               const { return mShowTags              .getBool();    }
@@ -81,6 +83,7 @@ class gb_Options
   private gb_Cvar mDimColor;
   private gb_Cvar mViewType;
   private gb_Cvar mIsDimEnabled;
+  private gb_Cvar mIsBlurEnabled;
   private gb_Cvar mWheelTint;
   private gb_Cvar mMultiWheelLimit;
   private gb_Cvar mShowTags;

@@ -19,6 +19,7 @@ GB_VIEW_TYPE   = "Selector type";
 GB_BLOCKY_VIEW = "Blocks";
 GB_WHEEL_VIEW  = "Wheel";
 GB_DIM         = "Screen dimming";
+GB_BLUR        = "Background blur";
 GB_WHEEL_X     = "Horizontal position";
 GB_WHEEL_TINT  = "Colored tint on weapons";
 

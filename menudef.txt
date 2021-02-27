@@ -20,6 +20,7 @@ OptionMenu gb_Options
   StaticText  "$GB_UI"        , 1
   ColorPicker "$GB_COLOR"     , gb_color
   Option      "$GB_DIM"       , gb_enable_dim     , OnOff
+  Option      "$GB_BLUR"      , gb_enable_blur    , OnOff
   ColorPicker "$GB_DIM_COLOR" , gb_dim_color
   Option      "$GB_SHOW_TAGS" , gb_show_tags      , OnOff
   Option      "$GB_SOUND"     , gb_enable_sounds  , OnOff
