@@ -32,38 +32,28 @@ class gb_Cvar
   {
     let result = new("gb_Cvar");
 
-    result.mName   = name;
-    result.mCvar   = NULL;
-
+    result.mName = name;
     result.load();
 
     return result;
   }
 
-  string getString() { load(); return mCvar.getString(); }
-  bool   getBool()   { load(); return mCvar.getInt();    }
-  int    getInt()    { load(); return mCvar.getInt();    }
-  double getDouble() { load(); return mCvar.getFloat();  }
+  string getString() { if (!mCvar) load(); return mCvar.getString(); }
+  bool   getBool()   { if (!mCvar) load(); return mCvar.getInt();    }
+  int    getInt()    { if (!mCvar) load(); return mCvar.getInt();    }
+  double getDouble() { if (!mCvar) load(); return mCvar.getFloat();  }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
   void load()
   {
-    if (isLoaded()) return;
+    mCvar = Cvar.getCvar(mName, players[consolePlayer]);
 
-    mCvar = Cvar.GetCvar(mName, players[consolePlayer]);
-
-    if (!isLoaded())
+    if (mCvar == NULL)
     {
       gb_Log.error(string.Format("cvar %s not found", mName));
     }
-  }
-
-  private
-  bool isLoaded()
-  {
-    return (mCvar != NULL);
   }
 
   private string         mName;
