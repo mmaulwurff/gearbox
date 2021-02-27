@@ -17,15 +17,6 @@ OptionMenu gb_Options
   Control     "$GB_PREV_WEAPON"           , "gb_prev_weapon"
 
   StaticText  ""
-  StaticText  "$GB_UI"        , 1
-  ColorPicker "$GB_COLOR"     , gb_color
-  Option      "$GB_DIM"       , gb_enable_dim     , OnOff
-  Option      "$GB_BLUR"      , gb_enable_blur    , OnOff
-  ColorPicker "$GB_DIM_COLOR" , gb_dim_color
-  Option      "$GB_SHOW_TAGS" , gb_show_tags      , OnOff
-  Option      "$GB_SOUND"     , gb_enable_sounds  , OnOff
-
-  StaticText  ""
   StaticText  "$GB_BEHAVIOR", 1
   Option      "$GB_OPEN_ON_PREV_NEXT" , gb_open_on_scroll   , OnOff
   Option      "$GB_OPEN_ON_SLOT"      , gb_open_on_slot     , OnOff
@@ -38,6 +29,7 @@ OptionMenu gb_Options
   Option      "$GB_LOCK_POSITION"     , gb_lock_positions   , OnOff
 
   StaticText  ""
+  Submenu     "$GB_UI_OPTIONS"     , gb_UiOptions
   Submenu     "$GB_WHEEL_OPTIONS"  , gb_WheelOptions
   Submenu     "$GB_BLOCKS_OPTIONS" , gb_BlocksOptions
 
@@ -45,6 +37,22 @@ OptionMenu gb_Options
   SafeCommand "$GB_RESET", gb_reset, "$GB_RESET_PROMPT"
 
 } // OptionMenu gb_Options
+
+OptionMenu gb_UiOptions
+{
+  Title "$GB_UI_OPTIONS_TITLE"
+
+  ColorPicker "$GB_COLOR"     , gb_color
+  Option      "$GB_SHOW_TAGS" , gb_show_tags      , OnOff
+
+  StaticText  ""
+  Option      "$GB_DIM"       , gb_enable_dim     , OnOff
+  ColorPicker "$GB_DIM_COLOR" , gb_dim_color
+  Option      "$GB_BLUR"      , gb_enable_blur    , OnOff
+
+  StaticText  ""
+  Option      "$GB_SOUND"     , gb_enable_sounds  , OnOff
+}
 
 OptionMenu gb_WheelOptions
 {

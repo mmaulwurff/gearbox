@@ -2,9 +2,11 @@
 
 GB_OPTIONS = "Gearbox Options";
 
-GB_UI             = "UI";
+GB_UI_OPTIONS       = "UI options";
+GB_UI_OPTIONS_TITLE = "Gearbox UI Options";
+
 GB_COLOR          = "Color";
-GB_DIM_COLOR      = "Screen dimming color";
+GB_DIM_COLOR      = "Background dimming color";
 
 GB_SHOW_TAGS      = "Tags";
 GB_SOUND          = "Sound effects";
@@ -17,7 +19,7 @@ GB_PREV_WEAPON           = "Select previous weapon";
 GB_VIEW_TYPE   = "Selector type";
 GB_BLOCKY_VIEW = "Blocks";
 GB_WHEEL_VIEW  = "Wheel";
-GB_DIM         = "Screen dimming";
+GB_DIM         = "Background dimming";
 GB_BLUR        = "Background blur";
 GB_WHEEL_X     = "Horizontal position";
 GB_WHEEL_TINT  = "Colored tint on weapons";
