@@ -86,7 +86,7 @@ class gb_WheelController
   private bool mIsActive;
   private int  mX;
   private int  mY;
-  private Vector2 mMouseSensitivity;
+  private vector2 mMouseSensitivity;
 
   private gb_Screen  mScreen;
   private gb_Options mOptions;

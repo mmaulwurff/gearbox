@@ -69,7 +69,7 @@ class gb_Options
   bool isOnAutomap()                 const { return mOnAutomap             .getBool();    }
   bool isSoundEnabled()              const { return mEnableSounds          .getBool();    }
 
-  Vector2 getMouseSensitivity() const
+  vector2 getMouseSensitivity() const
   {
     return (mMouseSensitivityX.getDouble(), mMouseSensitivityY.getDouble());
   }

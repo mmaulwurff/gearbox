@@ -247,7 +247,7 @@ class gb_WheelView
 
     // code is adapted from GZDoom AltHud.DrawImageToBox.
     TextureID weaponTexture = viewModel.icons[weaponIndex];
-    Vector2   weaponSize    = TexMan.getScaledSize(weaponTexture) * 2;
+    vector2   weaponSize    = TexMan.getScaledSize(weaponTexture) * 2;
     bool      isTall        = (weaponSize.y > weaponSize.x);
 
     double scale = isTall

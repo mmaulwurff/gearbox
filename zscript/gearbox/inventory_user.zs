@@ -78,6 +78,6 @@ class gb_InventoryUser play
   }
 
   private Array<PlayerInfo> mPlayerQueue;
-  private Array<String>     mItemQueue;
+  private Array<string>     mItemQueue;
 
 } // class gb_InventoryUser

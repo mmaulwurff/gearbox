@@ -46,8 +46,8 @@ class gb_Service abstract
  * Service s;
  * while (s = i.next())
  * {
- *   String request = ...
- *   String answer  = s.get(request);
+ *   string request = ...
+ *   string answer  = s.get(request);
  *   ...
  * }
  * @endcode
@@ -65,7 +65,7 @@ class gb_ServiceIterator
    * @param serviceName class name of service to find.
    */
   static
-  gb_ServiceIterator find(String serviceName)
+  gb_ServiceIterator find(string serviceName)
   {
     let result = new("gb_ServiceIterator");
 
