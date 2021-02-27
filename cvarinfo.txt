@@ -1,5 +1,8 @@
 // Visual options //////////////////////////////////////////////////////////////////////////////////
 
+// When adding new options, don't forget to add them to
+// zscript/zabor/event_handler.zs:printGearboxCvars().
+
 user int   gb_scale     = 1;
 user color gb_color     = "22 22 CC";
 user color gb_dim_color = "99 99 99";
@@ -14,6 +17,9 @@ user bool  gb_enable_blur      = false;
 user float gb_wheel_position   = 1.0;
 user bool  gb_wheel_tint       = true;
 user int   gb_multiwheel_limit = 12;
+
+user float gb_blocks_position_x = 0.0;
+user float gb_blocks_position_y = 0.0;
 
 user bool gb_open_on_scroll   = false;
 user bool gb_open_on_slot     = true;

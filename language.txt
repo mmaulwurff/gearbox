@@ -6,7 +6,6 @@ GB_UI             = "UI";
 GB_COLOR          = "Color";
 GB_DIM_COLOR      = "Screen dimming color";
 
-GB_SCALE          = "Scale";
 GB_SHOW_TAGS      = "Tags";
 GB_SOUND          = "Sound effects";
 
@@ -43,3 +42,8 @@ GB_WHEEL_OPTIONS        = "Wheel options";
 GB_WHEEL_OPTIONS_TITLE  = "Gearbox Wheel Options";
 GB_BLOCKS_OPTIONS       = "Blocks options";
 GB_BLOCKS_OPTIONS_TITLE = "Gearbox Blocks Options";
+
+GB_SCALE           = "Scale";
+GB_BLOCKS_POSITION = "Position";
+GB_BLOCKS_X        = "Horizontal";
+GB_BLOCKS_Y        = "Vertical";

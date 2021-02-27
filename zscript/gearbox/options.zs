@@ -47,6 +47,9 @@ class gb_Options
     result.mMouseSensitivityX      = gb_Cvar.from("gb_mouse_sensitivity_x");
     result.mMouseSensitivityY      = gb_Cvar.from("gb_mouse_sensitivity_y");
 
+    result.mBlocksPositionX        = gb_Cvar.from("gb_blocks_position_x");
+    result.mBlocksPositionY        = gb_Cvar.from("gb_blocks_position_y");
+
     return result;
   }
 
@@ -76,6 +79,11 @@ class gb_Options
     return (mMouseSensitivityX.getDouble(), mMouseSensitivityY.getDouble());
   }
 
+  vector2 getBlocksPosition() const
+  {
+    return (mBlocksPositionX.getDouble(), mBlocksPositionY.getDouble());
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private gb_Cvar mScale;
@@ -101,5 +109,8 @@ class gb_Options
 
   private gb_Cvar mMouseSensitivityX;
   private gb_Cvar mMouseSensitivityY;
+
+  private gb_Cvar mBlocksPositionX;
+  private gb_Cvar mBlocksPositionY;
 
 } // class gb_Options

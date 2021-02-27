@@ -65,7 +65,12 @@ OptionMenu gb_BlocksOptions
 {
   Title "$GB_BLOCKS_OPTIONS_TITLE"
 
-  Slider "$GB_SCALE", gb_scale, 1, 8, 1, 0
+  Slider     "$GB_SCALE"    , gb_scale, 1, 8, 1, 0
+
+  StaticText ""
+  StaticText "$GB_BLOCKS_POSITION", 1
+  Slider     "$GB_BLOCKS_X" , gb_blocks_position_x, 0.0, 1.0, 0.01, 2
+  Slider     "$GB_BLOCKS_Y" , gb_blocks_position_y, 0.0, 1.0, 0.01, 2
 }
 
 OptionValue gb_ViewTypeValues

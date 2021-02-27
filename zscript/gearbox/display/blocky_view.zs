@@ -59,15 +59,21 @@ class gb_BlockyView
   {
     if (viewModel.selectedWeaponIndex >= viewModel.slots.size()) return;
 
+    vector2 position = mOptions.getBlocksPosition();
+    int maxWidth = getMaxWidth(getSlotsNumber(viewModel));
+    int maxHeight = getMaxHeight(viewModel);
+    int startX = min(BORDER + (mScreenWidth  - BORDER) * position.x, mScreenWidth - maxWidth);
+    int startY = min(BORDER + (mScreenHeight - BORDER) * position.y, mScreenHeight - maxHeight);
+
     int lastDrawnSlot = 0;
-    int slotX = BORDER;
+    int slotX = startX;
     int inSlotIndex = 0;
 
     int selectedSlot = viewModel.slots[viewModel.selectedWeaponIndex];
 
     Font aFont      = NewSmallFont;
     int  fontHeight = aFont.getHeight();
-    int  textY      = BORDER + SLOT_SIZE / 2 - fontHeight / 2;
+    int  textY      = startY + SLOT_SIZE / 2 - fontHeight / 2;
 
     uint nWeapons = viewModel.tags.size();
     for (uint i = 0; i < nWeapons; ++i)
@@ -77,7 +83,7 @@ class gb_BlockyView
       // slot number box
       if (slot != lastDrawnSlot)
       {
-        drawAlphaTexture(mTextureCache.blockBox, slotX, BORDER, mSlotColor);
+        drawAlphaTexture(mTextureCache.blockBox, slotX, startY, mSlotColor);
 
         string slotText = string.format("%d", slot);
         int    textX    = slotX + SLOT_SIZE / 2 - aFont.stringWidth(slotText) / 2;
@@ -91,7 +97,7 @@ class gb_BlockyView
       {
         bool isSelectedWeapon = (i == viewModel.selectedWeaponIndex);
         int  weaponColor      = isSelectedWeapon ? mSelectedColor : mBaseColor;
-        int  weaponY = BORDER + SLOT_SIZE + (SELECTED_WEAPON_HEIGHT + MARGIN) * inSlotIndex;
+        int  weaponY = startY + SLOT_SIZE + (SELECTED_WEAPON_HEIGHT + MARGIN) * inSlotIndex;
 
         // big box
         drawAlphaTexture(mTextureCache.blockBig, slotX, weaponY, weaponColor);
@@ -172,7 +178,7 @@ class gb_BlockyView
       }
       else // unselected slot (small boxes)
       {
-        int boxY = BORDER - MARGIN + (SLOT_SIZE + MARGIN) * (inSlotIndex + 1);
+        int boxY = startY - MARGIN + (SLOT_SIZE + MARGIN) * (inSlotIndex + 1);
         drawAlphaTexture(mTextureCache.blockBox, slotX, boxY, mBaseColor);
       }
 
@@ -189,6 +195,54 @@ class gb_BlockyView
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  int getSlotsNumber(gb_ViewModel viewModel)
+  {
+    uint nEntries = viewModel.slots.size();
+    int nSlots = 0;
+    int lastSlot = -1;
+    for (uint i = 0; i < nEntries; ++i)
+    {
+      if (viewModel.slots[i] != lastSlot)
+      {
+        ++nSlots;
+        lastSlot = viewModel.slots[i];
+      }
+    }
+    return nSlots;
+  }
+
+  private static
+  int getMaxWidth(int nSlots)
+  {
+    return (nSlots - 1) * (SLOT_SIZE + MARGIN) + SELECTED_SLOT_WIDTH + BORDER;
+  }
+
+  private static
+  int getMaxHeight(gb_ViewModel viewModel)
+  {
+    uint nEntries = viewModel.slots.size();
+    int lastSlot = -1;
+    int itemsInSlot = 1;
+    int maxItemsInSlot = -1;
+    for (uint i = 0; i < nEntries; ++i)
+    {
+      if (viewModel.slots[i] == lastSlot)
+      {
+        ++itemsInSlot;
+      }
+      else
+      {
+        lastSlot = viewModel.slots[i];
+        if (itemsInSlot > maxItemsInSlot) maxItemsInSlot = itemsInSlot;
+        itemsInSlot = 1;
+      }
+    }
+    if (itemsInSlot > maxItemsInSlot) maxItemsInSlot = itemsInSlot;
+
+    return maxItemsInSlot * (SELECTED_WEAPON_HEIGHT + MARGIN) - MARGIN + BORDER + SLOT_SIZE;
+  }
 
   private
   void drawTag(string tag, Font aFont, double startX, double startY)

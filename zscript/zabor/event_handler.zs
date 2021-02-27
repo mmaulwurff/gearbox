@@ -84,9 +84,13 @@ class gb_VmAbortHandler : EventHandler
 
         getCvarIntValueAsString("gb_view_type"),
         getCvarIntValueAsString("gb_enable_dim"),
+        getCvarIntValueAsString("gb_enable_blur"),
         getCvarFloatValueAsString("gb_wheel_position"),
         getCvarIntValueAsString("gb_wheel_tint"),
         getCvarIntValueAsString("gb_multiwheel_limit"),
+
+        getCvarFloatValueAsString("gb_blocks_position_x"),
+        getCvarFloatValueAsString("gb_blocks_position_y"),
 
         getCvarIntValueAsString("gb_open_on_scroll"),
         getCvarIntValueAsString("gb_open_on_slot"),
