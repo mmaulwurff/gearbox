@@ -374,7 +374,7 @@ class gb_WheelView
       [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.quantity1   [weaponIndex]
                                                   , viewModel.maxQuantity1[weaponIndex]
                                                   );
-      drawAmmoPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
+      drawQuantityPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
     }
 
     if (gb_Ammo.isValid(viewModel.quantity2[weaponIndex], viewModel.maxQuantity2[weaponIndex]))
@@ -385,16 +385,16 @@ class gb_WheelView
       [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.quantity2   [weaponIndex]
                                                   , viewModel.maxQuantity2[weaponIndex]
                                                   );
-      drawAmmoPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
+      drawQuantityPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
     }
   }
 
-  void drawAmmoPips( double  radius
-                   , double  weaponAngle
-                   , vector2 center
-                   , int     nColoredPips
-                   , int     nTotalPips
-                   )
+  void drawQuantityPips( double  radius
+                       , double  centerAngle
+                       , vector2 center
+                       , int     nColoredPips
+                       , int     nTotalPips
+                       )
   {
     if (nTotalPips % 2 == 0)
     {
@@ -402,21 +402,21 @@ class gb_WheelView
 
       for (int i = -nTotalPipsHalved + 1; i <= 0; ++i)
       {
-        double angle = weaponAngle - PIPS_GAP + i * PIPS_STEP;
+        double angle = centerAngle - PIPS_GAP + i * PIPS_STEP;
         drawAmmoPip(angle, radius, center, nColoredPips > 0);
         --nColoredPips;
       }
 
       for (int i = 0; i < nTotalPipsHalved; ++i)
       {
-        double angle = weaponAngle + PIPS_GAP + i * PIPS_STEP;
+        double angle = centerAngle + PIPS_GAP + i * PIPS_STEP;
         drawAmmoPip(angle, radius, center, nColoredPips > 0);
         --nColoredPips;
       }
     }
     else
     {
-      double angleStart = weaponAngle - nTotalPips * PIPS_STEP / 2;
+      double angleStart = centerAngle - (nTotalPips - 1) * PIPS_STEP / 2;
       for (int i = 0; i < nTotalPips; ++i)
       {
         double angle = angleStart + i * PIPS_STEP;
