@@ -9,9 +9,9 @@ This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox
 
 (Blocks with [Treasure Tech](https://forum.zdoom.org/viewtopic.php?f=43&t=66995))
 
-![Wheel with HXRTC Project](screenshots/multiwheel-hxrtc.png)
+[![Wheel with Heretic](screenshots/inventory-wheel-heretic.png)](https://youtu.be/WXZUBtbsY7Y)
 
-(Wheel with [HXRTC Project](https://forum.zdoom.org/viewtopic.php?f=43&t=48074))
+(Wheel with Heretic)
 
 ## How to Use
 
@@ -29,10 +29,10 @@ GZDoom 4.5 required.
 - Multiplayer compatible
 - Reaction to number keys
 - extras.wad icon support for vanilla weapons
+- Inventory item selection
 
 ## Planned
 
-- Inventory item selection
 - Patches for weapon icon adjustments
 - More representations
 - Moving weapon between slots and changing order
