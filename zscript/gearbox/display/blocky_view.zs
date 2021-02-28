@@ -57,7 +57,7 @@ class gb_BlockyView
 
   void display(gb_ViewModel viewModel) const
   {
-    if (viewModel.selectedWeaponIndex >= viewModel.slots.size()) return;
+    if (viewModel.selectedIndex >= viewModel.slots.size()) return;
 
     vector2 position = mOptions.getBlocksPosition();
     int maxWidth = getMaxWidth(getSlotsNumber(viewModel));
@@ -69,7 +69,7 @@ class gb_BlockyView
     int slotX = startX;
     int inSlotIndex = 0;
 
-    int selectedSlot = viewModel.slots[viewModel.selectedWeaponIndex];
+    int selectedSlot = viewModel.slots[viewModel.selectedIndex];
 
     Font aFont      = NewSmallFont;
     int  fontHeight = aFont.getHeight();
@@ -95,7 +95,7 @@ class gb_BlockyView
 
       if (slot == selectedSlot) // selected slot (big boxes)
       {
-        bool isSelectedWeapon = (i == viewModel.selectedWeaponIndex);
+        bool isSelectedWeapon = (i == viewModel.selectedIndex);
         int  weaponColor      = isSelectedWeapon ? mSelectedColor : mBaseColor;
         int  weaponY = startY + SLOT_SIZE + (SELECTED_WEAPON_HEIGHT + MARGIN) * inSlotIndex;
 
@@ -139,17 +139,17 @@ class gb_BlockyView
           drawFlippedTexture(cornerTexture, lineEndX, lineEndY,   HorizontalFlip,   VerticalFlip);
         }
 
-        // ammo indicators
+        // quantity indicators
         TextureID ammoTexture = mTextureCache.ammoLine;
         int ammoY = weaponY;
-        if (gb_Ammo.isValid(viewModel.ammo1[i], viewModel.maxAmmo1[i]))
+        if (gb_Ammo.isValid(viewModel.quantity1[i], viewModel.maxQuantity1[i]))
         {
           drawAlphaTexture( ammoTexture
                           , slotX + MARGIN * 2
                           , ammoY
                           , mAmmoBackColor
                           );
-          int ammoRatioWidth = ammoRatioWidthFor(viewModel.ammo1[i], viewModel.maxAmmo1[i]);
+          int ammoRatioWidth = ammoRatioWidthFor(viewModel.quantity1[i], viewModel.maxQuantity1[i]);
           drawAlphaWidthTexture( ammoTexture
                                , slotX + MARGIN * 2
                                , ammoY
@@ -158,14 +158,14 @@ class gb_BlockyView
                                );
           ammoY += MARGIN + AMMO_HEIGHT;
         }
-        if (gb_Ammo.isValid(viewModel.ammo2[i], viewModel.maxAmmo2[i]))
+        if (gb_Ammo.isValid(viewModel.quantity2[i], viewModel.maxQuantity2[i]))
         {
           drawAlphaTexture( ammoTexture
                           , slotX + MARGIN * 2
                           , ammoY
                           , mAmmoBackColor
                           );
-          int ammoRatioWidth = ammoRatioWidthFor(viewModel.ammo2[i], viewModel.maxAmmo2[i]);
+          int ammoRatioWidth = ammoRatioWidthFor(viewModel.quantity2[i], viewModel.maxQuantity2[i]);
           drawAlphaWidthTexture( ammoTexture
                                , slotX + MARGIN * 2
                                , ammoY
@@ -252,7 +252,7 @@ class gb_BlockyView
     // Trying to put as much text into the the box as possible, while gracefully
     // (hopefully) handling when the whole tag cannot fit in the box.
     //
-    // This code doesn't take the icon and ammo bars into account. Just print
+    // This code doesn't take the icon and quantity bars into account. Just print
     // semi-transparent text over them.
 
     if (tag.length() == 0) return;

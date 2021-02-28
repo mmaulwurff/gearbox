@@ -158,7 +158,7 @@ class gb_WheelView
     uint selectedPlace = 0;
     for (uint i = start; i < end; ++i, ++place)
     {
-      if (i == viewModel.selectedWeaponIndex)
+      if (i == viewModel.selectedIndex)
       {
         selectedPlace = place;
         continue;
@@ -177,7 +177,7 @@ class gb_WheelView
 
     // draw the selected thing last in case of icon overlapping
     displayWeapon( selectedPlace
-                 , viewModel.selectedWeaponIndex
+                 , viewModel.selectedIndex
                  , nWeaponsInSlot * 2
                  , radius
                  , allowedWidth
@@ -309,24 +309,24 @@ class gb_WheelView
   private
   void drawAmmo(double weaponAngle, vector2 center, gb_ViewModel viewModel, uint weaponIndex)
   {
-    if (gb_Ammo.isValid(viewModel.ammo1[weaponIndex], viewModel.maxAmmo1[weaponIndex]))
+    if (gb_Ammo.isValid(viewModel.quantity1[weaponIndex], viewModel.maxQuantity1[weaponIndex]))
     {
       int margin = int(10 * mScaleFactor);
       int radius = Screen.getHeight() / 4 - margin;
       int nColoredPips, nTotalPips;
-      [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.ammo1   [weaponIndex]
-                                                  , viewModel.maxAmmo1[weaponIndex]
+      [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.quantity1   [weaponIndex]
+                                                  , viewModel.maxQuantity1[weaponIndex]
                                                   );
       drawAmmoPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
     }
 
-    if (gb_Ammo.isValid(viewModel.ammo2[weaponIndex], viewModel.maxAmmo2[weaponIndex]))
+    if (gb_Ammo.isValid(viewModel.quantity2[weaponIndex], viewModel.maxQuantity2[weaponIndex]))
     {
       int margin = int(20 * mScaleFactor);
       int radius = Screen.getHeight() / 4 - margin;
       int nColoredPips, nTotalPips;
-      [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.ammo2   [weaponIndex]
-                                                  , viewModel.maxAmmo2[weaponIndex]
+      [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.quantity2   [weaponIndex]
+                                                  , viewModel.maxQuantity2[weaponIndex]
                                                   );
       drawAmmoPips(radius, weaponAngle, center, nColoredPips, nTotalPips);
     }
@@ -432,15 +432,15 @@ class gb_WheelView
                             , bool isSlotExpanded
                             )
   {
-    int    index       = viewModel.selectedWeaponIndex;
+    int    index       = viewModel.selectedIndex;
     string description = viewModel.tags[index];
     if (description.length() == 0) return;
 
-    string ammo1 = gb_Ammo.isValid(viewModel.ammo1[index], viewModel.maxAmmo1[index])
-      ? string.format("%d/%d", viewModel.ammo1[index], viewModel.maxAmmo1[index])
+    string ammo1 = gb_Ammo.isValid(viewModel.quantity1[index], viewModel.maxQuantity1[index])
+      ? string.format("%d/%d", viewModel.quantity1[index], viewModel.maxQuantity1[index])
       : "";
-    string ammo2 = gb_Ammo.isValid(viewModel.ammo2[index], viewModel.maxAmmo2[index])
-      ? string.format("%d/%d", viewModel.ammo2[index], viewModel.maxAmmo2[index])
+    string ammo2 = gb_Ammo.isValid(viewModel.quantity2[index], viewModel.maxQuantity2[index])
+      ? string.format("%d/%d", viewModel.quantity2[index], viewModel.maxQuantity2[index])
       : "";
 
     double  angle   = itemAngle(nPlaces, innerIndex);

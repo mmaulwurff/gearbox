@@ -86,14 +86,14 @@ class gb_InventoryMenu
       if (item.bInvBar)
       {
         string tag = item.getTag();
-        viewModel.tags    .push(tag);
-        viewModel.slots   .push(index + 1);
-        viewModel.indices .push(index);
-        viewModel.icons   .push(int(StatusBar.GetInventoryIcon(item, StatusBar.DI_ALTICONFIRST)));
-        viewModel.ammo1   .push(item.maxAmount > 1 ? item.amount : -1);
-        viewModel.maxAmmo1.push(item.maxAmount);
-        viewModel.ammo2   .push(-1);
-        viewModel.maxAmmo2.push(-1);
+        viewModel.tags        .push(tag);
+        viewModel.slots       .push(index + 1);
+        viewModel.indices     .push(index);
+        viewModel.icons       .push(int(StatusBar.GetInventoryIcon(item, StatusBar.DI_ALTICONFIRST)));
+        viewModel.quantity1   .push(item.maxAmount > 1 ? item.amount : -1);
+        viewModel.maxQuantity1.push(item.maxAmount);
+        viewModel.quantity2   .push(-1);
+        viewModel.maxQuantity2.push(-1);
 
         ++index;
       }
@@ -101,7 +101,7 @@ class gb_InventoryMenu
     }
 
     mSelectedIndex = min(mSelectedIndex, getItemsNumber());
-    viewModel.selectedWeaponIndex = mSelectedIndex;
+    viewModel.selectedIndex = mSelectedIndex;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////

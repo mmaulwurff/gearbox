@@ -121,14 +121,14 @@ class gb_WeaponMenu
     if (!isCacheValid)
     {
       mCacheTime = level.time;
-      mCachedViewModel.tags    .clear();
-      mCachedViewModel.slots   .clear();
-      mCachedViewModel.indices .clear();
-      mCachedViewModel.icons   .clear();
-      mCachedViewModel.ammo1   .clear();
-      mCachedViewModel.maxAmmo1.clear();
-      mCachedViewModel.ammo2   .clear();
-      mCachedViewModel.maxAmmo2.clear();
+      mCachedViewModel.tags        .clear();
+      mCachedViewModel.slots       .clear();
+      mCachedViewModel.indices     .clear();
+      mCachedViewModel.icons       .clear();
+      mCachedViewModel.quantity1   .clear();
+      mCachedViewModel.maxQuantity1.clear();
+      mCachedViewModel.quantity2   .clear();
+      mCachedViewModel.maxQuantity2.clear();
 
       fillDirect(mCachedViewModel);
     }
@@ -141,16 +141,16 @@ class gb_WeaponMenu
   private ui
   void copy(gb_ViewModel source, out gb_ViewModel destination)
   {
-    destination.selectedWeaponIndex = source.selectedWeaponIndex;
+    destination.selectedIndex = source.selectedIndex;
 
-    destination.tags    .copy(source.tags);
-    destination.slots   .copy(source.slots);
-    destination.indices .copy(source.indices);
-    destination.icons   .copy(source.icons);
-    destination.ammo1   .copy(source.ammo1);
-    destination.maxAmmo1.copy(source.maxAmmo1);
-    destination.ammo2   .copy(source.ammo2);
-    destination.maxAmmo2.copy(source.maxAmmo2);
+    destination.tags        .copy(source.tags);
+    destination.slots       .copy(source.slots);
+    destination.indices     .copy(source.indices);
+    destination.icons       .copy(source.icons);
+    destination.quantity1   .copy(source.quantity1);
+    destination.maxQuantity1.copy(source.maxQuantity1);
+    destination.quantity2   .copy(source.quantity2);
+    destination.maxQuantity2.copy(source.maxQuantity2);
   }
 
   private ui
@@ -165,21 +165,21 @@ class gb_WeaponMenu
       {
         if (mOptions.isPositionLocked())
         {
-          viewModel.tags    .push("");
-          viewModel.slots   .push(mSlots[i]);
-          viewModel.indices .push(i);
-          viewModel.icons   .push(-1);
-          viewModel.ammo1   .push(-1);
-          viewModel.maxAmmo1.push(-1);
-          viewModel.ammo2   .push(-1);
-          viewModel.maxAmmo2.push(-1);
+          viewModel.tags        .push("");
+          viewModel.slots       .push(mSlots[i]);
+          viewModel.indices     .push(i);
+          viewModel.icons       .push(-1);
+          viewModel.quantity1   .push(-1);
+          viewModel.maxQuantity1.push(-1);
+          viewModel.quantity2   .push(-1);
+          viewModel.maxQuantity2.push(-1);
         }
         continue;
       }
 
       if (isHidden(aWeapon)) continue;
 
-      if (mSelectedIndex == i) viewModel.selectedWeaponIndex = viewModel.tags.size();
+      if (mSelectedIndex == i) viewModel.selectedIndex = viewModel.tags.size();
 
       viewModel.tags.push(aWeapon.getTag());
       viewModel.slots.push(mSlots[i]);
@@ -193,10 +193,10 @@ class gb_WeaponMenu
       bool hasAmmo1 = aWeapon.ammo1;
       bool hasAmmo2 = aWeapon.ammo2 && aWeapon.ammo2 != aWeapon.ammo1;
 
-      viewModel.   ammo1.push(hasAmmo1 ? aWeapon.ammo1.   amount : -1);
-      viewModel.maxAmmo1.push(hasAmmo1 ? aWeapon.ammo1.maxAmount : -1);
-      viewModel.   ammo2.push(hasAmmo2 ? aWeapon.ammo2.   amount : -1);
-      viewModel.maxAmmo2.push(hasAmmo2 ? aWeapon.ammo2.maxAmount : -1);
+      viewModel.   quantity1.push(hasAmmo1 ? aWeapon.ammo1.   amount : -1);
+      viewModel.maxQuantity1.push(hasAmmo1 ? aWeapon.ammo1.maxAmount : -1);
+      viewModel.   quantity2.push(hasAmmo2 ? aWeapon.ammo2.   amount : -1);
+      viewModel.maxQuantity2.push(hasAmmo2 ? aWeapon.ammo2.maxAmount : -1);
     }
   }
 

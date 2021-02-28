@@ -229,7 +229,7 @@ class gb_EventHandler : EventHandler
       if (mActivity.isWeapons()) mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex);
       else if (mActivity.isInventory()) mInventoryMenu.setSelectedIndex(selectedViewIndex);
 
-      if (selectedViewIndex != -1) viewModel.selectedWeaponIndex = selectedViewIndex;
+      if (selectedViewIndex != -1) viewModel.selectedIndex = selectedViewIndex;
 
       int selectedIndex;
       selectedIndex = mActivity.isWeapons()
