@@ -337,7 +337,7 @@ class gb_WheelView
                         , DTA_Alpha        , mAlpha
                         , DTA_DestWidth    , int(size.x)
                         , DTA_DestHeight   , int(size.y)
-                        , DTA_FillColor    , FILLED_AMMO_COLOR
+                        , DTA_FillColor    , FILLED_QUANTITY_COLOR
                         );
     }
     else
@@ -537,7 +537,7 @@ class gb_WheelView
   const PIPS_GAP  = 1.2;
   const PIPS_STEP = 1.5;
 
-  const FILLED_AMMO_COLOR = 0x22DD22;
+  const FILLED_QUANTITY_COLOR = 0x22DD22;
 
   private double  mAlpha;
   private color   mBaseColor;
