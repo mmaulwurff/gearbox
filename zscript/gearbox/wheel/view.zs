@@ -251,7 +251,7 @@ class gb_WheelView
 
     TextureID texture     = viewModel.icons[iconIndex];
     vector2   textureSize = TexMan.getScaledSize(texture) * 2 * mScaleFactor;
-    bool      isTall      = (textureSize.y > textureSize.x);
+    bool      isTall      = (textureSize.y * 1.2 > textureSize.x);
 
     double scale = isTall
       ? ((allowedWidth < textureSize.y) ? allowedWidth / textureSize.y : 1.0)
@@ -279,7 +279,7 @@ class gb_WheelView
       if (flipX) angle -= 180;
       angle = -angle + 90;
 
-      if (isTall) angle -= 90;
+      if (isTall) angle += flipX ? 90 : -90;
 
       scaleY = 1.0;
     }
