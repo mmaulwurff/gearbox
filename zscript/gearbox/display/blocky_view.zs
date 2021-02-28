@@ -62,8 +62,8 @@ class gb_BlockyView
     vector2 position = mOptions.getBlocksPosition();
     int maxWidth = getMaxWidth(getSlotsNumber(viewModel));
     int maxHeight = getMaxHeight(viewModel);
-    int startX = min(BORDER + (mScreenWidth  - BORDER) * position.x, mScreenWidth - maxWidth);
-    int startY = min(BORDER + (mScreenHeight - BORDER) * position.y, mScreenHeight - maxHeight);
+    int startX = min(BORDER + (mScreenWidth  - BORDER) * int(position.x), mScreenWidth - maxWidth);
+    int startY = min(BORDER + (mScreenHeight - BORDER) * int(position.y), mScreenHeight - maxHeight);
 
     int lastDrawnSlot = 0;
     int slotX = startX;
