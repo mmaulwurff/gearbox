@@ -232,36 +232,71 @@ class gb_WheelView
 
   private
   void displayWeapon( uint place
-                    , uint weaponIndex
+                    , uint iconIndex
                     , uint nPlaces
                     , int  radius
                     , int  allowedWidth
                     , gb_ViewModel viewModel
                     , vector2 center
                     , double startingAngle = 0.0
-                    )
+                    ) const
   {
-    double angle = (startingAngle + itemAngle(nPlaces, place)) % 360;
+    // Code is adapted from GZDoom AltHud.DrawImageToBox.
 
-    vector2 xy =(sin(angle), -cos(angle)) * radius + center;
-
-    // code is adapted from GZDoom AltHud.DrawImageToBox.
-    TextureID weaponTexture = viewModel.icons[weaponIndex];
-    vector2   weaponSize    = TexMan.getScaledSize(weaponTexture) * 2;
-    bool      isTall        = (weaponSize.y > weaponSize.x);
+    TextureID texture     = viewModel.icons[iconIndex];
+    vector2   textureSize = TexMan.getScaledSize(texture) * 2 * mScaleFactor;
+    bool      isTall      = (textureSize.y > textureSize.x);
 
     double scale = isTall
-      ? ((allowedWidth < weaponSize.y) ? allowedWidth / weaponSize.y : 1.0)
-      : ((allowedWidth < weaponSize.x) ? allowedWidth / weaponSize.x : 1.0)
+      ? ((allowedWidth < textureSize.y) ? allowedWidth / textureSize.y : 1.0)
+      : ((allowedWidth < textureSize.x) ? allowedWidth / textureSize.x : 1.0)
       ;
 
-    scale *= mScaleFactor;
+    double  angle = (startingAngle + itemAngle(nPlaces, place)) % 360;
+    vector2 xy    = (sin(angle), -cos(angle)) * radius + center;
+    int width  = int(textureSize.x * scale);
+    int height = int(textureSize.y * scale);
 
-    int weaponWidth  = int(weaponSize.x * scale);
-    int weaponHeight = int(weaponSize.y * scale);
+    drawIcon(texture, xy, width, height, angle, isTall);
+    drawAmmo(angle, center, viewModel, iconIndex);
+  }
 
-    drawWeapon(weaponTexture, xy, weaponWidth, weaponHeight, angle, isTall);
-    drawAmmo(angle, center, viewModel, weaponIndex);
+  private
+  void drawIcon(TextureID texture, vector2 xy, int w, int h, double angle, bool isTall) const
+  {
+    bool flipX = (angle > 180);
+    if (flipX) angle -= 180;
+    angle = -angle + 90;
+
+    if (isTall) angle -= 90;
+
+    Screen.drawTexture( texture
+                      , NO_ANIMATION
+                      , xy.x
+                      , xy.y
+                      , DTA_CenterOffset , true
+                      , DTA_DestWidth    , w
+                      , DTA_DestHeight   , h
+                      , DTA_Alpha        , mAlpha
+                      , DTA_Rotate       , angle
+                      , DTA_FlipX        , flipX
+                      , DTA_KeepRatio, false
+                      );
+
+    if (!mOptions.getWheelTint()) return;
+
+    Screen.drawTexture( texture
+                      , NO_ANIMATION
+                      , xy.x
+                      , xy.y
+                      , DTA_CenterOffset , true
+                      , DTA_DestWidth    , w
+                      , DTA_DestHeight   , h
+                      , DTA_Alpha        , mAlpha * 0.3
+                      , DTA_FillColor    , mBaseColor
+                      , DTA_Rotate       , angle
+                      , DTA_FlipX        , flipX
+                      );
   }
 
   private
@@ -466,45 +501,6 @@ class gb_WheelView
                       , DTA_Alpha        , mAlpha
                       , DTA_DestWidth    , int(size.x)
                       , DTA_DestHeight   , int(size.y)
-                      );
-  }
-
-  private
-  void drawWeapon(TextureID texture, vector2 xy, int w, int h, double angle, bool isTall) const
-  {
-    bool flipX = (angle > 180);
-    if (flipX) angle -= 180;
-    angle = -angle + 90;
-
-    if (isTall) angle -= 90;
-
-    Screen.drawTexture( texture
-                      , NO_ANIMATION
-                      , xy.x
-                      , xy.y
-                      , DTA_CenterOffset , true
-                      , DTA_KeepRatio    , true
-                      , DTA_DestWidth    , w
-                      , DTA_DestHeight   , h
-                      , DTA_Alpha        , mAlpha
-                      , DTA_Rotate       , angle
-                      , DTA_FlipX        , flipX
-                      );
-
-    if (!mOptions.getWheelTint()) return;
-
-    Screen.drawTexture( texture
-                      , NO_ANIMATION
-                      , xy.x
-                      , xy.y
-                      , DTA_CenterOffset , true
-                      , DTA_KeepRatio    , true
-                      , DTA_DestWidth    , w
-                      , DTA_DestHeight   , h
-                      , DTA_Alpha        , mAlpha * 0.3
-                      , DTA_FillColor    , mBaseColor
-                      , DTA_Rotate       , angle
-                      , DTA_FlipX        , flipX
                       );
   }
 
