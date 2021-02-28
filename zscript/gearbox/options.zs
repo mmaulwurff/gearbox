@@ -35,7 +35,7 @@ class gb_Options
     result.mShowWeaponTagsOnChange = gb_Cvar.from("DisplayNameTags");
     result.mIsPositionLocked       = gb_Cvar.from("gb_lock_positions");
     result.mFrozenCanOpen          = gb_Cvar.from("gb_frozen_can_open");
-    result.mPreserveAspectRatio    = gb_Cvar.from("hud_aspectscale");
+    result.mPreserveAspectRatio    = gb_Cvar.from("hud_AspectScale");
 
     result.mOpenOnScroll           = gb_Cvar.from("gb_open_on_scroll");
     result.mOpenOnSlot             = gb_Cvar.from("gb_open_on_slot");

@@ -85,4 +85,4 @@ class gb_PreviousWeaponEventHandler : EventHandler
   private Weapon mPreviousWeapon;
   private bool   mIsHolstered;
 
-} // class gb_PreivousWeaponEventHandler
+} // class gb_PreviousWeaponEventHandler

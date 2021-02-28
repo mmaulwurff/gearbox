@@ -56,6 +56,7 @@ axlfmgquqize
 back
 backward
 bad
+barebones
 basename
 basic
 begin
@@ -77,6 +78,7 @@ boost
 bound
 break
 bsearch
+btbs
 byname
 call
 callable
@@ -135,6 +137,7 @@ codecvt
 collate
 comparable
 compare
+compat
 compl
 complex
 concept
@@ -337,12 +340,15 @@ hard
 hardcoded
 has
 hash
+hasn
 hcir
 heap
 hint
 href
 htop
 https
+hudaspect
+hudmnu
 hxrtc
 iamxv
 iconv
@@ -400,6 +406,7 @@ key
 keyconf
 keysection
 killall
+kirisame
 known
 kromm
 krutomisi
@@ -439,6 +446,7 @@ malloc
 mamaluigisbagel
 map
 mapinfo
+marifx
 marrub
 match
 matcher
@@ -477,6 +485,7 @@ mutable
 mutex
 namespace
 namespace
+nametags
 nano
 nclass
 nested
@@ -542,6 +551,7 @@ pntr
 point
 pointer
 pop
+postprocess
 powerup
 pragma
 predicate
@@ -631,6 +641,7 @@ sample
 savegame
 sbin
 sbyte
+scalemnu
 scan
 scoped
 screenblocks
@@ -643,6 +654,7 @@ sequence
 servernum
 set
 shader
+shaders
 shared
 shellcheck
 shift
@@ -834,6 +846,7 @@ wipo
 woot
 writable
 write
+wxzub
 xargs
 xenial
 xfac
@@ -841,6 +854,7 @@ xor
 xvfb
 yield
 youtu
+zabor
 zain
 zdoom
 zippey

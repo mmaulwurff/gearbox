@@ -44,11 +44,11 @@ OptionMenu gb_GZDoomOptions
 {
   Title "$GB_GZDOOM_OPTIONS_TITLE"
 
-  Option     "$HUDMNU_NAMETAGS",    displaynametags, DisplayTagsTypes
+  Option     "$HUDMNU_NAMETAGS",    DisplayNameTags, DisplayTagsTypes
   StaticText "$GB_NAMETAGS_NOTE", black
 
   StaticText ""
-  Option     "$SCALEMNU_HUDASPECT", hud_aspectscale, OnOff
+  Option     "$SCALEMNU_HUDASPECT", hud_AspectScale, OnOff
   StaticText "$GB_ASPECT_SCALE_NOTE", black
 }
 

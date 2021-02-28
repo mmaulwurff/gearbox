@@ -101,6 +101,7 @@ class gb_VmAbortHandler : EventHandler
         getCvarIntValueAsString("gb_on_automap"),
         getCvarIntValueAsString("gb_lock_positions"),
         getCvarIntValueAsString("gb_enable_sounds"),
+        getCvarIntValueAsString("gb_frozen_can_open"),
 
         getCvarFloatValueAsString("gb_mouse_sensitivity_x"),
         getCvarFloatValueAsString("gb_mouse_sensitivity_y")
@@ -134,10 +135,10 @@ class gb_VmAbortHandler : EventHandler
   void printConfiguration()
   {
     Array<string> configuration;
-    configuration.push(getCvarIntValueAsString("compatflags"));
-    configuration.push(getCvarIntValueAsString("compatflags2"));
-    configuration.push(getCvarIntValueAsString("dmflags"));
-    configuration.push(getCvarIntValueAsString("dmflags2"));
+    configuration.push(getCvarIntValueAsString("CompatFlags"));
+    configuration.push(getCvarIntValueAsString("CompatFlags2"));
+    configuration.push(getCvarIntValueAsString("DmFlags"));
+    configuration.push(getCvarIntValueAsString("DmFlags2"));
     configuration.push(getCvarFloatValueAsString("autoaim"));
 
     Console.printf("%s", join(configuration, ", "));
