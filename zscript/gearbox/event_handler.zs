@@ -238,6 +238,8 @@ class gb_EventHandler : EventHandler
 
       mWheelView.setAlpha(alpha);
       mWheelView.setBaseColor(mOptions.getColor());
+      mWheelView.setRotating(mActivity.isWeapons());
+
       int innerIndex = mWheelIndexer.getInnerIndex(selectedIndex, viewModel);
       int outerIndex = mWheelIndexer.getOuterIndex(selectedIndex, viewModel);
       mWheelView.display( viewModel

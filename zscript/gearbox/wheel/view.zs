@@ -35,6 +35,7 @@ class gb_WheelView
     result.mMultiWheelMode = multiWheelMode;
     result.mText           = text;
     result.mTextureCache   = textureCache;
+    result.mIsRotating     = true;
 
     return result;
   }
@@ -47,6 +48,11 @@ class gb_WheelView
   void setBaseColor(int color)
   {
     mBaseColor = color;
+  }
+
+  void setRotating(bool isRotating)
+  {
+    mIsRotating = isRotating;
   }
 
   void display( gb_ViewModel viewModel
@@ -264,11 +270,25 @@ class gb_WheelView
   private
   void drawIcon(TextureID texture, vector2 xy, int w, int h, double angle, bool isTall) const
   {
-    bool flipX = (angle > 180);
-    if (flipX) angle -= 180;
-    angle = -angle + 90;
+    bool flipX;
+    double scaleY;
 
-    if (isTall) angle -= 90;
+    if (mIsRotating)
+    {
+      flipX = (angle > 180);
+      if (flipX) angle -= 180;
+      angle = -angle + 90;
+
+      if (isTall) angle -= 90;
+
+      scaleY = 1.0;
+    }
+    else
+    {
+      flipX  = false;
+      angle  = 0;
+      scaleY = mOptions.isPreservingAspectRatio() ? 1.2 : 1.0;
+    }
 
     Screen.drawTexture( texture
                       , NO_ANIMATION
@@ -277,6 +297,7 @@ class gb_WheelView
                       , DTA_CenterOffset , true
                       , DTA_DestWidth    , w
                       , DTA_DestHeight   , h
+                      , DTA_ScaleY       , scaleY
                       , DTA_Alpha        , mAlpha
                       , DTA_Rotate       , angle
                       , DTA_FlipX        , flipX
@@ -292,6 +313,7 @@ class gb_WheelView
                       , DTA_CenterOffset , true
                       , DTA_DestWidth    , w
                       , DTA_DestHeight   , h
+                      , DTA_ScaleY       , scaleY
                       , DTA_Alpha        , mAlpha * 0.3
                       , DTA_FillColor    , mBaseColor
                       , DTA_Rotate       , angle
@@ -526,6 +548,8 @@ class gb_WheelView
   private gb_MultiWheelMode mMultiWheelMode;
 
   private gb_Text mText;
+
+  private bool mIsRotating;
 
 // cache ///////////////////////////////////////////////////////////////////////////////////////////
 

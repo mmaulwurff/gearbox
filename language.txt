@@ -53,3 +53,8 @@ GB_BLOCKS_Y        = "Vertical";
 
 GB_RESET        = "Reset Gearbox options to defaults";
 GB_RESET_PROMPT = "Do you really want to reset Gearbox options to defaults?";
+
+GB_GZDOOM_OPTIONS       = "Relevant GZDoom options";
+GB_GZDOOM_OPTIONS_TITLE = "GZDoom Options that affect Gearbox";
+GB_NAMETAGS_NOTE        = "When switching weapons.";
+GB_ASPECT_SCALE_NOTE    = "Doesn't affect weapons in wheel for now.";

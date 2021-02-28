@@ -33,11 +33,24 @@ OptionMenu gb_Options
   Submenu     "$GB_UI_OPTIONS"     , gb_UiOptions
   Submenu     "$GB_WHEEL_OPTIONS"  , gb_WheelOptions
   Submenu     "$GB_BLOCKS_OPTIONS" , gb_BlocksOptions
+  Submenu     "$GB_GZDOOM_OPTIONS" , gb_GZDoomOptions
 
   StaticText  ""
   SafeCommand "$GB_RESET", gb_reset, "$GB_RESET_PROMPT"
 
 } // OptionMenu gb_Options
+
+OptionMenu gb_GZDoomOptions
+{
+  Title "$GB_GZDOOM_OPTIONS_TITLE"
+
+  Option     "$HUDMNU_NAMETAGS",    displaynametags, DisplayTagsTypes
+  StaticText "$GB_NAMETAGS_NOTE", black
+
+  StaticText ""
+  Option     "$SCALEMNU_HUDASPECT", hud_aspectscale, OnOff
+  StaticText "$GB_ASPECT_SCALE_NOTE", black
+}
 
 OptionMenu gb_UiOptions
 {

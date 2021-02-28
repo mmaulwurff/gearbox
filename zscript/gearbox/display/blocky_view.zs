@@ -107,6 +107,7 @@ class gb_BlockyView
           // code is adapted from GZDoom AltHud.DrawImageToBox.
           TextureID weaponTexture = viewModel.icons[i];
           let weaponSize = TexMan.getScaledSize(weaponTexture);
+          if (mOptions.isPreservingAspectRatio()) weaponSize.y *= 1.2;
 
           int allowedWidth  = SELECTED_SLOT_WIDTH    - MARGIN * 2;
           int allowedHeight = SELECTED_WEAPON_HEIGHT - MARGIN * 2;
