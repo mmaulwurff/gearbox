@@ -240,8 +240,6 @@ class gb_WeaponMenu
       }
     }
 
-    if (!icon.isValid()) icon = TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
-
     return icon;
   }
 

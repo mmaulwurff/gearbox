@@ -292,6 +292,8 @@ class gb_WheelView
       scaleY = mOptions.isPreservingAspectRatio() ? 1.2 : 1.0;
     }
 
+    if (!texture.isValid()) texture = mTextureCache.noIcon;
+
     Screen.drawTexture( texture
                       , NO_ANIMATION
                       , xy.x
