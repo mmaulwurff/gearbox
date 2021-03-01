@@ -114,10 +114,12 @@ class gb_WheelView
       isSlotExpanded = false;
       for (uint i = 0; i < nWeapons; ++i)
       {
+        if (i == innerIndex) continue;
         displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, mCenter);
       }
 
       nPlaces = nWeapons;
+      displayWeapon(innerIndex, innerIndex, nPlaces, radius, allowedWidth, viewModel, mCenter);
       drawHands(nPlaces, innerIndex, mCenter, 0);
     }
 
