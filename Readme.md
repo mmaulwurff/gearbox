@@ -68,6 +68,6 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, TheRailgunner, Captain J,
   Enjay, StroggVorbis, krutomisi and Cutmanmike for feature suggestions.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, Ac!d, wildweasel,
-  Dark-Assassin, rparhkdtp, Samarai1000, Mr. Blazkowicz and lucker42 for bug
-  reports.
+  Dark-Assassin, rparhkdtp, Samarai1000, Mr. Blazkowicz, lucker42 and spectrefps
+  for bug reports.
 - See also [credits list](credits.md).

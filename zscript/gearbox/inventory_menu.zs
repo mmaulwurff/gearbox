@@ -101,6 +101,7 @@ class gb_InventoryMenu
     }
 
     mSelectedIndex = min(mSelectedIndex, getItemsNumber() - 1);
+    if (mSelectedIndex == -1 && getItemsNumber() > 0) mSelectedIndex = 0;
     viewModel.selectedIndex = mSelectedIndex;
   }
 

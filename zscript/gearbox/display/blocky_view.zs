@@ -57,7 +57,8 @@ class gb_BlockyView
 
   void display(gb_ViewModel viewModel) const
   {
-    if (viewModel.selectedIndex >= viewModel.slots.size()) return;
+    int selectedIndex = viewModel.selectedIndex;
+    if (selectedIndex >= viewModel.slots.size() || selectedIndex == -1) return;
 
     vector2 position = mOptions.getBlocksPosition();
     int maxWidth = getMaxWidth(getSlotsNumber(viewModel));
@@ -69,7 +70,7 @@ class gb_BlockyView
     int slotX = startX;
     int inSlotIndex = 0;
 
-    int selectedSlot = viewModel.slots[viewModel.selectedIndex];
+    int selectedSlot = viewModel.slots[selectedIndex];
 
     Font aFont      = NewSmallFont;
     int  fontHeight = aFont.getHeight();
@@ -95,7 +96,7 @@ class gb_BlockyView
 
       if (slot == selectedSlot) // selected slot (big boxes)
       {
-        bool isSelectedWeapon = (i == viewModel.selectedIndex);
+        bool isSelectedWeapon = (i == selectedIndex);
         int  weaponColor      = isSelectedWeapon ? mSelectedColor : mBaseColor;
         int  weaponY = startY + SLOT_SIZE + (SELECTED_WEAPON_HEIGHT + MARGIN) * inSlotIndex;
 
