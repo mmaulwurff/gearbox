@@ -53,9 +53,8 @@ class gb_WeaponMenu
   {
     if (aClass == NULL) return;
 
-    mSelectedIndex = getIndexOf(aClass);
-    // Fixes the case when the player starts with no weapon selected.
-    if (mSelectedIndex == mWeapons.size()) selectNextWeapon();
+    uint index = getIndexOf(aClass);
+    if (index != mWeapons.size()) mSelectedIndex = index;
   }
 
   void selectNextWeapon()
