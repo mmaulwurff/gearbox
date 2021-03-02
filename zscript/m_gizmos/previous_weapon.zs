@@ -15,41 +15,74 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_PreviousWeaponEventHandler : EventHandler
+/**
+ * To save data into savegame.
+ */
+class gb_PreviousWeaponStorage : EventHandler
 {
 
-// public: // EventHandler /////////////////////////////////////////////////////
+  Weapon mCurrentWeapon;
+  Weapon mPreviousWeapon;
+  bool   mIsHolstered;
+
+} // class gb_PreviousWeaponEventHandlerStorage
+
+/**
+ * Main event handler is static so data is carried over to next level.
+ */
+class gb_PreviousWeaponEventHandler : StaticEventHandler
+{
+
+// public: // EventHandler /////////////////////////////////////////////////////////////////////////
 
   override
-  void onRegister()
+  void playerEntered(PlayerEvent event)
   {
-    mPreviousWeapon = NULL;
-    mCurrentWeapon  = NULL;
-    bool mIsHolstered = false;
+    mStorage = gb_PreviousWeaponStorage(EventHandler.find("gb_PreviousWeaponStorage"));
+    if (event.playerNumber == consolePlayer) updatePreviousWeapon();
   }
 
   override
-  void networkProcess(ConsoleEvent event)
+  void worldLoaded(WorldEvent event)
   {
-    PlayerInfo player = players[event.player];
-    if (event.name == "gb_prev_weapon") selectPreviousWeapon(player);
+    if (!event.isSaveGame) return;
+
+    mStorage = gb_PreviousWeaponStorage(EventHandler.find("gb_PreviousWeaponStorage"));
+
+    mCurrentWeapon  = mStorage.mCurrentWeapon;
+    mPreviousWeapon = mStorage.mPreviousWeapon;
+    mIsHolstered    = mStorage.mIsHolstered;
   }
 
   override
   void worldTick()
   {
-    PlayerInfo player = players[consolePlayer];
-    updatePreviousWeapon(player);
+    updatePreviousWeapon();
+
+    mStorage.mCurrentWeapon  = mCurrentWeapon;
+    mStorage.mPreviousWeapon = mPreviousWeapon;
+    mStorage.mIsHolstered    = mIsHolstered;
+  }
+
+  override
+  void networkProcess(ConsoleEvent event)
+  {
+    if (event.name == "gb_prev_weapon"
+        && mPreviousWeapon != NULL
+        && mPreviousWeapon != players[event.player].ReadyWeapon)
+    {
+      players[event.player].PendingWeapon = mPreviousWeapon;
+    }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
-  void updatePreviousWeapon(PlayerInfo player)
+  void updatePreviousWeapon()
   {
-    let ready = player.ReadyWeapon;
+    Weapon ready = players[consolePlayer].readyWeapon;
 
-    if (ready == NULL || ready.GetClassName() == "mg_Holstered")
+    if (ready == NULL || ready.getClassName() == "mg_Holstered")
     {
       if (!mIsHolstered)
       {
@@ -72,15 +105,7 @@ class gb_PreviousWeaponEventHandler : EventHandler
     mCurrentWeapon = ready;
   }
 
-  private
-  void selectPreviousWeapon(PlayerInfo player)
-  {
-    if (mPreviousWeapon != NULL && player.ReadyWeapon != mPreviousWeapon)
-    {
-      player.PendingWeapon = mPreviousWeapon;
-    }
-  }
-
+  private gb_PreviousWeaponStorage mStorage;
   private Weapon mCurrentWeapon;
   private Weapon mPreviousWeapon;
   private bool   mIsHolstered;

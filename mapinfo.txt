@@ -3,6 +3,7 @@ gameinfo
 
   AddEventHandlers = "gb_EventHandler"
                    , "gb_PreviousWeaponEventHandler"
+                   , "gb_PreviousWeaponStorage"
                    , "gb_VmAbortHandler"
 
 } // gameinfo
