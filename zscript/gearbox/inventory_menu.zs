@@ -49,15 +49,20 @@ class gb_InventoryMenu
   ui
   void selectNext()
   {
+    int nItems = getItemsNumber();
+    if (nItems == 0) return;
+
     mSounds.playTick();
-    mSelectedIndex = (mSelectedIndex + 1) % getItemsNumber();
+    mSelectedIndex = (mSelectedIndex + 1) % nItems;
   }
 
   ui
   void selectPrev()
   {
-    mSounds.playTick();
     int nItems = getItemsNumber();
+    if (nItems == 0) return;
+
+    mSounds.playTick();
     mSelectedIndex = (mSelectedIndex - 1 + nItems) % nItems;
   }
 
