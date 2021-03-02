@@ -21,6 +21,18 @@ class gb_IconService : gb_Service
   override
   string uiGet(string className)
   {
+    if (isSmoothDoom()) switch (Name(className))
+    {
+    case 'PerkFist'           : return "PUNGB0";
+    case 'Z86Chainsaw'        : return "CSAWA0";
+    case 'PerkShotgun'        : return "SHOTA0";
+    case 'PerkSuperShotgun'   : return "SGN2A0";
+    case 'Z86Chaingun'        : return "MGUNA0";
+    case 'PerkRocketLauncher' : return "LAUNA0";
+    case 'BloxPlasmaRifle'    : return "PLRLA0";
+    case 'Z86BFG9000'         : return "BFG9A0";
+    }
+
     switch (Name(className))
     {
     case 'Fist'           : return "SMFIST0";
@@ -38,5 +50,17 @@ class gb_IconService : gb_Service
   }
 
   const IGNORE = "";
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  bool isSmoothDoom()
+  {
+    string s1 = "SmoothFloatingSkull";
+    class  c1 = s1;
+    string s2 = "SmoothDoomImp";
+    class  c2 = s2;
+    return (c1 && c2);
+  }
 
 } // class gb_IconService1
