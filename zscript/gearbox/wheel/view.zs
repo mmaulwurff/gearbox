@@ -119,7 +119,10 @@ class gb_WheelView
       }
 
       nPlaces = nWeapons;
-      displayWeapon(innerIndex, innerIndex, nPlaces, radius, allowedWidth, viewModel, mCenter);
+      if (innerIndex != -1)
+      {
+        displayWeapon(innerIndex, innerIndex, nPlaces, radius, allowedWidth, viewModel, mCenter);
+      }
       drawHands(nPlaces, innerIndex, mCenter, 0);
     }
 

@@ -57,12 +57,14 @@ class gb_WeaponMenu
     if (index != mWeapons.size()) mSelectedIndex = index;
   }
 
+  ui
   void selectNextWeapon()
   {
     mSelectedIndex = findNextWeapon();
     if (mSelectedIndex != mWeapons.size()) mSounds.playTick();
   }
 
+  ui
   void selectPrevWeapon()
   {
     mSelectedIndex = findPrevWeapon();
@@ -176,7 +178,7 @@ class gb_WeaponMenu
         continue;
       }
 
-      if (isHidden(aWeapon)) continue;
+      if (isHidden(aWeapon.getClassName())) continue;
 
       if (mSelectedIndex == i) viewModel.selectedIndex = viewModel.tags.size();
 
@@ -200,12 +202,11 @@ class gb_WeaponMenu
   }
 
   private ui
-  bool isHidden(Weapon aWeapon) const
+  bool isHidden(string className) const
   {
     bool result = false;
 
     uint nServices = mHideServices.size();
-    string className = aWeapon.getClassName();
     for (uint i = 0; i < nServices; ++i)
     {
       let service = mHideServices[i];
@@ -245,8 +246,8 @@ class gb_WeaponMenu
 
   private play State getReadyState(Weapon w) const { return w.getReadyState(); }
 
-  private uint findNextWeapon() const { return findWeapon( 1); }
-  private uint findPrevWeapon() const { return findWeapon(-1); }
+  private ui uint findNextWeapon() const { return findWeapon( 1); }
+  private ui uint findPrevWeapon() const { return findWeapon(-1); }
 
   /**
    * @param direction search direction from the selected weapon: 1 or -1.
@@ -254,7 +255,7 @@ class gb_WeaponMenu
    * @returns a weapon in the direction. If there is only one weapon, return
    * it. If there are no weapons, return weapons number.
    */
-  private
+  private ui
   uint findWeapon(int direction) const
   {
     let player = players[consolePlayer].mo;
@@ -265,6 +266,7 @@ class gb_WeaponMenu
     for (uint i = 1; i < nWeapons + 1; ++i)
     {
       uint index = (mSelectedIndex + i * direction + nWeapons) % nWeapons;
+      if (isHidden(mWeapons[index].getClassName())) continue;
       if (player.findInventory(mWeapons[index])) return index;
     }
 
