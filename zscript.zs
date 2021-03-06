@@ -17,7 +17,6 @@ version 4.5
 
 #include "zscript/gearbox/sender.zs"
 
-#include "zscript/gearbox/change.zs"
 #include "zscript/gearbox/netevent_processor.zs"
 #include "zscript/gearbox/changer.zs"
 

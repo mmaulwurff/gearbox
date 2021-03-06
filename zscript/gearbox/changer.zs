@@ -28,20 +28,6 @@ class gb_Changer play
     return result;
   }
 
-  void change(gb_Change aChange)
-  {
-    PlayerInfo player = players[aChange.playerNumber];
-
-    switch (aChange.type)
-    {
-    case gb_Change.SelectWeapon: selectWeapon(player, aChange.object); break;
-    case gb_Change.UseItem:      mInventoryUser.addToQueue(player, aChange.object); break;
-    }
-  }
-
-// private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  private
   void selectWeapon(PlayerInfo player, string weapon)
   {
     Weapon targetWeapon = Weapon(player.mo.findInventory(weapon));
@@ -51,6 +37,21 @@ class gb_Changer play
       if (mOptions.isShowingWeaponTagsOnChange()) mCaption.setCaption(targetWeapon.getTag());
     }
   }
+
+  void useItem(PlayerInfo player, string item)
+  {
+    mInventoryUser.addToQueue(player, item);
+  }
+
+  static
+  void setAngles(PlayerInfo player, double pitch, double angle)
+  {
+    player.cheats |= CF_INTERPVIEW;
+    player.mo.pitch = pitch;
+    player.mo.angle = angle;
+  }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private gb_Caption       mCaption;
   private gb_Options       mOptions;

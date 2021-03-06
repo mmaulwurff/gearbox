@@ -23,10 +23,9 @@ class gb_WheelController
   {
     let result = new("gb_WheelController");
 
-    result.mIsActive = false;
     result.reset();
-    result.mScreen   = gb_Screen.from();
-    result.mOptions  = options;
+    result.mScreen  = gb_Screen.from();
+    result.mOptions = options;
 
     return result;
   }
@@ -35,13 +34,10 @@ class gb_WheelController
   {
     mX = 0;
     mY = 0;
-  }
 
-  void setIsActive(bool isActive)
-  {
-    mIsActive = isActive;
-
-    if (mIsActive) reset();
+    PlayerInfo player = players[consolePlayer];
+    mStartPitch = player.mo.pitch;
+    mStartYaw   = player.mo.angle;
   }
 
   void fill(out gb_WheelControllerModel model)
@@ -50,23 +46,34 @@ class gb_WheelController
     model.radius = getRadius();
   }
 
-  bool process(InputEvent event)
+  play
+  void process() const
   {
-    if (!mIsActive || event.type != InputEvent.Type_Mouse) return false;
+    if (!mOptions.isMouseInWheel()) return;
 
-    mMouseSensitivity = mOptions.getMouseSensitivity();
+    vector2 mouseSensitivity = mOptions.getMouseSensitivity();
+    double yawMod   = 0.08 * mouseSensitivity.x;
+    double pitchMod = 0.08 * mouseSensitivity.y;
 
-    mX += int(round(event.mouseX * mMouseSensitivity.x));
-    mY -= int(round(event.mouseY * mMouseSensitivity.y));
+    PlayerInfo player = players[consolePlayer];
+    // Code derived from PyWeaponWheel's mouse input handling.
+    mX -= int(round(player.original_cmd.yaw   * yawMod  ));
+    mY -= int(round(player.original_cmd.pitch * pitchMod));
+
+    if (multiplayer)
+    {
+      EventHandler.sendNetworkEvent("gb_set_angles:" .. mStartPitch .. ":" .. mStartYaw);
+    }
+    else
+    {
+      gb_Changer.setAngles(players[consolePlayer], mStartPitch, mStartYaw);
+    }
 
     vector2 center = mScreen.getWheelCenter();
     int centerX = int(center.x);
     int centerY = int(center.y);
-
     mX = clamp(mX, -centerX, Screen.getWidth()  - centerX);
-    mY = clamp(MY, -centerY, Screen.getHeight() - centerY);
-
-    return true;
+    mY = clamp(mY, -centerY, Screen.getHeight() - centerY);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
@@ -83,10 +90,11 @@ class gb_WheelController
     return sqrt(mX * mX + mY * mY);
   }
 
-  private bool mIsActive;
-  private int  mX;
-  private int  mY;
-  private vector2 mMouseSensitivity;
+  private int mX;
+  private int mY;
+
+  private double mStartPitch;
+  private double mStartYaw;
 
   private gb_Screen  mScreen;
   private gb_Options mOptions;

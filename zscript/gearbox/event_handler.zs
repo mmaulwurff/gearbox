@@ -63,6 +63,10 @@ class gb_EventHandler : EventHandler
       // initializing weapon menu.
       mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     }
+    else
+    {
+      mWheelController.process();
+    }
 
     mInventoryUser.use();
   }
@@ -94,12 +98,6 @@ class gb_EventHandler : EventHandler
   {
     if (!mIsInitialized || isDisabledOnAutomap() || gameState != GS_LEVEL) return false;
     if (isPlayerFrozen() && mActivity.isNone()) return false;
-
-    if (mOptions.getViewType() == VIEW_TYPE_WHEEL && mOptions.isMouseInWheel()
-        && mWheelController.process(event))
-    {
-      return true;
-    }
 
     int input = gb_InputProcessor.process(event);
 
@@ -159,7 +157,6 @@ class gb_EventHandler : EventHandler
         {
           mSounds.playToggle();
           mActivity.openWeapons();
-          mWheelController.setIsActive(true);
         }
         else
         {
@@ -184,9 +181,7 @@ class gb_EventHandler : EventHandler
   override
   void networkProcess(ConsoleEvent event)
   {
-    gb_Change change;
-    gb_NeteventProcessor.process(event, change);
-    mChanger.change(change);
+    mNeteventProcessor.process(event);
   }
 
   override
@@ -290,11 +285,6 @@ class gb_EventHandler : EventHandler
     mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     mSounds.playToggle();
     mActivity.openWeapons();
-
-    // Note that we update wheel controller active status even if wheel is not
-    // active. In that case, the controller won't do anything because of the
-    // check in inputProcess function.
-    mWheelController.setIsActive(true);
   }
 
   private ui
@@ -304,11 +294,6 @@ class gb_EventHandler : EventHandler
 
     mSounds.playToggle();
     mActivity.openInventory();
-
-    // Note that we update wheel controller active status even if wheel is not
-    // active. In that case, the controller won't do anything because of the
-    // check in inputProcess function.
-    mWheelController.setIsActive(true);
   }
 
   private clearscope
@@ -316,11 +301,6 @@ class gb_EventHandler : EventHandler
   {
     mSounds.playToggle();
     mActivity.close();
-
-    // Note that we update wheel controller active status even if wheel is not
-    // active. In that case, the controller won't do anything because of the
-    // check in inputProcess function.
-    mWheelController.setIsActive(false);
   }
 
   private ui
@@ -362,6 +342,7 @@ class gb_EventHandler : EventHandler
     mCaption         = gb_Caption.from(mText);
     mInventoryUser   = gb_InventoryUser.from();
     mChanger         = gb_Changer.from(mCaption, mOptions, mInventoryUser);
+    mNeteventProcessor = gb_NeteventProcessor.from(mChanger);
 
     mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions);
 
@@ -386,6 +367,7 @@ class gb_EventHandler : EventHandler
   private gb_Caption       mCaption;
   private gb_InventoryUser mInventoryUser;
   private gb_Changer       mChanger;
+  private gb_NeteventProcessor mNeteventProcessor;
 
   private gb_BlockyView mBlockyView;
 

@@ -15,31 +15,34 @@
  * Gearbox.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class gb_NeteventProcessor
+class gb_NeteventProcessor play
 {
 
   static
-  void process(ConsoleEvent event, out gb_Change change)
+  gb_NeteventProcessor from(gb_Changer changer)
   {
-    change.type = gb_Change.Nothing;
+    let result = new("gb_NeteventProcessor");
+    result.mChanger = changer;
+    return result;
+  }
 
+  void process(ConsoleEvent event)
+  {
     if (event.name.left(3) != "gb_") return;
 
     Array<string> args;
     event.name.split(args, ":");
 
-    if (args[0] == "gb_select_weapon")
-    {
-      change.type         = gb_Change.SelectWeapon;
-      change.object       = args[1];
-      change.playerNumber = event.player;
-    }
-    else if (args[0] == "gb_use_item")
-    {
-      change.type         = gb_Change.UseItem;
-      change.object       = args[1];
-      change.playerNumber = event.player;
-    }
+    PlayerInfo player = players[event.player];
+
+    if      (args[0] == "gb_select_weapon") mChanger.selectWeapon(player, args[1]);
+    else if (args[0] == "gb_use_item"     ) mChanger.useItem     (player, args[1]);
+    else if (args[0] == "gb_set_angles"   ) mChanger.setAngles   (player, args[1].toDouble()
+                                                                        , args[2].toDouble());
   }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private gb_Changer mChanger;
 
 } // class gb_NeteventProcessor
