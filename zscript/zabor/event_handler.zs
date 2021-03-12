@@ -19,10 +19,12 @@ class gb_VmAbortHandler : EventHandler
 {
 
   override
-  void worldLoaded(WorldEvent event)
+  void playerSpawned(PlayerEvent event)
   {
+    if (event.playerNumber != consolePlayer) return;
+
     mPlayerClassName = players[consolePlayer].mo.getClassName();
-    mSkillName = g_SkillName();
+    mSkillName       = g_SkillName();
   }
 
   override
@@ -134,12 +136,14 @@ class gb_VmAbortHandler : EventHandler
   private static clearscope
   void printConfiguration()
   {
-    Array<string> configuration;
-    configuration.push(getCvarIntValueAsString("CompatFlags"));
-    configuration.push(getCvarIntValueAsString("CompatFlags2"));
-    configuration.push(getCvarIntValueAsString("DmFlags"));
-    configuration.push(getCvarIntValueAsString("DmFlags2"));
-    configuration.push(getCvarFloatValueAsString("autoaim"));
+    Array<string> configuration =
+      {
+        getCvarIntValueAsString("compatflags"),
+        getCvarIntValueAsString("compatflags2"),
+        getCvarIntValueAsString("dmflags"),
+        getCvarIntValueAsString("dmflags2"),
+        getCvarFloatValueAsString("autoaim")
+      };
 
     Console.printf("%s", join(configuration, ", "));
   }
@@ -179,12 +183,12 @@ class gb_VmAbortHandler : EventHandler
   void printZabor()
   {
     Console.printf("\ci"
-      " __  __  __  __  __\n"
-      "/  \\/  \\/  \\/  \\/  \\\n"
-      "|Za||bo||r ||v0||.2|\n"
-      "|..||..||..||..||..|\n"
-      "|..||..||..||..||..|\n"
-      "|__||__||__||__||__|\n"
+      " __  __  __  __  __  __\n"
+      "/  \\/  \\/  \\/  \\/  \\/  \\\n"
+      "|Za||bo||r ||v1||.0||.1|\n"
+      "|..||..||..||..||..||..|\n"
+      "|..||..||..||..||..||..|\n"
+      "|__||__||__||__||__||__|\n"
     );
   }
 
