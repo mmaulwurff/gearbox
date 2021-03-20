@@ -43,20 +43,19 @@ class gb_EventHandler : EventHandler
     case gb_Level.Loaded:     break;
     }
 
-    if (!multiplayer)
-    {
-      // Thaw regardless of the option to prevent player being locked frozen
-      // after changing options.
-      if (mActivity.isNone())                  mTimeMachine.thaw();
-      else if (mOptions.isTimeFreezeEnabled()) mTimeMachine.freeze();
-    }
+    bool isClosed = mActivity.isNone();
 
-    if (!mActivity.isNone() && (gb_Player.isDead() || isDisabledOnAutomap()))
+    // Thaw regardless of the option to prevent player being locked frozen after
+    // changing options.
+    if (isClosed) mFreezer.thaw();
+    else          mFreezer.freeze();
+
+    if (!isClosed && (gb_Player.isDead() || isDisabledOnAutomap()))
     {
       close();
     }
 
-    if (mActivity.isNone())
+    if (isClosed)
     {
       // Watch for the current weapon, because player can change it without
       // Gearbox. Also handles the case when Gearbox hasn't been opened yet,
@@ -335,7 +334,7 @@ class gb_EventHandler : EventHandler
 
     mActivity        = gb_Activity.from();
     mFadeInOut       = gb_FadeInOut.from();
-    mTimeMachine     = gb_TimeMachine.from();
+    mFreezer         = gb_Freezer.from(mOptions);
 
     mTextureCache    = gb_TextureCache.from();
     mText            = gb_Text.from(mTextureCache);
@@ -360,7 +359,7 @@ class gb_EventHandler : EventHandler
   private gb_InventoryMenu mInventoryMenu;
   private gb_Activity      mActivity;
   private gb_FadeInOut     mFadeInOut;
-  private gb_TimeMachine   mTimeMachine;
+  private gb_Freezer       mFreezer;
 
   private gb_TextureCache  mTextureCache;
   private gb_Text          mText;

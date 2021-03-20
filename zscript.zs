@@ -53,7 +53,7 @@ version 4.5
 #include "zscript/gearbox/engine/weapon_watcher.zs"
 #include "zscript/gearbox/engine/player.zs"
 
-#include "zscript/gearbox/time_machine.zs"
+#include "zscript/gearbox/freezer.zs"
 
 #include "zscript/gearbox/event_handler.zs"
 

@@ -30,4 +30,16 @@ class gb_Sender
     EventHandler.sendNetworkEvent(string.format("gb_use_item:%s", className));
   }
 
+  static
+  void sendFreezePlayerEvent(int cheats, vector3 velocity, double gravity)
+  {
+    EventHandler.sendNetworkEvent(string.format( "gb_freeze_player:%d:%f:%f:%f:%f"
+                                               , cheats
+                                               , velocity.x
+                                               , velocity.y
+                                               , velocity.z
+                                               , gravity
+                                               ));
+  }
+
 } // class gb_Sender

@@ -46,9 +46,29 @@ class gb_Changer play
   static
   void setAngles(PlayerInfo player, double pitch, double angle)
   {
+    if (player.mo == NULL) return;
+
     player.cheats |= CF_INTERPVIEW;
     player.mo.pitch = pitch;
     player.mo.angle = angle;
+  }
+
+  static
+  void freezePlayer( PlayerInfo player
+                   , double     cheats
+                   , double     velocityX
+                   , double     velocityY
+                   , double     velocityZ
+                   , double     gravity
+                   )
+  {
+    if (player.mo == NULL) return;
+
+    vector3 velocity  = (velocityX, velocityY, velocityZ);
+    player.cheats     = cheats;
+    player.vel        = velocity.xy;
+    player.mo.vel     = velocity;
+    player.mo.gravity = gravity;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////

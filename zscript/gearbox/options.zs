@@ -74,9 +74,10 @@ class gb_Options
   bool isMouseInWheel()              const { return mMouseInWheel          .getBool();    }
   bool isSelectOnKeyUp()             const { return mSelectOnKeyUp         .getBool();    }
   bool isNoMenuIfOne()               const { return mNoMenuIfOne           .getBool();    }
-  bool isTimeFreezeEnabled()         const { return mTimeFreeze            .getBool();    }
   bool isOnAutomap()                 const { return mOnAutomap             .getBool();    }
   bool isSoundEnabled()              const { return mEnableSounds          .getBool();    }
+
+  int  getTimeFreezeMode()           const { return mTimeFreeze            .getInt();     }
 
   vector2 getMouseSensitivity() const
   {

@@ -27,11 +27,12 @@ user bool gb_open_on_slot     = true;
 user bool gb_mouse_in_wheel   = true;
 user bool gb_select_on_key_up = false;
 user bool gb_no_menu_if_one   = false;
-user bool gb_time_freeze      = false;
 user bool gb_on_automap       = false;
 user bool gb_lock_positions   = false;
 user bool gb_enable_sounds    = true;
 user bool gb_frozen_can_open  = false;
+
+user int  gb_time_freeze      = 0;
 
 user float gb_mouse_sensitivity_x = 1.0;
 user float gb_mouse_sensitivity_y = 1.0;
