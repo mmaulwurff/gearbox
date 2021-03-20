@@ -70,6 +70,7 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 - Thanks to Marrub for [ZScriptDoc](https://github.com/marrub--/zdoom-doc).
 - Thanks to Talon1024 for help with time freezing option.
 - Thanks to Player701 for help with key event processing code.
+- Thanks to KeksDose for a concept of VM abort handler.
 - Thanks to DrPyspy for allowing to use mouse input code from PyWeaponWheel.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, TheRailgunner, Captain J,
   Enjay, StroggVorbis, krutomisi, Cutmanmike, StraightWhiteMan, JohnDoe8 and HDV
