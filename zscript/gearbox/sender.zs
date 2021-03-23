@@ -42,4 +42,10 @@ class gb_Sender
                                                ));
   }
 
+  static
+  void sendPlayerAngles(double pitch, double yaw)
+  {
+    EventHandler.sendNetworkEvent("gb_set_angles:" .. pitch .. ":" .. yaw);
+  }
+
 } // class gb_Sender

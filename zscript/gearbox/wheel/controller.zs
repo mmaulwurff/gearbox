@@ -62,7 +62,7 @@ class gb_WheelController
 
     if (multiplayer)
     {
-      EventHandler.sendNetworkEvent("gb_set_angles:" .. mStartPitch .. ":" .. mStartYaw);
+      gb_Sender.sendPlayerAngles(mStartPitch, mStartYaw);
     }
     else
     {
