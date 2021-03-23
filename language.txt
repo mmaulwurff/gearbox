@@ -1,6 +1,6 @@
 [enu default]
 
-GB_OPTIONS = "Gearbox Options";
+GB_OPTIONS = "\ch⚙\c- Gearbox Options";
 
 GB_UI_OPTIONS       = "UI options";
 GB_UI_OPTIONS_TITLE = "Gearbox UI Options";
