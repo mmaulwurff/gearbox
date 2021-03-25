@@ -110,7 +110,7 @@ class gb_Freezer play
     gb_Sender.sendFreezePlayerEvent(mCheats, mVelocity, mGravity);
   }
 
-  const FROZEN_CHEATS_FLAGS  = CF_TotallyFrozen | CF_Frozen | CF_NoVelocity;
+  const FROZEN_CHEATS_FLAGS  = CF_TotallyFrozen | CF_Frozen;
 
   private bool    mWasFrozen;
 
