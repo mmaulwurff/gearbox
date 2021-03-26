@@ -90,11 +90,12 @@ class gb_InventoryMenu
     {
       if (item.bInvBar)
       {
-        string tag = item.getTag();
+        string tag  = item.getTag();
+        int    icon = int(BaseStatusBar.getInventoryIcon(item, BaseStatusBar.DI_ALTICONFIRST));
         viewModel.tags        .push(tag);
         viewModel.slots       .push(index + 1);
         viewModel.indices     .push(index);
-        viewModel.icons       .push(int(StatusBar.GetInventoryIcon(item, StatusBar.DI_ALTICONFIRST)));
+        viewModel.icons       .push(icon);
         viewModel.quantity1   .push(item.maxAmount > 1 ? item.amount : -1);
         viewModel.maxQuantity1.push(item.maxAmount);
         viewModel.quantity2   .push(-1);
