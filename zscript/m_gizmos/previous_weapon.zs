@@ -49,6 +49,8 @@ class gb_PreviousWeaponEventHandler : StaticEventHandler
 
     mStorage = gb_PreviousWeaponStorage(EventHandler.find("gb_PreviousWeaponStorage"));
 
+    if (mStorage == NULL) return;
+
     mCurrentWeapon  = mStorage.mCurrentWeapon;
     mPreviousWeapon = mStorage.mPreviousWeapon;
     mIsHolstered    = mStorage.mIsHolstered;
@@ -57,6 +59,8 @@ class gb_PreviousWeaponEventHandler : StaticEventHandler
   override
   void worldTick()
   {
+    if (mStorage == NULL) return;
+
     updatePreviousWeapon();
 
     mStorage.mCurrentWeapon  = mCurrentWeapon;
@@ -67,6 +71,8 @@ class gb_PreviousWeaponEventHandler : StaticEventHandler
   override
   void networkProcess(ConsoleEvent event)
   {
+    if (mStorage == NULL) return;
+
     if (event.name == "gb_prev_weapon"
         && mPreviousWeapon != NULL
         && mPreviousWeapon != players[event.player].ReadyWeapon)
