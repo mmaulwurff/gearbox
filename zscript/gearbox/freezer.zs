@@ -89,6 +89,8 @@ class gb_Freezer play
   private
   void freezePlayer()
   {
+    mWasPlayerFrozen = true;
+
     PlayerInfo player = players[consolePlayer];
 
     mCheats   = player.cheats;
@@ -107,7 +109,7 @@ class gb_Freezer play
   private
   void thawPlayer() const
   {
-    gb_Sender.sendFreezePlayerEvent(mCheats, mVelocity, mGravity);
+    if (mWasPlayerFrozen) gb_Sender.sendFreezePlayerEvent(mCheats, mVelocity, mGravity);
   }
 
   const FROZEN_CHEATS_FLAGS  = CF_TotallyFrozen | CF_Frozen;
@@ -115,6 +117,7 @@ class gb_Freezer play
   private bool    mWasFrozen;
 
   private bool    mWasLevelFrozen;
+  private bool    mWasPlayerFrozen;
 
   private int     mCheats;
   private vector3 mVelocity; // to reset weapon bobbing.
