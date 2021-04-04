@@ -268,7 +268,17 @@ class gb_WheelView
     int width  = int(textureSize.x * scale);
     int height = int(textureSize.y * scale);
 
-    drawIcon(texture, xy, width, height, angle, isTall);
+    if (texture.isValid())
+    {
+      drawIcon(texture, xy, width, height, angle, isTall);
+    }
+    else
+    {
+      // fallback, doesn't have to be pretty.
+      Font aFont = "NewSmallFont";
+      gb_Text.draw(viewModel.tags[iconIndex], xy, aFont, mAlpha, true);
+    }
+
     drawAmmo(angle, center, viewModel, iconIndex);
   }
 
@@ -294,8 +304,6 @@ class gb_WheelView
       angle  = 0;
       scaleY = mOptions.isPreservingAspectRatio() ? 1.2 : 1.0;
     }
-
-    if (!texture.isValid()) texture = mTextureCache.noIcon;
 
     Screen.drawTexture( texture
                       , NO_ANIMATION

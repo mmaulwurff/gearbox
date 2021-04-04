@@ -35,7 +35,6 @@ class gb_TextureCache
     hand       = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
     pointer    = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
     textBox    = TexMan.checkForTexture("gb_desc", TexMan.Type_Any);
-    noIcon     = TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
 
     // Blocks
     blockBox   = TexMan.checkForTexture("gb_box",  TexMan.Type_Any);
@@ -53,7 +52,6 @@ class gb_TextureCache
   transient TextureID hand;
   transient TextureID pointer;
   transient TextureID textBox;
-  transient TextureID noIcon;
 
   transient TextureID blockBox;
   transient TextureID blockBig;
