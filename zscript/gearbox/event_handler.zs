@@ -337,7 +337,6 @@ class gb_EventHandler : EventHandler
     mFreezer         = gb_Freezer.from(mOptions);
 
     mTextureCache    = gb_TextureCache.from();
-    mText            = gb_Text.from(mTextureCache);
     mCaption         = gb_Caption.from();
     mInventoryUser   = gb_InventoryUser.from();
     mChanger         = gb_Changer.from(mCaption, mOptions, mInventoryUser);
@@ -346,7 +345,7 @@ class gb_EventHandler : EventHandler
     mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions);
 
     mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
-    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mText, mTextureCache);
+    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mTextureCache);
     mWheelController = gb_WheelController.from(mOptions);
     mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode);
 
@@ -362,7 +361,6 @@ class gb_EventHandler : EventHandler
   private gb_Freezer       mFreezer;
 
   private gb_TextureCache  mTextureCache;
-  private gb_Text          mText;
   private gb_Caption       mCaption;
   private gb_InventoryUser mInventoryUser;
   private gb_Changer       mChanger;

@@ -28,7 +28,6 @@ version 4.5
 #include "zscript/gearbox/display/blocky_view.zs"
 #include "zscript/gearbox/display/fade_in_out.zs"
 #include "zscript/gearbox/display/screen.zs"
-#include "zscript/gearbox/display/text.zs"
 #include "zscript/gearbox/display/caption.zs"
 
 #include "zscript/gearbox/options.zs"
@@ -41,6 +40,7 @@ version 4.5
 #include "zscript/gearbox/wheel/indexer.zs"
 #include "zscript/gearbox/wheel/multiwheel.zs"
 #include "zscript/gearbox/wheel/multiwheel_mode.zs"
+#include "zscript/gearbox/wheel/text.zs"
 
 // Utility tools.
 #include "zscript/gearbox/tools/cvar.zs"

@@ -21,7 +21,6 @@ class gb_WheelView
   static
   gb_WheelView from( gb_Options        options
                    , gb_MultiWheelMode multiWheelMode
-                   , gb_Text           text
                    , gb_TextureCache   textureCache
                    )
   {
@@ -33,7 +32,7 @@ class gb_WheelView
     result.mScreen         = gb_Screen.from();
     result.mOptions        = options;
     result.mMultiWheelMode = multiWheelMode;
-    result.mText           = text;
+    result.mText           = gb_Text.from(textureCache);
     result.mTextureCache   = textureCache;
     result.mIsRotating     = true;
 
