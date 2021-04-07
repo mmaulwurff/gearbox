@@ -190,7 +190,7 @@ class gb_EventHandler : EventHandler
 
     if (!mTextureCache.isLoaded) mTextureCache.load();
 
-    mCaption.show(event.fracTic, mOptions.getColor());
+    mCaption.show();
     mFadeInOut.fadeInOut((mActivity.isNone()) ? -0.1 : 0.2);
     gb_Blur.setEnabled(mOptions.isBlurEnabled() && !mActivity.isNone());
 
@@ -338,7 +338,7 @@ class gb_EventHandler : EventHandler
 
     mTextureCache    = gb_TextureCache.from();
     mText            = gb_Text.from(mTextureCache);
-    mCaption         = gb_Caption.from(mText);
+    mCaption         = gb_Caption.from();
     mInventoryUser   = gb_InventoryUser.from();
     mChanger         = gb_Changer.from(mCaption, mOptions, mInventoryUser);
     mNeteventProcessor = gb_NeteventProcessor.from(mChanger);

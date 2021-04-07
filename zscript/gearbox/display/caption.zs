@@ -19,65 +19,29 @@ class gb_Caption
 {
 
   static
-  gb_Caption from(gb_Text text)
+  gb_Caption from()
   {
     let result = new("gb_Caption");
-
-    result.mText      = text;
-    result.mCaption   = "";
-    result.mStartTime = 0;
-
+    result.mActor = NULL;
     return result;
   }
 
-  void setCaption(string caption)
+  void setActor(Actor anActor)
   {
-    mCaption   = caption;
-    mStartTime = level.time;
+    mActor = anActor;
   }
 
   ui
-  void show(double fracTic, color aColor)
+  void show()
   {
-    if (mCaption.length() == 0) return;
+    if (mActor == NULL) return;
 
-    double alpha;
-    int timeSinceStart = level.time - mStartTime;
-
-    if (timeSinceStart < FADE_IN_TIME)
-    {
-      alpha = (timeSinceStart + fracTic) / FADE_IN_TIME;
-    }
-    else if (timeSinceStart < HOLD_TIME)
-    {
-      alpha = 1.0;
-    }
-    else if (timeSinceStart < FADE_OUT_TIME)
-    {
-      alpha = 1.0 - (timeSinceStart + fracTic - HOLD_TIME) / (FADE_OUT_TIME - HOLD_TIME);
-    }
-    else
-    {
-      return;
-    }
-
-    int x, y, width, height;
-    [x, y, width, height] = Screen.getViewWindow();
-    vector2 pos = (x + width / 2, y + height * 15 / 16);
-    mText.drawBox("", mCaption, "", pos, POS_IS_BOTTOM, aColor, alpha);
+    mActor.displayNameTag();
+    mActor = NULL;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  const POS_IS_BOTTOM = 0;
-
-  const FADE_IN_TIME  = 35 / 4;
-  const HOLD_TIME     = 35 * 2 + FADE_IN_TIME;
-  const FADE_OUT_TIME = 35 + HOLD_TIME;
-
-  private gb_Text mText;
-
-  private string mCaption;
-  private int    mStartTime;
+  private Actor mActor;
 
 } // class gb_Caption

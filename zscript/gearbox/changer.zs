@@ -34,7 +34,7 @@ class gb_Changer play
     if (targetWeapon && gb_WeaponWatcher.currentFor(player) != targetWeapon.getClass())
     {
       player.pendingWeapon = targetWeapon;
-      if (mOptions.isShowingWeaponTagsOnChange()) mCaption.setCaption(targetWeapon.getTag());
+      if (mOptions.isShowingWeaponTagsOnChange()) mCaption.setActor(targetWeapon);
     }
   }
 
