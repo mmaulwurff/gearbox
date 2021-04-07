@@ -41,7 +41,7 @@ class gb_BlockyView
   {
     if (scale < 1) scale = 1;
 
-    double scaleFactor = gb_Screen.getScaleFactor();
+    double scaleFactor = getScaleFactor();
 
     mScreenWidth  = int(Screen.getWidth()  / scale / scaleFactor);
     mScreenHeight = int(Screen.getHeight() / scale / scaleFactor);
@@ -434,6 +434,12 @@ class gb_BlockyView
 
     uint result   = (newRed << 16) + (newGreen << 8) + newBlue;
     return result;
+  }
+
+  private static
+  double getScaleFactor()
+  {
+    return Screen.getHeight() / 1080.0;
   }
 
   const BORDER = 20;
