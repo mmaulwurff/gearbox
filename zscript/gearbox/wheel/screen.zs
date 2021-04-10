@@ -22,10 +22,10 @@ class gb_Screen
 {
 
   static
-  gb_Screen from()
+  gb_Screen from(gb_Options options)
   {
     let result = new("gb_Screen");
-    result.mWheelPositionCvar = gb_Cvar.from("gb_wheel_position");
+    result.mOptions = options;
     return result;
   }
 
@@ -33,30 +33,37 @@ class gb_Screen
   {
     int screenWidth      = Screen.getWidth();
     int halfScreenHeight = Screen.getHeight() / 2;
-    int centerPosition   = int((screenWidth / 2 - halfScreenHeight) * mWheelPositionCvar.getDouble());
+    int centerPosition   = int((screenWidth / 2 - halfScreenHeight) * mOptions.getWheelPosition());
     return (screenWidth / 2 + centerPosition, halfScreenHeight);
   }
 
-  static
-  int getWheelRadius()
+  int getWheelRadius() const
   {
-    return Screen.getHeight() / 4;
+    return getScaledScreenHeight() / 4;
   }
 
-  static
-  int getWheelDeadRadius()
+  int getWheelDeadRadius() const
   {
-    return Screen.getHeight() / 16;
+    return getScaledScreenHeight() / 16;
   }
 
-  static
-  double getScaleFactor()
+  double getScaleFactor() const
   {
-    return Screen.getHeight() / 1080.0;
+    return getScaledScreenHeight() / 1080.0;
+  }
+
+  int getScaledScreenHeight() const
+  {
+    return int(Screen.getHeight() * mOptions.getWheelScale());
+  }
+
+  int getScaledScreenWidth() const
+  {
+    return int(Screen.getWidth() * mOptions.getWheelScale());
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private gb_Cvar mWheelPositionCvar;
+  private gb_Options mOptions;
 
 } // class gb_Screen

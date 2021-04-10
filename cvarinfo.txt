@@ -16,6 +16,7 @@ user int gb_view_type = 1;
 user bool  gb_enable_dim       = true;
 user bool  gb_enable_blur      = false;
 user float gb_wheel_position   = 1.0;
+user float gb_wheel_scale      = 1.0;
 user bool  gb_wheel_tint       = true;
 user int   gb_multiwheel_limit = 12;
 

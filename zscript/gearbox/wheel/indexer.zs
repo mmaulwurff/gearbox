@@ -19,7 +19,7 @@ class gb_WheelIndexer
 {
 
   static
-  gb_WheelIndexer from(gb_MultiWheelMode multiWheelMode)
+  gb_WheelIndexer from(gb_MultiWheelMode multiWheelMode, gb_Screen screen)
   {
     let result = new("gb_WheelIndexer");
     result.mSelectedIndex  = UNDEFINED_INDEX;
@@ -27,6 +27,7 @@ class gb_WheelIndexer
     result.mInnerIndex     = UNDEFINED_INDEX;
     result.mOuterIndex     = UNDEFINED_INDEX;
     result.mMultiWheelMode = multiWheelMode;
+    result.mScreen         = screen;
     return result;
   }
 
@@ -95,7 +96,7 @@ class gb_WheelIndexer
 
   void update(gb_ViewModel viewModel, gb_WheelControllerModel controllerModel)
   {
-    if (controllerModel.radius < gb_Screen.getWheelDeadRadius())
+    if (controllerModel.radius < mScreen.getWheelDeadRadius())
     {
       mSelectedIndex = UNDEFINED_INDEX;
       mLastSlotIndex = UNDEFINED_INDEX;
@@ -108,7 +109,7 @@ class gb_WheelIndexer
 
     if (!mMultiWheelMode.isEngaged(viewModel))
     {
-      mSelectedIndex = gb_WheelInnerIndexer.getSelectedIndex(nWeapons, controllerModel);
+      mSelectedIndex = gb_WheelInnerIndexer.getSelectedIndex(nWeapons, controllerModel, mScreen);
       mLastSlotIndex = UNDEFINED_INDEX;
       mInnerIndex    = mSelectedIndex;
       mOuterIndex    = UNDEFINED_INDEX;
@@ -119,7 +120,7 @@ class gb_WheelIndexer
     gb_MultiWheel.fill(viewModel, multiWheelModel);
 
     uint nPlaces = multiWheelModel.data.size();
-    int wheelRadius = gb_Screen.getWheelRadius();
+    int wheelRadius = mScreen.getWheelRadius();
 
     if (controllerModel.radius < wheelRadius)
     {
@@ -150,7 +151,7 @@ class gb_WheelIndexer
     double forSlotAngle = slotAngle - controllerModel.angle;
     double side  = sqrt(r * r + w * w - 2 * r * w * cos(forSlotAngle));
 
-    if (side < gb_Screen.getWheelDeadRadius())
+    if (side < mScreen.getWheelDeadRadius())
     {
       reportInnerIndex(nPlaces, controllerModel, multiWheelModel, viewModel);
       return;
@@ -186,7 +187,7 @@ class gb_WheelIndexer
                        , gb_ViewModel            viewModel
                        )
   {
-    int  innerIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel);
+    int  innerIndex = gb_WheelInnerIndexer.getSelectedIndex(nPlaces, controllerModel, mScreen);
     bool isWeapon   = multiWheelModel.isWeapon[innerIndex];
 
     mSelectedIndex = isWeapon
@@ -231,5 +232,6 @@ class gb_WheelIndexer
   private int mOuterIndex;
 
   private gb_MultiWheelMode mMultiWheelMode;
+  private gb_Screen         mScreen;
 
 } // class gb_WheelIndexer

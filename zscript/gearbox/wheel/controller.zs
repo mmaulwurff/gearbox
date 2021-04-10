@@ -19,12 +19,12 @@ class gb_WheelController
 {
 
   static
-  gb_WheelController from(gb_Options options)
+  gb_WheelController from(gb_Options options, gb_Screen screen)
   {
     let result = new("gb_WheelController");
 
     result.reset();
-    result.mScreen  = gb_Screen.from();
+    result.mScreen  = screen;
     result.mOptions = options;
 
     return result;

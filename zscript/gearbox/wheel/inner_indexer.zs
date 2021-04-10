@@ -19,9 +19,9 @@ class gb_WheelInnerIndexer
 {
 
   static
-  int getSelectedIndex(uint nItems, gb_WheelControllerModel controllerModel)
+  int getSelectedIndex(uint nItems, gb_WheelControllerModel controllerModel, gb_Screen screen)
   {
-    if (controllerModel.radius < gb_Screen.getWheelDeadRadius() || nItems == 0)
+    if (controllerModel.radius < screen.getWheelDeadRadius() || nItems == 0)
     {
       return -1;
     }

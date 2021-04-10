@@ -22,10 +22,11 @@ class gb_Text
 {
 
   static
-  gb_Text from(gb_TextureCache textureCache)
+  gb_Text from(gb_TextureCache textureCache, gb_Screen screen)
   {
     let result = new("gb_Text");
     result.mTextureCache = textureCache;
+    result.mScreen       = screen;
     return result;
   }
 
@@ -57,7 +58,7 @@ class gb_Text
               , double  alpha
               )
   {
-    double scaleFactor = gb_Screen.getScaleFactor();
+    double scaleFactor = mScreen.getScaleFactor();
     Font   aFont       = NewSmallFont;
     int    textScale   = getTextScale();
     int    lineHeight  = aFont.getHeight() * textScale;
@@ -112,5 +113,6 @@ class gb_Text
   const NO_ANIMATION = 0; // == false
 
   private gb_TextureCache mTextureCache;
+  private gb_Screen       mScreen;
 
 } // class gb_Text

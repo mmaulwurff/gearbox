@@ -22,6 +22,7 @@ GB_WHEEL_VIEW  = "Wheel";
 GB_DIM         = "Background dimming";
 GB_BLUR        = "Background blur";
 GB_WHEEL_X     = "Horizontal position";
+GB_WHEEL_SCALE = "Scale";
 GB_WHEEL_TINT  = "Colored tint on weapons";
 
 GB_BEHAVIOR          = "Behavior";

@@ -52,6 +52,9 @@ class gb_Options
     result.mBlocksPositionX        = gb_Cvar.from("gb_blocks_position_x");
     result.mBlocksPositionY        = gb_Cvar.from("gb_blocks_position_y");
 
+    result.mWheelPosition          = gb_Cvar.from("gb_wheel_position");
+    result.mWheelScale             = gb_Cvar.from("gb_wheel_scale");
+
     return result;
   }
 
@@ -89,6 +92,9 @@ class gb_Options
     return (mBlocksPositionX.getDouble(), mBlocksPositionY.getDouble());
   }
 
+  double getWheelPosition() const { return mWheelPosition.getDouble(); }
+  double getWheelScale()    const { return mWheelScale.getDouble(); }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private gb_Cvar mScale;
@@ -119,5 +125,8 @@ class gb_Options
 
   private gb_Cvar mBlocksPositionX;
   private gb_Cvar mBlocksPositionY;
+
+  private gb_Cvar mWheelPosition;
+  private gb_Cvar mWheelScale;
 
 } // class gb_Options

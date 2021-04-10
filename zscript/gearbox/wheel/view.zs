@@ -22,6 +22,7 @@ class gb_WheelView
   gb_WheelView from( gb_Options        options
                    , gb_MultiWheelMode multiWheelMode
                    , gb_TextureCache   textureCache
+                   , gb_Screen         screen
                    )
   {
     let result = new("gb_WheelView");
@@ -29,10 +30,10 @@ class gb_WheelView
     result.setAlpha(1.0);
     result.setBaseColor(0x2222CC);
 
-    result.mScreen         = gb_Screen.from();
+    result.mScreen         = screen;
     result.mOptions        = options;
     result.mMultiWheelMode = multiWheelMode;
-    result.mText           = gb_Text.from(textureCache);
+    result.mText           = gb_Text.from(textureCache, screen);
     result.mTextureCache   = textureCache;
     result.mIsRotating     = true;
 
@@ -61,7 +62,7 @@ class gb_WheelView
               , int  outerIndex
               ) const
   {
-    mScaleFactor = gb_Screen.getScaleFactor();
+    mScaleFactor = mScreen.getScaleFactor();
     mCenter      = mScreen.getWheelCenter();
 
     drawInnerWheel();
@@ -69,8 +70,9 @@ class gb_WheelView
     uint nWeapons = viewModel.tags.size();
     if (nWeapons == 0) return;
 
-    int  radius   = Screen.getHeight() * 5 / 32;
-    int  allowedWidth = int(Screen.getHeight() * 3 / 16 - MARGIN * 2 * mScaleFactor);
+    int screenHeight = mScreen.getScaledScreenHeight();
+    int radius       = screenHeight * 5 / 32;
+    int allowedWidth = int(screenHeight * 3 / 16 - MARGIN * 2 * mScaleFactor);
 
     int nPlaces = 0;
 
@@ -149,7 +151,7 @@ class gb_WheelView
                        , int  controllerRadius
                        )
   {
-    int     wheelRadius      = gb_Screen.getWheelRadius();
+    int     wheelRadius      = mScreen.getWheelRadius();
     double  angle            = itemAngle(nPlaces, innerIndex);
     vector2 outerWheelCenter = (sin(angle), -cos(angle)) * wheelRadius + mCenter;
     drawOuterWheel(outerWheelCenter.x, outerWheelCenter.y, -angle);
@@ -196,7 +198,7 @@ class gb_WheelView
                  , startingAngle
                  );
 
-    int deadRadius = gb_Screen.getWheelDeadRadius();
+    int deadRadius = mScreen.getWheelDeadRadius();
 
     drawHands( nWeaponsInSlot * 2
              , outerIndex
@@ -208,7 +210,7 @@ class gb_WheelView
   private
   void drawInnerWheel()
   {
-    int wheelDiameter = gb_Screen.getWheelRadius() * 2;
+    int wheelDiameter = mScreen.getWheelRadius() * 2;
     Screen.drawTexture( mTextureCache.circle
                       , NO_ANIMATION
                       , mCenter.x
@@ -225,7 +227,7 @@ class gb_WheelView
   private
   void drawOuterWheel(double x, double y, double angle)
   {
-    int wheelDiameter = gb_Screen.getWheelRadius() * 2;
+    int wheelDiameter = mScreen.getWheelRadius() * 2;
     Screen.drawTexture( mTextureCache.halfCircle
                       , NO_ANIMATION
                       , x
@@ -383,7 +385,7 @@ class gb_WheelView
     if (gb_Ammo.isValid(viewModel.quantity1[weaponIndex], viewModel.maxQuantity1[weaponIndex]))
     {
       int margin = int(10 * mScaleFactor);
-      int radius = Screen.getHeight() / 4 - margin;
+      int radius = mScreen.getScaledScreenHeight() / 4 - margin;
       int nColoredPips, nTotalPips;
       [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.quantity1   [weaponIndex]
                                                   , viewModel.maxQuantity1[weaponIndex]
@@ -394,7 +396,7 @@ class gb_WheelView
     if (gb_Ammo.isValid(viewModel.quantity2[weaponIndex], viewModel.maxQuantity2[weaponIndex]))
     {
       int margin = int(20 * mScaleFactor);
-      int radius = Screen.getHeight() / 4 - margin;
+      int radius = mScreen.getScaledScreenHeight() / 4 - margin;
       int nColoredPips, nTotalPips;
       [nColoredPips, nTotalPips] = makePipsNumbers( viewModel.quantity2   [weaponIndex]
                                                   , viewModel.maxQuantity2[weaponIndex]
@@ -461,38 +463,35 @@ class gb_WheelView
   {
     if (nPlaces < 2) return;
 
-    double handsAngle = startAngle - itemAngle(nPlaces, selectedIndex);
-
-    double sectorAngleHalfWidth = max(6, 360.0 / 2.0 / nPlaces - 2);
-
-    double baseHeight  = 1080;
-    double heightRatio = Screen.getHeight() / baseHeight;
-    double baseWidth   = Screen.getWidth() / heightRatio;
+    double  handsAngle           = startAngle - itemAngle(nPlaces, selectedIndex);
+    double  sectorAngleHalfWidth = max(6, 360.0 / 2.0 / nPlaces - 2);
+    double  scaleFactor          = mScreen.getScaleFactor();
+    vector2 size                 = TexMan.getScaledSize(mTextureCache.hand) * scaleFactor;
 
     Screen.drawTexture( mTextureCache.hand
                       , NO_ANIMATION
-                      , center.x / heightRatio
-                      , center.y / heightRatio
+                      , center.x
+                      , center.y
                       , DTA_KeepRatio     , true
                       , DTA_CenterOffset  , true
                       , DTA_Alpha         , mAlpha
                       , DTA_Rotate        , handsAngle - sectorAngleHalfWidth
-                      , DTA_VirtualWidth  , int(baseWidth)
-                      , DTA_VirtualHeight , int(baseHeight)
                       , DTA_FlipX         , true
+                      , DTA_DestWidth     , int(size.x)
+                      , DTA_DestHeight    , int(size.y)
                       );
 
     Screen.drawTexture( mTextureCache.hand
                       , NO_ANIMATION
-                      , center.x / heightRatio
-                      , center.y / heightRatio
+                      , center.x
+                      , center.y
                       , DTA_KeepRatio     , true
                       , DTA_CenterOffset  , true
                       , DTA_CenterOffset  , true
                       , DTA_Alpha         , mAlpha
                       , DTA_Rotate        , handsAngle + sectorAngleHalfWidth
-                      , DTA_VirtualWidth  , int(baseWidth)
-                      , DTA_VirtualHeight , int(baseHeight)
+                      , DTA_DestWidth     , int(size.x)
+                      , DTA_DestHeight    , int(size.y)
                       );
   }
 
@@ -517,7 +516,7 @@ class gb_WheelView
     double  angle   = itemAngle(nPlaces, innerIndex);
     bool    isOnTop = isSlotExpanded && (90.0 < angle && angle < 270.0);
     vector2 pos     = mCenter;
-    pos.y += gb_Screen.getWheelRadius() * (isOnTop ? -1 : 1);
+    pos.y += mScreen.getWheelRadius() * (isOnTop ? -1 : 1);
 
     mText.drawBox(ammo1, description, ammo2, pos, !isOnTop, mBaseColor, mAlpha);
   }

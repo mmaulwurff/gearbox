@@ -345,9 +345,10 @@ class gb_EventHandler : EventHandler
     mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions);
 
     mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
-    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mTextureCache);
-    mWheelController = gb_WheelController.from(mOptions);
-    mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode);
+    let screen       = gb_Screen.from(mOptions);
+    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mTextureCache, screen);
+    mWheelController = gb_WheelController.from(mOptions, screen);
+    mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode, screen);
 
     mIsInitialized = true;
   }
