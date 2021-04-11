@@ -18,4 +18,4 @@ git log --date=short --pretty=format:"-%d %ad %s%n" | \
 rm -f "$filename"
 zip -R0 "$filename" "*.md" "*.txt" "*.zs" "*.png" "*.ogg" "*.fp"
 
-gzdoom -file "$filename" "$@"
+lzdoom -file "$filename" "$@"

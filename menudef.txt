@@ -5,11 +5,6 @@ AddOptionMenu OptionsMenu
   Submenu "$GB_OPTIONS", gb_Options
 }
 
-AddOptionMenu OptionsMenuSimple
-{
-    Submenu "$GB_OPTIONS", gb_Options
-  }
-
 // Menus ///////////////////////////////////////////////////////////////////////////////////////////
 
 OptionMenu gb_Options

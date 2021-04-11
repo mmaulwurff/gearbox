@@ -227,19 +227,7 @@ class gb_WheelView
   private
   void drawOuterWheel(double x, double y, double angle)
   {
-    int wheelDiameter = mScreen.getWheelRadius() * 2;
-    Screen.drawTexture( mTextureCache.halfCircle
-                      , NO_ANIMATION
-                      , x
-                      , y
-                      , DTA_FillColor    , mBaseColor
-                      , DTA_AlphaChannel , true
-                      , DTA_Alpha        , mAlpha
-                      , DTA_CenterOffset , true
-                      , DTA_Rotate       , angle
-                      , DTA_DestWidth    , wheelDiameter
-                      , DTA_DestHeight   , wheelDiameter
-                      );
+    // LZDoom: do nothing.
   }
 
   private
@@ -277,7 +265,6 @@ class gb_WheelView
   void drawIcon(TextureID texture, vector2 xy, int w, int h, double angle, bool isTall) const
   {
     bool flipX;
-    double scaleY;
 
     if (mIsRotating)
     {
@@ -286,14 +273,11 @@ class gb_WheelView
       angle = -angle + 90;
 
       if (isTall) angle += flipX ? 90 : -90;
-
-      scaleY = 1.0;
     }
     else
     {
       flipX  = false;
       angle  = 0;
-      scaleY = mOptions.isPreservingAspectRatio() ? 1.2 : 1.0;
     }
 
     if (!texture.isValid()) texture = mTextureCache.noIcon;
@@ -305,9 +289,7 @@ class gb_WheelView
                       , DTA_CenterOffset , true
                       , DTA_DestWidth    , w
                       , DTA_DestHeight   , h
-                      , DTA_ScaleY       , scaleY
                       , DTA_Alpha        , mAlpha
-                      , DTA_Rotate       , angle
                       , DTA_FlipX        , flipX
                       , DTA_KeepRatio, false
                       );
@@ -321,10 +303,8 @@ class gb_WheelView
                       , DTA_CenterOffset , true
                       , DTA_DestWidth    , w
                       , DTA_DestHeight   , h
-                      , DTA_ScaleY       , scaleY
                       , DTA_Alpha        , mAlpha * 0.3
                       , DTA_FillColor    , mBaseColor
-                      , DTA_Rotate       , angle
                       , DTA_FlipX        , flipX
                       );
   }
@@ -453,38 +433,7 @@ class gb_WheelView
   private
   void drawHands(uint nPlaces, uint selectedIndex, vector2 center, double startAngle)
   {
-    if (nPlaces < 2) return;
-
-    double  handsAngle           = startAngle - itemAngle(nPlaces, selectedIndex);
-    double  sectorAngleHalfWidth = max(6, 360.0 / 2.0 / nPlaces - 2);
-    double  scaleFactor          = mScreen.getScaleFactor();
-    vector2 size                 = TexMan.getScaledSize(mTextureCache.hand) * scaleFactor;
-
-    Screen.drawTexture( mTextureCache.hand
-                      , NO_ANIMATION
-                      , center.x
-                      , center.y
-                      , DTA_KeepRatio     , true
-                      , DTA_CenterOffset  , true
-                      , DTA_Alpha         , mAlpha
-                      , DTA_Rotate        , handsAngle - sectorAngleHalfWidth
-                      , DTA_FlipX         , true
-                      , DTA_DestWidth     , int(size.x)
-                      , DTA_DestHeight    , int(size.y)
-                      );
-
-    Screen.drawTexture( mTextureCache.hand
-                      , NO_ANIMATION
-                      , center.x
-                      , center.y
-                      , DTA_KeepRatio     , true
-                      , DTA_CenterOffset  , true
-                      , DTA_CenterOffset  , true
-                      , DTA_Alpha         , mAlpha
-                      , DTA_Rotate        , handsAngle + sectorAngleHalfWidth
-                      , DTA_DestWidth     , int(size.x)
-                      , DTA_DestHeight    , int(size.y)
-                      );
+    // LZDoom: do nothing
   }
 
   private
