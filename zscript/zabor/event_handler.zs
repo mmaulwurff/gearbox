@@ -36,7 +36,12 @@ class gb_VmAbortHandler : EventHandler
   override
   void onDestroy()
   {
-    if (gameState != GS_FullConsole) return;
+    if (gameState != GS_FullConsole
+        || !Cvar.getCvar("gb_zabor_enabled", players[consolePlayer]).getBool())
+    {
+      return;
+    }
+
 
     if (!amIFirst())
     {
@@ -151,13 +156,17 @@ class gb_VmAbortHandler : EventHandler
   private clearscope
   void printAttention()
   {
-    string message1 = string.format( "  # %s, please report this VM abort to mod author."
-                                   , players[consolePlayer].getUserName()
+    string userName = players[consolePlayer].getUserName();
+    string message1 = string.format( "  # %s\cg, please report this VM abort to mod author."
+                                   , userName
                                    );
     string message2 = "  # Attach screenshot to the report.";
     string message3 = "  # Type \"screenshot\" below to take a screenshot.";
 
-    int length = max(max(message1.length(), message2.length()), message3.length());
+    Array<string> tokens;
+    userName.split(tokens, "\c");
+    int colorCharsCount = (tokens.size() - 1) * 3;
+    int length = max(max(message1.length() - colorCharsCount, message2.length()), message3.length());
 
     message1 = fillBox(message1, length);
     message2 = fillBox(message2, length);
@@ -185,7 +194,7 @@ class gb_VmAbortHandler : EventHandler
     Console.printf("\ci"
       " __  __  __  __  __  __\n"
       "/  \\/  \\/  \\/  \\/  \\/  \\\n"
-      "|Za||bo||r ||v1||.0||.1|\n"
+      "|Za||bo||r ||v1||.1||.0|\n"
       "|..||..||..||..||..||..|\n"
       "|..||..||..||..||..||..|\n"
       "|__||__||__||__||__||__|\n"

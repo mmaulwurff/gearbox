@@ -1,3 +1,5 @@
+// Entry Points ////////////////////////////////////////////////////////////////////////////////////
+
 AddOptionMenu OptionsMenu
 {
   Submenu "$GB_OPTIONS", gb_Options
@@ -5,8 +7,10 @@ AddOptionMenu OptionsMenu
 
 AddOptionMenu OptionsMenuSimple
 {
-  Submenu "$GB_OPTIONS", gb_Options
-}
+    Submenu "$GB_OPTIONS", gb_Options
+  }
+
+// Menus ///////////////////////////////////////////////////////////////////////////////////////////
 
 OptionMenu gb_Options
 {
@@ -35,10 +39,11 @@ OptionMenu gb_Options
   Option      "$GB_FROZEN_CAN_OPEN"   , gb_frozen_can_open  , OnOff
 
   StaticText  ""
-  Submenu     "$GB_UI_OPTIONS"     , gb_UiOptions
-  Submenu     "$GB_WHEEL_OPTIONS"  , gb_WheelOptions
-  Submenu     "$GB_BLOCKS_OPTIONS" , gb_BlocksOptions
-  Submenu     "$GB_GZDOOM_OPTIONS" , gb_GZDoomOptions
+  Submenu     "$GB_UI_OPTIONS"       , gb_UiOptions
+  Submenu     "$GB_WHEEL_OPTIONS"    , gb_WheelOptions
+  Submenu     "$GB_BLOCKS_OPTIONS"   , gb_BlocksOptions
+  Submenu     "$GB_ADVANCED_OPTIONS" , gb_AdvancedOptions
+  Submenu     "$GB_GZDOOM_OPTIONS"   , gb_GZDoomOptions
 
   StaticText  ""
   SafeCommand "$GB_RESET", gb_reset, "$GB_RESET_PROMPT"
@@ -100,6 +105,15 @@ OptionMenu gb_BlocksOptions
   Slider     "$GB_BLOCKS_X" , gb_blocks_position_x, 0.0, 1.0, 0.01, 2
   Slider     "$GB_BLOCKS_Y" , gb_blocks_position_y, 0.0, 1.0, 0.01, 2
 }
+
+OptionMenu gb_AdvancedOptions
+{
+  Title "$GB_ADVANCED_OPTIONS_TITLE"
+
+  Option "$GB_VM_ABORT_INFO_ENABLED", gb_zabor_enabled, OnOff
+}
+
+// Option Values ///////////////////////////////////////////////////////////////////////////////////
 
 OptionValue gb_ViewTypeValues
 {

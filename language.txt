@@ -61,3 +61,7 @@ GB_RESET_PROMPT = "Do you really want to reset Gearbox options to defaults?";
 GB_GZDOOM_OPTIONS       = "Relevant GZDoom options";
 GB_GZDOOM_OPTIONS_TITLE = "GZDoom Options that affect Gearbox";
 GB_ASPECT_SCALE_NOTE    = "Doesn't affect weapons in wheel for now.";
+
+GB_ADVANCED_OPTIONS = "Advanced options";
+GB_ADVANCED_OPTIONS_TITLE = "Gearbox Advanced Options";
+GB_VM_ABORT_INFO_ENABLED  = "VM abort info";

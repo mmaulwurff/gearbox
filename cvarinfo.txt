@@ -37,3 +37,5 @@ user int  gb_time_freeze      = 0;
 
 user float gb_mouse_sensitivity_x = 1.0;
 user float gb_mouse_sensitivity_y = 1.0;
+
+user bool gb_zabor_enabled = true;
