@@ -55,7 +55,7 @@ class gb_Changer play
 
   static
   void freezePlayer( PlayerInfo player
-                   , double     cheats
+                   , int        cheats
                    , double     velocityX
                    , double     velocityY
                    , double     velocityZ

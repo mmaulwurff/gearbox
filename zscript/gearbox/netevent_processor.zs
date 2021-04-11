@@ -41,7 +41,7 @@ class gb_NeteventProcessor play
                                                                         , args[2].toDouble()
                                                                  );
     else if (args[0] == "gb_freeze_player") mChanger.freezePlayer(player, args[1].toInt()
-                                                                        , args[2].toDouble()
+                                                                        , args[2].toInt()
                                                                         , args[3].toDouble()
                                                                         , args[4].toDouble()
                                                                         , args[5].toDouble()
