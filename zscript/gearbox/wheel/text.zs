@@ -44,8 +44,6 @@ class gb_Text
                    , pos.y
                    , aString
                    , DTA_Alpha  , alpha
-                   , DTA_ScaleX , textScale
-                   , DTA_ScaleY , textScale
                    );
   }
 
