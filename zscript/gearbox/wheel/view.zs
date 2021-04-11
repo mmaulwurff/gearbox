@@ -469,8 +469,8 @@ class gb_WheelView
                       , DTA_Alpha         , mAlpha
                       , DTA_Rotate        , handsAngle - sectorAngleHalfWidth
                       , DTA_FlipX         , true
-                      , DTA_DestWidth     , int(size.x)
-                      , DTA_DestHeight    , int(size.y)
+                      , DTA_DestWidthF    , size.x
+                      , DTA_DestHeightF   , size.y
                       );
 
     Screen.drawTexture( mTextureCache.hand
@@ -482,8 +482,8 @@ class gb_WheelView
                       , DTA_CenterOffset  , true
                       , DTA_Alpha         , mAlpha
                       , DTA_Rotate        , handsAngle + sectorAngleHalfWidth
-                      , DTA_DestWidth     , int(size.x)
-                      , DTA_DestHeight    , int(size.y)
+                      , DTA_DestWidthF    , size.x
+                      , DTA_DestHeightF   , size.y
                       );
   }
 
