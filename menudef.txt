@@ -1,14 +1,7 @@
 // Entry Points ////////////////////////////////////////////////////////////////////////////////////
 
-AddOptionMenu OptionsMenu
-{
-  Submenu "$GB_OPTIONS", gb_Options
-}
-
-AddOptionMenu OptionsMenuSimple
-{
-    Submenu "$GB_OPTIONS", gb_Options
-  }
+AddOptionMenu OptionsMenu       { Submenu "$GB_OPTIONS", gb_Options }
+AddOptionMenu OptionsMenuSimple { Submenu "$GB_OPTIONS", gb_Options }
 
 // Menus ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -49,19 +42,22 @@ OptionMenu gb_Options
   StaticText  ""
   SafeCommand "$GB_RESET", gb_reset, "$GB_RESET_PROMPT"
 
-} // OptionMenu gb_Options
+}
 
 OptionMenu gb_GZDoomOptions
 {
+
   Title "$GB_GZDOOM_OPTIONS_TITLE"
 
   StaticText ""
   Option     "$SCALEMNU_HUDASPECT", hud_AspectScale, OnOff
   StaticText "$GB_ASPECT_SCALE_NOTE", black
+
 }
 
 OptionMenu gb_UiOptions
 {
+
   Title "$GB_UI_OPTIONS_TITLE"
 
   StaticText  ""
@@ -75,10 +71,12 @@ OptionMenu gb_UiOptions
 
   StaticText  ""
   Option      "$GB_SOUND"     , gb_enable_sounds  , OnOff
+
 }
 
 OptionMenu gb_WheelOptions
 {
+
   Title "$GB_WHEEL_OPTIONS_TITLE"
 
   StaticText  ""
@@ -99,6 +97,7 @@ OptionMenu gb_WheelOptions
 
 OptionMenu gb_BlocksOptions
 {
+
   Title "$GB_BLOCKS_OPTIONS_TITLE"
 
   StaticText ""
@@ -108,14 +107,17 @@ OptionMenu gb_BlocksOptions
   StaticText "$GB_BLOCKS_POSITION", 1
   Slider     "$GB_BLOCKS_X" , gb_blocks_position_x, 0.0, 1.0, 0.01, 2
   Slider     "$GB_BLOCKS_Y" , gb_blocks_position_y, 0.0, 1.0, 0.01, 2
+
 }
 
 OptionMenu gb_AdvancedOptions
 {
+
   Title "$GB_ADVANCED_OPTIONS_TITLE"
 
   StaticText ""
   Option     "$GB_VM_ABORT_INFO_ENABLED", gb_zabor_enabled, OnOff
+
 }
 
 // Option Values ///////////////////////////////////////////////////////////////////////////////////
