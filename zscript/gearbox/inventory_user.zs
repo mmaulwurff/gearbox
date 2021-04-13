@@ -57,9 +57,6 @@ class gb_InventoryUser play
         deleteFromQueue(i);
       }
     }
-
-    mPlayerQueue.clear();
-    mItemQueue.clear();
   }
 
   void addToQueue(PlayerInfo player, string item)
