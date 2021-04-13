@@ -13,8 +13,8 @@ files_to_check=$(find . -name '*.zs'  \
                      -o -name '*.md'  \
                      -o -name '*.txt' \
                      -o -name '*.sh'  \
-                     -o -name '*.yml' \
-                     -o -name '*.py')
+                     -o -name '*.fp'  \
+                )
 
 lowercase_words=$(echo "$files_to_check" | while read -r file; do
     grep -h -o -E '\w{4,}' "$file" \

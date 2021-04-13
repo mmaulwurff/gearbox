@@ -72,11 +72,13 @@ blank
 blazkowicz
 block
 blocky
+blox
 bool
 bool
 boost
 bound
 break
+bresl
 bsearch
 btbs
 byname
@@ -138,6 +140,7 @@ collate
 comparable
 compare
 compat
+compatflags
 compl
 complex
 concept
@@ -156,6 +159,7 @@ contiguous
 continue
 contract
 convert
+coord
 copy
 copyrightable
 cosang
@@ -167,6 +171,7 @@ cpp
 cppreference
 creativecommons
 crontab
+csawa
 csetjmp
 csignal
 cstdarg
@@ -218,6 +223,7 @@ dirname
 distance
 distutils
 dleft
+dmflags
 do
 dobroide
 doesn
@@ -337,6 +343,7 @@ gzip
 halfwidth
 handler
 hard
+hardcode
 hardcoded
 has
 hash
@@ -381,6 +388,7 @@ inserter
 instantiation
 int
 integer
+interp
 interpolator
 invalid
 iomanip
@@ -396,6 +404,7 @@ itemtt
 iterator
 iwad
 jarewill
+jitter
 joshuaempyre
 json
 kadu
@@ -412,6 +421,7 @@ kromm
 krutomisi
 last
 latests
+launa
 launch
 launder
 lcm
@@ -424,6 +434,7 @@ libeye
 licensors
 limits
 line
+lippeth
 list
 literal
 lmqb
@@ -461,6 +472,7 @@ menudef
 merchantability
 merge
 message
+mguna
 michorvath
 min
 miniwad
@@ -519,6 +531,7 @@ optional
 optionmenuitems
 optionnmenuitems
 options
+optval
 or
 order
 ordering
@@ -547,6 +560,7 @@ pkill
 place
 playlist
 playloop
+plrla
 pntr
 point
 pointer
@@ -576,8 +590,10 @@ psprite
 public
 publicdomain
 punct
+pungb
 push
 pylint
+pyspy
 qcde
 qmake
 qsort
@@ -660,6 +676,7 @@ shellcheck
 shift
 shootable
 short
+shota
 shrink
 shuffle
 shutil
@@ -689,6 +706,7 @@ sorted
 space
 span
 spawner
+spectrefps
 spellcheck
 spriteid
 sqlite
@@ -760,6 +778,7 @@ todo
 token
 tokenize
 tolower
+tomed
 toupper
 traits
 transform

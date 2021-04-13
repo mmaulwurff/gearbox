@@ -11,4 +11,4 @@
 - shaders/mfx_bss_blur.fp is made by [Marisa
   Kirisame](https://github.com/OrdinaryMagician/), taken from
   [MariFX](https://github.com/OrdinaryMagician/marifx_m) (GPLv3), modified by m8f.
-- Wheel mouse input code is based on code from PyWheaponWheel by DrPyspy.
+- Wheel mouse input code is based on code from PyWeaponWheel by DrPyspy.

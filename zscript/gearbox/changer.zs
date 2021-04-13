@@ -48,7 +48,7 @@ class gb_Changer play
   {
     if (player.mo == NULL) return;
 
-    player.cheats |= CF_INTERPVIEW;
+    player.cheats |= CF_InterpView;
     player.mo.pitch = pitch;
     player.mo.angle = angle;
   }
