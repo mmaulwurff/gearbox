@@ -17,6 +17,7 @@ OptionMenu gb_Options
 
   Title "$GB_OPTIONS"
 
+  StaticText  ""
   Option      "$GB_VIEW_TYPE", gb_view_type, gb_ViewTypeValues
 
   StaticText  ""
@@ -63,6 +64,7 @@ OptionMenu gb_UiOptions
 {
   Title "$GB_UI_OPTIONS_TITLE"
 
+  StaticText  ""
   ColorPicker "$GB_COLOR"     , gb_color
   Option      "$GB_SHOW_TAGS" , gb_show_tags      , OnOff
 
@@ -79,6 +81,7 @@ OptionMenu gb_WheelOptions
 {
   Title "$GB_WHEEL_OPTIONS_TITLE"
 
+  StaticText  ""
   Slider      "$GB_WHEEL_X"     , gb_wheel_position , -1.5, 1.5, 0.1, 1
   Slider      "$GB_WHEEL_SCALE" , gb_wheel_scale    , 0.1, 2, 0.1, 1
   Option      "$GB_WHEEL_TINT"  , gb_wheel_tint     , OnOff
@@ -98,6 +101,7 @@ OptionMenu gb_BlocksOptions
 {
   Title "$GB_BLOCKS_OPTIONS_TITLE"
 
+  StaticText ""
   Slider     "$GB_SCALE"    , gb_scale, 1, 8, 1, 0
 
   StaticText ""
@@ -110,7 +114,8 @@ OptionMenu gb_AdvancedOptions
 {
   Title "$GB_ADVANCED_OPTIONS_TITLE"
 
-  Option "$GB_VM_ABORT_INFO_ENABLED", gb_zabor_enabled, OnOff
+  StaticText ""
+  Option     "$GB_VM_ABORT_INFO_ENABLED", gb_zabor_enabled, OnOff
 }
 
 // Option Values ///////////////////////////////////////////////////////////////////////////////////
