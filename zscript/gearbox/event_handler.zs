@@ -76,6 +76,8 @@ class gb_EventHandler : EventHandler
   override
   void consoleProcess(ConsoleEvent event)
   {
+    if (players[consolePlayer].mo == NULL) return;
+
     if (!mIsInitialized || isDisabledOnAutomap()) return;
     if (isPlayerFrozen() && mActivity.isNone()) return;
 
@@ -95,6 +97,8 @@ class gb_EventHandler : EventHandler
   override
   bool inputProcess(InputEvent event)
   {
+    if (players[consolePlayer].mo == NULL) return false;
+
     if (!mIsInitialized || isDisabledOnAutomap() || gameState != GS_LEVEL) return false;
     if (isPlayerFrozen() && mActivity.isNone()) return false;
 
@@ -180,6 +184,8 @@ class gb_EventHandler : EventHandler
   override
   void networkProcess(ConsoleEvent event)
   {
+    if (players[consolePlayer].mo == NULL) return;
+
     mNeteventProcessor.process(event);
   }
 
