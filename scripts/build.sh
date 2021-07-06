@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 mkdir -p build
 
 filename=build/gearbox-$(git describe --abbrev=0 --tags).pk3
@@ -15,7 +13,6 @@ git log --date=short --pretty=format:"-%d %ad %s%n" | \
     sed "s/- (tag: \\(v\\?[0-9.]*\\))/\\n\\1\\n-/" \
     > changelog.txt
 
-rm -f "$filename"
+rm   -f "$filename"
 zip -R0 "$filename" "*.md" "*.txt" "*.zs" "*.png" "*.ogg" "*.fp"
-
-gzdoom -file "$filename" "$@"
+gzdoom  "$filename" "$@" > output 2>&1; cat output
