@@ -110,6 +110,7 @@ class gb_Freezer play
   void thawPlayer() const
   {
     if (mWasPlayerFrozen) gb_Sender.sendFreezePlayerEvent(mCheats, mVelocity, mGravity);
+    mWasPlayerFrozen = false;
   }
 
   const FROZEN_CHEATS_FLAGS  = CF_TotallyFrozen | CF_Frozen;
