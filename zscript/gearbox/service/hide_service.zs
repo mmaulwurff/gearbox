@@ -19,7 +19,7 @@ class gb_HideService : gb_Service
 {
 
   override
-  string uiGet(string className)
+  string get(string className)
   {
     switch (Name(className))
     {

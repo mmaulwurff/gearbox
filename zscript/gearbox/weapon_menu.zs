@@ -77,7 +77,7 @@ class gb_WeaponMenu
     for (uint i = 1; i < nWeapons; ++i)
     {
       uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
-      if (mSlots[index] == slot && isInInventory(index))
+      if (mSlots[index] == slot && isInInventory(index) && !isHidden(mWeapons[index].getClassName()))
       {
         mSelectedIndex = index;
         mSounds.playTick();
@@ -201,7 +201,7 @@ class gb_WeaponMenu
     }
   }
 
-  private ui
+  private play
   bool isHidden(string className) const
   {
     bool result = false;
@@ -210,7 +210,7 @@ class gb_WeaponMenu
     for (uint i = 0; i < nServices; ++i)
     {
       let service = mHideServices[i];
-      string hideResponse = service.uiGet(className);
+      string hideResponse = service.get(className);
       if (hideResponse.length() != 0)
       {
         bool isHidden = hideResponse.byteAt(0) - 48; // convert to bool from "0" or "1".
