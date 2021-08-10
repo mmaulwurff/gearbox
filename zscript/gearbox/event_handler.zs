@@ -62,7 +62,7 @@ class gb_EventHandler : EventHandler
       // initializing weapon menu.
       mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     }
-    else
+    else if (mOptions.getViewType() == VIEW_TYPE_WHEEL)
     {
       mWheelController.process();
     }
@@ -98,7 +98,6 @@ class gb_EventHandler : EventHandler
   bool inputProcess(InputEvent event)
   {
     if (players[consolePlayer].mo == NULL) return false;
-
     if (!mIsInitialized || isDisabledOnAutomap() || gameState != GS_LEVEL) return false;
     if (isPlayerFrozen() && mActivity.isNone()) return false;
 
