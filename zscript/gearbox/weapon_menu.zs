@@ -126,6 +126,8 @@ class gb_WeaponMenu
       mCachedViewModel.slots       .clear();
       mCachedViewModel.indices     .clear();
       mCachedViewModel.icons       .clear();
+      mCachedViewModel.iconScaleXs .clear();
+      mCachedViewModel.iconScaleYs .clear();
       mCachedViewModel.quantity1   .clear();
       mCachedViewModel.maxQuantity1.clear();
       mCachedViewModel.quantity2   .clear();
@@ -148,6 +150,8 @@ class gb_WeaponMenu
     destination.slots       .copy(source.slots);
     destination.indices     .copy(source.indices);
     destination.icons       .copy(source.icons);
+    destination.iconScaleXs .copy(source.iconScaleXs);
+    destination.iconScaleYs .copy(source.iconScaleYs);
     destination.quantity1   .copy(source.quantity1);
     destination.maxQuantity1.copy(source.maxQuantity1);
     destination.quantity2   .copy(source.quantity2);
@@ -170,6 +174,8 @@ class gb_WeaponMenu
           viewModel.slots       .push(mSlots[i]);
           viewModel.indices     .push(i);
           viewModel.icons       .push(-1);
+          viewModel.iconScaleXs .push(-1);
+          viewModel.iconScaleYs .push(-1);
           viewModel.quantity1   .push(-1);
           viewModel.maxQuantity1.push(-1);
           viewModel.quantity2   .push(-1);
@@ -190,6 +196,8 @@ class gb_WeaponMenu
 
       // Workaround, casting TextureID to int may be unreliable.
       viewModel.icons.push(int(icon));
+      viewModel.iconScaleXs.push(aWeapon.scale.x);
+      viewModel.iconScaleYs.push(aWeapon.scale.y);
 
       bool hasAmmo1 = aWeapon.ammo1;
       bool hasAmmo2 = aWeapon.ammo2 && aWeapon.ammo2 != aWeapon.ammo1;

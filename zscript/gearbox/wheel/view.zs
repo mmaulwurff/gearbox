@@ -257,6 +257,8 @@ class gb_WheelView
 
     TextureID texture     = viewModel.icons[iconIndex];
     vector2   textureSize = TexMan.getScaledSize(texture) * 2 * mScaleFactor;
+    textureSize.x *= viewModel.iconScaleXs[iconIndex];
+    textureSize.y *= viewModel.iconScaleYs[iconIndex];
     bool      isTall      = (textureSize.y * 1.2 > textureSize.x);
 
     double scale = isTall
