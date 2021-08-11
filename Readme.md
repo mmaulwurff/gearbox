@@ -23,7 +23,7 @@ GZDoom 4.5 required.
 
 ## Features
 
-- Two different representations: blocks and wheel
+- Different representations: blocks, wheel, plain text
 - Press Fire key to select and Alt Fire key to cancel
 - Color and scale options
 - Customizable behavior
