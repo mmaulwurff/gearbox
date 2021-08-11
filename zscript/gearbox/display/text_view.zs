@@ -47,13 +47,15 @@ class gb_TextView
 
   void display(gb_ViewModel viewModel) const
   {
+    uint nWeapons = viewModel.tags.size();
+    if (nWeapons == 0) return;
+
     vector2 start = mOptions.getTextPosition();
     start.x *= mScreenWidth;
     start.y *= mScreenHeight;
     double x = start.x;
     double y = start.y;
     double lineHeight    = NewSmallFont.getHeight();
-    uint   nWeapons      = viewModel.tags.size();
     int    usualColor    = mOptions.getTextUsualColor();
     int    selectedColor = mOptions.getTextSelectedColor();
     Font   aFont         = NewSmallFont;
