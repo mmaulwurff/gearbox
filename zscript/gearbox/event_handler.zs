@@ -250,6 +250,12 @@ class gb_EventHandler : EventHandler
       break;
     }
 
+    case VIEW_TYPE_TEXT:
+      mTextView.setAlpha(alpha);
+      mTextView.setScale(mOptions.getTextScale());
+      mTextView.display(viewModel);
+      break;
+
     }
   }
 
@@ -324,6 +330,7 @@ class gb_EventHandler : EventHandler
   {
     VIEW_TYPE_BLOCKY = 0,
     VIEW_TYPE_WHEEL  = 1,
+    VIEW_TYPE_TEXT   = 2,
   }
 
   private
@@ -348,6 +355,7 @@ class gb_EventHandler : EventHandler
     mNeteventProcessor = gb_NeteventProcessor.from(mChanger);
 
     mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions);
+    mTextView        = gb_TextView.from(mOptions);
 
     mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
     let screen       = gb_Screen.from(mOptions);
@@ -373,6 +381,7 @@ class gb_EventHandler : EventHandler
   private gb_NeteventProcessor mNeteventProcessor;
 
   private gb_BlockyView mBlockyView;
+  private gb_TextView   mTextView;
 
   private gb_MultiWheelMode  mMultiWheelMode;
   private gb_WheelView       mWheelView;

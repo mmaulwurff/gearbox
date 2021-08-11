@@ -36,6 +36,7 @@ OptionMenu gb_Options
   Submenu     "$GB_UI_OPTIONS"       , gb_UiOptions
   Submenu     "$GB_WHEEL_OPTIONS"    , gb_WheelOptions
   Submenu     "$GB_BLOCKS_OPTIONS"   , gb_BlocksOptions
+  Submenu     "$GB_TEXT_OPTIONS"     , gb_TextOptions
   Submenu     "$GB_ADVANCED_OPTIONS" , gb_AdvancedOptions
   Submenu     "$GB_GZDOOM_OPTIONS"   , gb_GZDoomOptions
 
@@ -104,9 +105,29 @@ OptionMenu gb_BlocksOptions
   Slider     "$GB_SCALE"    , gb_scale, 1, 8, 1, 0
 
   StaticText ""
-  StaticText "$GB_BLOCKS_POSITION", 1
-  Slider     "$GB_BLOCKS_X" , gb_blocks_position_x, 0.0, 1.0, 0.01, 2
-  Slider     "$GB_BLOCKS_Y" , gb_blocks_position_y, 0.0, 1.0, 0.01, 2
+  StaticText "$GB_POSITION", 1
+  Slider     "$GB_X" , gb_blocks_position_x, 0.0, 1.0, 0.01, 2
+  Slider     "$GB_Y" , gb_blocks_position_y, 0.0, 1.0, 0.01, 2
+
+}
+
+OptionMenu gb_TextOptions
+{
+
+  Title "$GB_TEXT_OPTIONS_TITLE"
+
+  StaticText ""
+  Slider     "$GB_SCALE" , gb_text_scale, 1, 8, 1, 0
+
+  StaticText ""
+  StaticText "$GB_POSITION", 1
+  Slider     "$GB_X"          , gb_text_position_x     , 0.0, 1.0, 0.01, 2
+  Slider     "$GB_Y"          , gb_text_position_y     , 0.0, 1.0, 0.01, 2
+  Slider     "$GB_Y_BOUNDARY" , gb_text_position_y_max , 0.0, 1.0, 0.01, 2
+
+  StaticText ""
+  Option "$GB_TEXT_USUAL_COLOR"    , gb_text_usual_color    , TextColors
+  Option "$GB_TEXT_SELECTED_COLOR" , gb_text_selected_color , TextColors
 
 }
 
@@ -126,6 +147,7 @@ OptionValue gb_ViewTypeValues
 {
   0, "$GB_BLOCKY_VIEW"
   1, "$GB_WHEEL_VIEW"
+  2, "$GB_TEXT_VIEW"
 }
 
 OptionValue gb_FreezeValues

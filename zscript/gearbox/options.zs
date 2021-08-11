@@ -52,6 +52,13 @@ class gb_Options
     result.mBlocksPositionX        = gb_Cvar.from("gb_blocks_position_x");
     result.mBlocksPositionY        = gb_Cvar.from("gb_blocks_position_y");
 
+    result.mTextScale              = gb_Cvar.from("gb_text_scale");
+    result.mTextPositionX          = gb_Cvar.from("gb_text_position_x");
+    result.mTextPositionY          = gb_Cvar.from("gb_text_position_y");
+    result.mTextPositionYMax       = gb_Cvar.from("gb_text_position_y_max");
+    result.mTextUsualColor         = gb_Cvar.from("gb_text_usual_color");
+    result.mTextSelectedColor      = gb_Cvar.from("gb_text_selected_color");
+
     result.mWheelPosition          = gb_Cvar.from("gb_wheel_position");
     result.mWheelScale             = gb_Cvar.from("gb_wheel_scale");
 
@@ -92,6 +99,17 @@ class gb_Options
     return (mBlocksPositionX.getDouble(), mBlocksPositionY.getDouble());
   }
 
+  int getTextScale()           const { return mTextScale        .getInt();   }
+  int getTextUsualColor()      const { return mTextUsualColor   .getInt();   }
+  int getTextSelectedColor()   const { return mTextSelectedColor.getInt();   }
+  double getTextPositionYMax() const { return mTextPositionYMax.getDouble(); }
+
+  vector2 getTextPosition() const
+  {
+    return (mTextPositionX.getDouble(), mTextPositionY.getDouble());
+  }
+
+
   double getWheelPosition() const { return mWheelPosition.getDouble(); }
   double getWheelScale()    const { return mWheelScale.getDouble(); }
 
@@ -125,6 +143,13 @@ class gb_Options
 
   private gb_Cvar mBlocksPositionX;
   private gb_Cvar mBlocksPositionY;
+
+  private gb_Cvar mTextScale;
+  private gb_Cvar mTextPositionX;
+  private gb_Cvar mTextPositionY;
+  private gb_Cvar mTextPositionYMax;
+  private gb_Cvar mTextUsualColor;
+  private gb_Cvar mTextSelectedColor;
 
   private gb_Cvar mWheelPosition;
   private gb_Cvar mWheelScale;

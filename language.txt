@@ -19,6 +19,7 @@ GB_PREV_WEAPON           = "Select previous weapon";
 GB_VIEW_TYPE   = "Selector type";
 GB_BLOCKY_VIEW = "Blocks";
 GB_WHEEL_VIEW  = "Wheel";
+GB_TEXT_VIEW   = "Plain Text";
 GB_DIM         = "Background dimming";
 GB_BLUR        = "Background blur";
 GB_WHEEL_X     = "Horizontal position";
@@ -44,16 +45,21 @@ GB_MULTIWHEEL_LIMIT  = "Multiwheel threshold";
 GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
 GB_X = "Horizontal";
 GB_Y = "Vertical";
+GB_Y_BOUNDARY = "Vertical lower boundary";
 
 GB_WHEEL_OPTIONS        = "Wheel options";
 GB_WHEEL_OPTIONS_TITLE  = "Gearbox Wheel Options";
 GB_BLOCKS_OPTIONS       = "Blocks options";
 GB_BLOCKS_OPTIONS_TITLE = "Gearbox Blocks Options";
+GB_TEXT_OPTIONS         = "Plain Text Options";
+GB_TEXT_OPTIONS_TITLE   = "Gearbox Plain Text Options";
+GB_TEXT_USUAL_COLOR     = "Usual color";
+GB_TEXT_SELECTED_COLOR  = "Selected color";
 
-GB_SCALE           = "Scale";
-GB_BLOCKS_POSITION = "Position";
-GB_BLOCKS_X        = "Horizontal";
-GB_BLOCKS_Y        = "Vertical";
+GB_SCALE    = "Scale";
+GB_POSITION = "Position";
+GB_X        = "Horizontal";
+GB_Y        = "Vertical";
 
 GB_RESET        = "Reset Gearbox options to defaults";
 GB_RESET_PROMPT = "Do you really want to reset Gearbox options to defaults?";
