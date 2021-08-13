@@ -31,6 +31,7 @@ version 4.5
 #include "zscript/gearbox/display/caption.zs"
 
 #include "zscript/gearbox/options.zs"
+#include "zscript/gearbox/font_selector.zs"
 
 // Weapon Wheel implementation.
 #include "zscript/gearbox/wheel/view.zs"

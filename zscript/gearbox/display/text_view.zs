@@ -19,13 +19,14 @@ class gb_TextView
 {
 
   static
-  gb_TextView from(gb_Options options)
+  gb_TextView from(gb_Options options, gb_FontSelector fontSelector)
   {
     let result = new("gb_TextView");
 
     result.setAlpha(1.0);
     result.setScale(1);
-    result.mOptions = options;
+    result.mOptions      = options;
+    result.mFontSelector = fontSelector;
 
     return result;
   }
@@ -55,10 +56,10 @@ class gb_TextView
     start.y *= mScreenHeight;
     double x = start.x;
     double y = start.y;
-    double lineHeight    = NewSmallFont.getHeight();
+    Font   aFont = mFontSelector.getFont();
+    double lineHeight    = aFont.getHeight();
     int    usualColor    = mOptions.getTextUsualColor();
     int    selectedColor = mOptions.getTextSelectedColor();
-    Font   aFont         = NewSmallFont;
 
     double maxX = 0;
     double maxY = 0;
@@ -180,9 +181,11 @@ class gb_TextView
     return Screen.getHeight() / 1080.0;
   }
 
-  private double     mAlpha;
-  private int        mScreenWidth;
-  private int        mScreenHeight;
-  private gb_Options mOptions;
+  private double mAlpha;
+  private int    mScreenWidth;
+  private int    mScreenHeight;
+
+  private gb_Options      mOptions;
+  private gb_FontSelector mFontSelector;
 
 } // class gb_TextView

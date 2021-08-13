@@ -337,6 +337,7 @@ class gb_EventHandler : EventHandler
   void initialize()
   {
     mOptions         = gb_Options.from();
+    mFontSelector    = gb_FontSelector.from();
     mSounds          = gb_Sounds.from(mOptions);
 
     gb_WeaponData weaponData;
@@ -354,12 +355,17 @@ class gb_EventHandler : EventHandler
     mChanger         = gb_Changer.from(mCaption, mOptions, mInventoryUser);
     mNeteventProcessor = gb_NeteventProcessor.from(mChanger);
 
-    mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions);
-    mTextView        = gb_TextView.from(mOptions);
+    mBlockyView      = gb_BlockyView.from(mTextureCache, mOptions, mFontSelector);
+    mTextView        = gb_TextView.from(mOptions, mFontSelector);
 
     mMultiWheelMode  = gb_MultiWheelMode.from(mOptions);
     let screen       = gb_Screen.from(mOptions);
-    mWheelView       = gb_WheelView.from(mOptions, mMultiWheelMode, mTextureCache, screen);
+    mWheelView       = gb_WheelView.from( mOptions
+                                        , mMultiWheelMode
+                                        , mTextureCache
+                                        , screen
+                                        , mFontSelector
+                                        );
     mWheelController = gb_WheelController.from(mOptions, screen);
     mWheelIndexer    = gb_WheelIndexer.from(mMultiWheelMode, screen);
 
@@ -367,6 +373,7 @@ class gb_EventHandler : EventHandler
   }
 
   private gb_Options       mOptions;
+  private gb_FontSelector  mFontSelector;
   private gb_Sounds        mSounds;
   private gb_WeaponMenu    mWeaponMenu;
   private gb_InventoryMenu mInventoryMenu;

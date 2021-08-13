@@ -23,6 +23,7 @@ class gb_WheelView
                    , gb_MultiWheelMode multiWheelMode
                    , gb_TextureCache   textureCache
                    , gb_Screen         screen
+                   , gb_FontSelector   fontSelector
                    )
   {
     let result = new("gb_WheelView");
@@ -32,8 +33,9 @@ class gb_WheelView
 
     result.mScreen         = screen;
     result.mOptions        = options;
+    result.mFontSelector   = fontSelector;
     result.mMultiWheelMode = multiWheelMode;
-    result.mText           = gb_Text.from(textureCache, screen);
+    result.mText           = gb_Text.from(textureCache, screen, fontSelector);
     result.mTextureCache   = textureCache;
     result.mIsRotating     = true;
 
@@ -441,7 +443,7 @@ class gb_WheelView
   {
     double  angle = itemAngle(nPlaces, place);
     vector2 pos   = (sin(angle), -cos(angle)) * radius + mCenter;
-    Font    aFont = "NewSmallFont";
+    Font    aFont = mFontSelector.getFont();
 
     gb_Text.draw(string.format("%d", slot), pos, aFont, mAlpha, true);
   }
@@ -550,8 +552,9 @@ class gb_WheelView
   private color   mBaseColor;
   private vector2 mCenter;
 
-  private gb_Screen mScreen;
-  private gb_Options mOptions;
+  private gb_Screen         mScreen;
+  private gb_Options        mOptions;
+  private gb_FontSelector   mFontSelector;
   private gb_MultiWheelMode mMultiWheelMode;
 
   private gb_Text mText;

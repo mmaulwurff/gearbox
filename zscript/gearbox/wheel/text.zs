@@ -22,11 +22,12 @@ class gb_Text
 {
 
   static
-  gb_Text from(gb_TextureCache textureCache, gb_Screen screen)
+  gb_Text from(gb_TextureCache textureCache, gb_Screen screen, gb_FontSelector fontSelector)
   {
     let result = new("gb_Text");
     result.mTextureCache = textureCache;
     result.mScreen       = screen;
+    result.mFontSelector = fontSelector;
     return result;
   }
 
@@ -59,7 +60,7 @@ class gb_Text
               )
   {
     double scaleFactor = mScreen.getScaleFactor();
-    Font   aFont       = NewSmallFont;
+    Font   aFont       = mFontSelector.getFont();
     int    textScale   = getTextScale();
     int    lineHeight  = aFont.getHeight() * textScale;
     int    margin      = int(10 * scaleFactor);
@@ -114,5 +115,6 @@ class gb_Text
 
   private gb_TextureCache mTextureCache;
   private gb_Screen       mScreen;
+  private gb_FontSelector mFontSelector;
 
 } // class gb_Text

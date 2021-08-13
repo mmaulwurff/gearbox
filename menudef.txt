@@ -73,6 +73,9 @@ OptionMenu gb_UiOptions
   StaticText  ""
   Option      "$GB_SOUND"     , gb_enable_sounds  , OnOff
 
+  StaticText  ""
+  Option      "$GB_FONT"        , gb_font , gb_FontValues
+  TextField   "$GB_FONT_CUSTOM" , gb_font
 }
 
 OptionMenu gb_WheelOptions
@@ -155,4 +158,12 @@ OptionValue gb_FreezeValues
   0, "$OPTVAL_OFF"
   1, "$GB_LEVEL_AND_PLAYER"
   2, "$GB_PLAYER"
+}
+
+OptionString gb_FontValues
+{
+  "NewSmallFont" , "New small font"
+  "SmallFont"    , "Old small font"
+  "ConsoleFont"  , "Console font"
+  "BigFont"      , "Big font"
 }

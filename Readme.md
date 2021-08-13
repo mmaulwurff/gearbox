@@ -73,8 +73,8 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 - Thanks to KeksDose for a concept of VM abort handler.
 - Thanks to DrPyspy for allowing to use mouse input code from PyWeaponWheel.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, TheRailgunner, Captain J,
-  Enjay, StroggVorbis, krutomisi, Cutmanmike, StraightWhiteMan, JohnDoe8, HDV
-  and Zhs2 for feature suggestions.
+  Enjay, StroggVorbis, krutomisi, Cutmanmike, StraightWhiteMan, JohnDoe8, HDV,
+  Zhs2 and Apollucas for feature suggestions.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, Ac!d, wildweasel,
   Dark-Assassin, rparhkdtp, Samarai1000, Mr. Blazkowicz, lucker42, spectrefps,
   Someone64 and Lippeth for bug reports.

@@ -19,7 +19,7 @@ class gb_BlockyView
 {
 
   static
-  gb_BlockyView from(gb_TextureCache textureCache, gb_Options options)
+  gb_BlockyView from(gb_TextureCache textureCache, gb_Options options, gb_FontSelector fontSelector)
   {
     let result = new("gb_BlockyView");
 
@@ -28,6 +28,7 @@ class gb_BlockyView
     result.setBaseColor(0x2222CC);
     result.mTextureCache = textureCache;
     result.mOptions      = options;
+    result.mFontSelector = fontSelector;
 
     return result;
   }
@@ -72,7 +73,7 @@ class gb_BlockyView
 
     int selectedSlot = viewModel.slots[selectedIndex];
 
-    Font aFont      = NewSmallFont;
+    Font aFont      = mFontSelector.getFont();
     int  fontHeight = aFont.getHeight();
     int  textY      = startY + SLOT_SIZE / 2 - fontHeight / 2;
 
@@ -472,5 +473,6 @@ class gb_BlockyView
 
   private gb_TextureCache mTextureCache;
   private gb_Options      mOptions;
+  private gb_FontSelector mFontSelector;
 
 } // class gb_BlockyView

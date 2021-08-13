@@ -30,6 +30,8 @@ user float gb_text_position_y_max = 1.0;
 user int   gb_text_usual_color    = 21; // cyan
 user int   gb_text_selected_color =  9; // white
 
+user string gb_font = "NewSmallFont";
+
 user bool gb_open_on_scroll   = false;
 user bool gb_open_on_slot     = true;
 user bool gb_mouse_in_wheel   = true;
