@@ -86,6 +86,7 @@ class gb_EventHandler : EventHandler
     case InputToggleWeaponMenu: toggleWeapons(); break;
     case InputConfirmSelection: confirmSelection(); close(); break;
     case InputToggleInventoryMenu: toggleInventory(); break;
+    case InputRotateWeaponPriority: rotateWeaponPriority(); break;
     }
 
     if (!mActivity.isNone()) mWheelController.reset();
@@ -326,6 +327,16 @@ class gb_EventHandler : EventHandler
     }
   }
 
+  private ui
+  void rotateWeaponPriority()
+  {
+    if (mActivity.isWeapons())
+    {
+      gb_CustomWeaponOrderStorage.savePriorityRotation(mWeaponSetHash, mWeaponMenu.getSelectedIndex());
+      mWeaponMenu.rotatePriority();
+    }
+  }
+
   enum ViewTypes
   {
     VIEW_TYPE_BLOCKY = 0,
@@ -342,7 +353,9 @@ class gb_EventHandler : EventHandler
 
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
+    mWeaponSetHash   = gb_CustomWeaponOrderStorage.calculateHash(weaponData);
     mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+    gb_CustomWeaponOrderStorage.applyOperations(mWeaponSetHash, mWeaponMenu);
     mInventoryMenu   = gb_InventoryMenu.from(mSounds);
 
     mActivity        = gb_Activity.from();
@@ -375,6 +388,8 @@ class gb_EventHandler : EventHandler
   private gb_Options       mOptions;
   private gb_FontSelector  mFontSelector;
   private gb_Sounds        mSounds;
+
+  private string           mWeaponSetHash;
   private gb_WeaponMenu    mWeaponMenu;
   private gb_InventoryMenu mInventoryMenu;
   private gb_Activity      mActivity;

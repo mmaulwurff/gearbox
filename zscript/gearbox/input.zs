@@ -30,6 +30,8 @@ enum gb_Inputs
   InputToggleInventoryMenu,
   InputConfirmInventorySelection,
 
+  InputRotateWeaponPriority,
+
 } // enum gb_Inputs
 
 class gb_Input

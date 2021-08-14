@@ -139,6 +139,38 @@ class gb_WeaponMenu
     copy(mCachedViewModel, viewModel);
   }
 
+  void rotatePriority()
+  {
+    mSelectedIndex = rotatePriorityForIndex(mSelectedIndex);
+  }
+
+  int rotatePriorityForIndex(int index)
+  {
+    int  targetIndex = -1;
+    int  thisSlot    = mSlots[index];
+    uint nWeapons    = mWeapons.size();
+    for (uint i = 1; i < nWeapons + 1; ++i)
+    {
+      uint targetCandidateIndex = (index + i) % nWeapons;
+      int  targetCandidateSlot  = mSlots[targetCandidateIndex];
+      if (targetCandidateSlot == thisSlot)
+      {
+        targetIndex = targetCandidateIndex;
+        break;
+      }
+    }
+
+    if (targetIndex != index)
+    {
+      // swap
+      let temporary         = mWeapons[index];
+      mWeapons[index]       = mWeapons[targetIndex];
+      mWeapons[targetIndex] = temporary;
+    }
+
+    return targetIndex;
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private ui

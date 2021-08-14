@@ -76,3 +76,5 @@ GB_ASPECT_SCALE_NOTE    = "Doesn't affect weapons in wheel for now.";
 GB_ADVANCED_OPTIONS = "Advanced options";
 GB_ADVANCED_OPTIONS_TITLE = "Gearbox Advanced Options";
 GB_VM_ABORT_INFO_ENABLED  = "VM abort info";
+
+GB_ROTATE_WEAPON_PRIORITY = "Rotate weapon priority inside slot";

@@ -4,6 +4,9 @@ version 4.5
 #include "zscript/gearbox/weapon_data_loader.zs"
 #include "zscript/gearbox/printer.zs"
 
+#include "zscript/MD5/MD5.zs"
+#include "zscript/gearbox/custom_weapon_order_storage.zs"
+
 #include "zscript/gearbox/activity.zs"
 #include "zscript/gearbox/input.zs"
 #include "zscript/gearbox/input_processor.zs"

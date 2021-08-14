@@ -12,3 +12,4 @@
   Kirisame](https://github.com/OrdinaryMagician/), taken from
   [MariFX](https://github.com/OrdinaryMagician/marifx_m) (GPLv3), modified by m8f.
 - Wheel mouse input code is based on code from PyWeaponWheel by DrPyspy.
+- [MD5 Implementation in ZScript](https://github.com/3saster/GZDoom_Utilities) by 3saster (see [MD5.zs](zscript/MD5/MD5.zs) for license).
