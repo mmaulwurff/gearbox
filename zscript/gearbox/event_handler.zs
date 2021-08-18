@@ -87,6 +87,7 @@ class gb_EventHandler : EventHandler
     case InputConfirmSelection: confirmSelection(); close(); break;
     case InputToggleInventoryMenu: toggleInventory(); break;
     case InputRotateWeaponPriority: rotateWeaponPriority(); break;
+    case InputRotateWeaponSlot:     rotateWeaponSlot(); break;
     }
 
     if (!mActivity.isNone()) mWheelController.reset();
@@ -334,6 +335,16 @@ class gb_EventHandler : EventHandler
     {
       gb_CustomWeaponOrderStorage.savePriorityRotation(mWeaponSetHash, mWeaponMenu.getSelectedIndex());
       mWeaponMenu.rotatePriority();
+    }
+  }
+
+  private ui
+  void rotateWeaponSlot()
+  {
+    if (mActivity.isWeapons())
+    {
+      gb_CustomWeaponOrderStorage.saveSlotRotation(mWeaponSetHash, mWeaponMenu.getSelectedIndex());
+      mWeaponMenu.rotateSlot();
     }
   }
 

@@ -19,6 +19,7 @@ OptionMenu gb_Options
   Control     "$GB_TOGGLE_INVENTORY_MENU" , "+gb_toggle_inventory_menu"
   Control     "$GB_PREV_WEAPON"           , "gb_prev_weapon"
   Control     "$GB_ROTATE_WEAPON_PRIORITY", "gb_rotate_weapon_priority"
+  Control     "$GB_ROTATE_WEAPON_SLOT"    , "gb_rotate_weapon_slot"
 
   StaticText  ""
   StaticText  "$GB_BEHAVIOR", 1

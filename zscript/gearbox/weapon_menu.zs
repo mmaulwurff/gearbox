@@ -171,6 +171,45 @@ class gb_WeaponMenu
     return targetIndex;
   }
 
+  void rotateSlot()
+  {
+    mSelectedIndex = rotateSlotForIndex(mSelectedIndex);
+  }
+
+  int rotateSlotForIndex(int index)
+  {
+    int  targetIndex = -1;
+
+    int  thisSlot    = mSlots[index];
+    uint nWeapons    = mWeapons.size();
+    for (uint i = 1; i < nWeapons + 1; ++i)
+    {
+      uint targetCandidateIndex = (index + i) % nWeapons;
+      int  targetCandidateSlot  = mSlots[targetCandidateIndex];
+      if (targetCandidateSlot != thisSlot)
+      {
+        targetIndex = targetCandidateIndex;
+        break;
+      }
+    }
+
+    if (targetIndex != index)
+    {
+      let weaponClass = mWeapons[index];
+      mWeapons.insert(targetIndex, weaponClass);
+      mWeapons.delete(index > targetIndex ? (index + 1) : index);
+
+      mSlots[index] = mSlots[targetIndex];
+      int slot = mSlots[index];
+      mSlots.insert(targetIndex, slot);
+      mSlots.delete(index > targetIndex ? (index + 1) : index);
+
+      if (index < targetIndex) --targetIndex;
+    }
+
+    return targetIndex;
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private ui

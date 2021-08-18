@@ -9,6 +9,7 @@ Alias -gb_toggle_inventory_menu "event gb_toggle_inventory_menu_up"
 Alias gb_prev_weapon "netevent gb_prev_weapon"
 
 Alias gb_rotate_weapon_priority "event gb_rotate_weapon_priority"
+Alias gb_rotate_weapon_slot     "event gb_rotate_weapon_slot"
 
 Alias zabor "event zabor"
 
@@ -22,3 +23,4 @@ AddMenuKey "$GB_TOGGLE_WEAPON_MENU"    +gb_toggle_weapon_menu
 AddMenuKey "$GB_TOGGLE_INVENTORY_MENU" +gb_toggle_inventory_menu
 AddMenuKey "$GB_PREV_WEAPON"            gb_prev_weapon
 AddMenuKey "$GB_ROTATE_WEAPON_PRIORITY" gb_rotate_weapon_priority
+AddMenuKey "$GB_ROTATE_WEAPON_SLOT"     gb_rotate_weapon_slot

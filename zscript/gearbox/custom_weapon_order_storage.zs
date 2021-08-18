@@ -72,7 +72,11 @@ class gb_CustomWeaponOrderStorage
         break;
 
       case RotateSlot:
+        menu.rotateSlotForIndex(operations.index[i]);
         break;
+
+      default:
+        Console.printf("Unknown operation: %d.", operations.operationType[i]);
       }
     }
   }
@@ -81,6 +85,12 @@ class gb_CustomWeaponOrderStorage
   void savePriorityRotation(string weaponSetHash, int index)
   {
     saveOperation(weaponSetHash, index, RotatePriority);
+  }
+
+  static
+  void saveSlotRotation(string weaponSetHash, int index)
+  {
+    saveOperation(weaponSetHash, index, RotateSlot);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////

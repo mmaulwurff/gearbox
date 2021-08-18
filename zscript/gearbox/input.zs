@@ -31,6 +31,7 @@ enum gb_Inputs
   InputConfirmInventorySelection,
 
   InputRotateWeaponPriority,
+  InputRotateWeaponSlot,
 
 } // enum gb_Inputs
 
