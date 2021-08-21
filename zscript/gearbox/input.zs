@@ -19,10 +19,12 @@ enum gb_Inputs
 {
 
   InputNothing,
+
   InputSelectNextWeapon,
   InputSelectPrevWeapon,
   InputConfirmSelection,
   InputToggleWeaponMenu,
+
   InputSelectSlotBegin,
   InputSelectSlotEnd = InputSelectSlotBegin + 11,
   InputClose,
@@ -32,6 +34,7 @@ enum gb_Inputs
 
   InputRotateWeaponPriority,
   InputRotateWeaponSlot,
+  InputResetCustomOrder,
 
 } // enum gb_Inputs
 

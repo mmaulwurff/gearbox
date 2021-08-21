@@ -69,6 +69,10 @@ GB_Y        = "Vertical";
 GB_RESET        = "Reset Gearbox options to defaults";
 GB_RESET_PROMPT = "Do you really want to reset Gearbox options to defaults?";
 
+GB_RESET_CUSTOM_ORDER        = "Reset current custom weapon order";
+GB_RESET_CUSTOM_ORDER_PROMPT = "Do you really want to reset custom weapon order?";
+GB_RESET_CUSTOM_ORDER_NOTE   = "Works only while in game.";
+
 GB_GZDOOM_OPTIONS       = "Relevant GZDoom options";
 GB_GZDOOM_OPTIONS_TITLE = "GZDoom Options that affect Gearbox";
 GB_ASPECT_SCALE_NOTE    = "Doesn't affect weapons in wheel for now.";

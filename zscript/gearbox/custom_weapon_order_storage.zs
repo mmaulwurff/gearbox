@@ -93,6 +93,14 @@ class gb_CustomWeaponOrderStorage
     saveOperation(weaponSetHash, index, RotateSlot);
   }
 
+  static
+  void reset(string weaponSetHash)
+  {
+    Dictionary weaponSetOrders = readWeaponSetOrders();
+    weaponSetOrders.remove(weaponSetHash);
+    getStorageCvar().setString(weaponSetOrders.toString());
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   static

@@ -43,7 +43,9 @@ OptionMenu gb_Options
   Submenu     "$GB_GZDOOM_OPTIONS"   , gb_GZDoomOptions
 
   StaticText  ""
-  SafeCommand "$GB_RESET", gb_reset, "$GB_RESET_PROMPT"
+  SafeCommand "$GB_RESET"              , gb_reset              , "$GB_RESET_PROMPT"
+  SafeCommand "$GB_RESET_CUSTOM_ORDER" , gb_reset_custom_order , "$GB_RESET_CUSTOM_ORDER_PROMPT"
+  StaticText  "$GB_RESET_CUSTOM_ORDER_NOTE", black
 
 }
 

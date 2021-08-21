@@ -10,6 +10,7 @@ Alias gb_prev_weapon "netevent gb_prev_weapon"
 
 Alias gb_rotate_weapon_priority "event gb_rotate_weapon_priority"
 Alias gb_rotate_weapon_slot     "event gb_rotate_weapon_slot"
+Alias gb_reset_custom_order     "netevent gb_reset_custom_order"
 
 Alias zabor "event zabor"
 

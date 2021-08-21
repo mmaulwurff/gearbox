@@ -187,7 +187,12 @@ class gb_EventHandler : EventHandler
   {
     if (players[consolePlayer].mo == NULL) return;
 
-    mNeteventProcessor.process(event);
+    int input = mNeteventProcessor.process(event);
+
+    switch (input)
+    {
+    case InputResetCustomOrder: resetCustomOrder(); break;
+    }
   }
 
   override
@@ -346,6 +351,15 @@ class gb_EventHandler : EventHandler
       gb_CustomWeaponOrderStorage.saveSlotRotation(mWeaponSetHash, mWeaponMenu.getSelectedIndex());
       mWeaponMenu.rotateSlot();
     }
+  }
+
+  private
+  void resetCustomOrder()
+  {
+    gb_CustomWeaponOrderStorage.reset(mWeaponSetHash);
+    gb_WeaponData weaponData;
+    gb_WeaponDataLoader.load(weaponData);
+    mWeaponMenu = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
   }
 
   enum ViewTypes

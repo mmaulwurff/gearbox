@@ -26,9 +26,9 @@ class gb_NeteventProcessor play
     return result;
   }
 
-  void process(ConsoleEvent event)
+  int process(ConsoleEvent event)
   {
-    if (event.name.left(3) != "gb_") return;
+    if (event.name.left(3) != "gb_") return InputNothing;
 
     Array<string> args;
     event.name.split(args, ":");
@@ -46,6 +46,9 @@ class gb_NeteventProcessor play
                                                                         , args[4].toDouble()
                                                                         , args[5].toDouble()
                                                                  );
+    else if (args[0] == "gb_reset_custom_order") return InputResetCustomOrder;
+
+    return InputNothing;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
