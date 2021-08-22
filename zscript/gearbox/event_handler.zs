@@ -214,6 +214,8 @@ class gb_EventHandler : EventHandler
     if      (mActivity.isWeapons())   mWeaponMenu.fill(viewModel);
     else if (mActivity.isInventory()) mInventoryMenu.fill(viewModel);
 
+    verifyViewModel(viewModel);
+
     gb_Dim.dim(alpha, mOptions);
 
     switch (mOptions.getViewType())
@@ -360,6 +362,59 @@ class gb_EventHandler : EventHandler
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
     mWeaponMenu = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+  }
+
+  private ui
+  void verifyViewModel(gb_ViewModel model)
+  {
+    uint nTags           = model.tags        .size();
+    uint nSlots          = model.slots       .size();
+    uint nIndices        = model.indices     .size();
+    uint nIcons          = model.icons       .size();
+    uint nIconScaleXs    = model.iconScaleXs .size();
+    uint nIconScaleYs    = model.iconScaleYs .size();
+    uint nQuantities1    = model.quantity1   .size();
+    uint nQuantitiesMax1 = model.maxQuantity1.size();
+    uint nQuantities2    = model.quantity2   .size();
+    uint nQuantitiesMax2 = model.maxQuantity2.size();
+
+    if (nTags > 0
+        && (model.selectedIndex >= nTags
+            || nTags != nSlots
+            || nTags != nIndices
+            || nTags != nIcons
+            || nTags != nIconScaleXs
+            || nTags != nIconScaleYs
+            || nTags != nQuantities1
+            || nTags != nQuantitiesMax1
+            || nTags != nQuantities2
+            || nTags != nQuantitiesMax2))
+    {
+      Console.printf("Bad view model:\n"
+                     "selected index: %d,\n"
+                     "tags: %d,\n"
+                     "slots: %d,\n"
+                     "indices: %d,\n"
+                     "icons: %d,\n"
+                     "icon scale X: %d,\n"
+                     "icon scale Y: %d,\n"
+                     "quantities 1: %d,\n"
+                     "max quantities 1: %d,\n"
+                     "quantities 2: %d,\n"
+                     "max quantities 2: %d,\n"
+                    , model.selectedIndex
+                    , nTags
+                    , nSlots
+                    , nIndices
+                    , nIcons
+                    , nIconScaleXs
+                    , nIconScaleYs
+                    , nQuantities1
+                    , nQuantitiesMax1
+                    , nQuantities2
+                    , nQuantitiesMax2
+                    );
+    }
   }
 
   enum ViewTypes

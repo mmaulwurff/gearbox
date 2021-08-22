@@ -96,6 +96,8 @@ class gb_InventoryMenu
         viewModel.slots       .push(index + 1);
         viewModel.indices     .push(index);
         viewModel.icons       .push(icon);
+        viewModel.iconScaleXs .push(1);
+        viewModel.iconScaleYs .push(1);
         viewModel.quantity1   .push(item.maxAmount > 1 ? item.amount : -1);
         viewModel.maxQuantity1.push(item.maxAmount);
         viewModel.quantity2   .push(-1);
