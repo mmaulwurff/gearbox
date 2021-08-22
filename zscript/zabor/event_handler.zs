@@ -84,58 +84,90 @@ class gb_VmAbortHandler : EventHandler
   {
     Array<string> gearboxConfiguration =
       {
-        getCvarIntValueAsString("gb_scale"),
-        getCvarColorValueAsString("gb_color"),
-        getCvarColorValueAsString("gb_dim_color"),
-        getCvarIntValueAsString("gb_show_tags"),
+        intCvarToString   ("gb_scale"              ),
+        colorCvarToString ("gb_color"              ),
+        colorCvarToString ("gb_dim_color"          ),
+        intCvarToString   ("gb_show_tags"          ),
 
-        getCvarIntValueAsString("gb_view_type"),
-        getCvarIntValueAsString("gb_enable_dim"),
-        getCvarIntValueAsString("gb_enable_blur"),
-        getCvarFloatValueAsString("gb_wheel_position"),
-        getCvarIntValueAsString("gb_wheel_tint"),
-        getCvarIntValueAsString("gb_multiwheel_limit"),
+        intCvarToString   ("gb_view_type"          ),
 
-        getCvarFloatValueAsString("gb_blocks_position_x"),
-        getCvarFloatValueAsString("gb_blocks_position_y"),
+        intCvarToString   ("gb_enable_dim"         ),
+        intCvarToString   ("gb_enable_blur"        ),
+        floatCvarToString ("gb_wheel_position"     ),
+        floatCvarToString ("gb_wheel_scale"        ),
+        intCvarToString   ("gb_wheel_tint"         ),
+        intCvarToString   ("gb_multiwheel_limit"   ),
 
-        getCvarIntValueAsString("gb_open_on_scroll"),
-        getCvarIntValueAsString("gb_open_on_slot"),
-        getCvarIntValueAsString("gb_mouse_in_wheel"),
-        getCvarIntValueAsString("gb_select_on_key_up"),
-        getCvarIntValueAsString("gb_no_menu_if_one"),
-        getCvarIntValueAsString("gb_time_freeze"),
-        getCvarIntValueAsString("gb_on_automap"),
-        getCvarIntValueAsString("gb_lock_positions"),
-        getCvarIntValueAsString("gb_enable_sounds"),
-        getCvarIntValueAsString("gb_frozen_can_open"),
+        floatCvarToString ("gb_blocks_position_x"  ),
+        floatCvarToString ("gb_blocks_position_y"  ),
 
-        getCvarFloatValueAsString("gb_mouse_sensitivity_x"),
-        getCvarFloatValueAsString("gb_mouse_sensitivity_y")
+        intCvarToString   ("gb_text_scale"         ),
+        floatCvarToString ("gb_text_position_x"    ),
+        floatCvarToString ("gb_text_position_y"    ),
+        floatCvarToString ("gb_text_position_y_max"),
+        intCvarToString   ("gb_text_usual_color"   ),
+        intCvarToString   ("gb_text_selected_color"),
+
+        stringCvarToString("gb_font"               ),
+
+        intCvarToString   ("gb_open_on_scroll"     ),
+        intCvarToString   ("gb_open_on_slot"       ),
+        intCvarToString   ("gb_mouse_in_wheel"     ),
+        intCvarToString   ("gb_select_on_key_up"   ),
+        intCvarToString   ("gb_no_menu_if_one"     ),
+        intCvarToString   ("gb_on_automap"         ),
+        intCvarToString   ("gb_lock_positions"     ),
+        intCvarToString   ("gb_enable_sounds"      ),
+        intCvarToString   ("gb_frozen_can_open"    ),
+
+        intCvarToString   ("gb_time_freeze"        ),
+
+        floatCvarToString ("gb_mouse_sensitivity_x"),
+        floatCvarToString ("gb_mouse_sensitivity_y")
       };
 
-    Console.printf("%s", join(gearboxConfiguration, ", "));
+    // cut prefix:
+    uint nCvars = gearboxConfiguration.size();
+    for (uint i = 0; i < nCvars; ++i)
+    {
+      string value = gearboxConfiguration[i];
+      if (value.left(3) == "gb_")
+      {
+        gearboxConfiguration[i] = value.mid(3);
+      }
+    }
+
+    string report = "gb_*: " .. join(gearboxConfiguration, ", ");
+
+    Console.printf("%s", report);
   }
 
   private static clearscope
-  string getCvarIntValueAsString(string cvarName)
+  string intCvarToString(string cvarName)
   {
     let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
-    return aCvar ? string.format("%s: %d", cvarName, aCvar.getInt()) : "";
+    return aCvar ? string.format("%s:%d", cvarName, aCvar.getInt()) : "";
   }
 
   private static clearscope
-  string getCvarFloatValueAsString(string cvarName)
+  string floatCvarToString(string cvarName)
   {
     let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
-    return aCvar ? string.format("%s: %f", cvarName, aCvar.getFloat()) : "";
+    return aCvar ? string.format("%s:%f", cvarName, aCvar.getFloat()) : "";
   }
 
   private static clearscope
-  string getCvarColorValueAsString(string cvarName)
+  string colorCvarToString(string cvarName)
   {
     let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
-    return aCvar ? string.format("%s: 0x%x", cvarName, aCvar.getInt()) : "";
+    return aCvar ? string.format("%s:0x%x", cvarName, aCvar.getInt()) : "";
+  }
+
+  private static clearscope
+  string stringCvarToString(string cvarName)
+  {
+    let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
+    return aCvar ? string.format("%s:%s", cvarName, aCvar.getString()) : "";
   }
 
   private static clearscope
@@ -143,11 +175,11 @@ class gb_VmAbortHandler : EventHandler
   {
     Array<string> configuration =
       {
-        getCvarIntValueAsString("compatflags"),
-        getCvarIntValueAsString("compatflags2"),
-        getCvarIntValueAsString("dmflags"),
-        getCvarIntValueAsString("dmflags2"),
-        getCvarFloatValueAsString("autoaim")
+        intCvarToString("compatflags"),
+        intCvarToString("compatflags2"),
+        intCvarToString("dmflags"),
+        intCvarToString("dmflags2"),
+        floatCvarToString("autoaim")
       };
 
     Console.printf("%s", join(configuration, ", "));
@@ -195,7 +227,6 @@ class gb_VmAbortHandler : EventHandler
       " __  __  __  __  __  __\n"
       "/  \\/  \\/  \\/  \\/  \\/  \\\n"
       "|Za||bo||r ||v1||.1||.0|\n"
-      "|..||..||..||..||..||..|\n"
       "|..||..||..||..||..||..|\n"
       "|__||__||__||__||__||__|\n"
     );
