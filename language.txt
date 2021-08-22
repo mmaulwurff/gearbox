@@ -19,14 +19,16 @@ GB_PREV_WEAPON           = "Select previous weapon";
 GB_VIEW_TYPE   = "Selector type";
 GB_BLOCKY_VIEW = "Blocks";
 GB_WHEEL_VIEW  = "Wheel";
-GB_TEXT_VIEW   = "Plain Text";
+GB_TEXT_VIEW   = "Plain text";
 GB_DIM         = "Background dimming";
 GB_BLUR        = "Background blur";
 GB_WHEEL_X     = "Horizontal position";
 GB_WHEEL_SCALE = "Scale";
 GB_WHEEL_TINT  = "Colored tint on weapons";
 
-GB_BEHAVIOR          = "Behavior";
+GB_BEHAVIOR_OPTIONS        = "Behavior options";
+GB_BEHAVIOR_OPTIONS_TITLE  = "Gearbox Behavior Options";
+
 GB_OPEN_ON_PREV_NEXT = "Intercept next/previous weapon keys";
 GB_OPEN_ON_SLOT      = "Intercept slot keys";
 GB_SELECT_ON_KEY_UP  = "Select on Toggle Menu key release";
@@ -52,7 +54,7 @@ GB_WHEEL_OPTIONS_TITLE  = "Gearbox Wheel Options";
 GB_BLOCKS_OPTIONS       = "Blocks options";
 GB_BLOCKS_OPTIONS_TITLE = "Gearbox Blocks Options";
 
-GB_TEXT_OPTIONS         = "Plain Text Options";
+GB_TEXT_OPTIONS         = "Plain text options";
 GB_TEXT_OPTIONS_TITLE   = "Gearbox Plain Text Options";
 GB_TEXT_USUAL_COLOR     = "Usual color";
 GB_TEXT_SELECTED_COLOR  = "Selected color";
@@ -83,3 +85,8 @@ GB_VM_ABORT_INFO_ENABLED  = "VM abort info";
 
 GB_ROTATE_WEAPON_PRIORITY = "Change weapon priority";
 GB_ROTATE_WEAPON_SLOT     = "Change weapon slot";
+
+GB_NEW_SMALL_FONT = "New small font";
+GB_OLD_SMALL_FONT = "Old small font";
+GB_CONSOLE_FONT   = "Console font";
+GB_BIG_FONT       = "Big font";
