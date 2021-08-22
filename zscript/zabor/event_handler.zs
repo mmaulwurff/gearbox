@@ -49,12 +49,7 @@ class gb_VmAbortHandler : EventHandler
       return;
     }
 
-    printZabor();
-    printGameInfo();
-    printConfiguration();
-    printGearboxCvars();
-    printEventHandlers();
-    printRealTime();
+    printInfo();
     printAttention();
   }
 
@@ -69,15 +64,18 @@ class gb_VmAbortHandler : EventHandler
       return;
     }
 
-    printZabor();
-    printGameInfo();
-    printConfiguration();
-    printGearboxCvars();
-    printEventHandlers();
-    printRealTime();
+    printInfo();
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private clearscope
+  void printInfo()
+  {
+    printZabor(getGameInfo(), getConfiguration(), getRealTime());
+    printGearboxCvars();
+    printEventHandlers();
+  }
 
   private static clearscope
   void printGearboxCvars()
@@ -137,7 +135,7 @@ class gb_VmAbortHandler : EventHandler
       }
     }
 
-    string report = "gb_*: " .. join(gearboxConfiguration, ", ");
+    string report = "\cigb_*\c-: " .. join(gearboxConfiguration, ", ");
 
     Console.printf("%s", report);
   }
@@ -146,32 +144,32 @@ class gb_VmAbortHandler : EventHandler
   string intCvarToString(string cvarName)
   {
     let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
-    return aCvar ? string.format("%s:%d", cvarName, aCvar.getInt()) : "";
+    return aCvar ? string.format("%s:\cu%d\c-", cvarName, aCvar.getInt()) : "";
   }
 
   private static clearscope
   string floatCvarToString(string cvarName)
   {
     let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
-    return aCvar ? string.format("%s:%f", cvarName, aCvar.getFloat()) : "";
+    return aCvar ? string.format("%s:\cu%f\c-", cvarName, aCvar.getFloat()) : "";
   }
 
   private static clearscope
   string colorCvarToString(string cvarName)
   {
     let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
-    return aCvar ? string.format("%s:0x%x", cvarName, aCvar.getInt()) : "";
+    return aCvar ? string.format("%s:\cu0x%x\c-", cvarName, aCvar.getInt()) : "";
   }
 
   private static clearscope
   string stringCvarToString(string cvarName)
   {
     let aCvar = Cvar.getCvar(cvarName, players[consolePlayer]);
-    return aCvar ? string.format("%s:%s", cvarName, aCvar.getString()) : "";
+    return aCvar ? string.format("%s:\cu%s\c-", cvarName, aCvar.getString()) : "";
   }
 
   private static clearscope
-  void printConfiguration()
+  string getConfiguration()
   {
     Array<string> configuration =
       {
@@ -182,7 +180,7 @@ class gb_VmAbortHandler : EventHandler
         floatCvarToString("autoaim")
       };
 
-    Console.printf("%s", join(configuration, ", "));
+    return string.format("%s", join(configuration, ", "));
   }
 
   private clearscope
@@ -221,14 +219,15 @@ class gb_VmAbortHandler : EventHandler
   }
 
   private static clearscope
-  void printZabor()
+  void printZabor(string s1 = "", string s2 = "", string s3 = "")
   {
-    Console.printf("\ci"
-      " __  __  __  __  __  __\n"
-      "/  \\/  \\/  \\/  \\/  \\/  \\\n"
-      "|Za||bo||r ||v1||.1||.0|\n"
-      "|..||..||..||..||..||..|\n"
-      "|__||__||__||__||__||__|\n"
+    Console.printf(
+      "\ci __  __  __  __  __  __\n"
+      "\ci/  \\/  \\/  \\/  \\/  \\/  \\\n"
+      "\ci|Za||bo||r ||v1||.1||.0| \c-%s\n"
+      "\ci|..||..||..||..||..||..| \c-%s\n"
+      "\ci|__||__||__||__||__||__| \c-%s\n"
+      , s1, s2, s3
     );
   }
 
@@ -249,15 +248,16 @@ class gb_VmAbortHandler : EventHandler
   }
 
   private clearscope
-  void printGameInfo()
+  string getGameInfo()
   {
-    Console.printf( "Game: level: %s, time: %d, multiplayer: %d, player class: %s, skill: %s"
-                  , level.mapName
-                  , level.totalTime
-                  , multiplayer
-                  , mPlayerClassName
-                  , mSkillName
-                  );
+    return string.format( "level:\cu%s\c-, time:\cu%d\c-, multiplayer:\cu%d\c-, "
+                          "player class:\cu%s\c-, skill:\cu%s\c-"
+                        , level.mapName
+                        , level.totalTime
+                        , multiplayer
+                        , mPlayerClassName
+                        , mSkillName
+                        );
   }
 
   private static clearscope
@@ -279,13 +279,13 @@ class gb_VmAbortHandler : EventHandler
       }
     }
 
-    Console.printf("Event handlers: %s", join(eventHandlers, ", "));
+    Console.printf("\cievent handlers\c-: %s", join(eventHandlers, ", "));
   }
 
   private clearscope
-  void printRealTime()
+  string getRealTime()
   {
-    Console.printf("System time: %s", SystemTime.format("%F %T %Z", mSystemTime));
+    return string.format("system time: \cu%s", SystemTime.format("%F %T %Z", mSystemTime));
   }
 
   private static clearscope
