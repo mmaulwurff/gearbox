@@ -48,6 +48,8 @@ class gb_Options
 
     result.mMouseSensitivityX      = gb_Cvar.from("gb_mouse_sensitivity_x");
     result.mMouseSensitivityY      = gb_Cvar.from("gb_mouse_sensitivity_y");
+    result.mInvertMouseX           = gb_Cvar.from("invertMouseX");
+    result.mInvertMouseY           = gb_Cvar.from("invertMouse");
 
     result.mBlocksPositionX        = gb_Cvar.from("gb_blocks_position_x");
     result.mBlocksPositionY        = gb_Cvar.from("gb_blocks_position_y");
@@ -91,7 +93,11 @@ class gb_Options
 
   vector2 getMouseSensitivity() const
   {
-    return (mMouseSensitivityX.getDouble(), mMouseSensitivityY.getDouble());
+    double xDirection = mInvertMouseX.getBool() ? -1 : 1;
+    double yDirection = mInvertMouseY.getBool() ? -1 : 1;
+    return ( mMouseSensitivityX.getDouble() * xDirection
+           , mMouseSensitivityY.getDouble() * yDirection
+           );
   }
 
   vector2 getBlocksPosition() const
@@ -140,6 +146,9 @@ class gb_Options
 
   private gb_Cvar mMouseSensitivityX;
   private gb_Cvar mMouseSensitivityY;
+
+  private gb_Cvar mInvertMouseX;
+  private gb_Cvar mInvertMouseY;
 
   private gb_Cvar mBlocksPositionX;
   private gb_Cvar mBlocksPositionY;
