@@ -51,6 +51,10 @@ class gb_Changer play
     player.cheats |= CF_InterpView;
     player.mo.pitch = pitch;
     player.mo.angle = angle;
+
+    // To prevent mods that add weapon sway from swaying while moving mouse in wheel.
+    player.cmd.yaw   = 0;
+    player.cmd.pitch = 0;
   }
 
   static
