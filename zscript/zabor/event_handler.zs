@@ -250,8 +250,8 @@ class gb_VmAbortHandler : EventHandler
   private clearscope
   string getGameInfo()
   {
-    return string.format( "level:\cu%s\c-, time:\cu%d\c-, multiplayer:\cu%d\c-, "
-                          "player class:\cu%s\c-, skill:\cu%s\c-"
+    return string.format( "map:\cu%s\c-, time:\cu%d\c-, multiplayer:\cu%d\c-, "
+                          "class:\cu%s\c-, skill:\cu%s\c-"
                         , level.mapName
                         , level.totalTime
                         , multiplayer
