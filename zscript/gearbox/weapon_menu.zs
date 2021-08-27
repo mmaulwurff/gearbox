@@ -144,30 +144,15 @@ class gb_WeaponMenu
     mSelectedIndex = rotatePriorityForIndex(mSelectedIndex);
   }
 
-  int rotatePriorityForIndex(int index)
+  uint rotatePriorityForIndex(int index)
   {
-    int  targetIndex = -1;
-    int  thisSlot    = mSlots[index];
-    uint nWeapons    = mWeapons.size();
-    for (uint i = 1; i < nWeapons + 1; ++i)
-    {
-      uint targetCandidateIndex = (index + i) % nWeapons;
-      int  targetCandidateSlot  = mSlots[targetCandidateIndex];
-      if (targetCandidateSlot == thisSlot)
-      {
-        targetIndex = targetCandidateIndex;
-        break;
-      }
-    }
+    bool isIndexFound;
+    uint targetIndex;
+    [isIndexFound, targetIndex] = findIndexOfNextWeaponWithSlot(index, mSlots[index]);
 
-    if (targetIndex != index)
-    {
-      // swap
-      let temporary         = mWeapons[index];
-      mWeapons[index]       = mWeapons[targetIndex];
-      mWeapons[targetIndex] = temporary;
-    }
+    if (!isIndexFound) return mSelectedIndex;
 
+    rotate(index, targetIndex);
     return targetIndex;
   }
 
@@ -176,43 +161,90 @@ class gb_WeaponMenu
     mSelectedIndex = rotateSlotForIndex(mSelectedIndex);
   }
 
-  int rotateSlotForIndex(int index)
+  int rotateSlotForIndex(int oldIndex)
   {
-    int  targetIndex = -1;
+    uint nWeapons = mWeapons.size();
+    if (nWeapons < 2) return oldIndex;
 
-    int  thisSlot    = mSlots[index];
-    uint nWeapons    = mWeapons.size();
-    for (uint i = 1; i < nWeapons + 1; ++i)
+    int oldSlot = mSlots[oldIndex];
+    int newSlot = getNextSlot(oldSlot);
+
+    uint i = 0;
+    for (int slot = 1;;)
     {
-      uint targetCandidateIndex = (index + i) % nWeapons;
-      int  targetCandidateSlot  = mSlots[targetCandidateIndex];
-      if (targetCandidateSlot != thisSlot)
+      while (i < nWeapons && mSlots[i] == slot) ++i;
+
+      if (slot == newSlot)
       {
-        targetIndex = targetCandidateIndex;
-        break;
+        mSlots[oldIndex] = newSlot;
+        move(oldIndex, i);
+        return (oldIndex < i) ? i - 1 : i;
       }
+
+      slot = getNextSlot(slot);
+      if (slot == 1) break;
     }
 
-    if (targetIndex != index)
-    {
-      let weaponClass = mWeapons[index];
-      mWeapons.insert(targetIndex, weaponClass);
-      mWeapons.delete(index > targetIndex ? (index + 1) : index);
-
-      mSlots[index] = mSlots[targetIndex];
-      int slot = mSlots[index];
-      mSlots.insert(targetIndex, slot);
-      mSlots.delete(index > targetIndex ? (index + 1) : index);
-
-      if (index < targetIndex) --targetIndex;
-    }
-
-    return targetIndex;
+    return oldIndex;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private ui
+  private
+  void rotate(uint oldIndex, uint newIndex)
+  {
+    if (oldIndex > newIndex) move(oldIndex, newIndex);
+    else                     move(oldIndex, newIndex + 1);
+  }
+
+  private
+  void move(uint oldIndex, uint newIndex)
+  {
+    if (oldIndex == newIndex) return;
+
+    mWeapons.insert(newIndex, mWeapons[oldIndex]);
+    mSlots  .insert(newIndex, mSlots  [oldIndex]);
+
+    if (newIndex < oldIndex) ++oldIndex;
+
+    mWeapons.delete(oldIndex);
+    mSlots  .delete(oldIndex);
+  }
+
+  private
+  bool, uint findIndexOfNextWeaponWithSlot(uint weaponIndex, int slot)
+  {
+    uint nWeapons = mWeapons.size();
+    for (uint i = 1; i < nWeapons; ++i)
+    {
+      uint targetCandidateIndex = (weaponIndex + i) % nWeapons;
+      if (mSlots[targetCandidateIndex] == slot)
+      {
+        return true, targetCandidateIndex;
+      }
+    }
+
+    return false, 0;
+  }
+
+  private static
+  int getNextSlot(int slot)
+  {
+    if (1 <= slot && slot <= 8) return slot + 1;
+
+    switch (slot)
+    {
+    case 9:  return  0;
+    case 0:  return 10;
+    case 10: return 11;
+    case 11: return  1;
+    }
+
+    Console.printf("Unexpected slot: %d.", slot);
+    return 1;
+  }
+
+  private static ui
   void copy(gb_ViewModel source, out gb_ViewModel destination)
   {
     destination.selectedIndex = source.selectedIndex;
@@ -337,8 +369,6 @@ class gb_WeaponMenu
   private ui
   uint findWeapon(int direction) const
   {
-    let player = players[consolePlayer].mo;
-
     uint nWeapons = mWeapons.size();
     // Note range: [1; nWeapons + 1) instead of [0; nWeapons).
     // This is because I want the current weapon to be found last.
@@ -346,7 +376,7 @@ class gb_WeaponMenu
     {
       uint index = (mSelectedIndex + i * direction + nWeapons) % nWeapons;
       if (isHidden(mWeapons[index].getClassName())) continue;
-      if (player.findInventory(mWeapons[index])) return index;
+      if (isInInventory(index)) return index;
     }
 
     return nWeapons;
