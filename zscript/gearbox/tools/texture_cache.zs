@@ -29,19 +29,19 @@ class gb_TextureCache
     isLoaded = true;
 
     // Wheel
-    circle     = TexMan.checkForTexture("gb_circ", TexMan.Type_Any);
-    halfCircle = TexMan.checkForTexture("gb_hcir", TexMan.Type_Any);
-    ammoPip    = TexMan.checkForTexture("gb_pip" , TexMan.Type_Any);
-    hand       = TexMan.checkForTexture("gb_hand", TexMan.Type_Any);
-    pointer    = TexMan.checkForTexture("gb_pntr", TexMan.Type_Any);
-    textBox    = TexMan.checkForTexture("gb_desc", TexMan.Type_Any);
-    noIcon     = TexMan.checkForTexture("gb_nope", TexMan.Type_Any);
+    circle     = TexMan.checkForTexture("gb_circ", TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    halfCircle = TexMan.checkForTexture("gb_hcir", TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    ammoPip    = TexMan.checkForTexture("gb_pip" , TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    hand       = TexMan.checkForTexture("gb_hand", TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    pointer    = TexMan.checkForTexture("gb_pntr", TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    textBox    = TexMan.checkForTexture("gb_desc", TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    noIcon     = TexMan.checkForTexture("gb_nope", TexMan.Type_MiscPatch, TEXTURE_FLAGS);
 
     // Blocks
-    blockBox   = TexMan.checkForTexture("gb_box",  TexMan.Type_Any);
-    blockBig   = TexMan.checkForTexture("gb_weap", TexMan.Type_Any);
-    corner     = TexMan.checkForTexture("gb_cor",  TexMan.Type_Any);
-    ammoLine   = TexMan.checkForTexture("gb_ammo", TexMan.Type_Any);
+    blockBox   = TexMan.checkForTexture("gb_box",  TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    blockBig   = TexMan.checkForTexture("gb_weap", TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    corner     = TexMan.checkForTexture("gb_cor",  TexMan.Type_MiscPatch, TEXTURE_FLAGS);
+    ammoLine   = TexMan.checkForTexture("gb_ammo", TexMan.Type_MiscPatch, TEXTURE_FLAGS);
 
     // Sizes
     ammoPipSize = TexMan.getScaledSize(ammoPip);
@@ -63,5 +63,7 @@ class gb_TextureCache
   transient vector2 ammoPipSize;
 
   transient bool isLoaded;
+
+  const TEXTURE_FLAGS = 0;
 
 } // class gb_TextureCache
