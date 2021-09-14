@@ -91,8 +91,8 @@ class gb_WheelView
         bool isWeapon = multiWheelModel.isWeapon[i];
         int  data     = multiWheelModel.data[i];
 
-        if (isWeapon) displayWeapon(i, data, nPlaces, radius, allowedWidth, viewModel, mCenter);
-        else          displaySlot  (i, data, nPlaces, radius);
+        if (isWeapon) displayItem(i, data, nPlaces, radius, allowedWidth, viewModel, mCenter);
+        else          displaySlot(i, data, nPlaces, radius);
       }
 
       drawHands(nPlaces, innerIndex, mCenter, 0);
@@ -118,13 +118,13 @@ class gb_WheelView
       for (uint i = 0; i < nWeapons; ++i)
       {
         if (i == innerIndex) continue;
-        displayWeapon(i, i, nWeapons, radius, allowedWidth, viewModel, mCenter);
+        displayItem(i, i, nWeapons, radius, allowedWidth, viewModel, mCenter);
       }
 
       nPlaces = nWeapons;
       if (innerIndex != -1)
       {
-        displayWeapon(innerIndex, innerIndex, nPlaces, radius, allowedWidth, viewModel, mCenter);
+        displayItem(innerIndex, innerIndex, nPlaces, radius, allowedWidth, viewModel, mCenter);
       }
       drawHands(nPlaces, innerIndex, mCenter, 0);
     }
@@ -178,20 +178,8 @@ class gb_WheelView
         continue;
       }
 
-      displayWeapon( place
-                   , i
-                   , nWeaponsInSlot * 2
-                   , radius
-                   , allowedWidth
-                   , viewModel
-                   , outerWheelCenter
-                   , startingAngle
-                   );
-    }
-
-    // draw the selected thing last in case of icon overlapping
-    displayWeapon( selectedPlace
-                 , viewModel.selectedIndex
+      displayItem( place
+                 , i
                  , nWeaponsInSlot * 2
                  , radius
                  , allowedWidth
@@ -199,6 +187,18 @@ class gb_WheelView
                  , outerWheelCenter
                  , startingAngle
                  );
+    }
+
+    // draw the selected thing last in case of icon overlapping
+    displayItem( selectedPlace
+               , viewModel.selectedIndex
+               , nWeaponsInSlot * 2
+               , radius
+               , allowedWidth
+               , viewModel
+               , outerWheelCenter
+               , startingAngle
+               );
 
     int deadRadius = mScreen.getWheelDeadRadius();
 
@@ -245,20 +245,20 @@ class gb_WheelView
   }
 
   private
-  void displayWeapon( uint place
-                    , uint iconIndex
-                    , uint nPlaces
-                    , int  radius
-                    , int  allowedWidth
-                    , gb_ViewModel viewModel
-                    , vector2 center
-                    , double startingAngle = 0.0
-                    ) const
+  void displayItem( uint place
+                  , uint iconIndex
+                  , uint nPlaces
+                  , int  radius
+                  , int  allowedWidth
+                  , gb_ViewModel viewModel
+                  , vector2 center
+                  , double startingAngle = 0.0
+                  ) const
   {
     // Code is adapted from GZDoom AltHud.DrawImageToBox.
 
     TextureID texture     = viewModel.icons[iconIndex];
-    vector2   textureSize = TexMan.getScaledSize(texture) * 2 * mScaleFactor;
+    vector2   textureSize = TexMan.getScaledSize(texture) * mScaleFactor;
 
     if (texture.isValid())
     {
@@ -266,7 +266,7 @@ class gb_WheelView
       textureSize.y *= viewModel.iconScaleYs[iconIndex];
     }
 
-    bool      isTall      = (textureSize.y * 1.2 > textureSize.x);
+    bool isTall = (textureSize.y * 1.2 > textureSize.x);
 
     double scale = isTall
       ? ((allowedWidth < textureSize.y) ? allowedWidth / textureSize.y : 1.0)
@@ -286,7 +286,6 @@ class gb_WheelView
   void drawIcon(TextureID texture, vector2 xy, int w, int h, double angle, bool isTall) const
   {
     bool flipX;
-    double scaleY;
 
     if (mIsRotating)
     {
@@ -295,14 +294,11 @@ class gb_WheelView
       angle = -angle + 90;
 
       if (isTall) angle += flipX ? 90 : -90;
-
-      scaleY = 1.0;
     }
     else
     {
-      flipX  = false;
-      angle  = 0;
-      scaleY = mOptions.isPreservingAspectRatio() ? 1.2 : 1.0;
+      flipX = false;
+      angle = 0;
     }
 
     if (!texture.isValid()) texture = mTextureCache.noIcon;
@@ -314,7 +310,6 @@ class gb_WheelView
                       , DTA_CenterOffset , true
                       , DTA_DestWidth    , w
                       , DTA_DestHeight   , h
-                      , DTA_ScaleY       , scaleY
                       , DTA_Alpha        , mAlpha
                       , DTA_Rotate       , angle
                       , DTA_FlipX        , flipX
@@ -330,7 +325,6 @@ class gb_WheelView
                       , DTA_CenterOffset , true
                       , DTA_DestWidth    , w
                       , DTA_DestHeight   , h
-                      , DTA_ScaleY       , scaleY
                       , DTA_Alpha        , mAlpha * 0.3
                       , DTA_FillColor    , mBaseColor
                       , DTA_Rotate       , angle
