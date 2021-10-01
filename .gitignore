@@ -8,13 +8,13 @@
 !.gitignore
 !.gitattributes
 
-!**.txt
-!**.md
-!**.zs
-!**.sh
-!**.png
-!**.ogg
-!**.fp
+!*.txt
+!*.md
+!*.zs
+!*.sh
+!*.png
+!*.ogg
+!*.fp
 
 # But do ignore this:
 
