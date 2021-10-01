@@ -371,8 +371,9 @@ class gb_EventHandler : EventHandler
     uint nSlots          = model.slots       .size();
     uint nIndices        = model.indices     .size();
     uint nIcons          = model.icons       .size();
-    uint nIconScaleXs    = model.iconScaleXs .size();
-    uint nIconScaleYs    = model.iconScaleYs .size();
+    uint nIconWidths     = model.iconWidths  .size();
+    uint nIconHeights    = model.iconHeights .size();
+    uint nIconBigs       = model.iconBigs    .size();
     uint nQuantities1    = model.quantity1   .size();
     uint nQuantitiesMax1 = model.maxQuantity1.size();
     uint nQuantities2    = model.quantity2   .size();
@@ -383,8 +384,9 @@ class gb_EventHandler : EventHandler
             || nTags != nSlots
             || nTags != nIndices
             || nTags != nIcons
-            || nTags != nIconScaleXs
-            || nTags != nIconScaleYs
+            || nTags != nIconWidths
+            || nTags != nIconHeights
+            || nTags != nIconBigs
             || nTags != nQuantities1
             || nTags != nQuantitiesMax1
             || nTags != nQuantities2
@@ -396,8 +398,9 @@ class gb_EventHandler : EventHandler
                      "slots: %d,\n"
                      "indices: %d,\n"
                      "icons: %d,\n"
-                     "icon scale X: %d,\n"
-                     "icon scale Y: %d,\n"
+                     "icon width: %d,\n"
+                     "icon height: %d,\n"
+                     "is icon big: %d,\n"
                      "quantities 1: %d,\n"
                      "max quantities 1: %d,\n"
                      "quantities 2: %d,\n"
@@ -407,8 +410,9 @@ class gb_EventHandler : EventHandler
                     , nSlots
                     , nIndices
                     , nIcons
-                    , nIconScaleXs
-                    , nIconScaleYs
+                    , nIconWidths
+                    , nIconHeights
+                    , nIconBigs
                     , nQuantities1
                     , nQuantitiesMax1
                     , nQuantities2

@@ -126,8 +126,9 @@ class gb_WeaponMenu
       mCachedViewModel.slots       .clear();
       mCachedViewModel.indices     .clear();
       mCachedViewModel.icons       .clear();
-      mCachedViewModel.iconScaleXs .clear();
-      mCachedViewModel.iconScaleYs .clear();
+      mCachedViewModel.iconWidths  .clear();
+      mCachedViewModel.iconHeights .clear();
+      mCachedViewModel.iconBigs    .clear();
       mCachedViewModel.quantity1   .clear();
       mCachedViewModel.maxQuantity1.clear();
       mCachedViewModel.quantity2   .clear();
@@ -253,8 +254,9 @@ class gb_WeaponMenu
     destination.slots       .copy(source.slots);
     destination.indices     .copy(source.indices);
     destination.icons       .copy(source.icons);
-    destination.iconScaleXs .copy(source.iconScaleXs);
-    destination.iconScaleYs .copy(source.iconScaleYs);
+    destination.iconWidths  .copy(source.iconWidths);
+    destination.iconHeights .copy(source.iconHeights);
+    destination.iconBigs    .copy(source.iconBigs);
     destination.quantity1   .copy(source.quantity1);
     destination.maxQuantity1.copy(source.maxQuantity1);
     destination.quantity2   .copy(source.quantity2);
@@ -277,8 +279,9 @@ class gb_WeaponMenu
           viewModel.slots       .push(mSlots[i]);
           viewModel.indices     .push(i);
           viewModel.icons       .push(-1);
-          viewModel.iconScaleXs .push(-1);
-          viewModel.iconScaleYs .push(-1);
+          viewModel.iconWidths  .push(-1);
+          viewModel.iconHeights .push(-1);
+          viewModel.iconBigs    .push(-1);
           viewModel.quantity1   .push(-1);
           viewModel.maxQuantity1.push(-1);
           viewModel.quantity2   .push(-1);
@@ -295,12 +298,23 @@ class gb_WeaponMenu
       viewModel.slots.push(mSlots[i]);
       viewModel.indices.push(i);
 
-      TextureID icon = getIconFor(aWeapon);
+      TextureID icon;
+      int textureType;
+      [icon, textureType] = getTextureFor(aWeapon);
 
       // Workaround, casting TextureID to int may be unreliable.
       viewModel.icons.push(int(icon));
-      viewModel.iconScaleXs.push(aWeapon.scale.x);
-      viewModel.iconScaleYs.push(aWeapon.scale.y);
+
+      vector2 iconSize = TexMan.getScaledSize(icon);
+      if (textureType == TextureSpawn)
+      {
+        iconSize.x *= aWeapon.scale.x;
+        iconSize.y *= aWeapon.scale.y;
+      }
+      viewModel.iconWidths .push(int(round(iconSize.x)));
+      viewModel.iconHeights.push(int(round(iconSize.y)));
+
+      viewModel.iconBigs.push(textureType == TextureReady);
 
       bool hasAmmo1 = aWeapon.ammo1;
       bool hasAmmo2 = aWeapon.ammo2 && aWeapon.ammo2 != aWeapon.ammo1;
@@ -332,27 +346,45 @@ class gb_WeaponMenu
     return result;
   }
 
-  private ui
-  TextureID getIconFor(Weapon aWeapon) const
+  enum TextureTypes
   {
-    TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, BaseStatusBar.DI_ALTICONFIRST);
+    TextureIcon,
+    TextureSpawn,
+    TextureReady
+  }
 
+  /**
+   * @returns texture and texture type (see TextureTypes enum) for a weapon.
+   */
+  private ui
+  TextureID, int getTextureFor(Weapon aWeapon) const
+  {
     {
       uint nServices = mIconServices.size();
       string className = aWeapon.getClassName();
       for (uint i = 0; i < nServices; ++i)
       {
-        let service = mIconServices[i];
-        string iconResponse = service.uiGet(className);
+        string iconResponse = mIconServices[i].uiGet(className);
         if (iconResponse.length() != 0)
         {
           TextureID iconFromService = TexMan.checkForTexture(iconResponse, TexMan.Type_Any);
-          if (iconFromService.isValid()) icon = iconFromService;
+          if (iconFromService.isValid()) return iconFromService, TextureIcon;
         }
       }
     }
 
-    return icon;
+    {
+      TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, TEXTURE_ICON_ONLY);
+      if (icon.isValid()) return icon, TextureIcon;
+    }
+
+    {
+      TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, TEXTURE_SPAWN_ONLY);
+      if (icon.isValid()) return icon, TextureSpawn;
+    }
+
+    TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, TEXTURE_READY_ONLY);
+    return icon, TextureReady;
   }
 
   private play State getReadyState(Weapon w) const { return w.getReadyState(); }
@@ -415,6 +447,11 @@ class gb_WeaponMenu
       services.push(aService);
     }
   }
+
+  const TEXTURE_ICON_ONLY  = StatusBarCore.DI_SkipSpawn | StatusBarCore.DI_SkipReady;
+  const TEXTURE_SKIP_ICONS = StatusBarCore.DI_SkipIcon | StatusBarCore.DI_SkipAltIcon;
+  const TEXTURE_SPAWN_ONLY = TEXTURE_SKIP_ICONS | StatusBarCore.DI_SkipReady;
+  const TEXTURE_READY_ONLY = TEXTURE_SKIP_ICONS | StatusBarCore.DI_SkipSpawn;
 
   private Array< class<Weapon> > mWeapons;
   private Array< int >           mSlots;
