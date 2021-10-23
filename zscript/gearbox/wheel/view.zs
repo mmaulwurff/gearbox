@@ -77,7 +77,7 @@ class gb_WheelView
     int allowedWidth  = int(screenHeight * 3 / 16 - MARGIN * 2 * mScaleFactor);
     int allowedHeight = allowedWidth / 2;
 
-    int maxWidth, maxHeight;
+    double maxWidth, maxHeight;
     [maxWidth, maxHeight] = getMaxWidthHeight(viewModel);
     double scale = calculateMaxAllowedScale(allowedWidth, allowedHeight, maxWidth, maxHeight);
 
@@ -186,7 +186,7 @@ class gb_WheelView
                        , int  allowedWidth
                        , int  allowedHeight
                        , int  controllerRadius
-                       , int  scale
+                       , double scale
                        )
   {
     int     wheelRadius      = mScreen.getWheelRadius();
@@ -285,23 +285,25 @@ class gb_WheelView
   }
 
   private static
-  int, int swap(int value1, int value2) { return value2, value1; }
-
-  private static
-  int, int getMaxWidthHeight(gb_ViewModel viewModel)
+  double, double getMaxWidthHeight(gb_ViewModel viewModel)
   {
-    int maxWidth  = 0;
-    int maxHeight = 0;
+    double maxWidth  = 0;
+    double maxHeight = 0;
 
     uint nItems = viewModel.tags.size();
     for (uint i = 0; i < nItems; ++i)
     {
       if (viewModel.iconBigs[i]) continue;
 
-      int  width  = viewModel.iconWidths[i];
-      int  height = viewModel.iconHeights[i];
-      bool isWide = (width > height);
-      if (!isWide) [width, height] = swap(width, height);
+      double width  = viewModel.iconWidths[i];
+      double height = viewModel.iconHeights[i];
+      bool   isWide = (width > height);
+      if (!isWide)
+      {
+        double tmp = width;
+        width      = height;
+        height     = tmp;
+      }
 
       maxWidth  = max(maxWidth,  width);
       maxHeight = max(maxHeight, height);
@@ -311,10 +313,10 @@ class gb_WheelView
   }
 
   private static
-  double calculateMaxAllowedScale(int allowedWidth, int allowedHeight, int width, int height)
+  double calculateMaxAllowedScale(int allowedWidth, int allowedHeight, double width, double height)
   {
-    double xScale = allowedWidth  / double(width);
-    double yScale = allowedHeight / double(height);
+    double xScale = allowedWidth  / width;
+    double yScale = allowedHeight / height;
 
     return min(xScale, yScale);
   }
@@ -337,8 +339,8 @@ class gb_WheelView
     double  angle = (startingAngle + itemAngle(nPlaces, place)) % 360;
     vector2 xy    = (sin(angle), -cos(angle)) * radius + center;
 
-    int  width  = viewModel.iconWidths[iconIndex];
-    int  height = viewModel.iconHeights[iconIndex];
+    double width  = viewModel.iconWidths[iconIndex];
+    double height = viewModel.iconHeights[iconIndex];
     bool isWide = (width > height);
     bool isBig  = viewModel.iconBigs[iconIndex];
     if (!texture.isValid())
@@ -352,15 +354,15 @@ class gb_WheelView
         : calculateMaxAllowedScale(allowedWidth, allowedHeight, height, width);
     }
 
-    width  = int(round(width  * scale));
-    height = int(round(height * scale));
+    width  *= scale;
+    height *= scale;
 
     drawIcon(texture, xy, width, height, angle, !isWide);
     drawAmmo(angle, center, viewModel, iconIndex);
   }
 
   private
-  void drawIcon(TextureID texture, vector2 xy, int w, int h, double angle, bool isTall) const
+  void drawIcon(TextureID texture, vector2 xy, double w, double h, double angle, bool isTall) const
   {
     bool flipX;
 
@@ -385,8 +387,8 @@ class gb_WheelView
                       , xy.x
                       , xy.y
                       , DTA_CenterOffset , true
-                      , DTA_DestWidth    , w
-                      , DTA_DestHeight   , h
+                      , DTA_DestWidthF   , w
+                      , DTA_DestHeightF  , h
                       , DTA_Alpha        , mAlpha
                       , DTA_Rotate       , angle
                       , DTA_FlipX        , flipX
@@ -400,8 +402,8 @@ class gb_WheelView
                       , xy.x
                       , xy.y
                       , DTA_CenterOffset , true
-                      , DTA_DestWidth    , w
-                      , DTA_DestHeight   , h
+                      , DTA_DestWidthF   , w
+                      , DTA_DestHeightF  , h
                       , DTA_Alpha        , mAlpha * 0.3
                       , DTA_FillColor    , mBaseColor
                       , DTA_Rotate       , angle

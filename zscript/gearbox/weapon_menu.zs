@@ -311,8 +311,8 @@ class gb_WeaponMenu
         iconSize.x *= aWeapon.scale.x;
         iconSize.y *= aWeapon.scale.y;
       }
-      viewModel.iconWidths .push(int(round(iconSize.x)));
-      viewModel.iconHeights.push(int(round(iconSize.y)));
+      viewModel.iconWidths .push(iconSize.x);
+      viewModel.iconHeights.push(iconSize.y);
 
       viewModel.iconBigs.push(textureType == TextureReady);
 

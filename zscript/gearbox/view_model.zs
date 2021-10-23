@@ -27,8 +27,8 @@ struct gb_ViewModel
   Array<TextureID> icons;
   Array<double> iconScaleXs;
   Array<double> iconScaleYs;
-  Array<int> iconWidths;
-  Array<int> iconHeights;
+  Array<double> iconWidths;
+  Array<double> iconHeights;
   Array<bool> iconBigs;
 
   Array<int> quantity1;
