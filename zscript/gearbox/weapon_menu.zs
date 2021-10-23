@@ -428,24 +428,13 @@ class gb_WeaponMenu
   private static
   void loadIconServices(out Array<gb_Service> services)
   {
-    loadServices("gb_IconService", services);
+    gb_ServiceLoader.loadServices("gb_IconService", services);
   }
 
   private static
   void loadHideServices(out Array<gb_Service> services)
   {
-    loadServices("gb_HideService", services);
-  }
-
-  private static
-  void loadServices(string serviceName, out Array<gb_Service> services)
-  {
-    let iterator = gb_ServiceIterator.find(serviceName);
-    gb_Service aService;
-    while (aService = iterator.next())
-    {
-      services.push(aService);
-    }
+    gb_ServiceLoader.loadServices("gb_HideService", services);
   }
 
   const TEXTURE_ICON_ONLY  = StatusBarCore.DI_SkipSpawn | StatusBarCore.DI_SkipReady;
