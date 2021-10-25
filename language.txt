@@ -83,8 +83,8 @@ GB_ADVANCED_OPTIONS = "Advanced options";
 GB_ADVANCED_OPTIONS_TITLE = "Gearbox Advanced Options";
 GB_VM_ABORT_INFO_ENABLED  = "VM abort info";
 
-GB_ROTATE_WEAPON_PRIORITY = "Change weapon priority";
-GB_ROTATE_WEAPON_SLOT     = "Change weapon slot";
+GB_ROTATE_WEAPON_PRIORITY = "Cycle weapon priority";
+GB_ROTATE_WEAPON_SLOT     = "Cycle weapon slot";
 
 GB_NEW_SMALL_FONT = "New small font";
 GB_OLD_SMALL_FONT = "Old small font";
