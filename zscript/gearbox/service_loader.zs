@@ -1,4 +1,4 @@
-/* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2020-2021
+/* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2021
  *
  * This file is part of Gearbox.
  *

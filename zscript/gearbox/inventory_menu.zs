@@ -91,11 +91,12 @@ class gb_InventoryMenu
       if (item.bInvBar)
       {
         string tag  = item.getTag();
-        int    icon = int(BaseStatusBar.getInventoryIcon(item, BaseStatusBar.DI_ALTICONFIRST));
+        let    icon = BaseStatusBar.getInventoryIcon(item, BaseStatusBar.DI_ALTICONFIRST);
+
         viewModel.tags        .push(tag);
         viewModel.slots       .push(index + 1);
         viewModel.indices     .push(index);
-        viewModel.icons       .push(icon);
+        viewModel.icons       .push(int(icon));
         viewModel.iconScaleXs .push(1);
         viewModel.iconScaleYs .push(1);
         viewModel.quantity1   .push(item.maxAmount > 1 ? item.amount : -1);

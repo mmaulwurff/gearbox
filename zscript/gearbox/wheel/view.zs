@@ -78,8 +78,12 @@ class gb_WheelView
     int allowedHeight = allowedWidth / 2;
 
     double maxWidth, maxHeight;
-    [maxWidth, maxHeight] = getMaxWidthHeight(viewModel);
-    double scale = calculateMaxAllowedScale(allowedWidth, allowedHeight, maxWidth, maxHeight);
+    [maxWidth, maxHeight] = gb_IconScaler.getMaxWidthHeight(viewModel);
+    double scale = gb_IconScaler.calculateMaxAllowedScale( allowedWidth
+                                                         , allowedHeight
+                                                         , maxWidth
+                                                         , maxHeight
+                                                         );
 
     int nPlaces = 0;
 
@@ -284,43 +288,6 @@ class gb_WheelView
                       );
   }
 
-  private static
-  double, double getMaxWidthHeight(gb_ViewModel viewModel)
-  {
-    double maxWidth  = 0;
-    double maxHeight = 0;
-
-    uint nItems = viewModel.tags.size();
-    for (uint i = 0; i < nItems; ++i)
-    {
-      if (viewModel.iconBigs[i]) continue;
-
-      double width  = viewModel.iconWidths[i];
-      double height = viewModel.iconHeights[i];
-      bool   isWide = (width > height);
-      if (!isWide)
-      {
-        double tmp = width;
-        width      = height;
-        height     = tmp;
-      }
-
-      maxWidth  = max(maxWidth,  width);
-      maxHeight = max(maxHeight, height);
-    }
-
-    return maxWidth, maxHeight;
-  }
-
-  private static
-  double calculateMaxAllowedScale(int allowedWidth, int allowedHeight, double width, double height)
-  {
-    double xScale = allowedWidth  / width;
-    double yScale = allowedHeight / height;
-
-    return min(xScale, yScale);
-  }
-
   private
   void displayItem( uint place
                   , uint iconIndex
@@ -350,8 +317,8 @@ class gb_WheelView
     else if (isBig)
     {
       scale = isWide
-        ? calculateMaxAllowedScale(allowedWidth, allowedHeight, width, height)
-        : calculateMaxAllowedScale(allowedWidth, allowedHeight, height, width);
+        ? gb_IconScaler.calculateMaxAllowedScale(allowedWidth, allowedHeight, width, height)
+        : gb_IconScaler.calculateMaxAllowedScale(allowedWidth, allowedHeight, height, width);
     }
 
     width  *= scale;

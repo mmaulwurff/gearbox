@@ -361,7 +361,7 @@ class gb_EventHandler : EventHandler
     gb_CustomWeaponOrderStorage.reset(mWeaponSetHash);
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
-    mWeaponMenu = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+    mWeaponMenu = gb_WeaponMenu.from(weaponData, mOptions, mSounds, mIconProvider);
   }
 
   private ui
@@ -434,11 +434,12 @@ class gb_EventHandler : EventHandler
     mOptions         = gb_Options.from();
     mFontSelector    = gb_FontSelector.from();
     mSounds          = gb_Sounds.from(mOptions);
+    mIconProvider    = gb_IconProvider.from();
 
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
     mWeaponSetHash   = gb_CustomWeaponOrderStorage.calculateHash(weaponData);
-    mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+    mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions, mSounds, mIconProvider);
     gb_CustomWeaponOrderStorage.applyOperations(mWeaponSetHash, mWeaponMenu);
     mInventoryMenu   = gb_InventoryMenu.from(mSounds);
 
@@ -472,6 +473,7 @@ class gb_EventHandler : EventHandler
   private gb_Options       mOptions;
   private gb_FontSelector  mFontSelector;
   private gb_Sounds        mSounds;
+  private gb_IconProvider  mIconProvider;
 
   private string           mWeaponSetHash;
   private gb_WeaponMenu    mWeaponMenu;

@@ -19,18 +19,22 @@ class gb_WeaponMenu
 {
 
   static
-  gb_WeaponMenu from(gb_WeaponData weaponData, gb_Options options, gb_Sounds sounds)
+  gb_WeaponMenu from( gb_WeaponData   weaponData
+                    , gb_Options      options
+                    , gb_Sounds       sounds
+                    , gb_IconProvider iconProvider
+                    )
   {
     let result = new("gb_WeaponMenu");
 
     result.mWeapons.move(weaponData.weapons);
     result.mSlots.move(weaponData.slots);
     result.mSelectedIndex = 0;
+    result.mIconProvider  = iconProvider;
     result.mCacheTime     = 0;
     result.mOptions       = options;
     result.mSounds        = sounds;
 
-    loadIconServices(result.mIconServices);
     loadHideServices(result.mHideServices);
 
     return result;
@@ -300,13 +304,13 @@ class gb_WeaponMenu
 
       TextureID icon;
       int textureType;
-      [icon, textureType] = getTextureFor(aWeapon);
+      [icon, textureType] = mIconProvider.getTextureFor(aWeapon);
 
       // Workaround, casting TextureID to int may be unreliable.
       viewModel.icons.push(int(icon));
 
       vector2 iconSize = TexMan.getScaledSize(icon);
-      if (textureType == TextureSpawn)
+      if (textureType == gb_IconProvider.TextureSpawn)
       {
         iconSize.x *= aWeapon.scale.x;
         iconSize.y *= aWeapon.scale.y;
@@ -314,7 +318,7 @@ class gb_WeaponMenu
       viewModel.iconWidths .push(iconSize.x);
       viewModel.iconHeights.push(iconSize.y);
 
-      viewModel.iconBigs.push(textureType == TextureReady);
+      viewModel.iconBigs.push(textureType == gb_IconProvider.TextureReady);
 
       bool hasAmmo1 = aWeapon.ammo1;
       bool hasAmmo2 = aWeapon.ammo2 && aWeapon.ammo2 != aWeapon.ammo1;
@@ -344,47 +348,6 @@ class gb_WeaponMenu
     }
 
     return result;
-  }
-
-  enum TextureTypes
-  {
-    TextureIcon,
-    TextureSpawn,
-    TextureReady
-  }
-
-  /**
-   * @returns texture and texture type (see TextureTypes enum) for a weapon.
-   */
-  private ui
-  TextureID, int getTextureFor(Weapon aWeapon) const
-  {
-    {
-      uint nServices = mIconServices.size();
-      string className = aWeapon.getClassName();
-      for (uint i = 0; i < nServices; ++i)
-      {
-        string iconResponse = mIconServices[i].uiGet(className);
-        if (iconResponse.length() != 0)
-        {
-          TextureID iconFromService = TexMan.checkForTexture(iconResponse, TexMan.Type_Any);
-          if (iconFromService.isValid()) return iconFromService, TextureIcon;
-        }
-      }
-    }
-
-    {
-      TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, TEXTURE_ICON_ONLY);
-      if (icon.isValid()) return icon, TextureIcon;
-    }
-
-    {
-      TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, TEXTURE_SPAWN_ONLY);
-      if (icon.isValid()) return icon, TextureSpawn;
-    }
-
-    TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, TEXTURE_READY_ONLY);
-    return icon, TextureReady;
   }
 
   private play State getReadyState(Weapon w) const { return w.getReadyState(); }
@@ -426,28 +389,17 @@ class gb_WeaponMenu
   }
 
   private static
-  void loadIconServices(out Array<gb_Service> services)
-  {
-    gb_ServiceLoader.loadServices("gb_IconService", services);
-  }
-
-  private static
   void loadHideServices(out Array<gb_Service> services)
   {
     gb_ServiceLoader.loadServices("gb_HideService", services);
   }
 
-  const TEXTURE_ICON_ONLY  = StatusBarCore.DI_SkipSpawn | StatusBarCore.DI_SkipReady;
-  const TEXTURE_SKIP_ICONS = StatusBarCore.DI_SkipIcon | StatusBarCore.DI_SkipAltIcon;
-  const TEXTURE_SPAWN_ONLY = TEXTURE_SKIP_ICONS | StatusBarCore.DI_SkipReady;
-  const TEXTURE_READY_ONLY = TEXTURE_SKIP_ICONS | StatusBarCore.DI_SkipSpawn;
-
   private Array< class<Weapon> > mWeapons;
   private Array< int >           mSlots;
   private uint mSelectedIndex;
 
-  private Array<gb_Service> mIconServices;
   private Array<gb_Service> mHideServices;
+  private gb_IconProvider   mIconProvider;
 
   private gb_ViewModel mCachedViewModel;
   private int          mCacheTime;
