@@ -124,12 +124,12 @@ class gb_BlockyView
           weaponHeight *= scale;
 
           TextureID itemTexture = viewModel.icons[i];
-          drawWeapon( itemTexture
-                    , slotX + SELECTED_SLOT_WIDTH / 2
-                    , weaponY + SELECTED_WEAPON_HEIGHT / 2
-                    , weaponWidth
-                    , weaponHeight
-                    );
+          drawItem( itemTexture
+                  , slotX + SELECTED_SLOT_WIDTH / 2
+                  , weaponY + SELECTED_WEAPON_HEIGHT / 2
+                  , weaponWidth
+                  , weaponHeight
+                  );
         }
 
         // corners
@@ -390,7 +390,7 @@ class gb_BlockyView
   }
 
   private
-  void drawWeapon(TextureID texture, int x, int y, int w, int h) const
+  void drawItem(TextureID texture, int x, int y, double w, double h) const
   {
     Screen.drawTexture( texture
                       , NO_ANIMATION
@@ -398,8 +398,8 @@ class gb_BlockyView
                       , y
                       , DTA_CenterOffset  , true
                       , DTA_KeepRatio     , true
-                      , DTA_DestWidth     , w
-                      , DTA_DestHeight    , h
+                      , DTA_DestWidthF    , w
+                      , DTA_DestHeightF   , h
                       , DTA_Alpha         , mAlpha
                       , DTA_VirtualWidth  , mScreenWidth
                       , DTA_VirtualHeight , mScreenHeight
