@@ -25,8 +25,6 @@ struct gb_ViewModel
   Array<int> indices;
 
   Array<TextureID> icons;
-  Array<double> iconScaleXs;
-  Array<double> iconScaleYs;
   Array<double> iconWidths;
   Array<double> iconHeights;
   Array<bool> iconBigs;
