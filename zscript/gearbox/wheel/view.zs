@@ -97,11 +97,12 @@ class gb_WheelView
       nPlaces = multiWheelModel.data.size();
       for (uint i = 0; i < nPlaces; ++i)
       {
-        bool isWeapon = multiWheelModel.isWeapon[i];
-        int  data     = multiWheelModel.data[i];
+        uint index = (i + innerIndex + 1) % nPlaces;
+        bool isWeapon = multiWheelModel.isWeapon[index];
+        int  data     = multiWheelModel.data[index];
 
-        if (!isWeapon) displaySlot(i, data, nPlaces, radius);
-        else displayItem( i
+        if (!isWeapon) displaySlot(index, data, nPlaces, radius);
+        else displayItem( index
                         , data
                         , nPlaces
                         , radius
