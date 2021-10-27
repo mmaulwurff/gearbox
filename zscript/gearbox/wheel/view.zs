@@ -57,13 +57,45 @@ class gb_WheelView
     mIsRotating = isRotating;
   }
 
+  ui
+  void drawTest(double fractic) const
+  {
+    double angle = (level.time + fractic) * 3 % 360;
+    let icon = BaseStatusBar.getInventoryIcon(players[consolePlayer].mo.findInventory("Pistol"), 0);
+    Screen.drawTexture( icon
+                      , NO_ANIMATION
+                      , 200
+                      , 200
+                      , DTA_CenterOffset , true
+                      , DTA_DestWidthF   , 29.0
+                      , DTA_DestHeightF  , 15.0 * 2
+                      , DTA_Alpha        , mAlpha
+                      , DTA_Rotate       , angle
+                      );
+
+    Screen.drawTexture( icon
+                      , NO_ANIMATION
+                      , 200
+                      , 270
+                      , DTA_CenterOffset , true
+                      , DTA_DestWidthF   , 29.0
+                      , DTA_DestHeightF  , 15.0
+                      , DTA_Alpha        , mAlpha
+                      , DTA_Rotate       , angle
+                      );
+  }
+
+  ui
   void display( gb_ViewModel viewModel
               , gb_WheelControllerModel controllerModel
               , bool showPointer
               , int  innerIndex
               , int  outerIndex
+              , double fractic
               ) const
   {
+    drawTest(fractic);
+
     mScaleFactor = mScreen.getScaleFactor();
     mCenter      = mScreen.getWheelCenter();
 
@@ -360,7 +392,6 @@ class gb_WheelView
                       , DTA_Alpha        , mAlpha
                       , DTA_Rotate       , angle
                       , DTA_FlipX        , flipX
-                      , DTA_KeepRatio, false
                       );
 
     if (!mOptions.getWheelTint()) return;

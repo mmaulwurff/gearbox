@@ -255,6 +255,7 @@ class gb_EventHandler : EventHandler
                         , mOptions.isMouseInWheel()
                         , innerIndex
                         , outerIndex
+                        , event.fractic
                         );
       break;
     }
