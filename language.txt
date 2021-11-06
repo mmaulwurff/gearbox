@@ -6,6 +6,7 @@ GB_UI_OPTIONS       = "UI options";
 GB_UI_OPTIONS_TITLE = "Gearbox UI Options";
 
 GB_COLOR          = "Color";
+GB_PLAYER_COLOR   = "Copy custom player color";
 GB_DIM_COLOR      = "Background dimming color";
 
 GB_SHOW_TAGS      = "Tags";

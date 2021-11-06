@@ -73,6 +73,9 @@ OptionMenu gb_UiOptions
 
   StaticText  ""
   ColorPicker "$GB_COLOR"     , gb_color
+  Command     "$GB_PLAYER_COLOR", gb_copy_player_color
+
+  StaticText  ""
   Option      "$GB_SHOW_TAGS" , gb_show_tags      , OnOff
 
   StaticText  ""
