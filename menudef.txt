@@ -72,19 +72,22 @@ OptionMenu gb_UiOptions
   Title "$GB_UI_OPTIONS_TITLE"
 
   StaticText  ""
-  ColorPicker "$GB_COLOR"     , gb_color
-  Option      "$GB_SHOW_TAGS" , gb_show_tags      , OnOff
+  ColorPicker "$GB_COLOR"       , gb_color
+  Option      "$GB_SHOW_TAGS"   , gb_show_tags      , OnOff
 
   StaticText  ""
-  Option      "$GB_DIM"       , gb_enable_dim     , OnOff
-  ColorPicker "$GB_DIM_COLOR" , gb_dim_color
-  Option      "$GB_BLUR"      , gb_enable_blur    , OnOff
+  Option      "$GB_DIM"         , gb_enable_dim     , OnOff
+  ColorPicker "$GB_DIM_COLOR"   , gb_dim_color
+  Option      "$GB_BLUR"        , gb_enable_blur    , OnOff
 
   StaticText  ""
-  Option      "$GB_SOUND"     , gb_enable_sounds  , OnOff
+  Option      "$GB_TALL_ITEMS"  , gb_tall_items     , OnOff
 
   StaticText  ""
-  Option      "$GB_FONT"        , gb_font , gb_FontValues
+  Option      "$GB_SOUND"       , gb_enable_sounds  , OnOff
+
+  StaticText  ""
+  Option      "$GB_FONT"        , gb_font           , gb_FontValues
   TextField   "$GB_FONT_CUSTOM" , gb_font
 }
 

@@ -19,13 +19,14 @@ class gb_InventoryMenu
 {
 
   static
-  gb_InventoryMenu from(gb_Sounds sounds, gb_IconProvider iconProvider)
+  gb_InventoryMenu from(gb_Sounds sounds, gb_IconProvider iconProvider, gb_Options options)
   {
     let result = new("gb_InventoryMenu");
 
     result.mSelectedIndex = 0;
     result.mSounds = sounds;
     result.mIconProvider = iconProvider;
+    result.mOptions = options;
 
     return result;
   }
@@ -102,6 +103,11 @@ class gb_InventoryMenu
           iconSize.y *= item.scale.y;
         }
 
+        if (mOptions.isTallItems())
+        {
+          iconSize.y *= 1.2;
+        }
+
         viewModel.tags        .push(item.getTag());
         viewModel.slots       .push(index + 1);
         viewModel.indices     .push(index);
@@ -142,5 +148,6 @@ class gb_InventoryMenu
   private int mSelectedIndex;
   private gb_Sounds mSounds;
   private gb_IconProvider mIconProvider;
+  private gb_Options mOptions;
 
 } // class gb_InventoryMenu
