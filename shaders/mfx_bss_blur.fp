@@ -22,7 +22,7 @@ void main()
 		vec2(1.41,1.41), vec2(-1.41,-1.41),
 		vec2(-1.41,1.41), vec2(1.41,-1.41)
 	);
-	vec2 bresl = textureSize(InputTexture,0);
+	vec2 bresl = vec2(textureSize(InputTexture,0));
 	float radius = 2.0;
 	vec2 bof = radius/bresl;
 	for ( int i=0; i<16; i++ ) res.rgb += texture(InputTexture,coord+ofs[i]*bof).rgb;
