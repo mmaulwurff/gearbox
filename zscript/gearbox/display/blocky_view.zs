@@ -181,7 +181,7 @@ class gb_BlockyView
 
         if (mOptions.isShowingTags()) drawTag(viewModel.tags[i], aFont, slotX, weaponY);
       }
-      else // unselected slot (small boxes)
+      else // not selected slot (small boxes)
       {
         int boxY = startY - MARGIN + (SLOT_SIZE + MARGIN) * (inSlotIndex + 1);
         drawAlphaTexture(mTextureCache.blockBox, slotX, boxY, mBaseColor);

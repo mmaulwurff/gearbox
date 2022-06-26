@@ -335,7 +335,7 @@ class gb_WeaponMenu
   private ui
   TextureID getIconFor(Weapon aWeapon) const
   {
-    TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, BaseStatusBar.DI_ALTICONFIRST);
+    TextureID icon = BaseStatusBar.getInventoryIcon(aWeapon, BaseStatusBar.DI_AltIconFirst);
 
     {
       uint nServices = mIconServices.size();

@@ -26,7 +26,7 @@ GZDoom 4.5 required.
 - Different representations: blocks, wheel, plain text
 - Press Fire key to select and Alt Fire key to cancel
 - Color and scale options
-- Customizable behavior
+- Behavior options
 - Multiplayer compatible
 - Reaction to number keys
 - extras.wad icon support for vanilla weapons
@@ -57,7 +57,7 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 ## Known Issues
 
 - Weapon icons in wheel aren't affected by "HUD preserves aspect ration" option.
-- Mouse input in wheel in multiplayer causes screen jitter.
+- Mouse input in wheel in multiplayer causes screen shake.
 
 ## License
 

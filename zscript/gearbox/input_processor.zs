@@ -24,10 +24,10 @@ class gb_InputProcessor
     if (event.type != InputEvent.Type_KeyDown) return InputNothing;
 
     int key = event.keyScan;
-    if (isKeyForCommand(key, "weapnext"  )) return InputSelectNextWeapon;
-    if (isKeyForCommand(key, "weapprev"  )) return InputSelectPrevWeapon;
+    if (isKeyForCommand(key, "weapNext"  )) return InputSelectNextWeapon;
+    if (isKeyForCommand(key, "weapPrev"  )) return InputSelectPrevWeapon;
     if (isKeyForCommand(key, "+attack"   )) return InputConfirmSelection;
-    if (isKeyForCommand(key, "+altattack")) return InputClose;
+    if (isKeyForCommand(key, "+altAttack")) return InputClose;
 
     for (int i = 0; i <= 11; ++i)
     {
