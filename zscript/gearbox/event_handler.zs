@@ -174,8 +174,8 @@ class gb_EventHandler : EventHandler
 
       switch (input)
       {
-      case InputSelectNextWeapon: toggleWeapons(); selectNextWeapon(); return true;
-      case InputSelectPrevWeapon: toggleWeapons(); selectPrevWeapon(); return true;
+      case InputSelectNextWeapon: toggleWeapons(); selectNextWeapon(false); return true;
+      case InputSelectPrevWeapon: toggleWeapons(); selectPrevWeapon(false); return true;
       }
     }
 
@@ -319,17 +319,17 @@ class gb_EventHandler : EventHandler
   }
 
   private ui
-  void selectNextWeapon()
+  void selectNextWeapon(bool withTickSound = true)
   {
     bool success = mWeaponMenu.selectNextWeapon();
-    if (success) mSounds.playTick();
+    if (success && withTickSound) mSounds.playTick();
   }
 
   private ui
-  void selectPrevWeapon()
+  void selectPrevWeapon(bool withTickSound = true)
   {
     bool success = mWeaponMenu.selectPrevWeapon();
-    if (success) mSounds.playTick();
+    if (success && withTickSound) mSounds.playTick();
   }
 
   private ui
