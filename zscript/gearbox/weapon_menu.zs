@@ -19,7 +19,7 @@ class gb_WeaponMenu
 {
 
   static
-  gb_WeaponMenu from(gb_WeaponData weaponData, gb_Options options, gb_Sounds sounds)
+  gb_WeaponMenu from(gb_WeaponData weaponData, gb_Options options)
   {
     let result = new("gb_WeaponMenu");
 
@@ -28,7 +28,6 @@ class gb_WeaponMenu
     result.mSelectedIndex = 0;
     result.mCacheTime     = 0;
     result.mOptions       = options;
-    result.mSounds        = sounds;
 
     loadIconServices(result.mIconServices);
     loadHideServices(result.mHideServices);
@@ -426,6 +425,5 @@ class gb_WeaponMenu
   private int          mCacheTime;
 
   private gb_Options mOptions;
-  private gb_Sounds  mSounds;
 
 } // class gb_WeaponMenu

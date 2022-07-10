@@ -387,7 +387,7 @@ class gb_EventHandler : EventHandler
     gb_CustomWeaponOrderStorage.reset(mWeaponSetHash);
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
-    mWeaponMenu = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+    mWeaponMenu = gb_WeaponMenu.from(weaponData, mOptions);
   }
 
   private ui
@@ -460,7 +460,7 @@ class gb_EventHandler : EventHandler
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
     mWeaponSetHash   = gb_CustomWeaponOrderStorage.calculateHash(weaponData);
-    mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+    mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions);
     gb_CustomWeaponOrderStorage.applyOperations(mWeaponSetHash, mWeaponMenu);
     mInventoryMenu   = gb_InventoryMenu.from(mSounds);
 
