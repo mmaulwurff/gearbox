@@ -157,7 +157,7 @@ class gb_EventHandler : EventHandler
           selectWeaponSlot(slot);
           gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
         }
-        else if (selectWeaponSlot(slot))
+        else if (selectWeaponSlot(slot, false))
         {
           mSounds.playToggle();
           mActivity.openWeapons();
@@ -333,10 +333,10 @@ class gb_EventHandler : EventHandler
   }
 
   private ui
-  bool selectWeaponSlot(int slot)
+  bool selectWeaponSlot(int slot, bool withTickSound = true)
   {
     bool success = mWeaponMenu.selectSlot(slot);
-    if (success) mSounds.playTick();
+    if (success && withTickSound) mSounds.playTick();
 
     return success;
   }
