@@ -109,15 +109,15 @@ class gb_EventHandler : EventHandler
     {
       switch (input)
       {
-      case InputSelectNextWeapon: selectNextWeapon(); mWheelController.reset(); break;
-      case InputSelectPrevWeapon: selectPrevWeapon(); mWheelController.reset(); break;
+      case InputSelectNextWeapon: tickIf(mWeaponMenu.selectNextWeapon()); mWheelController.reset(); break;
+      case InputSelectPrevWeapon: tickIf(mWeaponMenu.selectPrevWeapon()); mWheelController.reset(); break;
       case InputConfirmSelection: confirmSelection(); close(); break;
       case InputClose:            close(); break;
 
       default:
         if (!gb_Input.isSlot(input)) return false;
         mWheelController.reset();
-        selectWeaponSlot(gb_Input.getSlot(input));
+        tickIf(mWeaponMenu.selectSlot(gb_Input.getSlot(input)));
         break;
       }
 
@@ -154,10 +154,10 @@ class gb_EventHandler : EventHandler
 
         if (mOptions.isNoMenuIfOne() && mWeaponMenu.isOneWeaponInSlot(slot))
         {
-          selectWeaponSlot(slot);
+          tickIf(mWeaponMenu.selectSlot(slot));
           gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
         }
-        else if (selectWeaponSlot(slot, false))
+        else if (mWeaponMenu.selectSlot(slot))
         {
           mSounds.playToggle();
           mActivity.openWeapons();
@@ -174,8 +174,8 @@ class gb_EventHandler : EventHandler
 
       switch (input)
       {
-      case InputSelectNextWeapon: toggleWeapons(); selectNextWeapon(false); return true;
-      case InputSelectPrevWeapon: toggleWeapons(); selectPrevWeapon(false); return true;
+      case InputSelectNextWeapon: toggleWeapons(); mWeaponMenu.selectNextWeapon(); return true;
+      case InputSelectPrevWeapon: toggleWeapons(); mWeaponMenu.selectPrevWeapon(); return true;
       }
     }
 
@@ -234,10 +234,7 @@ class gb_EventHandler : EventHandler
       mWheelIndexer.update(viewModel, controllerModel);
       int selectedViewIndex = mWheelIndexer.getSelectedIndex();
 
-      if (mActivity.isWeapons()) {
-        bool success = mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex);
-        if (success) mSounds.playTick();
-      } 
+      if (mActivity.isWeapons()) tickIf(mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex));
       else if (mActivity.isInventory()) mInventoryMenu.setSelectedIndex(selectedViewIndex);
 
       if (selectedViewIndex != -1) viewModel.selectedIndex = selectedViewIndex;
@@ -286,6 +283,12 @@ class gb_EventHandler : EventHandler
   }
 
   private ui
+  void tickIf(bool mustTick)
+  {
+    if (mustTick) mSounds.playTick();
+  }
+
+  private ui
   void toggleWeapons()
   {
     if (mActivity.isWeapons()) close();
@@ -316,29 +319,6 @@ class gb_EventHandler : EventHandler
 
     mSounds.playToggle();
     mActivity.openInventory();
-  }
-
-  private ui
-  void selectNextWeapon(bool withTickSound = true)
-  {
-    bool success = mWeaponMenu.selectNextWeapon();
-    if (success && withTickSound) mSounds.playTick();
-  }
-
-  private ui
-  void selectPrevWeapon(bool withTickSound = true)
-  {
-    bool success = mWeaponMenu.selectPrevWeapon();
-    if (success && withTickSound) mSounds.playTick();
-  }
-
-  private ui
-  bool selectWeaponSlot(int slot, bool withTickSound = true)
-  {
-    bool success = mWeaponMenu.selectSlot(slot);
-    if (success && withTickSound) mSounds.playTick();
-
-    return success;
   }
 
   private clearscope
