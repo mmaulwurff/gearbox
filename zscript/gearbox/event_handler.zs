@@ -127,8 +127,8 @@ class gb_EventHandler : EventHandler
     {
       switch (input)
       {
-      case InputSelectNextWeapon: mInventoryMenu.selectNext(); mWheelController.reset(); break;
-      case InputSelectPrevWeapon: mInventoryMenu.selectPrev(); mWheelController.reset(); break;
+      case InputSelectNextWeapon: tickIf(mInventoryMenu.selectNext()); mWheelController.reset(); break;
+      case InputSelectPrevWeapon: tickIf(mInventoryMenu.selectPrev()); mWheelController.reset(); break;
       case InputConfirmSelection: confirmSelection(); close(); break;
       case InputClose:            close(); break;
 
@@ -138,7 +138,7 @@ class gb_EventHandler : EventHandler
         mWheelController.reset();
         int slot = gb_Input.getSlot(input);
         int index = (slot == 0) ? 9 : slot - 1;
-        mInventoryMenu.setSelectedIndex(index);
+        tickIf(mInventoryMenu.setSelectedIndex(index));
         break;
       }
       }
@@ -235,7 +235,7 @@ class gb_EventHandler : EventHandler
       int selectedViewIndex = mWheelIndexer.getSelectedIndex();
 
       if (mActivity.isWeapons()) tickIf(mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex));
-      else if (mActivity.isInventory()) mInventoryMenu.setSelectedIndex(selectedViewIndex);
+      else if (mActivity.isInventory()) tickIf(mInventoryMenu.setSelectedIndex(selectedViewIndex));
 
       if (selectedViewIndex != -1) viewModel.selectedIndex = selectedViewIndex;
 
