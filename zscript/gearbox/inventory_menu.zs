@@ -19,12 +19,11 @@ class gb_InventoryMenu
 {
 
   static
-  gb_InventoryMenu from(gb_Sounds sounds)
+  gb_InventoryMenu from()
   {
     let result = new("gb_InventoryMenu");
 
     result.mSelectedIndex = 0;
-    result.mSounds = sounds;
 
     return result;
   }
@@ -132,6 +131,5 @@ class gb_InventoryMenu
   }
 
   private int mSelectedIndex;
-  private gb_Sounds mSounds;
 
 } // class gb_InventoryMenu

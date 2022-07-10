@@ -442,7 +442,7 @@ class gb_EventHandler : EventHandler
     mWeaponSetHash   = gb_CustomWeaponOrderStorage.calculateHash(weaponData);
     mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions);
     gb_CustomWeaponOrderStorage.applyOperations(mWeaponSetHash, mWeaponMenu);
-    mInventoryMenu   = gb_InventoryMenu.from(mSounds);
+    mInventoryMenu   = gb_InventoryMenu.from();
 
     mActivity        = gb_Activity.from();
     mFadeInOut       = gb_FadeInOut.from();
