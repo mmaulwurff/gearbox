@@ -315,7 +315,7 @@ class gb_EventHandler : EventHandler
   private ui
   void openInventory()
   {
-    if (gb_Player.isDead()) return;
+    if (gb_Player.isDead() || gb_InventoryMenu.thereAreNoItems()) return;
 
     mSounds.playToggle();
     mActivity.openInventory();
