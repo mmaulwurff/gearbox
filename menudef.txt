@@ -43,7 +43,10 @@ OptionMenu gb_BehaviorOptions
   Title "$GB_BEHAVIOR_OPTIONS_TITLE"
 
   Option      "$GB_OPEN_ON_PREV_NEXT" , gb_open_on_scroll   , OnOff
+
+  StaticText  ""
   Option      "$GB_OPEN_ON_SLOT"      , gb_open_on_slot     , OnOff
+  Option      "$GB_SLOT_CYCLE_ORDER"  , gb_slot_cycle_order , gb_SlotCycleOrderValues
 
   StaticText  ""
   Option      "$GB_SELECT_ON_KEY_UP"  , gb_select_on_key_up , OnOff
@@ -164,6 +167,12 @@ OptionValue gb_ViewTypeValues
   0, "$GB_BLOCKY_VIEW"
   1, "$GB_WHEEL_VIEW"
   2, "$GB_TEXT_VIEW"
+}
+
+OptionValue gb_SlotCycleOrderValues
+{
+  0, "$GB_SLOT_CYCLE_NORMAL"
+  1, "$GB_SLOT_CYCLE_REVERSE"
 }
 
 OptionValue gb_FreezeValues
