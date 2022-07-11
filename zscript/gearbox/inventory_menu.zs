@@ -28,6 +28,12 @@ class gb_InventoryMenu
     return result;
   }
 
+  static
+  bool thereAreNoItems()
+  {
+    return getItemsNumber() == 0;
+  }
+
   string confirmSelection() const
   {
     let item  = players[consolePlayer].mo.inv;
