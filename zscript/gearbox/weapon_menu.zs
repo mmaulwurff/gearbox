@@ -19,7 +19,7 @@ class gb_WeaponMenu
 {
 
   static
-  gb_WeaponMenu from(gb_WeaponData weaponData, gb_Options options, gb_Sounds sounds)
+  gb_WeaponMenu from(gb_WeaponData weaponData, gb_Options options)
   {
     let result = new("gb_WeaponMenu");
 
@@ -28,7 +28,6 @@ class gb_WeaponMenu
     result.mSelectedIndex = 0;
     result.mCacheTime     = 0;
     result.mOptions       = options;
-    result.mSounds        = sounds;
 
     loadIconServices(result.mIconServices);
     loadHideServices(result.mHideServices);
@@ -41,12 +40,12 @@ class gb_WeaponMenu
     return mSelectedIndex;
   }
 
-  void setSelectedIndexFromView(gb_ViewModel viewModel, int index)
+  bool setSelectedIndexFromView(gb_ViewModel viewModel, int index)
   {
-    if (index == -1 || mSelectedIndex == viewModel.indices[index]) return;
+    if (index == -1 || mSelectedIndex == viewModel.indices[index]) return false;
 
-    mSounds.playTick();
     mSelectedIndex = viewModel.indices[index];
+    return true;
   }
 
   void setSelectedWeapon(class<Weapon> aClass)
@@ -58,17 +57,17 @@ class gb_WeaponMenu
   }
 
   ui
-  void selectNextWeapon()
+  bool selectNextWeapon()
   {
     mSelectedIndex = findNextWeapon();
-    if (mSelectedIndex != mWeapons.size()) mSounds.playTick();
+    return mSelectedIndex != mWeapons.size();
   }
 
   ui
-  void selectPrevWeapon()
+  bool selectPrevWeapon()
   {
     mSelectedIndex = findPrevWeapon();
-    if (mSelectedIndex != mWeapons.size()) mSounds.playTick();
+    return mSelectedIndex != mWeapons.size();
   }
 
   bool selectSlot(int slot)
@@ -80,7 +79,6 @@ class gb_WeaponMenu
       if (mSlots[index] == slot && isInInventory(index) && !isHidden(mWeapons[index].getClassName()))
       {
         mSelectedIndex = index;
-        mSounds.playTick();
         return true;
       }
     }
@@ -427,6 +425,5 @@ class gb_WeaponMenu
   private int          mCacheTime;
 
   private gb_Options mOptions;
-  private gb_Sounds  mSounds;
 
 } // class gb_WeaponMenu

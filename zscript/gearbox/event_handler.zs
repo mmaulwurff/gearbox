@@ -109,15 +109,15 @@ class gb_EventHandler : EventHandler
     {
       switch (input)
       {
-      case InputSelectNextWeapon: mWeaponMenu.selectNextWeapon(); mWheelController.reset(); break;
-      case InputSelectPrevWeapon: mWeaponMenu.selectPrevWeapon(); mWheelController.reset(); break;
+      case InputSelectNextWeapon: tickIf(mWeaponMenu.selectNextWeapon()); mWheelController.reset(); break;
+      case InputSelectPrevWeapon: tickIf(mWeaponMenu.selectPrevWeapon()); mWheelController.reset(); break;
       case InputConfirmSelection: confirmSelection(); close(); break;
       case InputClose:            close(); break;
 
       default:
         if (!gb_Input.isSlot(input)) return false;
         mWheelController.reset();
-        mWeaponMenu.selectSlot(gb_Input.getSlot(input));
+        tickIf(mWeaponMenu.selectSlot(gb_Input.getSlot(input)));
         break;
       }
 
@@ -127,8 +127,8 @@ class gb_EventHandler : EventHandler
     {
       switch (input)
       {
-      case InputSelectNextWeapon: mInventoryMenu.selectNext(); mWheelController.reset(); break;
-      case InputSelectPrevWeapon: mInventoryMenu.selectPrev(); mWheelController.reset(); break;
+      case InputSelectNextWeapon: tickIf(mInventoryMenu.selectNext()); mWheelController.reset(); break;
+      case InputSelectPrevWeapon: tickIf(mInventoryMenu.selectPrev()); mWheelController.reset(); break;
       case InputConfirmSelection: confirmSelection(); close(); break;
       case InputClose:            close(); break;
 
@@ -138,7 +138,7 @@ class gb_EventHandler : EventHandler
         mWheelController.reset();
         int slot = gb_Input.getSlot(input);
         int index = (slot == 0) ? 9 : slot - 1;
-        mInventoryMenu.setSelectedIndex(index);
+        tickIf(mInventoryMenu.setSelectedIndex(index));
         break;
       }
       }
@@ -154,7 +154,7 @@ class gb_EventHandler : EventHandler
 
         if (mOptions.isNoMenuIfOne() && mWeaponMenu.isOneWeaponInSlot(slot))
         {
-          mWeaponMenu.selectSlot(slot);
+          tickIf(mWeaponMenu.selectSlot(slot));
           gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
         }
         else if (mWeaponMenu.selectSlot(slot))
@@ -234,8 +234,8 @@ class gb_EventHandler : EventHandler
       mWheelIndexer.update(viewModel, controllerModel);
       int selectedViewIndex = mWheelIndexer.getSelectedIndex();
 
-      if (mActivity.isWeapons()) mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex);
-      else if (mActivity.isInventory()) mInventoryMenu.setSelectedIndex(selectedViewIndex);
+      if (mActivity.isWeapons()) tickIf(mWeaponMenu.setSelectedIndexFromView(viewModel, selectedViewIndex));
+      else if (mActivity.isInventory()) tickIf(mInventoryMenu.setSelectedIndex(selectedViewIndex));
 
       if (selectedViewIndex != -1) viewModel.selectedIndex = selectedViewIndex;
 
@@ -280,6 +280,12 @@ class gb_EventHandler : EventHandler
   bool isPlayerFrozen() const
   {
     return players[consolePlayer].isTotallyFrozen() && !mOptions.isFrozenCanOpen();
+  }
+
+  private ui
+  void tickIf(bool mustTick)
+  {
+    if (mustTick) mSounds.playTick();
   }
 
   private ui
@@ -361,7 +367,7 @@ class gb_EventHandler : EventHandler
     gb_CustomWeaponOrderStorage.reset(mWeaponSetHash);
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
-    mWeaponMenu = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+    mWeaponMenu = gb_WeaponMenu.from(weaponData, mOptions);
   }
 
   private ui
@@ -434,9 +440,9 @@ class gb_EventHandler : EventHandler
     gb_WeaponData weaponData;
     gb_WeaponDataLoader.load(weaponData);
     mWeaponSetHash   = gb_CustomWeaponOrderStorage.calculateHash(weaponData);
-    mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions, mSounds);
+    mWeaponMenu      = gb_WeaponMenu.from(weaponData, mOptions);
     gb_CustomWeaponOrderStorage.applyOperations(mWeaponSetHash, mWeaponMenu);
-    mInventoryMenu   = gb_InventoryMenu.from(mSounds);
+    mInventoryMenu   = gb_InventoryMenu.from();
 
     mActivity        = gb_Activity.from();
     mFadeInOut       = gb_FadeInOut.from();
