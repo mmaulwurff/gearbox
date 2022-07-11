@@ -8,6 +8,7 @@
 - gb_toggle.ogg is converted from
   [362625__kermite607__metal-clang-sound.wav](https://freesound.org/people/kermite607/sounds/362625/)
   by kermite607. [Creative Commons 0 License.](http://creativecommons.org/publicdomain/zero/1.0/)
+- gb_nope.ogg is [Switch.ogg](https://freesound.org/people/egomassive/sounds/536802/) by egomassive [Creative Commons 0 License.](http://creativecommons.org/publicdomain/zero/1.0/)
 - shaders/mfx_bss_blur.fp is made by [Marisa
   Kirisame](https://github.com/OrdinaryMagician/), taken from
   [MariFX](https://github.com/OrdinaryMagician/marifx_m) (GPLv3), modified by m8f.

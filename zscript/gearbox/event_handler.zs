@@ -305,7 +305,11 @@ class gb_EventHandler : EventHandler
   private ui
   void openWeapons()
   {
-    if (gb_Player.isDead()) return;
+    if (gb_Player.isDead())
+    {
+      mSounds.playNope();
+      return;
+    }
 
     mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
     mSounds.playOpen();
@@ -315,7 +319,11 @@ class gb_EventHandler : EventHandler
   private ui
   void openInventory()
   {
-    if (gb_Player.isDead() || gb_InventoryMenu.thereAreNoItems()) return;
+    if (gb_Player.isDead() || gb_InventoryMenu.thereAreNoItems())
+    {
+      mSounds.playNope();
+      return;
+    }
 
     mSounds.playOpen();
     mActivity.openInventory();

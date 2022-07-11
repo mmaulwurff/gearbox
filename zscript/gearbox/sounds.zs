@@ -41,6 +41,11 @@ class gb_Sounds
     playSound("gearbox/close");
   }
 
+  void playNope()
+  {
+    playSound("gearbox/nope");
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
