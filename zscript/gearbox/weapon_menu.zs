@@ -73,13 +73,26 @@ class gb_WeaponMenu
   bool selectSlot(int slot)
   {
     uint nWeapons = mWeapons.size();
-    for (uint i = 1; i < nWeapons; ++i)
-    {
-      uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
-      if (mSlots[index] == slot && isInInventory(index) && !isHidden(mWeapons[index].getClassName()))
+
+    if (mOptions.isSlotCycleOrderReversed()) {
+      for (uint i = 1; i < nWeapons; ++i)
       {
-        mSelectedIndex = index;
-        return true;
+        uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
+        if (mSlots[index] == slot && isInInventory(index) && !isHidden(mWeapons[index].getClassName()))
+        {
+          mSelectedIndex = index;
+          return true;
+        }
+      }
+    } else {
+      for (uint i = nWeapons - 1; i >= 1; --i)
+      {
+        uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
+        if (mSlots[index] == slot && isInInventory(index) && !isHidden(mWeapons[index].getClassName()))
+        {
+          mSelectedIndex = index;
+          return true;
+        }
       }
     }
 

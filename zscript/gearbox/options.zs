@@ -84,6 +84,7 @@ class gb_Options
 
   bool isOpenOnScroll()              const { return mOpenOnScroll          .getBool();    }
   bool isOpenOnSlot()                const { return mOpenOnSlot            .getBool();    }
+  bool isSlotCycleOrderReversed()    const { return mReverseSlotCycleOrder .getBool();    }
   bool isMouseInWheel()              const { return mMouseInWheel          .getBool();    }
   bool isSelectOnKeyUp()             const { return mSelectOnKeyUp         .getBool();    }
   bool isNoMenuIfOne()               const { return mNoMenuIfOne           .getBool();    }
