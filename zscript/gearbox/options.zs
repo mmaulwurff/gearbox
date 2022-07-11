@@ -39,7 +39,7 @@ class gb_Options
 
     result.mOpenOnScroll           = gb_Cvar.from("gb_open_on_scroll");
     result.mOpenOnSlot             = gb_Cvar.from("gb_open_on_slot");
-    result.mSlotCycleOrder         = gb_Cvar.from("gb_reverse_slot_cycle_order");
+    result.mReverseSlotCycleOrder  = gb_Cvar.from("gb_reverse_slot_cycle_order");
     result.mMouseInWheel           = gb_Cvar.from("gb_mouse_in_wheel");
     result.mSelectOnKeyUp          = gb_Cvar.from("gb_select_on_key_up");
     result.mNoMenuIfOne            = gb_Cvar.from("gb_no_menu_if_one");
@@ -136,7 +136,7 @@ class gb_Options
 
   private gb_Cvar mOpenOnScroll;
   private gb_Cvar mOpenOnSlot;
-  private gb_Cvar mSlotCycleOrder;
+  private gb_Cvar mReverseSlotCycleOrder;
   private gb_Cvar mMouseInWheel;
   private gb_Cvar mSelectOnKeyUp;
   private gb_Cvar mNoMenuIfOne;
