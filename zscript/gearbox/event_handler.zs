@@ -159,7 +159,7 @@ class gb_EventHandler : EventHandler
         }
         else if (mWeaponMenu.selectSlot(slot))
         {
-          mSounds.playToggle();
+          mSounds.playOpen();
           mActivity.openWeapons();
         }
         else
@@ -308,7 +308,7 @@ class gb_EventHandler : EventHandler
     if (gb_Player.isDead()) return;
 
     mWeaponMenu.setSelectedWeapon(gb_WeaponWatcher.current());
-    mSounds.playToggle();
+    mSounds.playOpen();
     mActivity.openWeapons();
   }
 
@@ -317,14 +317,14 @@ class gb_EventHandler : EventHandler
   {
     if (gb_Player.isDead()) return;
 
-    mSounds.playToggle();
+    mSounds.playOpen();
     mActivity.openInventory();
   }
 
   private clearscope
   void close()
   {
-    mSounds.playToggle();
+    mSounds.playClose();
     mActivity.close();
   }
 

@@ -31,9 +31,14 @@ class gb_Sounds
     playSound("gearbox/tick");
   }
 
-  void playToggle()
+  void playOpen()
   {
-    playSound("gearbox/toggle");
+    playSound("gearbox/open");
+  }
+
+  void playClose()
+  {
+    playSound("gearbox/close");
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
