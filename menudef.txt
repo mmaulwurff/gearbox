@@ -42,16 +42,19 @@ OptionMenu gb_BehaviorOptions
 
   Title "$GB_BEHAVIOR_OPTIONS_TITLE"
 
-  Option      "$GB_OPEN_ON_PREV_NEXT" , gb_open_on_scroll   , OnOff
-  Option      "$GB_OPEN_ON_SLOT"      , gb_open_on_slot     , OnOff
+  Option      "$GB_OPEN_ON_PREV_NEXT"        , gb_open_on_scroll           , OnOff
 
   StaticText  ""
-  Option      "$GB_SELECT_ON_KEY_UP"  , gb_select_on_key_up , OnOff
-  Option      "$GB_NO_MENU_IF_ONE"    , gb_no_menu_if_one   , OnOff
-  Option      "$GB_FREEZE_TIME"       , gb_time_freeze      , gb_FreezeValues
-  Option      "$GB_ENABLE_ON_AUTOMAP" , gb_on_automap       , OnOff
-  Option      "$GB_LOCK_POSITION"     , gb_lock_positions   , OnOff
-  Option      "$GB_FROZEN_CAN_OPEN"   , gb_frozen_can_open  , OnOff
+  Option      "$GB_OPEN_ON_SLOT"             , gb_open_on_slot             , OnOff
+  Option      "$GB_REVERSE_SLOT_CYCLE_ORDER" , gb_reverse_slot_cycle_order , OnOff
+
+  StaticText  ""
+  Option      "$GB_SELECT_ON_KEY_UP"         , gb_select_on_key_up         , OnOff
+  Option      "$GB_NO_MENU_IF_ONE"           , gb_no_menu_if_one           , OnOff
+  Option      "$GB_FREEZE_TIME"              , gb_time_freeze              , gb_FreezeValues
+  Option      "$GB_ENABLE_ON_AUTOMAP"        , gb_on_automap               , OnOff
+  Option      "$GB_LOCK_POSITION"            , gb_lock_positions           , OnOff
+  Option      "$GB_FROZEN_CAN_OPEN"          , gb_frozen_can_open          , OnOff
 
 }
 

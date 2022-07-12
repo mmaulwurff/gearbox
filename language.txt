@@ -38,6 +38,8 @@ GB_ENABLE_ON_AUTOMAP = "Gearbox on automap";
 GB_LOCK_POSITION     = "Locked positions";
 GB_FROZEN_CAN_OPEN   = "Frozen player can open Gearbox";
 
+GB_REVERSE_SLOT_CYCLE_ORDER = "Reverse cycling order for the slot key";
+
 GB_FREEZE_TIME       = "Freeze";
 GB_LEVEL_AND_PLAYER  = "Enemies and player (single-player only)";
 GB_PLAYER            = "Player";

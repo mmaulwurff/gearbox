@@ -82,46 +82,47 @@ class gb_VmAbortHandler : EventHandler
   {
     Array<string> gearboxConfiguration =
       {
-        intCvarToString   ("gb_scale"              ),
-        colorCvarToString ("gb_color"              ),
-        colorCvarToString ("gb_dim_color"          ),
-        intCvarToString   ("gb_show_tags"          ),
+        intCvarToString   ("gb_scale"                   ),
+        colorCvarToString ("gb_color"                   ),
+        colorCvarToString ("gb_dim_color"               ),
+        intCvarToString   ("gb_show_tags"               ),
 
-        intCvarToString   ("gb_view_type"          ),
+        intCvarToString   ("gb_view_type"               ),
 
-        intCvarToString   ("gb_enable_dim"         ),
-        intCvarToString   ("gb_enable_blur"        ),
-        floatCvarToString ("gb_wheel_position"     ),
-        floatCvarToString ("gb_wheel_scale"        ),
-        intCvarToString   ("gb_wheel_tint"         ),
-        intCvarToString   ("gb_multiwheel_limit"   ),
+        intCvarToString   ("gb_enable_dim"              ),
+        intCvarToString   ("gb_enable_blur"             ),
+        floatCvarToString ("gb_wheel_position"          ),
+        floatCvarToString ("gb_wheel_scale"             ),
+        intCvarToString   ("gb_wheel_tint"              ),
+        intCvarToString   ("gb_multiwheel_limit"        ),
 
-        floatCvarToString ("gb_blocks_position_x"  ),
-        floatCvarToString ("gb_blocks_position_y"  ),
+        floatCvarToString ("gb_blocks_position_x"       ),
+        floatCvarToString ("gb_blocks_position_y"       ),
 
-        intCvarToString   ("gb_text_scale"         ),
-        floatCvarToString ("gb_text_position_x"    ),
-        floatCvarToString ("gb_text_position_y"    ),
-        floatCvarToString ("gb_text_position_y_max"),
-        intCvarToString   ("gb_text_usual_color"   ),
-        intCvarToString   ("gb_text_selected_color"),
+        intCvarToString   ("gb_text_scale"              ),
+        floatCvarToString ("gb_text_position_x"         ),
+        floatCvarToString ("gb_text_position_y"         ),
+        floatCvarToString ("gb_text_position_y_max"     ),
+        intCvarToString   ("gb_text_usual_color"        ),
+        intCvarToString   ("gb_text_selected_color"     ),
 
-        stringCvarToString("gb_font"               ),
+        stringCvarToString("gb_font"                    ),
 
-        intCvarToString   ("gb_open_on_scroll"     ),
-        intCvarToString   ("gb_open_on_slot"       ),
-        intCvarToString   ("gb_mouse_in_wheel"     ),
-        intCvarToString   ("gb_select_on_key_up"   ),
-        intCvarToString   ("gb_no_menu_if_one"     ),
-        intCvarToString   ("gb_on_automap"         ),
-        intCvarToString   ("gb_lock_positions"     ),
-        intCvarToString   ("gb_enable_sounds"      ),
-        intCvarToString   ("gb_frozen_can_open"    ),
+        intCvarToString   ("gb_open_on_scroll"          ),
+        intCvarToString   ("gb_open_on_slot"            ),
+        intCvarToString   ("gb_reverse_slot_cycle_order"),
+        intCvarToString   ("gb_mouse_in_wheel"          ),
+        intCvarToString   ("gb_select_on_key_up"        ),
+        intCvarToString   ("gb_no_menu_if_one"          ),
+        intCvarToString   ("gb_on_automap"              ),
+        intCvarToString   ("gb_lock_positions"          ),
+        intCvarToString   ("gb_enable_sounds"           ),
+        intCvarToString   ("gb_frozen_can_open"         ),
 
-        intCvarToString   ("gb_time_freeze"        ),
+        intCvarToString   ("gb_time_freeze"             ),
 
-        floatCvarToString ("gb_mouse_sensitivity_x"),
-        floatCvarToString ("gb_mouse_sensitivity_y")
+        floatCvarToString ("gb_mouse_sensitivity_x"     ),
+        floatCvarToString ("gb_mouse_sensitivity_y"     )
       };
 
     // cut prefix:
