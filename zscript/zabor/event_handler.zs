@@ -111,6 +111,7 @@ class gb_VmAbortHandler : EventHandler
         intCvarToString   ("gb_open_on_scroll"          ),
         intCvarToString   ("gb_open_on_slot"            ),
         intCvarToString   ("gb_reverse_slot_cycle_order"),
+        intCvarToString   ("gb_select_first_slot_weapon"),
         intCvarToString   ("gb_mouse_in_wheel"          ),
         intCvarToString   ("gb_select_on_key_up"        ),
         intCvarToString   ("gb_no_menu_if_one"          ),
