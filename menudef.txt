@@ -47,6 +47,7 @@ OptionMenu gb_BehaviorOptions
   StaticText  ""
   Option      "$GB_OPEN_ON_SLOT"             , gb_open_on_slot             , OnOff
   Option      "$GB_REVERSE_SLOT_CYCLE_ORDER" , gb_reverse_slot_cycle_order , OnOff
+  Option      "$GB_SELECT_FIRST_SLOT_WEAPON" , gb_select_first_slot_weapon , OnOff
 
   StaticText  ""
   Option      "$GB_SELECT_ON_KEY_UP"         , gb_select_on_key_up         , OnOff
