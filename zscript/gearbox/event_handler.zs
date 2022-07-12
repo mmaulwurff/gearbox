@@ -158,7 +158,7 @@ class gb_EventHandler : EventHandler
           tickIf(mWeaponMenu.selectSlot(slot));
           gb_Sender.sendSelectEvent(mWeaponMenu.confirmSelection());
         }
-        else if (mWeaponMenu.selectSlot(slot))
+        else if (mWeaponMenu.selectSlot(slot, mOptions.isSelectFirstSlotWeapon()))
         {
           mSounds.playOpen();
           mActivity.openWeapons();
