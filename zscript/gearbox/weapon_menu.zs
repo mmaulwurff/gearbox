@@ -190,6 +190,17 @@ class gb_WeaponMenu
     return oldIndex;
   }
 
+  bool isThereNoWeapons() const
+  {
+    bool isNothingFound = true;
+    uint nWeapons = mWeapons.size();
+    for (uint i = 0; i < nWeapons; ++i)
+    {
+      if (isInInventory(i) && !isHidden(mWeapons[i].getClassName())) return false;
+    }
+    return isNothingFound;
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private

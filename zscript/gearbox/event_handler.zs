@@ -165,6 +165,7 @@ class gb_EventHandler : EventHandler
         }
         else
         {
+          mSounds.playNope();
           return false;
         }
 
@@ -306,7 +307,7 @@ class gb_EventHandler : EventHandler
   private ui
   void openWeapons()
   {
-    if (gb_Player.isDead())
+    if (gb_Player.isDead() || mWeaponMenu.isThereNoWeapons())
     {
       mSounds.playNope();
       return;
