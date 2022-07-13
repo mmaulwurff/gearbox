@@ -314,7 +314,7 @@ class gb_BlockyView
     }
 
     // Finally, print lines.
-    int lineHeight = aFont.getHeight() * 95 / 100;
+    int lineHeight = aFont.getHeight();
     for (uint i = 0; i < linesEnd; ++i)
     {
       double y = startY + SELECTED_WEAPON_HEIGHT + (i - linesEnd) * lineHeight;
