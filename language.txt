@@ -94,3 +94,98 @@ GB_NEW_SMALL_FONT = "New small font";
 GB_OLD_SMALL_FONT = "Old small font";
 GB_CONSOLE_FONT   = "Console font";
 GB_BIG_FONT       = "Big font";
+
+[pt]
+
+// By generic name guy
+
+GB_OPTIONS = "\ch⚙\c- Opções do Gearbox";
+
+GB_UI_OPTIONS       = "Opções de IU";
+GB_UI_OPTIONS_TITLE = "Opções de IU do Gearbox";
+
+GB_COLOR          = "Cor";
+GB_PLAYER_COLOR   = "Copiar cor personalizada do jogador";
+GB_DIM_COLOR      = "Cor de atenuação do fundo";
+
+GB_SHOW_TAGS      = "Tags";
+GB_SOUND          = "Efeitos sonoros";
+
+GB_KEYSECTION            = "Teclas do Gearbox";
+GB_TOGGLE_WEAPON_MENU    = "Abrir menu de armas";
+GB_TOGGLE_INVENTORY_MENU = "Abrir menu de inventário";
+GB_PREV_WEAPON           = "Selecionar arma anterior";
+
+GB_VIEW_TYPE   = "Tipo de selecionador";
+GB_BLOCKY_VIEW = "Blocos";
+GB_WHEEL_VIEW  = "Roda";
+GB_TEXT_VIEW   = "Texto plano";
+GB_DIM         = "Atenuação do fundo";
+GB_BLUR        = "Borrar fundo";
+GB_WHEEL_X     = "Posição horizontal";
+GB_WHEEL_SCALE = "Tamanho";
+GB_WHEEL_TINT  = "Tonalidade colorida nas armas";
+
+GB_BEHAVIOR_OPTIONS        = "Opções de comportamento";
+GB_BEHAVIOR_OPTIONS_TITLE  = "Opções de comportamento do Gearbox";
+
+GB_OPEN_ON_PREV_NEXT = "Interceptir teclas de arma proxima/anterior";
+GB_OPEN_ON_SLOT      = "Interceptir teclas de número das armas";
+GB_SELECT_ON_KEY_UP  = "Selecionar quando soltar o botão de Abrir";
+GB_NO_MENU_IF_ONE    = "Teclas de slot se tiver apenas uma arma no slot";
+GB_ENABLE_ON_AUTOMAP = "Gearbox no automapa";
+GB_LOCK_POSITION     = "Posições travadas";
+GB_FROZEN_CAN_OPEN   = "Jogadores congelados podem abrir o Gearbox";
+
+GB_REVERSE_SLOT_CYCLE_ORDER = "Ordem de circulação reversa";
+GB_SELECT_FIRST_SLOT_WEAPON = "Sempre começar na primeira arma";
+
+GB_FREEZE_TIME       = "Congelar";
+GB_LEVEL_AND_PLAYER  = "Inimigos e jogador (Apenas singleplayer)";
+GB_PLAYER            = "Jogador";
+
+GB_MOUSE_IN_WHEEL    = "Habilitar mouse";
+GB_MULTIWHEEL_LIMIT  = "Limite de múltiplas rodas";
+
+GB_MOUSE_SENSITIVITY = "Sensibilidade do mouse";
+GB_Y_BOUNDARY = "Limite vertical";
+
+GB_WHEEL_OPTIONS        = "Opções de Roda";
+GB_WHEEL_OPTIONS_TITLE  = "Opções da Roda do Gearbox";
+GB_BLOCKS_OPTIONS       = "Opções de Blocos";
+GB_BLOCKS_OPTIONS_TITLE = "Opções de Blocos do Gearbox";
+
+GB_TEXT_OPTIONS         = "Opções de Texto Plano";
+GB_TEXT_OPTIONS_TITLE   = "Opções de Texto Plano do Gearbox";
+GB_TEXT_USUAL_COLOR     = "Cor normal";
+GB_TEXT_SELECTED_COLOR  = "Cor selecionada";
+
+GB_FONT        = "Fonte";
+GB_FONT_CUSTOM = "Fonte (Personalizada)";
+GB_BAD_FONT    = "A fonte \"%s\" não foi encontrada.";
+
+GB_SCALE    = "Tamanho";
+GB_POSITION = "Posição";
+
+GB_RESET        = "Redefinir configurações padrões do Gearbox";
+GB_RESET_PROMPT = "Você realmente quer redefinir suas configurações do Gearbox aos padrões?";
+
+GB_RESET_CUSTOM_ORDER        = "Redefinir ordem de armas atual";
+GB_RESET_CUSTOM_ORDER_PROMPT = "Você realmente quer redefinir suas ordens personalizadas de armas?";
+GB_RESET_CUSTOM_ORDER_NOTE   = "Só funciona dentro do jogo.";
+
+GB_GZDOOM_OPTIONS       = "Opções relevantes do GZDoom";
+GB_GZDOOM_OPTIONS_TITLE = "Opções do GZDoom que afetam o Gearbox";
+GB_ASPECT_SCALE_NOTE    = "Não afeta armas na roda por agora.";
+
+GB_ADVANCED_OPTIONS = "Opções avançadas";
+GB_ADVANCED_OPTIONS_TITLE = "Opções avançadas do Gearbox";
+GB_VM_ABORT_INFO_ENABLED  = "Informações de VM Abort";
+
+GB_ROTATE_WEAPON_PRIORITY = "Circular prioridade de arma";
+GB_ROTATE_WEAPON_SLOT     = "Circular slot de arma";
+
+GB_NEW_SMALL_FONT = "Fonte pequena nova";
+GB_OLD_SMALL_FONT = "Fonte pequena antiga";
+GB_CONSOLE_FONT   = "Fonte do console";
+GB_BIG_FONT       = "Fonte grande";

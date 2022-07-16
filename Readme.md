@@ -80,4 +80,5 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
   Dark-Assassin, rparhkdtp, Samarai1000, Mr. Blazkowicz, lucker42, spectrefps,
   Someone64, Lippeth, JMartinez9820, generic name guy and sebastianpanetta for
   bug reports.
+- Thanks to generic name guy for providing brazilian portuguese localization.
 - See also [credits list](credits.md).
