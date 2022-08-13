@@ -15,3 +15,4 @@
 - Wheel mouse input code is based on code from PyWeaponWheel by DrPyspy.
 - [MD5 Implementation in ZScript](https://github.com/3saster/GZDoom_Utilities) by 3saster (see [MD5.zs](zscript/MD5/MD5.zs) for license).
 - Brazilian portuguese localization by generic name guy.
+- hl2_tick, hl2_open, hl2_close and hl2_nope are all from [Half-Life 2](https://store.steampowered.com/app/220/HalfLife_2/), developed by Valve Software.
