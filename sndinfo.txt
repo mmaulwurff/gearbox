@@ -12,34 +12,6 @@ $volume gearbox/close 0.2
 gearbox/nope sounds/gb_nope.ogg
 $volume gearbox/nope 0.5
 
-//Half-Life 2
-
-gearbox/hl2/tick sounds/hl2_tick.wav
-$volume gearbox/hl2/tick 0.6
-
-gearbox/hl2/open sounds/hl2_open.wav
-$volume gearbox/hl2/open 0.5
-
-gearbox/hl2/close sounds/hl2_close.wav
-$volume gearbox/hl2/close 0.5
-
-gearbox/hl2/nope sounds/hl2_nope.wav
-$volume gearbox/hl2/nope 0.6
-
-//Alternative
-
-gearbox/alt/tick sounds/alt_tick.ogg
-$volume gearbox/alt/tick 0.5
-
-gearbox/alt/open sounds/alt_toggle.ogg
-$volume gearbox/alt/close 0.2
-
-gearbox/alt/close sounds/alt_toggle.ogg
-$volume gearbox/alt/close 0.2
-
-gearbox/alt/nope sounds/alt_nope.ogg
-$volume gearbox/alt/open 0.2
-
 //Not found
 
 gearbox/notfound sounds/error.wav
