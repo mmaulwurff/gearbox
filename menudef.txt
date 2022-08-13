@@ -175,6 +175,7 @@ OptionValue gb_SoundpackValues
 {
   0, "$GB_GEARBOX"
   1, "$GB_HL2"
+  2, "$GB_ALT"
 }
 
 OptionValue gb_FreezeValues
