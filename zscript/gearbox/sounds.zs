@@ -35,10 +35,10 @@ class gb_Sounds
             playSound("gearbox/tick");
             break;
         case(1):
-            playSound("gearbox/hl2/tick");
+            playSound("gearbox/tick");
             break;
         case(2):
-            playSound("gearbox/alt/tick");
+            playSound("gearbox/tick");
             break;
         DEFAULT:
             playSound("gearbox/notfound");
@@ -54,10 +54,10 @@ class gb_Sounds
             playSound("gearbox/open");
             break;
         case(1):
-            playSound("gearbox/hl2/open");
+            playSound("gearbox/open");
             break;
         case(2):
-            playSound("gearbox/alt/open");
+            playSound("gearbox/open");
             break;
         DEFAULT:
             playSound("gearbox/notfound");
@@ -73,10 +73,10 @@ class gb_Sounds
             playSound("gearbox/close");
             break;
         case(1):
-            playSound("gearbox/hl2/close");
+            playSound("gearbox/close");
             break;
         case(2):
-            playSound("gearbox/alt/close");
+            playSound("gearbox/close");
             break;
         DEFAULT:
             playSound("gearbox/notfound");
@@ -92,10 +92,10 @@ class gb_Sounds
             playSound("gearbox/nope");
             break;
         case(1):
-            playSound("gearbox/hl2/nope");
+            playSound("gearbox/nope");
             break;
         case(2):
-            playSound("gearbox/alt/nope");
+            playSound("gearbox/nope");
             break;
         DEFAULT:
             playSound("gearbox/notfound");
