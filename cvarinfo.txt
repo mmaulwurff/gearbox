@@ -38,6 +38,8 @@ user bool gb_open_on_slot     = true;
 user bool gb_reverse_slot_cycle_order  = false;
 user bool gb_select_first_slot_weapon  = false;
 
+user int gb_soundpack = 0;
+
 user bool gb_mouse_in_wheel   = true;
 user bool gb_select_on_key_up = false;
 user bool gb_no_menu_if_one   = false;
