@@ -12,7 +12,6 @@ OptionMenu gb_Options
 
   StaticText  ""
   Option      "$GB_VIEW_TYPE", gb_view_type, gb_ViewTypeValues
-  Option      "$GB_SOUNDPACK", gb_soundpack, gb_SoundpackValues
 
   StaticText  ""
   StaticText  "$GB_KEYSECTION", 1
@@ -90,6 +89,7 @@ OptionMenu gb_UiOptions
 
   StaticText  ""
   Option      "$GB_SOUND"     , gb_enable_sounds  , OnOff
+  Option      "$GB_SOUNDPACK", gb_soundpack, gb_SoundpackValues
 
   StaticText  ""
   Option      "$GB_FONT"        , gb_font , gb_FontValues
