@@ -66,6 +66,8 @@ class gb_Options
 
     result.mWheelPosition          = gb_Cvar.from("gb_wheel_position");
     result.mWheelScale             = gb_Cvar.from("gb_wheel_scale");
+    
+    result.mUseSoundpack           = gb_Cvar.from("gb_soundpack");
 
     return result;
   }
@@ -95,6 +97,8 @@ class gb_Options
   bool isSoundEnabled()              const { return mEnableSounds          .getBool();    }
 
   int  getTimeFreezeMode()           const { return mTimeFreeze            .getInt();     }
+  
+  int  getSoundpack()           const { return mUseSoundpack          .getInt();     }
 
   vector2 getMouseSensitivity() const
   {
@@ -169,5 +173,7 @@ class gb_Options
 
   private gb_Cvar mWheelPosition;
   private gb_Cvar mWheelScale;
+  
+  private gb_Cvar mUseSoundpack;
 
 } // class gb_Options
