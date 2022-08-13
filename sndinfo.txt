@@ -28,17 +28,15 @@ $volume gearbox/hl2/nope 0.5
 
 //Alternative
 
-gearbox/alt/tick sounds/alt_tick.wav
+gearbox/alt/tick sounds/alt_tick.ogg
 $volume gearbox/alt/tick 0.5
 
-gearbox/alt/open sounds/alt_open.wav
+gearbox/alt/open sounds/alt_open.ogg
 $volume gearbox/alt/open 0.2
 
-gearbox/alt/close sounds/alt_close.wav
+gearbox/alt/toggle sounds/alt_toggle.ogg
 $volume gearbox/alt/close 0.2
 
-gearbox/alt/nope sounds/alt_nope.wav
-$volume gearbox/alt/nope 0.5
 
 //Not found
 
