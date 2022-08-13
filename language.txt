@@ -1,5 +1,9 @@
 [enu default]
 
+GB_GEARBOX = "Gearbox";
+GB_HL2 = "Half-Life 2";
+GB_ALT = "Alternative";
+
 GB_OPTIONS = "\ch⚙\c- Gearbox Options";
 
 GB_UI_OPTIONS       = "UI options";
@@ -89,6 +93,7 @@ GB_VM_ABORT_INFO_ENABLED  = "VM abort info";
 
 GB_ROTATE_WEAPON_PRIORITY = "Cycle weapon priority";
 GB_ROTATE_WEAPON_SLOT     = "Cycle weapon slot";
+GB_SOUNDPACK = "Soundpack";
 
 GB_NEW_SMALL_FONT = "New small font";
 GB_OLD_SMALL_FONT = "Old small font";
@@ -98,6 +103,8 @@ GB_BIG_FONT       = "Big font";
 [pt]
 
 // By generic name guy
+
+GB_ALT = "Alternative";
 
 GB_OPTIONS = "\ch⚙\c- Opções do Gearbox";
 
@@ -184,6 +191,7 @@ GB_VM_ABORT_INFO_ENABLED  = "Informações de VM Abort";
 
 GB_ROTATE_WEAPON_PRIORITY = "Circular prioridade de arma";
 GB_ROTATE_WEAPON_SLOT     = "Circular slot de arma";
+GB_SOUNDPACK = "Pacote de sons";
 
 GB_NEW_SMALL_FONT = "Fonte pequena nova";
 GB_OLD_SMALL_FONT = "Fonte pequena antiga";
