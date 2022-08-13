@@ -1,8 +1,7 @@
 [enu default]
 
 GB_GEARBOX = "Gearbox";
-GB_PACK1 = "Custom Soundpack 1";
-GB_PACK2 = "Custom Soundpack 2";
+GB_PACK1 = "Custom Soundpack";
 
 GB_OPTIONS = "\ch⚙\c- Gearbox Options";
 
@@ -104,8 +103,7 @@ GB_BIG_FONT       = "Big font";
 
 // By generic name guy
 
-GB_PACK1 = "Pacote de Sons Personalizado 1";
-GB_PACK2 = "Pacote de Sons Personalizado 2";
+GB_PACK1 = "Pacote de Sons Personalizado";
 
 GB_OPTIONS = "\ch⚙\c- Opções do Gearbox";
 
