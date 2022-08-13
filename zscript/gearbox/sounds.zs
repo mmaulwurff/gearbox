@@ -29,19 +29,16 @@ class gb_Sounds
 
   void playTick()
   {
-		switch(mOptions.GetSoundpack())
+    switch(mOptions.GetSoundpack())
     {
         case(0):
             playSound("gearbox/tick");
             break;
         case(1):
-            playSound("gearbox/tick");
-            break;
-        case(2):
-            playSound("gearbox/tick");
+            playSound("gearbox/pack/tick");
             break;
         DEFAULT:
-            playSound("gearbox/notfound");
+            playSound("gearbox/nope");
             break;
     }
   }
@@ -54,13 +51,10 @@ class gb_Sounds
             playSound("gearbox/open");
             break;
         case(1):
-            playSound("gearbox/open");
-            break;
-        case(2):
-            playSound("gearbox/open");
+            playSound("gearbox/pack/open");
             break;
         DEFAULT:
-            playSound("gearbox/notfound");
+            playSound("gearbox/nope");
             break;
     }
   }
@@ -73,13 +67,10 @@ class gb_Sounds
             playSound("gearbox/close");
             break;
         case(1):
-            playSound("gearbox/close");
-            break;
-        case(2):
-            playSound("gearbox/close");
+            playSound("gearbox/pack/close");
             break;
         DEFAULT:
-            playSound("gearbox/notfound");
+            playSound("gearbox/nope");
             break;
     }
   }
@@ -92,13 +83,10 @@ class gb_Sounds
             playSound("gearbox/nope");
             break;
         case(1):
-            playSound("gearbox/nope");
-            break;
-        case(2):
-            playSound("gearbox/nope");
+            playSound("gearbox/pack/nope");
             break;
         DEFAULT:
-            playSound("gearbox/notfound");
+            playSound("gearbox/nope");
             break;
     }
   }
