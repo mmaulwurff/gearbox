@@ -89,7 +89,7 @@ OptionMenu gb_UiOptions
 
   StaticText  ""
   Option      "$GB_SOUND"     , gb_enable_sounds  , OnOff
-  Option      "$GB_SOUNDPACK", gb_soundpack, gb_SoundpackValues
+  Option      "$GB_SOUNDPACK", gb_soundpack, gb_SoundpackValues, "gb_enable_sounds"
 
   StaticText  ""
   Option      "$GB_FONT"        , gb_font , gb_FontValues
