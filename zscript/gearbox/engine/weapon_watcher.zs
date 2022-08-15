@@ -30,6 +30,8 @@ class gb_WeaponWatcher
   static
   class<Weapon> currentFor(PlayerInfo player)
   {
+    if (player.pendingWeapon == NULL) return NULL;
+
     let currentWeapon = player.pendingWeapon.getClassName() != "Object"
       ? player.pendingWeapon
       : player.readyWeapon;
