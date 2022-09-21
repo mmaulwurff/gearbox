@@ -1,4 +1,4 @@
-/* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2020-2021
+/* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2020-2022
  * Carrascado 2022
  *
  * This file is part of Gearbox.
@@ -94,14 +94,12 @@ class gb_WeaponMenu
   {
     uint nWeapons = mWeapons.size();
     int  nWeaponsInSlot = 0;
-    for (uint i = 1; i < nWeapons; ++i)
+    for (uint i = 0; i < nWeapons; ++i)
     {
-      uint index = (mSelectedIndex + nWeapons - i) % nWeapons;
-      nWeaponsInSlot += (mSlots[index] == slot && isInInventory(index));
+      nWeaponsInSlot += (mSlots[i] == slot && isInInventory(i));
       if (nWeaponsInSlot > 1) return false;
     }
-    if (nWeaponsInSlot == 0) return false;
-    return true;
+    return nWeaponsInSlot == 1;
   }
 
   bool isInInventory(int index) const
