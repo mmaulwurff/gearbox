@@ -18,8 +18,8 @@
 
 class gb_Sounds
 {
-
   static
+  
   gb_Sounds from(gb_Options options)
   {
     let result = new("gb_Sounds");
@@ -29,22 +29,66 @@ class gb_Sounds
 
   void playTick()
   {
-    playSound("gearbox/tick");
+    switch(mOptions.GetSoundpack())
+    {
+        case(0):
+            playSound("gearbox/tick");
+            break;
+        case(1):
+            playSound("gearbox/pack/tick");
+            break;
+        DEFAULT:
+            playSound("gearbox/nope");
+            break;
+    }
   }
 
   void playOpen()
   {
-    playSound("gearbox/open");
+    switch(mOptions.GetSoundpack())
+    {
+        case(0):
+            playSound("gearbox/open");
+            break;
+        case(1):
+            playSound("gearbox/pack/open");
+            break;
+        DEFAULT:
+            playSound("gearbox/nope");
+            break;
+    }
   }
 
   void playClose()
   {
-    playSound("gearbox/close");
+    switch(mOptions.GetSoundpack())
+    {
+        case(0):
+            playSound("gearbox/close");
+            break;
+        case(1):
+            playSound("gearbox/pack/close");
+            break;
+        DEFAULT:
+            playSound("gearbox/nope");
+            break;
+    }
   }
 
   void playNope()
   {
-    playSound("gearbox/nope");
+    switch(mOptions.GetSoundpack())
+    {
+        case(0):
+            playSound("gearbox/nope");
+            break;
+        case(1):
+            playSound("gearbox/pack/nope");
+            break;
+        DEFAULT:
+            playSound("gearbox/nope");
+            break;
+    }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
