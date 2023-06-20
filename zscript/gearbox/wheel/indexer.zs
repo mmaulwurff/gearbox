@@ -48,7 +48,7 @@ class gb_WheelIndexer
       }
     }
 
-    if (!mMultiWheelMode.isEngaged(viewModel)) return externalSelectedIndexInModel;
+    if (externalSelectedIndexInModel < 0 || !mMultiWheelMode.isEngaged(viewModel)) return externalSelectedIndexInModel;
 
     gb_MultiWheelModel multiWheelModel;
     gb_MultiWheel.fill(viewModel, multiWheelModel);
@@ -85,6 +85,8 @@ class gb_WheelIndexer
         break;
       }
     }
+
+    if (externalSelectedIndexInModel < 0) return externalSelectedIndexInModel;
 
     int slot = viewModel.slots[externalSelectedIndexInModel];
 
