@@ -284,10 +284,12 @@ class gb_WeaponMenu
       {
         if (mOptions.isPositionLocked())
         {
+          TextureID nulltex;
+          nulltex.SetInvalid();
           viewModel.tags        .push("");
           viewModel.slots       .push(mSlots[i]);
           viewModel.indices     .push(i);
-          viewModel.icons       .push(-1);
+          viewModel.icons       .push(nulltex);
           viewModel.iconScaleXs .push(-1);
           viewModel.iconScaleYs .push(-1);
           viewModel.quantity1   .push(-1);
@@ -309,7 +311,7 @@ class gb_WeaponMenu
       TextureID icon = getIconFor(aWeapon);
 
       // Workaround, casting TextureID to int may be unreliable.
-      viewModel.icons.push(int(icon));
+      viewModel.icons.push(icon);
       viewModel.iconScaleXs.push(aWeapon.scale.x);
       viewModel.iconScaleYs.push(aWeapon.scale.y);
 

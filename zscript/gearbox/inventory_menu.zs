@@ -100,7 +100,7 @@ class gb_InventoryMenu
       if (item.bInvBar)
       {
         string tag  = item.getTag();
-        int    icon = int(BaseStatusBar.getInventoryIcon(item, BaseStatusBar.DI_AltIconFirst));
+        TextureID icon = BaseStatusBar.getInventoryIcon(item, BaseStatusBar.DI_AltIconFirst);
         viewModel.tags        .push(tag);
         viewModel.slots       .push(index + 1);
         viewModel.indices     .push(index);
