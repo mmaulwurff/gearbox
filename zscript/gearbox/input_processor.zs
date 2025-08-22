@@ -28,6 +28,7 @@ class gb_InputProcessor
     if (isKeyForCommand(key, "weapPrev"  )) return InputSelectPrevWeapon;
     if (isKeyForCommand(key, "+attack"   )) return InputConfirmSelection;
     if (isKeyForCommand(key, "+altAttack")) return InputClose;
+    if (isKeyForCommand(key, "weapdrop"  )) return InputDrop;
 
     for (int i = 0; i <= 11; ++i)
     {

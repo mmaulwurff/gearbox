@@ -31,6 +31,12 @@ class gb_Sender
   }
 
   static
+  void sendDropItemEvent(string className)
+  {
+    EventHandler.sendNetworkEvent(string.format("gb_drop_item:%s", className));
+  }
+
+  static
   void sendFreezePlayerEvent(int cheats, vector3 velocity, double gravity)
   {
     EventHandler.sendNetworkEvent(string.format( "gb_freeze_player:%d:%f:%f:%f:%f"

@@ -43,6 +43,13 @@ class gb_Changer play
     mInventoryUser.addToQueue(player, item);
   }
 
+  void dropItem(PlayerInfo player, string itemString)
+  {
+    Inventory item = player.mo.findInventory(itemString);
+    if (item)
+      player.mo.dropInventory(item, 1);
+  }
+
   static
   void setAngles(PlayerInfo player, double pitch, double angle)
   {

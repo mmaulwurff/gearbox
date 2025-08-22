@@ -23,6 +23,7 @@ enum gb_Inputs
   InputSelectNextWeapon,
   InputSelectPrevWeapon,
   InputConfirmSelection,
+  InputDrop,
   InputToggleWeaponMenu,
 
   InputSelectSlotBegin,
