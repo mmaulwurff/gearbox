@@ -20,7 +20,7 @@ GZDoom 4.5 required.
 1. open the menu by assigned key, or by next/previous weapon keys, if enabled in
    options
 2. select the weapon with next/previous weapon keys, or with mouse (wheel only)
-3. use `weapdrop` to drop selected item or weapon
+3. use the drop weapon or drop inventory keys to drop selected thing
 
 ## Features
 
