@@ -1,4 +1,5 @@
 /* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2020-2021
+ * SandPoot 2025
  *
  * This file is part of Gearbox.
  *
@@ -37,6 +38,7 @@ class gb_NeteventProcessor play
 
     if      (args[0] == "gb_select_weapon") mChanger.selectWeapon(player, args[1]);
     else if (args[0] == "gb_use_item"     ) mChanger.useItem     (player, args[1]);
+    else if (args[0] == "gb_drop_item"    ) mChanger.dropItem    (player, args[1]);
     else if (args[0] == "gb_set_angles"   ) mChanger.setAngles   (player, args[1].toDouble()
                                                                         , args[2].toDouble()
                                                                  );

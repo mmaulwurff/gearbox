@@ -1,4 +1,5 @@
 /* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2020-2021
+ * SandPoot 2025
  *
  * This file is part of Gearbox.
  *
@@ -41,6 +42,13 @@ class gb_Changer play
   void useItem(PlayerInfo player, string item)
   {
     mInventoryUser.addToQueue(player, item);
+  }
+
+  void dropItem(PlayerInfo player, string itemString)
+  {
+    Inventory item = player.mo.findInventory(itemString);
+    if (item)
+      player.mo.dropInventory(item, 1);
   }
 
   static

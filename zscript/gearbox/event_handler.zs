@@ -1,5 +1,6 @@
 /* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2020-2022
  * Carrascado 2022
+ * SandPoot 2025
  *
  * This file is part of Gearbox.
  *
@@ -113,6 +114,7 @@ class gb_EventHandler : EventHandler
       case InputSelectNextWeapon: tickIf(mWeaponMenu.selectNextWeapon()); mWheelController.reset(); break;
       case InputSelectPrevWeapon: tickIf(mWeaponMenu.selectPrevWeapon()); mWheelController.reset(); break;
       case InputConfirmSelection: confirmSelection(); close(); break;
+      case InputDrop:             dropItem(); break;
       case InputClose:            close(); break;
 
       default:
@@ -131,6 +133,7 @@ class gb_EventHandler : EventHandler
       case InputSelectNextWeapon: tickIf(mInventoryMenu.selectNext()); mWheelController.reset(); break;
       case InputSelectPrevWeapon: tickIf(mInventoryMenu.selectPrev()); mWheelController.reset(); break;
       case InputConfirmSelection: confirmSelection(); close(); break;
+      case InputDrop:             dropItem(); break;
       case InputClose:            close(); break;
 
       default:
@@ -348,6 +351,26 @@ class gb_EventHandler : EventHandler
     else if (mActivity.isInventory())
     {
       gb_Sender.sendUseItemEvent(mInventoryMenu.confirmSelection());
+    }
+  }
+
+  private ui
+  void dropItem()
+  {
+    if (paused)
+    {
+      return;
+    }
+
+    if (mActivity.isWeapons())
+    {
+      gb_Sender.sendDropItemEvent(mWeaponMenu.confirmSelection());
+      mSounds.playTick();
+    }
+    else if (mActivity.isInventory())
+    {
+      gb_Sender.sendDropItemEvent(mInventoryMenu.confirmSelection());
+      mSounds.playTick();
     }
   }
 

@@ -1,4 +1,5 @@
 /* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2020-2021
+ * SandPoot 2025
  *
  * This file is part of Gearbox.
  *
@@ -28,6 +29,12 @@ class gb_Sender
   void sendUseItemEvent(string className)
   {
     EventHandler.sendNetworkEvent(string.format("gb_use_item:%s", className));
+  }
+
+  static
+  void sendDropItemEvent(string className)
+  {
+    EventHandler.sendNetworkEvent(string.format("gb_drop_item:%s", className));
   }
 
   static
