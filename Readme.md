@@ -1,9 +1,9 @@
+Project moved to https://github.com/mmaulwurff/doom-toolbox/
+
 # Gearbox
 
 Gearbox is an add-on for GZDoom engine that provides more convenient ways to
 select weapons and items.
-
-This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox).
 
 ![Blocks with Treasure Tech](screenshots/blocks-treasure-tech.png)
 
